@@ -447,6 +447,16 @@ th {
   line-height: 1.55;
 }
 
+.auth-dialog {
+  width: min(460px, calc(100vw - 32px));
+}
+
+.auth-error {
+  min-height: 18px;
+  color: var(--danger);
+  margin-top: 8px;
+}
+
 .detail-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
