@@ -304,11 +304,32 @@
         <div class="modal-header">
           <h3 id="history-detail-title">会议纪要详情</h3>
           <div class="modal-header-actions">
+            <button type="button" id="history-detail-delete" class="btn danger">删除</button>
             <button type="button" id="history-detail-next" class="btn">下一个</button>
             <button type="button" id="history-detail-close" class="btn">关闭</button>
           </div>
         </div>
         <div id="history-detail-body" class="modal-body"></div>
+      </div>
+    </div>
+
+    <div id="history-delete-auth-modal" class="modal" aria-hidden="true">
+      <div class="modal-backdrop" data-close-delete-auth="true"></div>
+      <div class="modal-dialog auth-dialog" role="dialog" aria-modal="true" aria-label="删除鉴权">
+        <div class="modal-header">
+          <h3>删除前身份验证</h3>
+          <button type="button" id="history-delete-auth-cancel" class="btn">取消</button>
+        </div>
+        <div class="modal-body">
+          <label for="history-delete-auth-username">账号</label>
+          <input id="history-delete-auth-username" autocomplete="off" />
+          <label for="history-delete-auth-password">密码</label>
+          <input id="history-delete-auth-password" type="password" autocomplete="off" />
+          <p id="history-delete-auth-error" class="muted auth-error"></p>
+          <div class="actions">
+            <button type="button" id="history-delete-auth-submit" class="btn danger">确认删除</button>
+          </div>
+        </div>
       </div>
     </div>
 
