@@ -335,6 +335,7 @@ const state = {
   historyFrPm: "",
   historyModalList: [],
   historyModalIndex: -1,
+  pendingDeleteRecordId: "",
   managerAuthenticated: false,
   pendingView: "",
   aiResult: {
@@ -415,10 +416,17 @@ const el = {
   historyList: document.querySelector("#history-list"),
   historyItemTemplate: document.querySelector("#history-item-template"),
   historyDetailModal: document.querySelector("#history-detail-modal"),
+  historyDetailDelete: document.querySelector("#history-detail-delete"),
   historyDetailNext: document.querySelector("#history-detail-next"),
   historyDetailClose: document.querySelector("#history-detail-close"),
   historyDetailTitle: document.querySelector("#history-detail-title"),
   historyDetailBody: document.querySelector("#history-detail-body"),
+  historyDeleteAuthModal: document.querySelector("#history-delete-auth-modal"),
+  historyDeleteAuthUsername: document.querySelector("#history-delete-auth-username"),
+  historyDeleteAuthPassword: document.querySelector("#history-delete-auth-password"),
+  historyDeleteAuthSubmit: document.querySelector("#history-delete-auth-submit"),
+  historyDeleteAuthCancel: document.querySelector("#history-delete-auth-cancel"),
+  historyDeleteAuthError: document.querySelector("#history-delete-auth-error"),
   managerLoginModal: document.querySelector("#manager-login-modal"),
   managerLoginUsername: document.querySelector("#manager-login-username"),
   managerLoginPassword: document.querySelector("#manager-login-password"),
@@ -505,10 +513,24 @@ function bindEvents() {
   el.historyFrImpl.addEventListener("input", applyHistoryFilters);
   el.historyFrPm.addEventListener("input", applyHistoryFilters);
   el.historyDetailClose.addEventListener("click", closeHistoryDetailModal);
+  el.historyDetailDelete.addEventListener("click", openDeleteAuthModal);
   el.historyDetailNext.addEventListener("click", openNextHistoryDetail);
   el.historyDetailModal.addEventListener("click", (event) => {
     if (event.target instanceof Element && event.target.closest("[data-close-modal='true']")) {
       closeHistoryDetailModal();
+    }
+  });
+  el.historyDeleteAuthSubmit.addEventListener("click", submitDeleteAuth);
+  el.historyDeleteAuthCancel.addEventListener("click", closeDeleteAuthModal);
+  el.historyDeleteAuthPassword.addEventListener("keydown", (event) => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      submitDeleteAuth();
+    }
+  });
+  el.historyDeleteAuthModal.addEventListener("click", (event) => {
+    if (event.target instanceof Element && event.target.closest("[data-close-delete-auth='true']")) {
+      closeDeleteAuthModal();
     }
   });
   el.managerLoginSubmit.addEventListener("click", submitManagerLogin);
@@ -527,6 +549,7 @@ function bindEvents() {
   document.addEventListener("keydown", (event) => {
     if (event.key === "Escape") {
       closeHistoryDetailModal();
+      closeDeleteAuthModal();
       closeManagerLoginModal();
     }
   });
@@ -1088,11 +1111,64 @@ function closeHistoryDetailModal() {
   el.historyDetailModal.setAttribute("aria-hidden", "true");
   state.historyModalList = [];
   state.historyModalIndex = -1;
+  state.pendingDeleteRecordId = "";
 }
 
 function syncHistoryDetailNextButton() {
   const hasNext = state.historyModalIndex >= 0 && state.historyModalIndex < state.historyModalList.length - 1;
   el.historyDetailNext.disabled = !hasNext;
+}
+
+function openDeleteAuthModal() {
+  const record = state.historyModalList[state.historyModalIndex];
+  if (!record?.id) return;
+  state.pendingDeleteRecordId = record.id;
+  el.historyDeleteAuthUsername.value = "";
+  el.historyDeleteAuthPassword.value = "";
+  el.historyDeleteAuthError.textContent = "";
+  el.historyDeleteAuthModal.classList.add("open");
+  el.historyDeleteAuthModal.setAttribute("aria-hidden", "false");
+  setTimeout(() => el.historyDeleteAuthUsername.focus(), 0);
+}
+
+function closeDeleteAuthModal() {
+  el.historyDeleteAuthModal.classList.remove("open");
+  el.historyDeleteAuthModal.setAttribute("aria-hidden", "true");
+}
+
+function submitDeleteAuth() {
+  const username = el.historyDeleteAuthUsername.value.trim();
+  const password = el.historyDeleteAuthPassword.value;
+  if (username !== MANAGER_LOGIN_USERNAME || password !== MANAGER_LOGIN_PASSWORD) {
+    el.historyDeleteAuthError.textContent = "账号或密码错误";
+    return;
+  }
+
+  const targetId = state.pendingDeleteRecordId;
+  if (!targetId) {
+    closeDeleteAuthModal();
+    return;
+  }
+
+  const deleteIndex = state.records.findIndex((item) => item.id === targetId);
+  if (deleteIndex < 0) {
+    closeDeleteAuthModal();
+    return;
+  }
+
+  state.records.splice(deleteIndex, 1);
+  persistRecords();
+  closeDeleteAuthModal();
+
+  const currentIndex = state.historyModalIndex;
+  render();
+  const latest = getHistoryVisibleRecords();
+  if (!latest.length) {
+    closeHistoryDetailModal();
+    return;
+  }
+  const nextIndex = Math.min(currentIndex, latest.length - 1);
+  openHistoryDetailModal(latest, nextIndex);
 }
 
 function render() {
