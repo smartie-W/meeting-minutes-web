@@ -234,7 +234,59 @@ const INDUSTRY_KEYWORD_RULES = [
   { keys: ["电子", "终端", "手机", "智能设备"], level1: "消费电子", level2: "智能终端" },
   { keys: ["芯片", "半导体"], level1: "电子信息", level2: "半导体" },
   { keys: ["eda", "电路仿真", "电路设计"], level1: "电子信息", level2: "半导体EDA" },
+  { keys: ["半导体", "集成电路", "微电子", "芯片", "晶圆"], level1: "电子信息", level2: "半导体" },
+  { keys: ["机器人", "自动化", "智能装备", "数控"], level1: "制造", level2: "智能制造" },
+  { keys: ["软件", "信息技术", "数字科技", "云", "saas"], level1: "软件服务", level2: "企业软件/SaaS" },
+  { keys: ["光伏", "储能", "新能源", "新能"], level1: "新能源", level2: "光伏/储能" },
+  { keys: ["材料", "新材料", "纳米", "化工"], level1: "制造", level2: "新材料/化工" },
+  { keys: ["检测", "检验", "认证"], level1: "专业服务", level2: "检测认证" },
+  { keys: ["贸易", "商贸"], level1: "批发零售", level2: "贸易" },
+  { keys: ["食品", "饮料", "乳业", "餐饮"], level1: "消费品", level2: "食品饮料" },
+  { keys: ["物流", "仓", "仓储", "供应链"], level1: "物流", level2: "供应链/仓储" },
+  { keys: ["交通", "轨道", "航空", "港口", "高速"], level1: "交通运输", level2: "交通基础设施" },
+  { keys: ["研究院", "研究所", "大学", "学院"], level1: "教育科研", level2: "高校/科研" },
+  { keys: ["信息安全", "网络安全", "安防"], level1: "网络安全", level2: "信息安全" },
 ];
+
+
+const INDUSTRY_PEER_COMPANIES = {
+  "金融|银行": ["交通银行", "中国银行", "浦发银行", "兴业银行", "民生银行", "中信银行", "光大银行", "北京银行", "宁波银行", "江苏银行", "杭州银行", "南京银行", "上海银行", "浙商银行", "渤海银行"],
+  "金融|证券": ["中信证券", "国泰君安", "华泰证券", "海通证券", "广发证券", "中金公司", "中信建投", "东方证券", "兴业证券", "申万宏源", "招商证券", "国信证券"],
+  "金融|基金资管": ["易方达基金", "华夏基金", "南方基金", "嘉实基金", "富国基金", "广发基金", "博时基金", "汇添富基金", "中欧基金", "中银基金"],
+  "金融|保险": ["中国平安", "中国太保", "中国人保", "新华保险", "太平人寿", "泰康保险", "众安保险"],
+  "ICT|运营商/通信": ["中国移动", "中国电信", "中国联通", "中国广电", "华为", "中兴通讯", "烽火通信"],
+  "电子信息|半导体": ["中芯国际", "华虹半导体", "韦尔股份", "兆易创新", "紫光国微", "闻泰科技", "长电科技", "通富微电", "华天科技", "芯原股份", "澜起科技"],
+  "电子信息|半导体EDA": ["概伦电子", "华大九天", "芯和半导体", "芯华章", "芯愿景"],
+  "消费电子|智能终端": ["荣耀终端", "小米", "OPPO", "vivo", "传音", "联想", "华勤技术"],
+  "新能源|光伏/储能": ["隆基绿能", "晶科能源", "天合光能", "晶澳科技", "通威股份", "阿特斯", "东方日升", "协鑫集成", "正泰新能", "阳光电源", "固德威"],
+  "制造|电气设备": ["正泰电器", "德力西电气", "良信股份", "公牛集团", "思源电气", "许继电气", "平高电气"],
+  "制造|智能制造": ["汇川技术", "埃斯顿", "新松机器人", "埃夫特", "拓斯达", "大族激光", "海目星"],
+  "医疗健康|生物医药": ["恒瑞医药", "复星医药", "药明康德", "君实生物", "百济神州", "信达生物", "迈瑞医疗"],
+  "专业服务|检测认证": ["华测检测", "谱尼测试", "广电计量", "国检集团", "微谱检测"],
+  "物流|供应链/仓储": ["顺丰控股", "京东物流", "菜鸟", "安能物流", "德邦股份", "中通快递", "圆通速递"],
+  "软件服务|企业软件/SaaS": ["金蝶国际", "用友网络", "明源云", "泛微网络", "致远互联", "腾讯云", "阿里云", "华为云"],
+};
+
+function buildEnrichedIndustryMap() {
+  const merged = { ...CUSTOMER_INDUSTRY_MAP };
+
+  Object.entries(INDUSTRY_PEER_COMPANIES).forEach(([pair, companies]) => {
+    const [level1, level2] = pair.split("|");
+    (companies || []).forEach((name) => {
+      if (!merged[name]) merged[name] = { level1, level2 };
+    });
+  });
+
+  KNOWN_CUSTOMER_FULLNAMES.forEach((name) => {
+    if (merged[name]) return;
+    const inferred = inferIndustryFromText(name);
+    if (inferred) merged[name] = inferred;
+  });
+
+  return merged;
+}
+
+const ENRICHED_CUSTOMER_INDUSTRY_MAP = buildEnrichedIndustryMap();
 
 const INDUSTRY_CHAIN_MAP = {
   "电子信息|半导体": {
@@ -1230,13 +1282,13 @@ function inferIndustryByCustomer(customerName) {
   const knownCandidates = getLocalFullNameCandidates(name);
 
   for (const fullName of knownCandidates) {
-    if (CUSTOMER_INDUSTRY_MAP[fullName]) return CUSTOMER_INDUSTRY_MAP[fullName];
+    if (ENRICHED_CUSTOMER_INDUSTRY_MAP[fullName]) return ENRICHED_CUSTOMER_INDUSTRY_MAP[fullName];
   }
 
   const inferredFromKnown = inferIndustryFromText(knownCandidates.join(" "));
   if (inferredFromKnown) return inferredFromKnown;
 
-  for (const [key, industry] of Object.entries(CUSTOMER_INDUSTRY_MAP)) {
+  for (const [key, industry] of Object.entries(ENRICHED_CUSTOMER_INDUSTRY_MAP)) {
     const normalizedKey = normalizeCompanyNameText(key);
     if (
       name.includes(key) ||
