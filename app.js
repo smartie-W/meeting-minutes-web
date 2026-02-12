@@ -397,6 +397,7 @@ const el = {
   kpiCustomers: document.querySelector("#kpi-customers"),
   kpiWeeks: document.querySelector("#kpi-weeks"),
   managerTable: document.querySelector("#manager-table"),
+  srTable: document.querySelector("#sr-table"),
   weekTable: document.querySelector("#week-table"),
   aiSummary: document.querySelector("#ai-summary"),
   globalKeywords: document.querySelector("#global-keywords"),
@@ -667,6 +668,7 @@ function getManagerVisibleRecords() {
 function renderManager() {
   const records = getManagerVisibleRecords();
   const bySalesRows = summarizeBySales(records);
+  const bySrRows = summarizeBySr(records);
   const byWeekRows = summarizeByWeek(records);
 
   const uniqueSales = new Set(records.map((r) => r.salesName));
@@ -678,6 +680,7 @@ function renderManager() {
   el.kpiWeeks.textContent = String(byWeekRows.length);
 
   renderManagerTable(bySalesRows);
+  renderSrTable(bySrRows);
   renderWeekTable(byWeekRows);
   renderAiBlock(records, bySalesRows);
 }
@@ -690,8 +693,11 @@ function summarizeBySales(records) {
       map.set(record.salesName, {
         salesName: record.salesName,
         minuteCount: 0,
-        weeks: new Set(),
         customers: new Set(),
+        jiraCustomers: new Set(),
+        cfCustomers: new Set(),
+        projectMgmtCustomers: new Set(),
+        knowledgebaseCustomers: new Set(),
         rawText: "",
         localKeywords: [],
       });
@@ -699,8 +705,21 @@ function summarizeBySales(records) {
 
     const row = map.get(record.salesName);
     row.minuteCount += 1;
-    row.weeks.add(toWeekKey(record.meetingTime));
     record.customerNames.forEach((name) => row.customers.add(name));
+    const sources = (record.migrationSources || []).map((item) => String(item?.source || "").toLowerCase());
+    const modules = new Set((record.focusModules || []).map(String));
+    if (sources.includes("jira")) {
+      record.customerNames.forEach((name) => row.jiraCustomers.add(name));
+    }
+    if (sources.includes("cf")) {
+      record.customerNames.forEach((name) => row.cfCustomers.add(name));
+    }
+    if (modules.has("项目管理")) {
+      record.customerNames.forEach((name) => row.projectMgmtCustomers.add(name));
+    }
+    if (modules.has("知识库")) {
+      record.customerNames.forEach((name) => row.knowledgebaseCustomers.add(name));
+    }
     row.rawText += ` ${record.meetingTopic || ""} ${(record.focusModules || []).join(" ")} ${record.intentDeployMode || ""} ${record.intentCoopMode || ""} ${(record.migrationSources || []).map((x) => `${x.source} ${x.version}`).join(" ")} ${record.meetingContent} ${record.nextActions || ""}`;
   });
 
@@ -711,6 +730,33 @@ function summarizeBySales(records) {
 
   rows.sort((a, b) => b.minuteCount - a.minuteCount);
   return rows;
+}
+
+function summarizeBySr(records) {
+  const map = new Map();
+
+  records.forEach((record) => {
+    const srNames = [...new Set(
+      (record.ourParticipants || [])
+        .filter((item) => item?.role === "SR" && String(item?.name || "").trim())
+        .map((item) => String(item.name).trim()),
+    )];
+
+    srNames.forEach((srName) => {
+      if (!map.has(srName)) {
+        map.set(srName, {
+          srName,
+          minuteCount: 0,
+          customers: new Set(),
+        });
+      }
+      const row = map.get(srName);
+      row.minuteCount += 1;
+      (record.customerNames || []).forEach((name) => row.customers.add(name));
+    });
+  });
+
+  return [...map.values()].sort((a, b) => b.minuteCount - a.minuteCount || a.srName.localeCompare(b.srName));
 }
 
 function summarizeByWeek(records) {
@@ -740,21 +786,40 @@ function renderManagerTable(rows) {
   el.managerTable.innerHTML = "";
 
   if (!rows.length) {
-    el.managerTable.innerHTML = '<tr><td colspan="5">当前筛选下暂无数据</td></tr>';
+    el.managerTable.innerHTML = '<tr><td colspan="7">当前筛选下暂无数据</td></tr>';
     return;
   }
 
   rows.forEach((row) => {
     const tr = document.createElement("tr");
-    const keywords = (state.aiResult.bySales[row.salesName] || row.localKeywords).slice(0, 4).join(" / ");
     tr.innerHTML = `
       <td>${escapeHtml(row.salesName)}</td>
       <td>${row.minuteCount}</td>
       <td>${row.customers.size}</td>
-      <td>${row.weeks.size}</td>
-      <td>${escapeHtml(keywords)}</td>
+      <td>${row.jiraCustomers.size}</td>
+      <td>${row.cfCustomers.size}</td>
+      <td>${row.projectMgmtCustomers.size}</td>
+      <td>${row.knowledgebaseCustomers.size}</td>
     `;
     el.managerTable.appendChild(tr);
+  });
+}
+
+function renderSrTable(rows) {
+  el.srTable.innerHTML = "";
+  if (!rows.length) {
+    el.srTable.innerHTML = '<tr><td colspan="3">当前筛选下暂无数据</td></tr>';
+    return;
+  }
+
+  rows.forEach((row) => {
+    const tr = document.createElement("tr");
+    tr.innerHTML = `
+      <td>${escapeHtml(row.srName)}</td>
+      <td>${row.minuteCount}</td>
+      <td>${row.customers.size}</td>
+    `;
+    el.srTable.appendChild(tr);
   });
 }
 
