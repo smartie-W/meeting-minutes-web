@@ -1,6 +1,8 @@
 const RECORDS_KEY = "sales_meeting_minutes_records_v2";
 const AI_CONFIG_KEY = "sales_meeting_minutes_ai_config_v2";
 const DRAFT_KEY = "sales_meeting_minutes_draft_v1";
+const MANAGER_LOGIN_USERNAME = "wangqiming";
+const MANAGER_LOGIN_PASSWORD = "wqm211700";
 const MIGRATION_SOURCE_OPTIONS = ["无", "Jira", "Cf", "禅道", "pingcode", "TB", "飞书项目", "飞书知识库", "Tapd"];
 const MIGRATION_VERSION_OPTIONS = ["无", "私有部署买断", "私有部署按年订阅", "公有云版本"];
 const OUR_PARTICIPANT_ROLE_OPTIONS = ["AR", "SR", "FR-实施", "FR-PM", "运维", "技术", "产品", "测试"];
@@ -333,6 +335,8 @@ const state = {
   historyFrPm: "",
   historyModalList: [],
   historyModalIndex: -1,
+  managerAuthenticated: false,
+  pendingView: "",
   aiResult: {
     summary: "暂无",
     globalKeywords: [],
@@ -415,6 +419,12 @@ const el = {
   historyDetailClose: document.querySelector("#history-detail-close"),
   historyDetailTitle: document.querySelector("#history-detail-title"),
   historyDetailBody: document.querySelector("#history-detail-body"),
+  managerLoginModal: document.querySelector("#manager-login-modal"),
+  managerLoginUsername: document.querySelector("#manager-login-username"),
+  managerLoginPassword: document.querySelector("#manager-login-password"),
+  managerLoginSubmit: document.querySelector("#manager-login-submit"),
+  managerLoginCancel: document.querySelector("#manager-login-cancel"),
+  managerLoginError: document.querySelector("#manager-login-error"),
 };
 
 boot();
@@ -501,8 +511,24 @@ function bindEvents() {
       closeHistoryDetailModal();
     }
   });
+  el.managerLoginSubmit.addEventListener("click", submitManagerLogin);
+  el.managerLoginCancel.addEventListener("click", closeManagerLoginModal);
+  el.managerLoginPassword.addEventListener("keydown", (event) => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      submitManagerLogin();
+    }
+  });
+  el.managerLoginModal.addEventListener("click", (event) => {
+    if (event.target instanceof Element && event.target.closest("[data-close-manager-login='true']")) {
+      closeManagerLoginModal();
+    }
+  });
   document.addEventListener("keydown", (event) => {
-    if (event.key === "Escape") closeHistoryDetailModal();
+    if (event.key === "Escape") {
+      closeHistoryDetailModal();
+      closeManagerLoginModal();
+    }
   });
 }
 
@@ -558,10 +584,46 @@ function toDateInputValue(date) {
 }
 
 function switchView(viewName) {
+  if (viewName === "manager" && !state.managerAuthenticated) {
+    openManagerLoginModal(viewName);
+    return;
+  }
+  activateView(viewName);
+}
+
+function activateView(viewName) {
   el.tabs.forEach((tab) => tab.classList.toggle("active", tab.dataset.view === viewName));
   Object.entries(el.views).forEach(([name, node]) => {
     node.classList.toggle("active", name === viewName);
   });
+}
+
+function openManagerLoginModal(targetView = "manager") {
+  state.pendingView = targetView;
+  el.managerLoginUsername.value = "";
+  el.managerLoginPassword.value = "";
+  el.managerLoginError.textContent = "";
+  el.managerLoginModal.classList.add("open");
+  el.managerLoginModal.setAttribute("aria-hidden", "false");
+  setTimeout(() => el.managerLoginUsername.focus(), 0);
+}
+
+function closeManagerLoginModal() {
+  el.managerLoginModal.classList.remove("open");
+  el.managerLoginModal.setAttribute("aria-hidden", "true");
+}
+
+function submitManagerLogin() {
+  const username = el.managerLoginUsername.value.trim();
+  const password = el.managerLoginPassword.value;
+  if (username === MANAGER_LOGIN_USERNAME && password === MANAGER_LOGIN_PASSWORD) {
+    state.managerAuthenticated = true;
+    closeManagerLoginModal();
+    activateView(state.pendingView || "manager");
+    state.pendingView = "";
+    return;
+  }
+  el.managerLoginError.textContent = "账号或密码错误";
 }
 
 function handleSaveRecord(event) {
