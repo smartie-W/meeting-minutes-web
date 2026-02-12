@@ -1,0 +1,299 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>销售会议纪要管理</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header class="hero">
+      <div class="hero-brand">
+        <img src="./assets/logo.png" alt="公司Logo" class="hero-logo" />
+        <div>
+          <h1>销售会议纪要管理</h1>
+        </div>
+      </div>
+      <div class="tabs">
+        <button class="tab active" data-view="sales">销售会议纪要创建页</button>
+        <button class="tab" data-view="history">会议纪要历史查询</button>
+        <button class="tab" data-view="manager">会议纪要看板</button>
+      </div>
+    </header>
+
+    <main class="shell">
+      <section id="view-sales" class="view active">
+        <form id="minutes-form">
+          <input type="hidden" id="record-id" />
+          <div class="grid grid-sales">
+            <section class="panel">
+              <h2>会议纪要基本信息</h2>
+
+              <div class="grid-2">
+                <div>
+                  <label for="sales-name">AR</label>
+                  <input id="sales-name" required />
+                </div>
+                <div>
+                  <label for="meeting-mode">会议方式</label>
+                  <select id="meeting-mode" required>
+                    <option value="" selected disabled>请选择</option>
+                    <option value="线上">线上</option>
+                    <option value="线下">线下</option>
+                  </select>
+                </div>
+              </div>
+
+              <label for="customer-name">客户名称</label>
+              <input id="customer-name" placeholder="例如：招商银行" required />
+              <div id="company-name-suggestions" class="suggestions"></div>
+
+              <div class="grid-2">
+                <div>
+                  <label for="industry-level1">一级行业（自动识别）</label>
+                  <input id="industry-level1" readonly placeholder="输入客户名称后自动识别" />
+                </div>
+                <div>
+                  <label for="industry-level2">二级行业（自动识别）</label>
+                  <input id="industry-level2" readonly placeholder="输入客户名称后自动识别" />
+                </div>
+              </div>
+
+              <div class="grid-2">
+                <div>
+                  <label for="meeting-time">会议时间</label>
+                  <input id="meeting-time" type="datetime-local" required />
+                </div>
+                <div>
+                  <label for="meeting-location">会议地点</label>
+                  <input id="meeting-location" placeholder="例如：某个城市" required />
+                </div>
+              </div>
+
+              <label>客户参会人员（角色及姓名）</label>
+              <div id="customer-participants" class="participant-list"></div>
+              <button type="button" id="add-customer-participant" class="btn">+</button>
+
+              <label>我方参会人员（角色及姓名）</label>
+              <div id="our-participants" class="participant-list"></div>
+              <button type="button" id="add-our-participant" class="btn">+</button>
+
+              <label>客户关注的模块（多选）</label>
+              <div id="focus-modules" class="focus-modules-row">
+                <label class="focus-module-item"><input type="checkbox" name="focus-module" value="项目管理" />项目管理</label>
+                <label class="focus-module-item"><input type="checkbox" name="focus-module" value="知识库" />知识库</label>
+                <label class="focus-module-item"><input type="checkbox" name="focus-module" value="工单管理" />工单管理</label>
+                <label class="focus-module-item"><input type="checkbox" name="focus-module" value="AI" />AI</label>
+              </div>
+
+              <div class="grid-2">
+                <div>
+                  <label for="deploy-mode">客户意向部署方式</label>
+                  <select id="deploy-mode" required>
+                    <option value="" selected disabled>请选择</option>
+                    <option value="SAAS">SAAS</option>
+                    <option value="私有部署">私有部署</option>
+                  </select>
+                </div>
+                <div>
+                  <label for="coop-mode">客户意向合作方式</label>
+                  <select id="coop-mode" required>
+                    <option value="按年订阅">按年订阅</option>
+                    <option value="系统买断">系统买断</option>
+                  </select>
+                </div>
+              </div>
+
+              <label>历史数据迁移来源</label>
+              <div id="migration-sources" class="migration-list"></div>
+              <button type="button" id="add-migration-source" class="btn">+</button>
+            </section>
+
+            <section class="panel">
+              <h2>会议纪要内容录入</h2>
+              <label for="meeting-topic">会议议题</label>
+              <input id="meeting-topic" required />
+
+              <label for="meeting-content">会议纪要内容</label>
+              <textarea id="meeting-content" class="long-input" rows="12" required></textarea>
+
+              <label for="next-actions">后续行动</label>
+              <textarea id="next-actions" class="long-input" rows="8" placeholder="例如：安排技术澄清会、提交商务条款"></textarea>
+
+              <div class="actions">
+                <button type="submit" class="btn primary">保存纪要</button>
+                <button type="button" id="form-reset" class="btn">清空</button>
+              </div>
+              <p id="draft-status" class="muted">草稿未保存</p>
+
+              <div class="actions">
+                <span class="muted">数据管理：</span>
+              </div>
+              <div class="actions">
+                <button id="export-btn" class="btn">导出数据</button>
+                <span class="muted">仅支持导出，不支持导入</span>
+              </div>
+            </section>
+          </div>
+        </form>
+      </section>
+
+      <section id="view-manager" class="view">
+        <div class="grid grid-manager">
+          <section class="panel">
+            <h2>纪要筛选</h2>
+            <div class="preset-filters">
+              <button type="button" class="btn preset-btn active" data-preset="week">本周</button>
+              <button type="button" class="btn preset-btn" data-preset="month">本月</button>
+              <button type="button" class="btn preset-btn" data-preset="quarter">本季度</button>
+              <button type="button" class="btn preset-btn" data-preset="year">本年</button>
+            </div>
+            <label for="filter-sales">指定销售（可选）</label>
+            <input id="filter-sales" placeholder="输入姓名过滤，例如：王敏" />
+            <div class="actions">
+              <button id="apply-filter" class="btn primary">应用筛选</button>
+              <button id="clear-filter" class="btn">重置筛选</button>
+            </div>
+          </section>
+
+          <section class="panel">
+            <h2>AI分析配置（第三方可接入）</h2>
+            <label for="ai-endpoint">接口地址（OpenAI兼容）</label>
+            <input id="ai-endpoint" placeholder="https://api.openai.com/v1/chat/completions" />
+            <div class="grid-2">
+              <div>
+                <label for="ai-model">模型名</label>
+                <input id="ai-model" placeholder="gpt-4o-mini" />
+              </div>
+              <div>
+                <label for="ai-key">API Key</label>
+                <input id="ai-key" type="password" placeholder="sk-..." />
+              </div>
+            </div>
+            <div class="actions">
+              <button id="save-ai" class="btn">保存AI配置</button>
+              <button id="run-ai" class="btn primary">分析当前筛选纪要</button>
+            </div>
+            <p id="ai-status" class="muted">未执行AI分析</p>
+          </section>
+
+          <section class="panel wide">
+            <h2>按销售汇总（周维度来源：会议日期）</h2>
+            <div class="kpis">
+              <div class="kpi"><span>销售人数</span><strong id="kpi-salespeople">0</strong></div>
+              <div class="kpi"><span>纪要总数</span><strong id="kpi-minutes">0</strong></div>
+              <div class="kpi"><span>覆盖客户数</span><strong id="kpi-customers">0</strong></div>
+              <div class="kpi"><span>覆盖周数</span><strong id="kpi-weeks">0</strong></div>
+            </div>
+
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>销售</th>
+                    <th>会议纪要数</th>
+                    <th>见客户数</th>
+                    <th>覆盖周数</th>
+                    <th>关键词（Top）</th>
+                  </tr>
+                </thead>
+                <tbody id="manager-table"></tbody>
+              </table>
+            </div>
+          </section>
+
+          <section class="panel wide">
+            <h2>按周统计</h2>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>周</th>
+                    <th>会议纪要数</th>
+                    <th>参与销售数</th>
+                    <th>客户覆盖数</th>
+                  </tr>
+                </thead>
+                <tbody id="week-table"></tbody>
+              </table>
+            </div>
+          </section>
+
+          <section class="panel">
+            <h2>AI输出摘要</h2>
+            <p id="ai-summary" class="summary">暂无</p>
+          </section>
+
+          <section class="panel">
+            <h2>全局关键词</h2>
+            <ol id="global-keywords"></ol>
+          </section>
+        </div>
+      </section>
+
+      <section id="view-history" class="view">
+        <div class="grid">
+          <section class="panel">
+            <h2>会议纪要历史查询</h2>
+            <div class="grid-5">
+              <div>
+                <label for="history-customer">按客户名称查询</label>
+                <input id="history-customer" />
+              </div>
+              <div>
+                <label for="history-ar">按AR查询</label>
+                <input id="history-ar" />
+              </div>
+              <div>
+                <label for="history-sr">按SR查询</label>
+                <input id="history-sr" />
+              </div>
+              <div>
+                <label for="history-fr-impl">按FR-实施查询</label>
+                <input id="history-fr-impl" />
+              </div>
+              <div>
+                <label for="history-fr-pm">按FR-PM查询</label>
+                <input id="history-fr-pm" />
+              </div>
+            </div>
+            <p id="history-summary" class="muted">当前共 0 条匹配结果</p>
+          </section>
+
+          <section class="panel">
+            <h2>查询结果</h2>
+            <ul id="history-list" class="records"></ul>
+          </section>
+        </div>
+      </section>
+    </main>
+
+    <template id="history-item-template">
+      <li class="record-item">
+        <div class="record-header">
+          <h3 class="record-title"></h3>
+          <small class="record-date"></small>
+        </div>
+        <p class="record-meta"></p>
+        <p class="record-preview"></p>
+        <div class="tags"></div>
+      </li>
+    </template>
+
+    <div id="history-detail-modal" class="modal" aria-hidden="true">
+      <div class="modal-backdrop" data-close-modal="true"></div>
+      <div class="modal-dialog" role="dialog" aria-modal="true" aria-label="会议纪要详情">
+        <div class="modal-header">
+          <h3 id="history-detail-title">会议纪要详情</h3>
+          <div class="modal-header-actions">
+            <button type="button" id="history-detail-next" class="btn">下一个</button>
+            <button type="button" id="history-detail-close" class="btn">关闭</button>
+          </div>
+        </div>
+        <div id="history-detail-body" class="modal-body"></div>
+      </div>
+    </div>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
