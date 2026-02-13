@@ -1,6 +1,15 @@
 const RECORDS_KEY = "sales_meeting_minutes_records_v2";
 const AI_CONFIG_KEY = "sales_meeting_minutes_ai_config_v2";
 const DRAFT_KEY = "sales_meeting_minutes_draft_v1";
+const FIREBASE_COLLECTION = "meeting_minutes_records";
+const FIREBASE_CONFIG = window.FIREBASE_CONFIG || {
+  apiKey: "",
+  authDomain: "",
+  projectId: "",
+  storageBucket: "",
+  messagingSenderId: "",
+  appId: "",
+};
 const MANAGER_LOGIN_USERNAME = "wangqiming";
 const MANAGER_LOGIN_PASSWORD = "wqm211700";
 const MIGRATION_SOURCE_OPTIONS = ["无", "Jira", "Cf", "禅道", "pingcode", "TB", "飞书项目", "飞书知识库", "Tapd"];
@@ -338,6 +347,8 @@ const state = {
   pendingDeleteRecordId: "",
   managerAuthenticated: false,
   pendingView: "",
+  firestore: null,
+  cloudUnsubscribe: null,
   aiResult: {
     summary: "暂无",
     globalKeywords: [],
