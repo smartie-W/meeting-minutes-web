@@ -1146,7 +1146,7 @@ function closeDeleteAuthModal() {
   el.historyDeleteAuthModal.setAttribute("aria-hidden", "true");
 }
 
-function submitDeleteAuth() {
+async function submitDeleteAuth() {
   const username = el.historyDeleteAuthUsername.value.trim();
   const password = el.historyDeleteAuthPassword.value;
   if (username !== MANAGER_LOGIN_USERNAME || password !== MANAGER_LOGIN_PASSWORD) {
@@ -1160,14 +1160,12 @@ function submitDeleteAuth() {
     return;
   }
 
-  const deleteIndex = state.records.findIndex((item) => item.id === targetId);
-  if (deleteIndex < 0) {
-    closeDeleteAuthModal();
+  try {
+    await deleteRecordById(targetId);
+  } catch (error) {
+    el.historyDeleteAuthError.textContent = `删除失败：${error.message || "请稍后重试"}`;
     return;
   }
-
-  state.records.splice(deleteIndex, 1);
-  persistRecords();
   closeDeleteAuthModal();
 
   const currentIndex = state.historyModalIndex;
