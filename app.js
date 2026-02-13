@@ -2068,6 +2068,63 @@ function buildLocalAiResult(records) {
   };
 }
 
+function isFirebaseConfigured(config) {
+  return Boolean(config?.apiKey && config?.projectId && config?.appId);
+}
+
+function initCloudSync() {
+  if (!window.firebase || !isFirebaseConfigured(FIREBASE_CONFIG)) {
+    return;
+  }
+
+  try {
+    if (!firebase.apps.length) {
+      firebase.initializeApp(FIREBASE_CONFIG);
+    }
+    state.firestore = firebase.firestore();
+    state.cloudUnsubscribe = state.firestore
+      .collection(FIREBASE_COLLECTION)
+      .onSnapshot((snapshot) => {
+        const records = [];
+        snapshot.forEach((doc) => {
+          records.push(normalizeRecordIndustry({ id: doc.id, ...doc.data() }));
+        });
+        state.records = records;
+        persistRecords();
+        render();
+      });
+  } catch (error) {
+    console.error("firebase init failed:", error);
+  }
+}
+
+async function upsertRecord(record) {
+  if (state.firestore) {
+    await state.firestore.collection(FIREBASE_COLLECTION).doc(record.id).set(record, { merge: true });
+    return;
+  }
+
+  const index = state.records.findIndex((item) => item.id === record.id);
+  if (index >= 0) {
+    state.records[index] = record;
+  } else {
+    state.records.push(record);
+  }
+  persistRecords();
+}
+
+async function deleteRecordById(recordId) {
+  if (state.firestore) {
+    await state.firestore.collection(FIREBASE_COLLECTION).doc(recordId).delete();
+    return;
+  }
+
+  const index = state.records.findIndex((item) => item.id === recordId);
+  if (index < 0) return;
+  state.records.splice(index, 1);
+  persistRecords();
+}
+
 function loadRecords() {
   try {
     const raw = localStorage.getItem(RECORDS_KEY);
