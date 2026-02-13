@@ -3,12 +3,12 @@ const AI_CONFIG_KEY = "sales_meeting_minutes_ai_config_v2";
 const DRAFT_KEY = "sales_meeting_minutes_draft_v1";
 const FIREBASE_COLLECTION = "meeting_minutes_records";
 const FIREBASE_CONFIG = window.FIREBASE_CONFIG || {
-  apiKey: "",
-  authDomain: "",
-  projectId: "",
-  storageBucket: "",
-  messagingSenderId: "",
-  appId: "",
+  apiKey: "AIzaSyBXgjqxXu1icjHxrIhal1ncQ6ZwqDr5E64",
+  authDomain: "xiaoshouyejifenxi.firebaseapp.com",
+  projectId: "xiaoshouyejifenxi",
+  storageBucket: "xiaoshouyejifenxi.firebasestorage.app",
+  messagingSenderId: "951263111259",
+  appId: "1:951263111259:web:0877b8556416dbb90ff77e",
 };
 const MANAGER_LOGIN_USERNAME = "wangqiming";
 const MANAGER_LOGIN_PASSWORD = "wqm211700";
