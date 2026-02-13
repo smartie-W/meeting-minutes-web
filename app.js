@@ -462,6 +462,7 @@ function boot() {
   refreshIndustryByCustomer();
   syncLongInputHeights();
   render();
+  initCloudSync();
 }
 
 function bindEvents() {
@@ -660,7 +661,7 @@ function submitManagerLogin() {
   el.managerLoginError.textContent = "账号或密码错误";
 }
 
-function handleSaveRecord(event) {
+async function handleSaveRecord(event) {
   event.preventDefault();
   applyDeployCoopRule();
 
@@ -720,14 +721,12 @@ function handleSaveRecord(event) {
     return;
   }
 
-  const index = state.records.findIndex((item) => item.id === record.id);
-  if (index >= 0) {
-    state.records[index] = record;
-  } else {
-    state.records.push(record);
+  try {
+    await upsertRecord(record);
+  } catch (error) {
+    alert(`保存失败：${error.message || "请稍后重试"}`);
+    return;
   }
-
-  persistRecords();
   clearDraft();
   resetForm();
   render();
