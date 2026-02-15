@@ -98,6 +98,7 @@
                 <div>
                   <label for="coop-mode">客户意向合作方式</label>
                   <select id="coop-mode" required>
+                    <option value="" selected disabled>请选择</option>
                     <option value="按年订阅">按年订阅</option>
                     <option value="系统买断">系统买断</option>
                   </select>
@@ -178,12 +179,11 @@
           </section>
 
           <section class="panel wide">
-            <h2>按销售汇总（周维度来源：会议日期）</h2>
+            <h2>按销售汇总</h2>
             <div class="kpis">
               <div class="kpi"><span>销售人数</span><strong id="kpi-salespeople">0</strong></div>
               <div class="kpi"><span>纪要总数</span><strong id="kpi-minutes">0</strong></div>
               <div class="kpi"><span>覆盖客户数</span><strong id="kpi-customers">0</strong></div>
-              <div class="kpi"><span>覆盖周数</span><strong id="kpi-weeks">0</strong></div>
             </div>
 
             <div class="table-wrap">
