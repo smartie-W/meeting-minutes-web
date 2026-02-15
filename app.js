@@ -10,8 +10,8 @@ const FIREBASE_CONFIG = window.FIREBASE_CONFIG || {
   messagingSenderId: "951263111259",
   appId: "1:951263111259:web:0877b8556416dbb90ff77e",
 };
-const MANAGER_LOGIN_USERNAME = "wangqiming";
-const MANAGER_LOGIN_PASSWORD = "wqm211700";
+const MANAGER_LOGIN_USERNAME_HASH = "b9da0fb79af831a6fabf669f54009b0cdccbf598cfe1b95256500bbb69f25787";
+const MANAGER_LOGIN_PASSWORD_HASH = "93067cdf900054c81ef9fc1a87a7c7c08bdf614b467dcfc91423526f50db4df2";
 const MIGRATION_SOURCE_OPTIONS = ["无", "Jira", "Cf", "禅道", "pingcode", "TB", "飞书项目", "飞书知识库", "Tapd"];
 const MIGRATION_VERSION_OPTIONS = ["无", "私有部署买断", "私有部署按年订阅", "公有云版本"];
 const OUR_PARTICIPANT_ROLE_OPTIONS = ["AR", "SR", "FR-实施", "FR-PM", "运维", "技术", "产品", "测试"];
@@ -651,14 +651,16 @@ function closeManagerLoginModal() {
 function submitManagerLogin() {
   const username = el.managerLoginUsername.value.trim();
   const password = el.managerLoginPassword.value;
-  if (username === MANAGER_LOGIN_USERNAME && password === MANAGER_LOGIN_PASSWORD) {
+  return verifyManagerCredentials(username, password).then((verified) => {
+    if (!verified) {
+      el.managerLoginError.textContent = "账号或密码错误";
+      return;
+    }
     state.managerAuthenticated = true;
     closeManagerLoginModal();
     activateView(state.pendingView || "manager");
     state.pendingView = "";
-    return;
-  }
-  el.managerLoginError.textContent = "账号或密码错误";
+  });
 }
 
 async function handleSaveRecord(event) {
@@ -772,7 +774,9 @@ function renderManager() {
   el.kpiSalespeople.textContent = String(uniqueSales.size);
   el.kpiMinutes.textContent = String(records.length);
   el.kpiCustomers.textContent = String(uniqueCustomers.size);
-  el.kpiWeeks.textContent = String(byWeekRows.length);
+  if (el.kpiWeeks) {
+    el.kpiWeeks.textContent = String(byWeekRows.length);
+  }
 
   renderManagerTable(bySalesRows);
   renderSrTable(bySrRows);
@@ -1149,7 +1153,8 @@ function closeDeleteAuthModal() {
 async function submitDeleteAuth() {
   const username = el.historyDeleteAuthUsername.value.trim();
   const password = el.historyDeleteAuthPassword.value;
-  if (username !== MANAGER_LOGIN_USERNAME || password !== MANAGER_LOGIN_PASSWORD) {
+  const verified = await verifyManagerCredentials(username, password);
+  if (!verified) {
     el.historyDeleteAuthError.textContent = "账号或密码错误";
     return;
   }
@@ -1375,7 +1380,7 @@ function applyMigrationRowRule(row) {
 function splitByComma(input) {
   if (!input.trim()) return [];
   return input
-    .split(",")
+    .split(/[,，、；;]+/)
     .map((x) => x.trim())
     .filter(Boolean);
 }
@@ -1681,7 +1686,7 @@ function restoreDraft() {
     el.meetingTopic.value = String(draft.meetingTopic || "");
     setSelectedFocusModules(draft.focusModules || []);
     el.deployMode.value = String(draft.intentDeployMode || "");
-    el.coopMode.value = String(draft.intentCoopMode || "按年订阅");
+    el.coopMode.value = String(draft.intentCoopMode || "");
     setMigrationSources(el.migrationSources, normalizeMigrationSources(draft.migrationSources));
     applyDeployCoopRule();
     setParticipants(el.customerParticipants, normalizeParticipants(draft.customerParticipants));
@@ -2285,7 +2290,7 @@ function normalizeRecordIndustry(record) {
   const intentDeployMode = String(record.intentDeployMode || "");
   const intentCoopMode = intentDeployMode === "SAAS"
     ? "按年订阅"
-    : String(record.intentCoopMode || "按年订阅");
+    : String(record.intentCoopMode || "");
   const chain = inferIndustryChain(customerNames[0] || "", normalizedIndustry);
   return {
     ...record,
@@ -2342,4 +2347,15 @@ function escapeHtml(text) {
     .replaceAll(">", "&gt;")
     .replaceAll('"', "&quot;")
     .replaceAll("'", "&#39;");
+}
+
+async function sha256Hex(text) {
+  const encoded = new TextEncoder().encode(String(text));
+  const digest = await crypto.subtle.digest("SHA-256", encoded);
+  return [...new Uint8Array(digest)].map((b) => b.toString(16).padStart(2, "0")).join("");
+}
+
+async function verifyManagerCredentials(username, password) {
+  const [userHash, passHash] = await Promise.all([sha256Hex(username), sha256Hex(password)]);
+  return userHash === MANAGER_LOGIN_USERNAME_HASH && passHash === MANAGER_LOGIN_PASSWORD_HASH;
 }
