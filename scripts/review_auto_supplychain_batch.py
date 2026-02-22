@@ -239,11 +239,25 @@ def pick_local_full_name(alias: str, overrides_keys):
     if alias in KNOWN_ALIAS_FULLNAME:
         return KNOWN_ALIAS_FULLNAME[alias], "known_map"
 
+    def is_legal_full_name(name: str):
+        text = (name or "").strip()
+        if not text:
+            return False
+        if text == alias.strip():
+            return False
+        return bool(
+            re.search(
+                r"(股份有限公司|有限责任公司|有限公司|集团有限公司|集团股份有限公司|集团|公司|Co\.?\s*Ltd\.?|Inc\.?|Corporation|Limited)",
+                text,
+                re.I,
+            )
+        )
+
     cands = []
     for n in overrides_keys:
         if not n:
             continue
-        if alias in n and len(n) <= 40:
+        if alias in n and len(n) <= 60 and is_legal_full_name(n):
             cands.append(n)
     if not cands:
         return "", "no_local_candidate"
