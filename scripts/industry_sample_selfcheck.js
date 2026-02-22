@@ -51,6 +51,8 @@ const SAMPLE_CASES = [
   { industry: "EDA", input: "华大九天", expected: "电子信息/半导体EDA" },
   { industry: "EDA", input: "景立科技", expected: "电子信息/半导体EDA" },
   { industry: "EDA", input: "华芯软件", expected: "电子信息/半导体EDA" },
+  { industry: "EDA", input: "芯华章", expected: "电子信息/半导体EDA" },
+  { industry: "EDA", input: "芯愿景", expected: "电子信息/半导体EDA" },
   { industry: "芯片", input: "华虹", expected: "新兴重点产业/半导体与芯片" },
   { industry: "芯片", input: "韦尔股份", expected: "新兴重点产业/半导体与芯片" },
   { industry: "芯片", input: "兆易创新", expected: "新兴重点产业/半导体与芯片" },
