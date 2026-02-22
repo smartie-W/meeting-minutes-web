@@ -801,6 +801,7 @@ const el = {
   form: document.querySelector("#minutes-form"),
   recordId: document.querySelector("#record-id"),
   salesName: document.querySelector("#sales-name"),
+  salesNameOther: document.querySelector("#sales-name-other"),
   meetingMode: document.querySelector("#meeting-mode"),
   industryLevel1: document.querySelector("#industry-level1"),
   industryLevel2: document.querySelector("#industry-level2"),
