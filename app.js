@@ -861,6 +861,9 @@ function boot() {
   applyMeetingModeLocationRule();
   refreshIndustryByCustomer();
   syncLongInputHeights();
+  // Browser autofill/restore may set role values after initial render without firing change.
+  setTimeout(syncArParticipantNames, 0);
+  setTimeout(syncArParticipantNames, 400);
   render();
   initCloudSync();
 }
@@ -878,6 +881,12 @@ function bindEvents() {
   el.nextActions.addEventListener("input", () => autoGrowLongInput(el.nextActions));
   el.customerName.addEventListener("input", scheduleIndustryLookup);
   el.salesName.addEventListener("input", () => {
+    syncArParticipantNames();
+  });
+  el.ourParticipants.addEventListener("focusin", () => {
+    syncArParticipantNames();
+  });
+  el.ourParticipants.addEventListener("click", () => {
     syncArParticipantNames();
   });
   el.meetingMode.addEventListener("change", () => {
@@ -1655,6 +1664,7 @@ function createNameInput(value = "") {
   input.className = "participant-name";
   input.placeholder = "姓名";
   input.value = value;
+  input.autocomplete = "off";
   return input;
 }
 
