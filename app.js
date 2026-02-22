@@ -145,6 +145,22 @@ const CUSTOMER_INDUSTRY_MAP = {
   "蒙泰": { level1: "能源", level2: "煤炭能源" },
 };
 const XLSX_CUSTOMER_INDUSTRY_OVERRIDES = window.XLSX_CUSTOMER_INDUSTRY_OVERRIDES || {};
+const INVALID_CUSTOMER_NAME_SET = new Set([
+  "A类",
+  "B类",
+  "C类",
+  "D类",
+  "S类",
+  "作废",
+  "导入期",
+  "成长期",
+  "运营期",
+  "续约期",
+  "流失",
+  "公有云版",
+  "私有部署按年订阅版",
+  "私有部署一次性授权版",
+]);
 
 const KNOWN_CUSTOMER_FULLNAMES = [
   "上海维科精密模塑股份有限公司",
@@ -479,6 +495,7 @@ function buildEnrichedIndustryMap() {
   const merged = { ...CUSTOMER_INDUSTRY_MAP };
 
   Object.entries(XLSX_CUSTOMER_INDUSTRY_OVERRIDES).forEach(([name, industry]) => {
+    if (!isLikelyCompanyName(name)) return;
     merged[name] = normalizeIndustryPair(industry);
   });
 
@@ -509,6 +526,15 @@ function buildEnrichedIndustryMap() {
   });
 
   return merged;
+}
+
+function isLikelyCompanyName(name) {
+  const text = String(name || "").trim();
+  if (!text) return false;
+  if (INVALID_CUSTOMER_NAME_SET.has(text)) return false;
+  if (/^[0-9\-_/\s]+$/.test(text)) return false;
+  if (text.length <= 1) return false;
+  return true;
 }
 
 const ENRICHED_CUSTOMER_INDUSTRY_MAP = buildEnrichedIndustryMap();
