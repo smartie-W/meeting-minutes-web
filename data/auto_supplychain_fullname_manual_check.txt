@@ -1,54 +1,54 @@
-Mobileye	Mobileye	medium	local_fuzzy
-NVIDIA	NVIDIA	medium	local_fuzzy
-TI	TI	medium	local_fuzzy
-ST	ST	medium	local_fuzzy
-Momenta	Momenta	medium	local_fuzzy
-百度Apollo	百度Apollo	medium	local_fuzzy
-黑芝麻智能	黑芝麻智能	medium	local_fuzzy
-芯擎科技	芯擎科技	medium	local_fuzzy
-TTTech Auto	TTTech Auto	medium	local_fuzzy
-Elektrobit	Elektrobit	medium	local_fuzzy
-Wind River	Wind River	medium	local_fuzzy
-QNX	QNX	medium	local_fuzzy
-镁佳科技	镁佳科技	medium	local_fuzzy
-松下	松下	medium	local_fuzzy
-阿尔派	阿尔派	medium	local_fuzzy
-FORVIA	FORVIA	medium	local_fuzzy
-腾讯	腾讯	medium	local_fuzzy
-斑马智行	斑马智行	medium	local_fuzzy
-百度小度	百度小度	medium	local_fuzzy
-Vector	Vector	medium	local_fuzzy
-ETAS	ETAS	medium	local_fuzzy
-TCL华星	TCL华星	medium	local_fuzzy
-ADI	ADI	medium	local_fuzzy
-Cirrus Logic	Cirrus Logic	medium	local_fuzzy
-杜比	杜比	medium	local_fuzzy
-Intel	Intel	medium	local_fuzzy
-中移车联网	中移车联网	medium	local_fuzzy
-中国联通车联网	中国联通车联网	medium	local_fuzzy
-中国电信车联网	中国电信车联网	medium	local_fuzzy
-阿里云	阿里云	medium	local_fuzzy
-腾讯云	腾讯云	medium	local_fuzzy
-百度智能云	百度智能云	medium	local_fuzzy
-AWS	AWS	medium	local_fuzzy
-Azure	Azure	medium	local_fuzzy
-HERE	HERE	medium	local_fuzzy
-TomTom	TomTom	medium	local_fuzzy
-高德	高德	medium	local_fuzzy
-百度地图	百度地图	medium	local_fuzzy
-u-blox	u-blox	medium	local_fuzzy
-Telit Cinterion	Telit Cinterion	medium	local_fuzzy
-Broadcom	Broadcom	medium	local_fuzzy
-Marvell	Marvell	medium	local_fuzzy
-Palo Alto Networks	Palo Alto Networks	medium	local_fuzzy
-Fortinet	Fortinet	medium	local_fuzzy
-Check Point	Check Point	medium	local_fuzzy
-Yazaki矢崎	Yazaki矢崎	medium	local_fuzzy
-Leoni莱尼	Leoni莱尼	medium	local_fuzzy
-李尔	李尔	medium	local_fuzzy
-TE Connectivity	TE Connectivity	medium	local_fuzzy
-Motherson	Motherson	medium	local_fuzzy
-Kromberg & Schubert	Kromberg & Schubert	medium	local_fuzzy
-PKC Group	PKC Group	medium	local_fuzzy
-罗森伯格	罗森伯格	medium	local_fuzzy
-Huber+Suhner	Huber+Suhner	medium	local_fuzzy
+Mobileye		low	error:URLError
+NVIDIA		low	error:URLError
+TI		low	error:URLError
+ST		low	error:URLError
+Momenta		low	error:URLError
+百度Apollo		low	error:URLError
+黑芝麻智能		low	error:URLError
+芯擎科技		low	error:URLError
+TTTech Auto		low	error:URLError
+Elektrobit		low	error:URLError
+Wind River		low	error:URLError
+QNX		low	error:URLError
+镁佳科技		low	error:URLError
+松下		low	error:URLError
+阿尔派		low	error:URLError
+FORVIA		low	error:URLError
+腾讯		low	error:URLError
+斑马智行		low	error:URLError
+百度小度		low	error:URLError
+Vector		low	error:URLError
+ETAS		low	error:URLError
+TCL华星		low	error:URLError
+ADI		low	error:URLError
+Cirrus Logic		low	error:URLError
+杜比		low	error:URLError
+Intel		low	error:URLError
+中移车联网		low	error:URLError
+中国联通车联网		low	error:URLError
+中国电信车联网		low	error:URLError
+阿里云		low	error:URLError
+腾讯云		low	error:URLError
+百度智能云		low	error:URLError
+AWS		low	error:URLError
+Azure		low	error:URLError
+HERE		low	error:URLError
+TomTom		low	error:URLError
+高德		low	error:URLError
+百度地图		low	error:URLError
+u-blox		low	error:URLError
+Telit Cinterion		low	error:URLError
+Broadcom		low	error:URLError
+Marvell		low	error:URLError
+Palo Alto Networks		low	error:URLError
+Fortinet		low	error:URLError
+Check Point		low	error:URLError
+Yazaki矢崎		low	error:URLError
+Leoni莱尼		low	error:URLError
+李尔		low	error:URLError
+TE Connectivity		low	error:URLError
+Motherson		low	error:URLError
+Kromberg & Schubert		low	error:URLError
+PKC Group		low	error:URLError
+罗森伯格		low	error:URLError
+Huber+Suhner		low	error:URLError
