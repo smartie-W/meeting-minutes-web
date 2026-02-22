@@ -320,6 +320,29 @@ const INDUSTRY_BRAND_RULES = [
   { keys: ["万华化学", "恒力石化", "荣盛石化"], level1: "制造", level2: "化工材料" },
 ];
 
+const COMPANY_ALIAS_NOISE_WORDS = [
+  "体育用品",
+  "信息技术",
+  "信息科技",
+  "智能科技",
+  "数字科技",
+  "网络科技",
+  "软件科技",
+  "软件",
+  "科技",
+  "技术",
+  "贸易",
+  "电子",
+  "装备",
+  "自动化",
+  "系统",
+  "实业",
+  "产业",
+  "控股",
+  "投资",
+  "发展",
+];
+
 
 const INDUSTRY_PEER_COMPANIES = {
   "金融|银行": ["交通银行", "中国银行", "浦发银行", "兴业银行", "民生银行", "中信银行", "光大银行", "北京银行", "宁波银行", "江苏银行", "杭州银行", "南京银行", "上海银行", "浙商银行", "渤海银行"],
@@ -372,6 +395,7 @@ function buildEnrichedIndustryMap() {
 }
 
 const ENRICHED_CUSTOMER_INDUSTRY_MAP = buildEnrichedIndustryMap();
+const AUTO_ALIAS_INDUSTRY_MAP = buildAutoAliasIndustryMap(ENRICHED_CUSTOMER_INDUSTRY_MAP);
 
 const INDUSTRY_CHAIN_MAP = {
   "电子信息|半导体": {
@@ -1574,6 +1598,10 @@ function inferIndustryByCustomer(customerName) {
   const name = String(customerName || "").trim();
   if (!name) return { level1: "未知", level2: "未知" };
   const normalizedName = normalizeCompanyNameText(name);
+  const coreAlias = extractCoreCompanyAlias(name);
+  if (coreAlias && AUTO_ALIAS_INDUSTRY_MAP[coreAlias]) {
+    return AUTO_ALIAS_INDUSTRY_MAP[coreAlias];
+  }
   const knownCandidates = getLocalFullNameCandidates(name);
 
   for (const fullName of knownCandidates) {
@@ -1627,6 +1655,52 @@ function normalizeCompanyNameText(value) {
     .replaceAll("集团有限公司", "")
     .replaceAll("有限公司", "")
     .replaceAll("集团", "");
+}
+
+function extractCoreCompanyAlias(value) {
+  let text = normalizeCompanyNameText(value);
+  if (!text) return "";
+
+  // remove location words
+  text = text
+    .replaceAll("上海", "")
+    .replaceAll("北京", "")
+    .replaceAll("深圳", "")
+    .replaceAll("广州", "")
+    .replaceAll("杭州", "")
+    .replaceAll("南京", "")
+    .replaceAll("苏州", "")
+    .replaceAll("天津", "")
+    .replaceAll("中国", "");
+
+  COMPANY_ALIAS_NOISE_WORDS.forEach((word) => {
+    text = text.replaceAll(normalizeCompanyNameText(word), "");
+  });
+
+  if (!text) return "";
+  if (text.length <= 8) return text;
+  return text.slice(0, 8);
+}
+
+function buildAutoAliasIndustryMap(companyIndustryMap) {
+  const aliasMap = {};
+  Object.entries(companyIndustryMap || {}).forEach(([name, industry]) => {
+    registerCompanyAlias(aliasMap, name, industry);
+  });
+  return aliasMap;
+}
+
+function registerCompanyAlias(aliasMap, name, industry) {
+  const normalizedIndustry = normalizeIndustryPair(industry);
+  const core = extractCoreCompanyAlias(name);
+  if (core && core.length >= 2 && !aliasMap[core]) {
+    aliasMap[core] = normalizedIndustry;
+  }
+
+  const normalizedName = normalizeCompanyNameText(name);
+  if (normalizedName && normalizedName.length >= 2 && !aliasMap[normalizedName]) {
+    aliasMap[normalizedName] = normalizedIndustry;
+  }
 }
 
 function inferIndustryFromHistory(customerName) {
@@ -1745,6 +1819,7 @@ function updateIndustryKnowledgeCache(inputName, industry, fullNames = []) {
   names.forEach((name) => {
     cache.companyIndustryMap[name] = normalized;
     ENRICHED_CUSTOMER_INDUSTRY_MAP[name] = normalized;
+    registerCompanyAlias(AUTO_ALIAS_INDUSTRY_MAP, name, normalized);
   });
 
   saveIndustryKnowledgeCache(cache);
