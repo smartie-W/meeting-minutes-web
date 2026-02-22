@@ -1590,6 +1590,9 @@ function inferIndustryByCustomer(customerName) {
     }
   }
 
+  const fromRule = matchIndustryByRules(`${name} ${knownCandidates.join(" ")}`);
+  if (fromRule) return fromRule;
+
   for (const rule of INDUSTRY_BRAND_RULES) {
     if (rule.keys.some((k) => normalizedName.includes(normalizeCompanyNameText(k)))) {
       return { level1: rule.level1, level2: rule.level2 };
@@ -1652,8 +1655,20 @@ function inferIndustryFromHistory(customerName) {
 
 function inferIndustryFromText(text) {
   const value = String(text || "");
+  const fromRules = matchIndustryByRules(value);
+  if (fromRules) return fromRules;
   for (const rule of INDUSTRY_KEYWORD_RULES) {
     if (rule.keys.some((k) => value.includes(k))) {
+      return { level1: rule.level1, level2: rule.level2 };
+    }
+  }
+  return null;
+}
+
+function matchIndustryByRules(text) {
+  const value = String(text || "").toLowerCase();
+  for (const rule of INDUSTRY_CLASSIFICATION_RULES) {
+    if ((rule.keys || []).some((k) => value.includes(String(k).toLowerCase()))) {
       return { level1: rule.level1, level2: rule.level2 };
     }
   }
