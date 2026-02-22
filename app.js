@@ -1706,6 +1706,10 @@ function createNameInput(value = "") {
 }
 
 function createSrNameSelect(value = "") {
+  return createRoleNameSelect(SR_NAME_OPTIONS, value);
+}
+
+function createRoleNameSelect(options, value = "") {
   const select = document.createElement("select");
   select.className = "participant-name";
 
@@ -1714,13 +1718,13 @@ function createSrNameSelect(value = "") {
   empty.textContent = "姓名";
   select.appendChild(empty);
 
-  SR_NAME_OPTIONS.forEach((name) => {
+  options.forEach((name) => {
     const op = document.createElement("option");
     op.value = name;
     op.textContent = name;
     select.appendChild(op);
   });
-  select.value = SR_NAME_OPTIONS.includes(value) ? value : "";
+  select.value = options.includes(value) ? value : "";
   return select;
 }
 
