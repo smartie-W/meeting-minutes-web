@@ -1,1538 +1,1794 @@
 [
   {
     "alias": "博世",
-    "fullName": "",
-    "reason": "error:URLError",
-    "confidence": "low",
+    "fullName": "博世（中国）投资有限公司",
+    "reason": "known_map",
+    "confidence": "high",
     "industry": {
       "level1": "汽车",
       "level2": "整车/零部件"
     },
-    "candidates": [],
+    "candidates": [
+      "博世（中国）投资有限公司"
+    ],
     "sources": []
   },
   {
     "alias": "大陆",
-    "fullName": "",
-    "reason": "error:URLError",
-    "confidence": "low",
+    "fullName": "大陆投资（中国）有限公司",
+    "reason": "known_map",
+    "confidence": "high",
     "industry": {
       "level1": "汽车",
       "level2": "整车/零部件"
     },
-    "candidates": [],
+    "candidates": [
+      "大陆投资（中国）有限公司"
+    ],
     "sources": []
   },
   {
     "alias": "采埃孚",
-    "fullName": "",
-    "reason": "error:URLError",
-    "confidence": "low",
+    "fullName": "采埃孚（中国）投资有限公司",
+    "reason": "known_map",
+    "confidence": "high",
     "industry": {
       "level1": "汽车",
       "level2": "整车/零部件"
     },
-    "candidates": [],
+    "candidates": [
+      "采埃孚（中国）投资有限公司"
+    ],
     "sources": []
   },
   {
     "alias": "安波福",
-    "fullName": "",
-    "reason": "error:URLError",
-    "confidence": "low",
+    "fullName": "安波福（中国）投资有限公司",
+    "reason": "known_map",
+    "confidence": "high",
     "industry": {
       "level1": "汽车",
       "level2": "整车/零部件"
     },
-    "candidates": [],
+    "candidates": [
+      "安波福（中国）投资有限公司"
+    ],
     "sources": []
   },
   {
     "alias": "电装",
-    "fullName": "",
-    "reason": "error:URLError",
-    "confidence": "low",
+    "fullName": "电装（中国）投资有限公司",
+    "reason": "known_map",
+    "confidence": "high",
     "industry": {
       "level1": "汽车",
       "level2": "整车/零部件"
     },
-    "candidates": [],
+    "candidates": [
+      "电装（中国）投资有限公司"
+    ],
     "sources": []
   },
   {
     "alias": "法雷奥",
-    "fullName": "",
-    "reason": "error:URLError",
-    "confidence": "low",
+    "fullName": "法雷奥企业管理（上海）有限公司",
+    "reason": "known_map",
+    "confidence": "high",
     "industry": {
       "level1": "汽车",
       "level2": "整车/零部件"
     },
-    "candidates": [],
+    "candidates": [
+      "法雷奥企业管理（上海）有限公司"
+    ],
     "sources": []
   },
   {
     "alias": "麦格纳",
-    "fullName": "",
-    "reason": "error:URLError",
-    "confidence": "low",
+    "fullName": "麦格纳汽车技术（上海）有限公司",
+    "reason": "known_map",
+    "confidence": "high",
     "industry": {
       "level1": "汽车",
       "level2": "整车/零部件"
     },
-    "candidates": [],
+    "candidates": [
+      "麦格纳汽车技术（上海）有限公司"
+    ],
     "sources": []
   },
   {
     "alias": "日立安斯泰莫",
-    "fullName": "",
-    "reason": "error:URLError",
-    "confidence": "low",
+    "fullName": "日立安斯泰莫汽车系统（中国）有限公司",
+    "reason": "known_map",
+    "confidence": "high",
     "industry": {
       "level1": "汽车",
       "level2": "整车/零部件"
     },
-    "candidates": [],
+    "candidates": [
+      "日立安斯泰莫汽车系统（中国）有限公司"
+    ],
     "sources": []
   },
   {
     "alias": "伟世通",
-    "fullName": "",
-    "reason": "error:URLError",
-    "confidence": "low",
+    "fullName": "伟世通亚太（上海）有限公司",
+    "reason": "known_map",
+    "confidence": "high",
     "industry": {
       "level1": "汽车",
       "level2": "整车/零部件"
     },
-    "candidates": [],
+    "candidates": [
+      "伟世通亚太（上海）有限公司"
+    ],
     "sources": []
   },
   {
     "alias": "哈曼",
-    "fullName": "",
-    "reason": "error:URLError",
-    "confidence": "low",
+    "fullName": "哈曼（中国）投资有限公司",
+    "reason": "known_map",
+    "confidence": "high",
     "industry": {
       "level1": "汽车",
       "level2": "整车/零部件"
     },
-    "candidates": [],
+    "candidates": [
+      "哈曼（中国）投资有限公司"
+    ],
     "sources": []
   },
   {
     "alias": "Mobileye",
-    "fullName": "",
-    "reason": "error:URLError",
-    "confidence": "low",
+    "fullName": "Mobileye",
+    "reason": "local_fuzzy",
+    "confidence": "medium",
     "industry": {
       "level1": "汽车",
       "level2": "整车/零部件"
     },
-    "candidates": [],
+    "candidates": [
+      "Mobileye"
+    ],
     "sources": []
   },
   {
     "alias": "NVIDIA",
-    "fullName": "",
-    "reason": "error:URLError",
-    "confidence": "low",
+    "fullName": "NVIDIA",
+    "reason": "local_fuzzy",
+    "confidence": "medium",
     "industry": {
       "level1": "汽车",
       "level2": "整车/零部件"
     },
-    "candidates": [],
+    "candidates": [
+      "NVIDIA"
+    ],
     "sources": []
   },
   {
     "alias": "高通",
-    "fullName": "",
-    "reason": "error:URLError",
-    "confidence": "low",
+    "fullName": "高通无线通信技术（中国）有限公司",
+    "reason": "known_map",
+    "confidence": "high",
     "industry": {
       "level1": "汽车",
       "level2": "整车/零部件"
     },
-    "candidates": [],
+    "candidates": [
+      "高通无线通信技术（中国）有限公司"
+    ],
     "sources": []
   },
   {
     "alias": "TI",
-    "fullName": "",
-    "reason": "error:URLError",
-    "confidence": "low",
+    "fullName": "TI",
+    "reason": "local_fuzzy",
+    "confidence": "medium",
     "industry": {
       "level1": "汽车",
       "level2": "整车/零部件"
     },
-    "candidates": [],
+    "candidates": [
+      "TI"
+    ],
     "sources": []
   },
   {
     "alias": "恩智浦",
-    "fullName": "",
-    "reason": "error:URLError",
-    "confidence": "low",
+    "fullName": "恩智浦半导体（中国）有限公司",
+    "reason": "known_map",
+    "confidence": "high",
     "industry": {
       "level1": "汽车",
       "level2": "整车/零部件"
     },
-    "candidates": [],
+    "candidates": [
+      "恩智浦半导体（中国）有限公司"
+    ],
     "sources": []
   },
   {
     "alias": "英飞凌",
-    "fullName": "",
-    "reason": "error:URLError",
-    "confidence": "low",
+    "fullName": "英飞凌科技（中国）有限公司",
+    "reason": "known_map",
+    "confidence": "high",
     "industry": {
       "level1": "汽车",
       "level2": "整车/零部件"
     },
-    "candidates": [],
+    "candidates": [
+      "英飞凌科技（中国）有限公司"
+    ],
     "sources": []
   },
   {
     "alias": "ST",
-    "fullName": "",
-    "reason": "error:URLError",
-    "confidence": "low",
+    "fullName": "ST",
+    "reason": "local_fuzzy",
+    "confidence": "medium",
     "industry": {
       "level1": "汽车",
       "level2": "整车/零部件"
     },
-    "candidates": [],
+    "candidates": [
+      "ST"
+    ],
     "sources": []
   },
   {
     "alias": "瑞萨",
-    "fullName": "",
-    "reason": "error:URLError",
-    "confidence": "low",
+    "fullName": "瑞萨电子（中国）有限公司",
+    "reason": "known_map",
+    "confidence": "high",
     "industry": {
       "level1": "汽车",
       "level2": "整车/零部件"
     },
-    "candidates": [],
+    "candidates": [
+      "瑞萨电子（中国）有限公司"
+    ],
     "sources": []
   },
   {
     "alias": "德赛西威",
-    "fullName": "",
-    "reason": "error:URLError",
-    "confidence": "low",
+    "fullName": "惠州市德赛西威汽车电子股份有限公司",
+    "reason": "known_map",
+    "confidence": "high",
     "industry": {
       "level1": "汽车",
       "level2": "整车/零部件"
     },
-    "candidates": [],
+    "candidates": [
+      "惠州市德赛西威汽车电子股份有限公司"
+    ],
     "sources": []
   },
   {
     "alias": "经纬恒润",
-    "fullName": "",
-    "reason": "error:URLError",
-    "confidence": "low",
+    "fullName": "北京经纬恒润科技股份有限公司",
+    "reason": "known_map",
+    "confidence": "high",
     "industry": {
       "level1": "汽车",
       "level2": "整车/零部件"
     },
-    "candidates": [],
+    "candidates": [
+      "北京经纬恒润科技股份有限公司"
+    ],
     "sources": []
   },
   {
     "alias": "华为",
-    "fullName": "",
-    "reason": "error:URLError",
-    "confidence": "low",
+    "fullName": "上海华为技术有限公司",
+    "reason": "local_fuzzy",
+    "confidence": "medium",
     "industry": {
       "level1": "汽车",
       "level2": "整车/零部件"
     },
-    "candidates": [],
+    "candidates": [
+      "上海华为技术有限公司"
+    ],
     "sources": []
   },
   {
     "alias": "Momenta",
-    "fullName": "",
-    "reason": "error:URLError",
-    "confidence": "low",
+    "fullName": "Momenta",
+    "reason": "local_fuzzy",
+    "confidence": "medium",
     "industry": {
       "level1": "汽车",
       "level2": "整车/零部件"
     },
-    "candidates": [],
+    "candidates": [
+      "Momenta"
+    ],
     "sources": []
   },
   {
     "alias": "百度Apollo",
-    "fullName": "",
-    "reason": "error:URLError",
-    "confidence": "low",
+    "fullName": "百度Apollo",
+    "reason": "local_fuzzy",
+    "confidence": "medium",
     "industry": {
       "level1": "汽车",
       "level2": "整车/零部件"
     },
-    "candidates": [],
+    "candidates": [
+      "百度Apollo"
+    ],
     "sources": []
   },
   {
     "alias": "小马智行",
-    "fullName": "",
-    "reason": "error:URLError",
-    "confidence": "low",
+    "fullName": "小马智行科技有限公司",
+    "reason": "known_map",
+    "confidence": "high",
     "industry": {
       "level1": "汽车",
       "level2": "整车/零部件"
     },
-    "candidates": [],
+    "candidates": [
+      "小马智行科技有限公司"
+    ],
     "sources": []
   },
   {
     "alias": "文远知行",
-    "fullName": "",
-    "reason": "error:URLError",
-    "confidence": "low",
+    "fullName": "文远知行科技有限公司",
+    "reason": "known_map",
+    "confidence": "high",
     "industry": {
       "level1": "汽车",
       "level2": "整车/零部件"
     },
-    "candidates": [],
+    "candidates": [
+      "文远知行科技有限公司"
+    ],
     "sources": []
   },
   {
     "alias": "地平线",
-    "fullName": "",
-    "reason": "error:URLError",
-    "confidence": "low",
+    "fullName": "地平线机器人技术研发有限公司",
+    "reason": "known_map",
+    "confidence": "high",
     "industry": {
       "level1": "汽车",
       "level2": "整车/零部件"
     },
-    "candidates": [],
+    "candidates": [
+      "地平线机器人技术研发有限公司"
+    ],
     "sources": []
   },
   {
     "alias": "黑芝麻智能",
-    "fullName": "",
-    "reason": "error:URLError",
-    "confidence": "low",
+    "fullName": "黑芝麻智能",
+    "reason": "local_fuzzy",
+    "confidence": "medium",
     "industry": {
       "level1": "汽车",
       "level2": "整车/零部件"
     },
-    "candidates": [],
+    "candidates": [
+      "黑芝麻智能"
+    ],
     "sources": []
   },
   {
     "alias": "芯驰科技",
-    "fullName": "",
-    "reason": "error:URLError",
-    "confidence": "low",
+    "fullName": "芯驰科技（上海）有限公司",
+    "reason": "local_fuzzy",
+    "confidence": "medium",
     "industry": {
       "level1": "汽车",
       "level2": "整车/零部件"
     },
-    "candidates": [],
+    "candidates": [
+      "芯驰科技（上海）有限公司"
+    ],
     "sources": []
   },
   {
     "alias": "芯擎科技",
-    "fullName": "",
-    "reason": "error:URLError",
-    "confidence": "low",
+    "fullName": "芯擎科技",
+    "reason": "local_fuzzy",
+    "confidence": "medium",
     "industry": {
       "level1": "汽车",
       "level2": "整车/零部件"
     },
-    "candidates": [],
+    "candidates": [
+      "芯擎科技"
+    ],
     "sources": []
   },
   {
     "alias": "四维图新",
-    "fullName": "",
-    "reason": "error:URLError",
-    "confidence": "low",
+    "fullName": "北京四维图新科技股份有限公司",
+    "reason": "known_map",
+    "confidence": "high",
     "industry": {
       "level1": "汽车",
       "level2": "整车/零部件"
     },
-    "candidates": [],
+    "candidates": [
+      "北京四维图新科技股份有限公司"
+    ],
     "sources": []
   },
   {
     "alias": "千方科技",
-    "fullName": "",
-    "reason": "error:URLError",
-    "confidence": "low",
+    "fullName": "北京千方科技股份有限公司",
+    "reason": "known_map",
+    "confidence": "high",
     "industry": {
       "level1": "汽车",
       "level2": "整车/零部件"
     },
-    "candidates": [],
+    "candidates": [
+      "北京千方科技股份有限公司"
+    ],
     "sources": []
   },
   {
     "alias": "禾赛",
-    "fullName": "",
-    "reason": "error:URLError",
-    "confidence": "low",
+    "fullName": "禾赛科技有限公司",
+    "reason": "known_map",
+    "confidence": "high",
     "industry": {
       "level1": "汽车",
       "level2": "整车/零部件"
     },
-    "candidates": [],
+    "candidates": [
+      "禾赛科技有限公司"
+    ],
     "sources": []
   },
   {
     "alias": "速腾聚创",
-    "fullName": "",
-    "reason": "error:URLError",
-    "confidence": "low",
+    "fullName": "深圳市速腾聚创科技有限公司",
+    "reason": "known_map",
+    "confidence": "high",
     "industry": {
       "level1": "汽车",
       "level2": "整车/零部件"
     },
-    "candidates": [],
+    "candidates": [
+      "深圳市速腾聚创科技有限公司"
+    ],
     "sources": []
   },
   {
     "alias": "华域汽车",
-    "fullName": "",
-    "reason": "error:URLError",
-    "confidence": "low",
+    "fullName": "华域汽车系统股份有限公司",
+    "reason": "known_map",
+    "confidence": "high",
     "industry": {
       "level1": "汽车",
       "level2": "整车/零部件"
     },
-    "candidates": [],
+    "candidates": [
+      "华域汽车系统股份有限公司"
+    ],
     "sources": []
   },
   {
     "alias": "联创电子",
-    "fullName": "",
-    "reason": "error:URLError",
-    "confidence": "low",
+    "fullName": "联创电子科技股份有限公司",
+    "reason": "known_map",
+    "confidence": "high",
     "industry": {
       "level1": "汽车",
       "level2": "整车/零部件"
     },
-    "candidates": [],
+    "candidates": [
+      "联创电子科技股份有限公司"
+    ],
     "sources": []
   },
   {
     "alias": "舜宇",
-    "fullName": "",
-    "reason": "error:URLError",
-    "confidence": "low",
+    "fullName": "宁波舜宇光学科技（集团）有限公司",
+    "reason": "known_map",
+    "confidence": "high",
     "industry": {
       "level1": "汽车",
       "level2": "整车/零部件"
     },
-    "candidates": [],
+    "candidates": [
+      "宁波舜宇光学科技（集团）有限公司"
+    ],
     "sources": []
   },
   {
     "alias": "欧菲光",
-    "fullName": "",
-    "reason": "error:URLError",
-    "confidence": "low",
+    "fullName": "欧菲光集团股份有限公司",
+    "reason": "known_map",
+    "confidence": "high",
     "industry": {
       "level1": "汽车",
       "level2": "整车/零部件"
     },
-    "candidates": [],
+    "candidates": [
+      "欧菲光集团股份有限公司"
+    ],
     "sources": []
   },
   {
     "alias": "保隆科技",
-    "fullName": "",
-    "reason": "error:URLError",
-    "confidence": "low",
+    "fullName": "上海保隆汽车科技股份有限公司",
+    "reason": "known_map",
+    "confidence": "high",
     "industry": {
       "level1": "汽车",
       "level2": "整车/零部件"
     },
-    "candidates": [],
+    "candidates": [
+      "上海保隆汽车科技股份有限公司"
+    ],
     "sources": []
   },
   {
     "alias": "均胜电子",
-    "fullName": "",
-    "reason": "error:URLError",
-    "confidence": "low",
+    "fullName": "宁波均胜电子股份有限公司",
+    "reason": "known_map",
+    "confidence": "high",
     "industry": {
       "level1": "汽车",
       "level2": "整车/零部件"
     },
-    "candidates": [],
+    "candidates": [
+      "宁波均胜电子股份有限公司"
+    ],
     "sources": []
   },
   {
     "alias": "万集科技",
-    "fullName": "",
-    "reason": "error:URLError",
-    "confidence": "low",
+    "fullName": "北京万集科技股份有限公司",
+    "reason": "known_map",
+    "confidence": "high",
     "industry": {
       "level1": "汽车",
       "level2": "整车/零部件"
     },
-    "candidates": [],
+    "candidates": [
+      "北京万集科技股份有限公司"
+    ],
     "sources": []
   },
   {
     "alias": "高新兴",
-    "fullName": "",
-    "reason": "error:URLError",
-    "confidence": "low",
+    "fullName": "高新兴创联科技股份有限公司",
+    "reason": "local_fuzzy",
+    "confidence": "medium",
     "industry": {
       "level1": "汽车",
       "level2": "整车/零部件"
     },
-    "candidates": [],
+    "candidates": [
+      "高新兴创联科技股份有限公司"
+    ],
     "sources": []
   },
   {
     "alias": "移远通信",
-    "fullName": "",
-    "reason": "error:URLError",
-    "confidence": "low",
+    "fullName": "上海移远通信技术股份有限公司",
+    "reason": "known_map",
+    "confidence": "high",
     "industry": {
       "level1": "汽车",
       "level2": "整车/零部件"
     },
-    "candidates": [],
+    "candidates": [
+      "上海移远通信技术股份有限公司"
+    ],
     "sources": []
   },
   {
     "alias": "广和通",
-    "fullName": "",
-    "reason": "error:URLError",
-    "confidence": "low",
+    "fullName": "深圳市广和通无线股份有限公司",
+    "reason": "known_map",
+    "confidence": "high",
     "industry": {
       "level1": "汽车",
       "level2": "整车/零部件"
     },
-    "candidates": [],
+    "candidates": [
+      "深圳市广和通无线股份有限公司"
+    ],
     "sources": []
   },
   {
     "alias": "华测导航",
-    "fullName": "",
-    "reason": "error:URLError",
-    "confidence": "low",
+    "fullName": "上海华测导航技术股份有限公司",
+    "reason": "known_map",
+    "confidence": "high",
     "industry": {
       "level1": "汽车",
       "level2": "整车/零部件"
     },
-    "candidates": [],
+    "candidates": [
+      "上海华测导航技术股份有限公司"
+    ],
     "sources": []
   },
   {
     "alias": "北斗星通",
-    "fullName": "",
-    "reason": "error:URLError",
-    "confidence": "low",
+    "fullName": "北京北斗星通导航技术股份有限公司",
+    "reason": "known_map",
+    "confidence": "high",
     "industry": {
       "level1": "汽车",
       "level2": "整车/零部件"
     },
-    "candidates": [],
+    "candidates": [
+      "北京北斗星通导航技术股份有限公司"
+    ],
     "sources": []
   },
   {
     "alias": "TTTech Auto",
-    "fullName": "",
-    "reason": "error:URLError",
-    "confidence": "low",
+    "fullName": "TTTech Auto",
+    "reason": "local_fuzzy",
+    "confidence": "medium",
     "industry": {
       "level1": "汽车",
       "level2": "整车/零部件"
     },
-    "candidates": [],
+    "candidates": [
+      "TTTech Auto"
+    ],
     "sources": []
   },
   {
     "alias": "Elektrobit",
-    "fullName": "",
-    "reason": "error:URLError",
-    "confidence": "low",
+    "fullName": "Elektrobit",
+    "reason": "local_fuzzy",
+    "confidence": "medium",
     "industry": {
       "level1": "汽车",
       "level2": "整车/零部件"
     },
-    "candidates": [],
+    "candidates": [
+      "Elektrobit"
+    ],
     "sources": []
   },
   {
     "alias": "Wind River",
-    "fullName": "",
-    "reason": "error:URLError",
-    "confidence": "low",
+    "fullName": "Wind River",
+    "reason": "local_fuzzy",
+    "confidence": "medium",
     "industry": {
       "level1": "汽车",
       "level2": "整车/零部件"
     },
-    "candidates": [],
+    "candidates": [
+      "Wind River"
+    ],
     "sources": []
   },
   {
     "alias": "QNX",
-    "fullName": "",
-    "reason": "error:URLError",
-    "confidence": "low",
+    "fullName": "QNX",
+    "reason": "local_fuzzy",
+    "confidence": "medium",
     "industry": {
       "level1": "汽车",
       "level2": "整车/零部件"
     },
-    "candidates": [],
+    "candidates": [
+      "QNX"
+    ],
     "sources": []
   },
   {
     "alias": "华阳",
-    "fullName": "",
-    "reason": "error:URLError",
-    "confidence": "low",
+    "fullName": "惠州市华阳集团股份有限公司",
+    "reason": "known_map",
+    "confidence": "high",
     "industry": {
       "level1": "汽车",
       "level2": "整车/零部件"
     },
-    "candidates": [],
+    "candidates": [
+      "惠州市华阳集团股份有限公司"
+    ],
     "sources": []
   },
   {
     "alias": "东软",
-    "fullName": "",
-    "reason": "error:URLError",
-    "confidence": "low",
+    "fullName": "东软集团股份有限公司",
+    "reason": "known_map",
+    "confidence": "high",
     "industry": {
       "level1": "汽车",
       "level2": "整车/零部件"
     },
-    "candidates": [],
+    "candidates": [
+      "东软集团股份有限公司"
+    ],
     "sources": []
   },
   {
     "alias": "亿咖通",
-    "fullName": "",
-    "reason": "error:URLError",
-    "confidence": "low",
+    "fullName": "亿咖通（上海）技术有限公司",
+    "reason": "known_map",
+    "confidence": "high",
     "industry": {
       "level1": "汽车",
       "level2": "整车/零部件"
     },
-    "candidates": [],
+    "candidates": [
+      "亿咖通（上海）技术有限公司"
+    ],
     "sources": []
   },
   {
     "alias": "镁佳科技",
-    "fullName": "",
-    "reason": "error:URLError",
-    "confidence": "low",
+    "fullName": "镁佳科技",
+    "reason": "local_fuzzy",
+    "confidence": "medium",
     "industry": {
       "level1": "汽车",
       "level2": "整车/零部件"
     },
-    "candidates": [],
+    "candidates": [
+      "镁佳科技"
+    ],
     "sources": []
   },
   {
     "alias": "车联天下",
-    "fullName": "",
-    "reason": "error:URLError",
-    "confidence": "low",
+    "fullName": "无锡车联天下智能制造有限公司",
+    "reason": "local_fuzzy",
+    "confidence": "medium",
     "industry": {
       "level1": "汽车",
       "level2": "整车/零部件"
     },
-    "candidates": [],
+    "candidates": [
+      "无锡车联天下智能制造有限公司"
+    ],
     "sources": []
   },
   {
     "alias": "延锋",
-    "fullName": "",
-    "reason": "error:URLError",
-    "confidence": "low",
+    "fullName": "上海延锋金桥汽车饰件系统有限公司",
+    "reason": "local_fuzzy",
+    "confidence": "medium",
     "industry": {
       "level1": "汽车",
       "level2": "整车/零部件"
     },
-    "candidates": [],
+    "candidates": [
+      "上海延锋金桥汽车饰件系统有限公司"
+    ],
     "sources": []
   },
   {
     "alias": "松下",
-    "fullName": "",
-    "reason": "error:URLError",
-    "confidence": "low",
+    "fullName": "松下",
+    "reason": "local_fuzzy",
+    "confidence": "medium",
     "industry": {
       "level1": "汽车",
       "level2": "整车/零部件"
     },
-    "candidates": [],
+    "candidates": [
+      "松下"
+    ],
     "sources": []
   },
   {
     "alias": "阿尔派",
-    "fullName": "",
-    "reason": "error:URLError",
-    "confidence": "low",
+    "fullName": "阿尔派",
+    "reason": "local_fuzzy",
+    "confidence": "medium",
     "industry": {
       "level1": "汽车",
       "level2": "整车/零部件"
     },
-    "candidates": [],
+    "candidates": [
+      "阿尔派"
+    ],
     "sources": []
   },
   {
     "alias": "先锋",
-    "fullName": "",
-    "reason": "error:URLError",
-    "confidence": "low",
+    "fullName": "先锋高科技（上海）有限公司",
+    "reason": "local_fuzzy",
+    "confidence": "medium",
     "industry": {
       "level1": "汽车",
       "level2": "整车/零部件"
     },
-    "candidates": [],
+    "candidates": [
+      "先锋高科技（上海）有限公司"
+    ],
     "sources": []
   },
   {
     "alias": "FORVIA",
-    "fullName": "",
-    "reason": "error:URLError",
-    "confidence": "low",
+    "fullName": "FORVIA",
+    "reason": "local_fuzzy",
+    "confidence": "medium",
     "industry": {
       "level1": "汽车",
       "level2": "整车/零部件"
     },
-    "candidates": [],
+    "candidates": [
+      "FORVIA"
+    ],
     "sources": []
   },
   {
     "alias": "科大讯飞",
-    "fullName": "",
-    "reason": "error:URLError",
-    "confidence": "low",
+    "fullName": "科大讯飞股份有限公司",
+    "reason": "known_map",
+    "confidence": "high",
     "industry": {
       "level1": "汽车",
       "level2": "整车/零部件"
     },
-    "candidates": [],
+    "candidates": [
+      "科大讯飞股份有限公司"
+    ],
     "sources": []
   },
   {
     "alias": "腾讯",
-    "fullName": "",
-    "reason": "error:URLError",
-    "confidence": "low",
+    "fullName": "腾讯",
+    "reason": "local_fuzzy",
+    "confidence": "medium",
     "industry": {
       "level1": "汽车",
       "level2": "整车/零部件"
     },
-    "candidates": [],
+    "candidates": [
+      "腾讯"
+    ],
     "sources": []
   },
   {
     "alias": "斑马智行",
-    "fullName": "",
-    "reason": "error:URLError",
-    "confidence": "low",
+    "fullName": "斑马智行",
+    "reason": "local_fuzzy",
+    "confidence": "medium",
     "industry": {
       "level1": "汽车",
       "level2": "整车/零部件"
     },
-    "candidates": [],
+    "candidates": [
+      "斑马智行"
+    ],
     "sources": []
   },
   {
     "alias": "百度小度",
-    "fullName": "",
-    "reason": "error:URLError",
-    "confidence": "low",
+    "fullName": "百度小度",
+    "reason": "local_fuzzy",
+    "confidence": "medium",
     "industry": {
       "level1": "汽车",
       "level2": "整车/零部件"
     },
-    "candidates": [],
+    "candidates": [
+      "百度小度"
+    ],
     "sources": []
   },
   {
     "alias": "中科创达",
-    "fullName": "",
-    "reason": "error:URLError",
-    "confidence": "low",
+    "fullName": "中科创达软件股份有限公司",
+    "reason": "known_map",
+    "confidence": "high",
     "industry": {
       "level1": "汽车",
       "level2": "整车/零部件"
     },
-    "candidates": [],
+    "candidates": [
+      "中科创达软件股份有限公司"
+    ],
     "sources": []
   },
   {
     "alias": "Vector",
-    "fullName": "",
-    "reason": "error:URLError",
-    "confidence": "low",
+    "fullName": "Vector",
+    "reason": "local_fuzzy",
+    "confidence": "medium",
     "industry": {
       "level1": "汽车",
       "level2": "整车/零部件"
     },
-    "candidates": [],
+    "candidates": [
+      "Vector"
+    ],
     "sources": []
   },
   {
     "alias": "ETAS",
-    "fullName": "",
-    "reason": "error:URLError",
-    "confidence": "low",
+    "fullName": "ETAS",
+    "reason": "local_fuzzy",
+    "confidence": "medium",
     "industry": {
       "level1": "汽车",
       "level2": "整车/零部件"
     },
-    "candidates": [],
+    "candidates": [
+      "ETAS"
+    ],
     "sources": []
   },
   {
     "alias": "京东方",
-    "fullName": "",
-    "reason": "error:URLError",
-    "confidence": "low",
+    "fullName": "京东方科技集团股份有限公司",
+    "reason": "known_map",
+    "confidence": "high",
     "industry": {
       "level1": "汽车",
       "level2": "整车/零部件"
     },
-    "candidates": [],
+    "candidates": [
+      "京东方科技集团股份有限公司"
+    ],
     "sources": []
   },
   {
     "alias": "TCL华星",
-    "fullName": "",
-    "reason": "error:URLError",
-    "confidence": "low",
+    "fullName": "TCL华星",
+    "reason": "local_fuzzy",
+    "confidence": "medium",
     "industry": {
       "level1": "汽车",
       "level2": "整车/零部件"
     },
-    "candidates": [],
+    "candidates": [
+      "TCL华星"
+    ],
     "sources": []
   },
   {
     "alias": "天马",
-    "fullName": "",
-    "reason": "error:URLError",
-    "confidence": "low",
+    "fullName": "天马微电子股份有限公司",
+    "reason": "known_map",
+    "confidence": "high",
     "industry": {
       "level1": "汽车",
       "level2": "整车/零部件"
     },
-    "candidates": [],
+    "candidates": [
+      "天马微电子股份有限公司"
+    ],
     "sources": []
   },
   {
     "alias": "维信诺",
-    "fullName": "",
-    "reason": "error:URLError",
-    "confidence": "low",
+    "fullName": "维信诺科技股份有限公司",
+    "reason": "known_map",
+    "confidence": "high",
     "industry": {
       "level1": "汽车",
       "level2": "整车/零部件"
     },
-    "candidates": [],
+    "candidates": [
+      "维信诺科技股份有限公司"
+    ],
     "sources": []
   },
   {
     "alias": "歌尔",
-    "fullName": "",
-    "reason": "error:URLError",
-    "confidence": "low",
+    "fullName": "歌尔股份有限公司",
+    "reason": "known_map",
+    "confidence": "high",
     "industry": {
       "level1": "汽车",
       "level2": "整车/零部件"
     },
-    "candidates": [],
+    "candidates": [
+      "歌尔股份有限公司"
+    ],
     "sources": []
   },
   {
     "alias": "瑞声",
-    "fullName": "",
-    "reason": "error:URLError",
-    "confidence": "low",
+    "fullName": "瑞声科技控股有限公司",
+    "reason": "known_map",
+    "confidence": "high",
     "industry": {
       "level1": "汽车",
       "level2": "整车/零部件"
     },
-    "candidates": [],
+    "candidates": [
+      "瑞声科技控股有限公司"
+    ],
     "sources": []
   },
   {
     "alias": "水晶光电",
-    "fullName": "",
-    "reason": "error:URLError",
-    "confidence": "low",
+    "fullName": "浙江水晶光电科技股份有限公司",
+    "reason": "known_map",
+    "confidence": "high",
     "industry": {
       "level1": "汽车",
       "level2": "整车/零部件"
     },
-    "candidates": [],
+    "candidates": [
+      "浙江水晶光电科技股份有限公司"
+    ],
     "sources": []
   },
   {
     "alias": "ADI",
-    "fullName": "",
-    "reason": "error:URLError",
-    "confidence": "low",
+    "fullName": "ADI",
+    "reason": "local_fuzzy",
+    "confidence": "medium",
     "industry": {
       "level1": "汽车",
       "level2": "整车/零部件"
     },
-    "candidates": [],
+    "candidates": [
+      "ADI"
+    ],
     "sources": []
   },
   {
     "alias": "Cirrus Logic",
-    "fullName": "",
-    "reason": "error:URLError",
-    "confidence": "low",
+    "fullName": "Cirrus Logic",
+    "reason": "local_fuzzy",
+    "confidence": "medium",
     "industry": {
       "level1": "汽车",
       "level2": "整车/零部件"
     },
-    "candidates": [],
+    "candidates": [
+      "Cirrus Logic"
+    ],
     "sources": []
   },
   {
     "alias": "杜比",
-    "fullName": "",
-    "reason": "error:URLError",
-    "confidence": "low",
+    "fullName": "杜比",
+    "reason": "local_fuzzy",
+    "confidence": "medium",
     "industry": {
       "level1": "汽车",
       "level2": "整车/零部件"
     },
-    "candidates": [],
+    "candidates": [
+      "杜比"
+    ],
     "sources": []
   },
   {
     "alias": "Intel",
-    "fullName": "",
-    "reason": "error:URLError",
-    "confidence": "low",
+    "fullName": "Intel",
+    "reason": "local_fuzzy",
+    "confidence": "medium",
     "industry": {
       "level1": "汽车",
       "level2": "整车/零部件"
     },
-    "candidates": [],
+    "candidates": [
+      "Intel"
+    ],
     "sources": []
   },
   {
     "alias": "中移车联网",
-    "fullName": "",
-    "reason": "error:URLError",
-    "confidence": "low",
+    "fullName": "中移车联网",
+    "reason": "local_fuzzy",
+    "confidence": "medium",
     "industry": {
       "level1": "汽车",
       "level2": "整车/零部件"
     },
-    "candidates": [],
+    "candidates": [
+      "中移车联网"
+    ],
     "sources": []
   },
   {
     "alias": "中国联通车联网",
-    "fullName": "",
-    "reason": "error:URLError",
-    "confidence": "low",
+    "fullName": "中国联通车联网",
+    "reason": "local_fuzzy",
+    "confidence": "medium",
     "industry": {
       "level1": "汽车",
       "level2": "整车/零部件"
     },
-    "candidates": [],
+    "candidates": [
+      "中国联通车联网"
+    ],
     "sources": []
   },
   {
     "alias": "中国电信车联网",
-    "fullName": "",
-    "reason": "error:URLError",
-    "confidence": "low",
+    "fullName": "中国电信车联网",
+    "reason": "local_fuzzy",
+    "confidence": "medium",
     "industry": {
       "level1": "汽车",
       "level2": "整车/零部件"
     },
-    "candidates": [],
+    "candidates": [
+      "中国电信车联网"
+    ],
     "sources": []
   },
   {
     "alias": "阿里云",
-    "fullName": "",
-    "reason": "error:URLError",
-    "confidence": "low",
+    "fullName": "阿里云",
+    "reason": "local_fuzzy",
+    "confidence": "medium",
     "industry": {
       "level1": "汽车",
       "level2": "整车/零部件"
     },
-    "candidates": [],
+    "candidates": [
+      "阿里云"
+    ],
     "sources": []
   },
   {
     "alias": "腾讯云",
-    "fullName": "",
-    "reason": "error:URLError",
-    "confidence": "low",
+    "fullName": "腾讯云",
+    "reason": "local_fuzzy",
+    "confidence": "medium",
     "industry": {
       "level1": "汽车",
       "level2": "整车/零部件"
     },
-    "candidates": [],
+    "candidates": [
+      "腾讯云"
+    ],
     "sources": []
   },
   {
     "alias": "百度智能云",
-    "fullName": "",
-    "reason": "error:URLError",
-    "confidence": "low",
+    "fullName": "百度智能云",
+    "reason": "local_fuzzy",
+    "confidence": "medium",
     "industry": {
       "level1": "汽车",
       "level2": "整车/零部件"
     },
-    "candidates": [],
+    "candidates": [
+      "百度智能云"
+    ],
     "sources": []
   },
   {
     "alias": "AWS",
-    "fullName": "",
-    "reason": "error:URLError",
-    "confidence": "low",
+    "fullName": "AWS",
+    "reason": "local_fuzzy",
+    "confidence": "medium",
     "industry": {
       "level1": "汽车",
       "level2": "整车/零部件"
     },
-    "candidates": [],
+    "candidates": [
+      "AWS"
+    ],
     "sources": []
   },
   {
     "alias": "Azure",
-    "fullName": "",
-    "reason": "error:URLError",
-    "confidence": "low",
+    "fullName": "Azure",
+    "reason": "local_fuzzy",
+    "confidence": "medium",
     "industry": {
       "level1": "汽车",
       "level2": "整车/零部件"
     },
-    "candidates": [],
+    "candidates": [
+      "Azure"
+    ],
     "sources": []
   },
   {
     "alias": "HERE",
-    "fullName": "",
-    "reason": "error:URLError",
-    "confidence": "low",
+    "fullName": "HERE",
+    "reason": "local_fuzzy",
+    "confidence": "medium",
     "industry": {
       "level1": "汽车",
       "level2": "整车/零部件"
     },
-    "candidates": [],
+    "candidates": [
+      "HERE"
+    ],
     "sources": []
   },
   {
     "alias": "TomTom",
-    "fullName": "",
-    "reason": "error:URLError",
-    "confidence": "low",
+    "fullName": "TomTom",
+    "reason": "local_fuzzy",
+    "confidence": "medium",
     "industry": {
       "level1": "汽车",
       "level2": "整车/零部件"
     },
-    "candidates": [],
+    "candidates": [
+      "TomTom"
+    ],
     "sources": []
   },
   {
     "alias": "高德",
-    "fullName": "",
-    "reason": "error:URLError",
-    "confidence": "low",
+    "fullName": "高德",
+    "reason": "local_fuzzy",
+    "confidence": "medium",
     "industry": {
       "level1": "汽车",
       "level2": "整车/零部件"
     },
-    "candidates": [],
+    "candidates": [
+      "高德"
+    ],
     "sources": []
   },
   {
     "alias": "百度地图",
-    "fullName": "",
-    "reason": "error:URLError",
-    "confidence": "low",
+    "fullName": "百度地图",
+    "reason": "local_fuzzy",
+    "confidence": "medium",
     "industry": {
       "level1": "汽车",
       "level2": "整车/零部件"
     },
-    "candidates": [],
+    "candidates": [
+      "百度地图"
+    ],
     "sources": []
   },
   {
     "alias": "u-blox",
-    "fullName": "",
-    "reason": "error:URLError",
-    "confidence": "low",
+    "fullName": "u-blox",
+    "reason": "local_fuzzy",
+    "confidence": "medium",
     "industry": {
       "level1": "汽车",
       "level2": "整车/零部件"
     },
-    "candidates": [],
+    "candidates": [
+      "u-blox"
+    ],
     "sources": []
   },
   {
     "alias": "Telit Cinterion",
-    "fullName": "",
-    "reason": "error:URLError",
-    "confidence": "low",
+    "fullName": "Telit Cinterion",
+    "reason": "local_fuzzy",
+    "confidence": "medium",
     "industry": {
       "level1": "汽车",
       "level2": "整车/零部件"
     },
-    "candidates": [],
+    "candidates": [
+      "Telit Cinterion"
+    ],
     "sources": []
   },
   {
     "alias": "Broadcom",
-    "fullName": "",
-    "reason": "error:URLError",
-    "confidence": "low",
+    "fullName": "Broadcom",
+    "reason": "local_fuzzy",
+    "confidence": "medium",
     "industry": {
       "level1": "汽车",
       "level2": "整车/零部件"
     },
-    "candidates": [],
+    "candidates": [
+      "Broadcom"
+    ],
     "sources": []
   },
   {
     "alias": "Marvell",
-    "fullName": "",
-    "reason": "error:URLError",
-    "confidence": "low",
+    "fullName": "Marvell",
+    "reason": "local_fuzzy",
+    "confidence": "medium",
     "industry": {
       "level1": "汽车",
       "level2": "整车/零部件"
     },
-    "candidates": [],
+    "candidates": [
+      "Marvell"
+    ],
     "sources": []
   },
   {
     "alias": "联发科",
-    "fullName": "",
-    "reason": "error:URLError",
-    "confidence": "low",
+    "fullName": "联发科技股份有限公司",
+    "reason": "known_map",
+    "confidence": "high",
     "industry": {
       "level1": "汽车",
       "level2": "整车/零部件"
     },
-    "candidates": [],
+    "candidates": [
+      "联发科技股份有限公司"
+    ],
     "sources": []
   },
   {
     "alias": "紫光展锐",
-    "fullName": "",
-    "reason": "error:URLError",
-    "confidence": "low",
+    "fullName": "紫光展锐（上海）科技股份有限公司",
+    "reason": "known_map",
+    "confidence": "high",
     "industry": {
       "level1": "汽车",
       "level2": "整车/零部件"
     },
-    "candidates": [],
+    "candidates": [
+      "紫光展锐（上海）科技股份有限公司"
+    ],
     "sources": []
   },
   {
     "alias": "绿盟科技",
-    "fullName": "",
-    "reason": "error:URLError",
-    "confidence": "low",
+    "fullName": "北京神州绿盟科技有限公司",
+    "reason": "known_map",
+    "confidence": "high",
     "industry": {
       "level1": "汽车",
       "level2": "整车/零部件"
     },
-    "candidates": [],
+    "candidates": [
+      "北京神州绿盟科技有限公司"
+    ],
     "sources": []
   },
   {
     "alias": "奇安信",
-    "fullName": "",
-    "reason": "error:URLError",
-    "confidence": "low",
+    "fullName": "奇安信科技集团股份有限公司",
+    "reason": "known_map",
+    "confidence": "high",
     "industry": {
       "level1": "汽车",
       "level2": "整车/零部件"
     },
-    "candidates": [],
+    "candidates": [
+      "奇安信科技集团股份有限公司"
+    ],
     "sources": []
   },
   {
     "alias": "启明星辰",
-    "fullName": "",
-    "reason": "error:URLError",
-    "confidence": "low",
+    "fullName": "启明星辰信息技术集团股份有限公司",
+    "reason": "known_map",
+    "confidence": "high",
     "industry": {
       "level1": "汽车",
       "level2": "整车/零部件"
     },
-    "candidates": [],
+    "candidates": [
+      "启明星辰信息技术集团股份有限公司"
+    ],
     "sources": []
   },
   {
     "alias": "Palo Alto Networks",
-    "fullName": "",
-    "reason": "error:URLError",
-    "confidence": "low",
+    "fullName": "Palo Alto Networks",
+    "reason": "local_fuzzy",
+    "confidence": "medium",
     "industry": {
       "level1": "汽车",
       "level2": "整车/零部件"
     },
-    "candidates": [],
+    "candidates": [
+      "Palo Alto Networks"
+    ],
     "sources": []
   },
   {
     "alias": "Fortinet",
-    "fullName": "",
-    "reason": "error:URLError",
-    "confidence": "low",
+    "fullName": "Fortinet",
+    "reason": "local_fuzzy",
+    "confidence": "medium",
     "industry": {
       "level1": "汽车",
       "level2": "整车/零部件"
     },
-    "candidates": [],
+    "candidates": [
+      "Fortinet"
+    ],
     "sources": []
   },
   {
     "alias": "Check Point",
-    "fullName": "",
-    "reason": "error:URLError",
-    "confidence": "low",
+    "fullName": "Check Point",
+    "reason": "local_fuzzy",
+    "confidence": "medium",
     "industry": {
       "level1": "汽车",
       "level2": "整车/零部件"
     },
-    "candidates": [],
+    "candidates": [
+      "Check Point"
+    ],
     "sources": []
   },
   {
     "alias": "Yazaki矢崎",
-    "fullName": "",
-    "reason": "error:URLError",
-    "confidence": "low",
+    "fullName": "Yazaki矢崎",
+    "reason": "local_fuzzy",
+    "confidence": "medium",
     "industry": {
       "level1": "汽车",
       "level2": "整车/零部件"
     },
-    "candidates": [],
+    "candidates": [
+      "Yazaki矢崎"
+    ],
     "sources": []
   },
   {
     "alias": "住友电工",
-    "fullName": "",
-    "reason": "error:URLError",
-    "confidence": "low",
+    "fullName": "住友电工管理（上海）有限公司",
+    "reason": "known_map",
+    "confidence": "high",
     "industry": {
       "level1": "汽车",
       "level2": "整车/零部件"
     },
-    "candidates": [],
+    "candidates": [
+      "住友电工管理（上海）有限公司"
+    ],
     "sources": []
   },
   {
     "alias": "Leoni莱尼",
-    "fullName": "",
-    "reason": "error:URLError",
-    "confidence": "low",
+    "fullName": "Leoni莱尼",
+    "reason": "local_fuzzy",
+    "confidence": "medium",
     "industry": {
       "level1": "汽车",
       "level2": "整车/零部件"
     },
-    "candidates": [],
+    "candidates": [
+      "Leoni莱尼"
+    ],
     "sources": []
   },
   {
     "alias": "李尔",
-    "fullName": "",
-    "reason": "error:URLError",
-    "confidence": "low",
+    "fullName": "李尔",
+    "reason": "local_fuzzy",
+    "confidence": "medium",
     "industry": {
       "level1": "汽车",
       "level2": "整车/零部件"
     },
-    "candidates": [],
+    "candidates": [
+      "李尔"
+    ],
     "sources": []
   },
   {
     "alias": "古河电工",
-    "fullName": "",
-    "reason": "error:URLError",
-    "confidence": "low",
+    "fullName": "古河电工（上海）有限公司",
+    "reason": "known_map",
+    "confidence": "high",
     "industry": {
       "level1": "汽车",
       "level2": "整车/零部件"
     },
-    "candidates": [],
+    "candidates": [
+      "古河电工（上海）有限公司"
+    ],
     "sources": []
   },
   {
     "alias": "藤仓",
-    "fullName": "",
-    "reason": "error:URLError",
-    "confidence": "low",
+    "fullName": "南京华信藤仓光通信有限公司",
+    "reason": "local_fuzzy",
+    "confidence": "medium",
     "industry": {
       "level1": "汽车",
       "level2": "整车/零部件"
     },
-    "candidates": [],
+    "candidates": [
+      "南京华信藤仓光通信有限公司"
+    ],
     "sources": []
   },
   {
     "alias": "TE Connectivity",
-    "fullName": "",
-    "reason": "error:URLError",
-    "confidence": "low",
+    "fullName": "TE Connectivity",
+    "reason": "local_fuzzy",
+    "confidence": "medium",
     "industry": {
       "level1": "汽车",
       "level2": "整车/零部件"
     },
-    "candidates": [],
+    "candidates": [
+      "TE Connectivity"
+    ],
     "sources": []
   },
   {
     "alias": "安费诺",
-    "fullName": "",
-    "reason": "error:URLError",
-    "confidence": "low",
+    "fullName": "安费诺（中国）投资有限公司",
+    "reason": "known_map",
+    "confidence": "high",
     "industry": {
       "level1": "汽车",
       "level2": "整车/零部件"
     },
-    "candidates": [],
+    "candidates": [
+      "安费诺（中国）投资有限公司"
+    ],
     "sources": []
   },
   {
     "alias": "莫仕",
-    "fullName": "",
-    "reason": "error:URLError",
-    "confidence": "low",
+    "fullName": "莫仕连接器（成都）有限公司",
+    "reason": "known_map",
+    "confidence": "high",
     "industry": {
       "level1": "汽车",
       "level2": "整车/零部件"
     },
-    "candidates": [],
+    "candidates": [
+      "莫仕连接器（成都）有限公司"
+    ],
     "sources": []
   },
   {
     "alias": "Motherson",
-    "fullName": "",
-    "reason": "error:URLError",
-    "confidence": "low",
+    "fullName": "Motherson",
+    "reason": "local_fuzzy",
+    "confidence": "medium",
     "industry": {
       "level1": "汽车",
       "level2": "整车/零部件"
     },
-    "candidates": [],
+    "candidates": [
+      "Motherson"
+    ],
     "sources": []
   },
   {
     "alias": "Kromberg & Schubert",
-    "fullName": "",
-    "reason": "error:URLError",
-    "confidence": "low",
+    "fullName": "Kromberg & Schubert",
+    "reason": "local_fuzzy",
+    "confidence": "medium",
     "industry": {
       "level1": "汽车",
       "level2": "整车/零部件"
     },
-    "candidates": [],
+    "candidates": [
+      "Kromberg & Schubert"
+    ],
     "sources": []
   },
   {
     "alias": "PKC Group",
-    "fullName": "",
-    "reason": "error:URLError",
-    "confidence": "low",
+    "fullName": "PKC Group",
+    "reason": "local_fuzzy",
+    "confidence": "medium",
     "industry": {
       "level1": "汽车",
       "level2": "整车/零部件"
     },
-    "candidates": [],
+    "candidates": [
+      "PKC Group"
+    ],
     "sources": []
   },
   {
     "alias": "立讯精密",
-    "fullName": "",
-    "reason": "error:URLError",
-    "confidence": "low",
+    "fullName": "立讯精密工业股份有限公司",
+    "reason": "known_map",
+    "confidence": "high",
     "industry": {
       "level1": "汽车",
       "level2": "整车/零部件"
     },
-    "candidates": [],
+    "candidates": [
+      "立讯精密工业股份有限公司"
+    ],
     "sources": []
   },
   {
     "alias": "中航光电",
-    "fullName": "",
-    "reason": "error:URLError",
-    "confidence": "low",
+    "fullName": "中航光电科技股份有限公司",
+    "reason": "known_map",
+    "confidence": "high",
     "industry": {
       "level1": "汽车",
       "level2": "整车/零部件"
     },
-    "candidates": [],
+    "candidates": [
+      "中航光电科技股份有限公司"
+    ],
     "sources": []
   },
   {
     "alias": "得润电子",
-    "fullName": "",
-    "reason": "error:URLError",
-    "confidence": "low",
+    "fullName": "深圳市得润电子股份有限公司",
+    "reason": "known_map",
+    "confidence": "high",
     "industry": {
       "level1": "汽车",
       "level2": "整车/零部件"
     },
-    "candidates": [],
+    "candidates": [
+      "深圳市得润电子股份有限公司"
+    ],
     "sources": []
   },
   {
     "alias": "沪光股份",
-    "fullName": "",
-    "reason": "error:URLError",
-    "confidence": "low",
+    "fullName": "昆山沪光汽车电器股份有限公司",
+    "reason": "known_map",
+    "confidence": "high",
     "industry": {
       "level1": "汽车",
       "level2": "整车/零部件"
     },
-    "candidates": [],
+    "candidates": [
+      "昆山沪光汽车电器股份有限公司"
+    ],
     "sources": []
   },
   {
     "alias": "天海电器",
-    "fullName": "",
-    "reason": "error:URLError",
-    "confidence": "low",
+    "fullName": "天海汽车电子集团股份有限公司",
+    "reason": "known_map",
+    "confidence": "high",
     "industry": {
       "level1": "汽车",
       "level2": "整车/零部件"
     },
-    "candidates": [],
+    "candidates": [
+      "天海汽车电子集团股份有限公司"
+    ],
     "sources": []
   },
   {
     "alias": "长盈精密",
-    "fullName": "",
-    "reason": "error:URLError",
-    "confidence": "low",
+    "fullName": "深圳市长盈精密技术股份有限公司",
+    "reason": "known_map",
+    "confidence": "high",
     "industry": {
       "level1": "汽车",
       "level2": "整车/零部件"
     },
-    "candidates": [],
+    "candidates": [
+      "深圳市长盈精密技术股份有限公司"
+    ],
     "sources": []
   },
   {
     "alias": "亨通光电",
-    "fullName": "",
-    "reason": "error:URLError",
-    "confidence": "low",
+    "fullName": "江苏亨通光电股份有限公司",
+    "reason": "known_map",
+    "confidence": "high",
     "industry": {
       "level1": "汽车",
       "level2": "整车/零部件"
     },
-    "candidates": [],
+    "candidates": [
+      "江苏亨通光电股份有限公司"
+    ],
     "sources": []
   },
   {
     "alias": "中天科技",
-    "fullName": "",
-    "reason": "error:URLError",
-    "confidence": "low",
+    "fullName": "江苏中天科技股份有限公司",
+    "reason": "known_map",
+    "confidence": "high",
     "industry": {
       "level1": "汽车",
       "level2": "整车/零部件"
     },
-    "candidates": [],
+    "candidates": [
+      "江苏中天科技股份有限公司"
+    ],
     "sources": []
   },
   {
     "alias": "长飞光纤",
-    "fullName": "",
-    "reason": "error:URLError",
-    "confidence": "low",
+    "fullName": "长飞光纤光缆股份有限公司",
+    "reason": "known_map",
+    "confidence": "high",
     "industry": {
       "level1": "汽车",
       "level2": "整车/零部件"
     },
-    "candidates": [],
+    "candidates": [
+      "长飞光纤光缆股份有限公司"
+    ],
     "sources": []
   },
   {
     "alias": "航天电器",
-    "fullName": "",
-    "reason": "error:URLError",
-    "confidence": "low",
+    "fullName": "贵州航天电器股份有限公司",
+    "reason": "known_map",
+    "confidence": "high",
     "industry": {
       "level1": "汽车",
       "level2": "整车/零部件"
     },
-    "candidates": [],
+    "candidates": [
+      "贵州航天电器股份有限公司"
+    ],
     "sources": []
   },
   {
     "alias": "永贵电器",
-    "fullName": "",
-    "reason": "error:URLError",
-    "confidence": "low",
+    "fullName": "浙江永贵电器股份有限公司",
+    "reason": "known_map",
+    "confidence": "high",
     "industry": {
       "level1": "汽车",
       "level2": "整车/零部件"
     },
-    "candidates": [],
+    "candidates": [
+      "浙江永贵电器股份有限公司"
+    ],
     "sources": []
   },
   {
     "alias": "瑞可达",
-    "fullName": "",
-    "reason": "error:URLError",
-    "confidence": "low",
+    "fullName": "苏州瑞可达连接系统股份有限公司",
+    "reason": "known_map",
+    "confidence": "high",
     "industry": {
       "level1": "汽车",
       "level2": "整车/零部件"
     },
-    "candidates": [],
+    "candidates": [
+      "苏州瑞可达连接系统股份有限公司"
+    ],
     "sources": []
   },
   {
     "alias": "电连技术",
-    "fullName": "",
-    "reason": "error:URLError",
-    "confidence": "low",
+    "fullName": "深圳市电连技术股份有限公司",
+    "reason": "known_map",
+    "confidence": "high",
     "industry": {
       "level1": "汽车",
       "level2": "整车/零部件"
     },
-    "candidates": [],
+    "candidates": [
+      "深圳市电连技术股份有限公司"
+    ],
     "sources": []
   },
   {
     "alias": "罗森伯格",
-    "fullName": "",
-    "reason": "error:URLError",
-    "confidence": "low",
+    "fullName": "罗森伯格",
+    "reason": "local_fuzzy",
+    "confidence": "medium",
     "industry": {
       "level1": "汽车",
       "level2": "整车/零部件"
     },
-    "candidates": [],
+    "candidates": [
+      "罗森伯格"
+    ],
     "sources": []
   },
   {
     "alias": "Huber+Suhner",
-    "fullName": "",
-    "reason": "error:URLError",
-    "confidence": "low",
+    "fullName": "Huber+Suhner",
+    "reason": "local_fuzzy",
+    "confidence": "medium",
     "industry": {
       "level1": "汽车",
       "level2": "整车/零部件"
     },
-    "candidates": [],
+    "candidates": [
+      "Huber+Suhner"
+    ],
     "sources": []
   }
 ]
