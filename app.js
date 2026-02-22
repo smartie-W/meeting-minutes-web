@@ -616,7 +616,9 @@ function buildEnrichedIndustryMap() {
 
   const cached = loadIndustryKnowledgeCache();
   Object.entries(cached.companyIndustryMap || {}).forEach(([name, industry]) => {
-    merged[name] = normalizeIndustryPair(industry);
+    if (!merged[name]) {
+      merged[name] = normalizeIndustryPair(industry);
+    }
   });
 
   return merged;
