@@ -1186,6 +1186,7 @@ async function handleSaveRecord(event) {
 
 function resetForm() {
   el.form.reset();
+  applySalesNameRule();
   el.recordId.value = "";
   resetParticipantSections();
   resetMigrationSources();
