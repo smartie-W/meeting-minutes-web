@@ -780,6 +780,11 @@ async function handleSaveRecord(event) {
     updatedAt: new Date().toISOString(),
   };
 
+  customerNames.forEach((name) => {
+    const mapped = customerIndustries[name] || { level1: industryLevel1, level2: industryLevel2 };
+    updateIndustryKnowledgeCache(name, mapped, customerNames);
+  });
+
   if (
     !record.salesName ||
     !record.meetingMode ||
@@ -1697,13 +1702,52 @@ async function lookupCompanyInfoOnline(customerName) {
     const text = [data.Heading, data.AbstractText, ...related].filter(Boolean).join(" ");
     const inferred = inferIndustryFromText(text);
     const fullNames = extractCompanyFullNames([data.Heading, data.AbstractText, ...related]);
+    const resolved = inferred || inferIndustryByCustomer(customerName);
+    updateIndustryKnowledgeCache(customerName, resolved, fullNames);
     return {
-      industry: inferred || inferIndustryByCustomer(customerName),
+      industry: resolved,
       fullNames,
     };
   } finally {
     clearTimeout(timer);
   }
+}
+
+function loadIndustryKnowledgeCache() {
+  try {
+    const raw = localStorage.getItem(INDUSTRY_KNOWLEDGE_CACHE_KEY);
+    if (!raw) return { companyIndustryMap: {} };
+    const parsed = JSON.parse(raw);
+    if (!parsed || typeof parsed !== "object") return { companyIndustryMap: {} };
+    return {
+      companyIndustryMap: parsed.companyIndustryMap && typeof parsed.companyIndustryMap === "object"
+        ? parsed.companyIndustryMap
+        : {},
+    };
+  } catch {
+    return { companyIndustryMap: {} };
+  }
+}
+
+function saveIndustryKnowledgeCache(cache) {
+  localStorage.setItem(INDUSTRY_KNOWLEDGE_CACHE_KEY, JSON.stringify(cache));
+}
+
+function updateIndustryKnowledgeCache(inputName, industry, fullNames = []) {
+  const normalized = normalizeIndustryPair(industry);
+  if (normalized.level1 === "未知" && normalized.level2 === "未知") return;
+
+  const cache = loadIndustryKnowledgeCache();
+  const names = [inputName, ...(Array.isArray(fullNames) ? fullNames : [])]
+    .map((x) => String(x || "").trim())
+    .filter(Boolean);
+
+  names.forEach((name) => {
+    cache.companyIndustryMap[name] = normalized;
+    ENRICHED_CUSTOMER_INDUSTRY_MAP[name] = normalized;
+  });
+
+  saveIndustryKnowledgeCache(cache);
 }
 
 function extractCompanyFullNames(textList) {
