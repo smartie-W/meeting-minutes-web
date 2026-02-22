@@ -884,6 +884,7 @@ function boot() {
   fillAiConfigInputs();
   resetParticipantSections();
   resetMigrationSources();
+  applySalesNameRule();
   applyDeployCoopRule();
   ensureMeetingTimeDefault();
   clearDraft();
@@ -910,8 +911,13 @@ function bindEvents() {
   el.meetingContent.addEventListener("input", () => autoGrowLongInput(el.meetingContent));
   el.nextActions.addEventListener("input", () => autoGrowLongInput(el.nextActions));
   el.customerName.addEventListener("input", scheduleIndustryLookup);
-  el.salesName.addEventListener("input", () => {
+  el.salesName.addEventListener("change", () => {
+    applySalesNameRule();
+    scheduleDraftSave();
+  });
+  el.salesNameOther.addEventListener("input", () => {
     syncArParticipantNames();
+    scheduleDraftSave();
   });
   el.ourParticipants.addEventListener("focusin", () => {
     syncArParticipantNames();
