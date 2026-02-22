@@ -2428,19 +2428,27 @@ function applyOurParticipantNameRule(row) {
       nameField.replaceWith(input);
     }
     const input = row.querySelector(".participant-name");
-    input.value = el.salesName.value.trim();
+    input.value = getSalesNameValue();
     input.readOnly = true;
     return;
   }
 
-  if (role === "SR") {
+  const roleNameOptions = role === "SR"
+    ? SR_NAME_OPTIONS
+    : (role === "FP-PM" || role === "FR-PM")
+      ? FP_PM_NAME_OPTIONS
+      : (role === "FP-实施" || role === "FR-实施")
+        ? FP_IMPL_NAME_OPTIONS
+        : null;
+
+  if (roleNameOptions) {
     if (nameField.tagName === "INPUT") {
       const custom = currentName;
-      if (custom && !SR_NAME_OPTIONS.includes(custom)) {
+      if (custom && !roleNameOptions.includes(custom)) {
         nameField.readOnly = false;
         return;
       }
-      const select = createSrNameSelect(custom);
+      const select = createRoleNameSelect(roleNameOptions, custom);
       select.addEventListener("change", () => {
         if (select.value === "其他人") {
           const input = createNameInput("");
@@ -2468,6 +2476,43 @@ function syncArParticipantNames() {
   el.ourParticipants.querySelectorAll(".participant-row").forEach((row) => {
     applyOurParticipantNameRule(row);
   });
+}
+
+function getSalesNameValue() {
+  if (el.salesName.value === "其他人") {
+    return String(el.salesNameOther.value || "").trim();
+  }
+  return String(el.salesName.value || "").trim();
+}
+
+function setSalesNameControlValue(value) {
+  const text = String(value || "").trim();
+  if (!text) {
+    el.salesName.value = "";
+    el.salesNameOther.value = "";
+    applySalesNameRule();
+    return;
+  }
+  if (SALES_AR_OPTIONS.includes(text) && text !== "其他人") {
+    el.salesName.value = text;
+    el.salesNameOther.value = "";
+  } else {
+    el.salesName.value = "其他人";
+    el.salesNameOther.value = text;
+  }
+  applySalesNameRule();
+}
+
+function applySalesNameRule() {
+  if (el.salesName.value === "其他人") {
+    el.salesNameOther.style.display = "";
+    el.salesNameOther.required = true;
+  } else {
+    el.salesNameOther.style.display = "none";
+    el.salesNameOther.required = false;
+    el.salesNameOther.value = "";
+  }
+  syncArParticipantNames();
 }
 
 function inferIndustryChain(customerName, industry) {
