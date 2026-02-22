@@ -1125,7 +1125,7 @@ async function handleSaveRecord(event) {
 
   const record = {
     id: el.recordId.value || crypto.randomUUID(),
-    salesName: el.salesName.value.trim(),
+    salesName: getSalesNameValue(),
     meetingMode: el.meetingMode.value,
     meetingTime: el.meetingTime.value,
     meetingLocation: el.meetingLocation.value.trim(),
