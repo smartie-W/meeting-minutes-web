@@ -1459,13 +1459,15 @@ function getHistoryVisibleRecords() {
     }
     if (frImpl) {
       const frImplMatched = (record.ourParticipants || []).some(
-        (item) => item?.role === "FR-实施" && String(item?.name || "").toLowerCase().includes(frImpl),
+        (item) => (item?.role === "FR-实施" || item?.role === "FP-实施")
+          && String(item?.name || "").toLowerCase().includes(frImpl),
       );
       if (!frImplMatched) return false;
     }
     if (frPm) {
       const frPmMatched = (record.ourParticipants || []).some(
-        (item) => item?.role === "FR-PM" && String(item?.name || "").toLowerCase().includes(frPm),
+        (item) => (item?.role === "FR-PM" || item?.role === "FP-PM")
+          && String(item?.name || "").toLowerCase().includes(frPm),
       );
       if (!frPmMatched) return false;
     }
