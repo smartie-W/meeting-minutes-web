@@ -77,6 +77,9 @@ const CUSTOMER_INDUSTRY_MAP = {
   "概伦电子": { level1: "电子信息", level2: "半导体EDA" },
   "荣耀": { level1: "消费电子", level2: "智能终端" },
   "荣耀终端股份有限公司": { level1: "消费电子", level2: "智能终端" },
+  "内蒙古蒙泰集团有限公司": { level1: "能源", level2: "煤炭能源" },
+  "蒙泰集团": { level1: "能源", level2: "煤炭能源" },
+  "蒙泰": { level1: "能源", level2: "煤炭能源" },
 };
 
 const KNOWN_CUSTOMER_FULLNAMES = [
@@ -220,6 +223,8 @@ const COMPANY_ALIAS_FULLNAME_MAP = {
   "天正": "浙江天正电气股份有限公司",
   "荣耀": "荣耀终端股份有限公司",
   "概伦电子": "上海概伦电子技术股份有限公司",
+  "蒙泰": "内蒙古蒙泰集团有限公司",
+  "蒙泰集团": "内蒙古蒙泰集团有限公司",
 };
 
 const INDUSTRY_KEYWORD_RULES = [
