@@ -20,6 +20,24 @@ AUTO_KEYWORDS = [
     "汽车", "零部件", "车载", "座舱", "底盘", "转向", "制动", "热管理", "智能驾驶", "自动驾驶", "轮胎", "线束", "电驱", "动力总成"
 ]
 
+AUTO_DRIVE_ALIASES = {
+    "mobileye", "nvidia", "高通", "ti", "恩智浦", "英飞凌", "st", "瑞萨", "momenta", "百度apollo",
+    "小马智行", "文远知行", "地平线", "黑芝麻智能", "芯驰科技", "芯擎科技", "禾赛", "速腾聚创",
+}
+MAP_ALIASES = {"here", "tomtom", "高德", "百度地图"}
+CLOUD_ALIASES = {"阿里云", "腾讯云", "百度智能云", "aws", "azure"}
+CYBER_ALIASES = {"绿盟科技", "奇安信", "启明星辰", "palo alto networks", "fortinet", "check point"}
+BASIC_SW_ALIASES = {"tttech auto", "elektrobit", "wind river", "qnx", "vector", "etas"}
+COCKPIT_ALIASES = {"伟世通", "哈曼", "华阳", "东软", "亿咖通", "斑马智行", "百度小度", "中科创达", "阿尔派", "先锋", "forvia"}
+DISPLAY_ALIASES = {"京东方", "tcl华星", "天马", "维信诺"}
+OPTIC_ALIASES = {"舜宇", "欧菲光", "联创电子", "歌尔", "瑞声", "水晶光电", "adi", "cirrus logic", "杜比", "intel"}
+WIRE_CONNECT_ALIASES = {
+    "yazaki矢崎", "住友电工", "leoni莱尼", "李尔", "古河电工", "藤仓", "te connectivity", "安费诺",
+    "莫仕", "motherson", "kromberg & schubert", "pkc group", "立讯精密", "中航光电", "得润电子",
+    "沪光股份", "天海电器", "长盈精密", "亨通光电", "中天科技", "长飞光纤", "航天电器", "永贵电器",
+    "瑞可达", "电连技术", "罗森伯格", "huber+suhner",
+}
+
 KNOWN_ALIAS_FULLNAME = {
     "博世": "博世（中国）投资有限公司",
     "大陆": "大陆投资（中国）有限公司",
@@ -247,6 +265,30 @@ def pick_local_full_name(alias: str, overrides_keys):
 
 def infer_industry(alias: str, full_name: str, results):
     text = " ".join([alias, full_name] + [f"{x.get('title','')} {x.get('snippet','')}" for x in results])
+    a = alias.strip().lower()
+    fn = full_name.strip().lower()
+
+    def in_set(name_set):
+        return a in name_set or fn in name_set
+
+    if in_set(AUTO_DRIVE_ALIASES) or "自动驾驶" in text or "智驾" in text:
+        return {"level1": "新兴重点产业", "level2": "自动驾驶"}
+    if in_set(MAP_ALIASES):
+        return {"level1": "新兴重点产业", "level2": "自动驾驶"}
+    if in_set(BASIC_SW_ALIASES):
+        return {"level1": "软件服务", "level2": "车载基础软件"}
+    if in_set(CLOUD_ALIASES):
+        return {"level1": "软件服务", "level2": "云平台"}
+    if in_set(CYBER_ALIASES):
+        return {"level1": "网络安全", "level2": "信息安全"}
+    if in_set(COCKPIT_ALIASES):
+        return {"level1": "汽车", "level2": "智能座舱"}
+    if in_set(DISPLAY_ALIASES):
+        return {"level1": "汽车", "level2": "车载显示"}
+    if in_set(OPTIC_ALIASES):
+        return {"level1": "汽车", "level2": "智能传感器"}
+    if in_set(WIRE_CONNECT_ALIASES):
+        return {"level1": "汽车", "level2": "线束与连接器"}
     if "自动驾驶" in text or "智驾" in text:
         return {"level1": "新兴重点产业", "level2": "自动驾驶"}
     if any(k in text for k in AUTO_KEYWORDS):
