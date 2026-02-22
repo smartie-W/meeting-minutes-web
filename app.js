@@ -16,6 +16,7 @@ const MANAGER_LOGIN_PASSWORD_HASH = "93067cdf900054c81ef9fc1a87a7c7c08bdf614b467
 const MIGRATION_SOURCE_OPTIONS = ["无", "Jira", "Cf", "禅道", "pingcode", "TB", "飞书项目", "飞书知识库", "Tapd"];
 const MIGRATION_VERSION_OPTIONS = ["无", "私有部署买断", "私有部署按年订阅", "公有云版本"];
 const OUR_PARTICIPANT_ROLE_OPTIONS = ["AR", "SR", "FR-实施", "FR-PM", "运维", "技术", "产品", "测试"];
+const SR_NAME_OPTIONS = ["刘磊云", "吴雯", "董晓红", "罗丹", "其他人"];
 const CUSTOMER_INDUSTRY_MAP = {
   "阿里巴巴": { level1: "互联网", level2: "电商平台" },
   "腾讯": { level1: "互联网", level2: "社交平台" },
@@ -1628,7 +1629,7 @@ function addParticipantRow(container, role = "", name = "") {
     });
     roleSelect.value = OUR_PARTICIPANT_ROLE_OPTIONS.includes(role) ? role : "";
     roleSelect.addEventListener("change", () => {
-      applyArRoleNameRule(row);
+      applyOurParticipantNameRule(row);
       scheduleDraftSave();
     });
     roleField = roleSelect;
@@ -1640,18 +1641,40 @@ function addParticipantRow(container, role = "", name = "") {
   }
   roleField.className = "participant-role";
 
-  const nameInput = document.createElement("input");
-  nameInput.className = "participant-name";
-  nameInput.placeholder = "姓名";
-  nameInput.value = name;
-
   row.appendChild(roleField);
-  row.appendChild(nameInput);
+  row.appendChild(createNameInput(name));
   container.appendChild(row);
   if (isOurParticipants) {
-    applyArRoleNameRule(row);
+    applyOurParticipantNameRule(row);
   }
   scheduleDraftSave();
+}
+
+function createNameInput(value = "") {
+  const input = document.createElement("input");
+  input.className = "participant-name";
+  input.placeholder = "姓名";
+  input.value = value;
+  return input;
+}
+
+function createSrNameSelect(value = "") {
+  const select = document.createElement("select");
+  select.className = "participant-name";
+
+  const empty = document.createElement("option");
+  empty.value = "";
+  empty.textContent = "姓名";
+  select.appendChild(empty);
+
+  SR_NAME_OPTIONS.forEach((name) => {
+    const op = document.createElement("option");
+    op.value = name;
+    op.textContent = name;
+    select.appendChild(op);
+  });
+  select.value = SR_NAME_OPTIONS.includes(value) ? value : "";
+  return select;
 }
 
 function readParticipants(container) {
@@ -2341,21 +2364,58 @@ function applyMeetingModeLocationRule({ force = false } = {}) {
   }
 }
 
-function applyArRoleNameRule(row) {
+function applyOurParticipantNameRule(row) {
   const roleSelect = row?.querySelector(".participant-role");
-  const nameInput = row?.querySelector(".participant-name");
-  if (!roleSelect || !nameInput) return;
-  if (roleSelect.value === "AR") {
-    nameInput.value = el.salesName.value.trim();
-    nameInput.readOnly = true;
+  const nameField = row?.querySelector(".participant-name");
+  if (!roleSelect || !nameField) return;
+  const role = roleSelect.value;
+  const currentName = String(nameField.value || "").trim();
+
+  if (role === "AR") {
+    if (nameField.tagName !== "INPUT") {
+      const input = createNameInput(currentName);
+      nameField.replaceWith(input);
+    }
+    const input = row.querySelector(".participant-name");
+    input.value = el.salesName.value.trim();
+    input.readOnly = true;
     return;
   }
-  nameInput.readOnly = false;
+
+  if (role === "SR") {
+    if (nameField.tagName === "INPUT") {
+      const custom = currentName;
+      if (custom && !SR_NAME_OPTIONS.includes(custom)) {
+        nameField.readOnly = false;
+        return;
+      }
+      const select = createSrNameSelect(custom);
+      select.addEventListener("change", () => {
+        if (select.value === "其他人") {
+          const input = createNameInput("");
+          select.replaceWith(input);
+          input.focus();
+        }
+        scheduleDraftSave();
+      });
+      nameField.replaceWith(select);
+      return;
+    }
+    // keep select editable with options
+    return;
+  }
+
+  if (nameField.tagName !== "INPUT") {
+    const input = createNameInput(currentName);
+    nameField.replaceWith(input);
+  }
+  const input = row.querySelector(".participant-name");
+  input.readOnly = false;
 }
 
 function syncArParticipantNames() {
   el.ourParticipants.querySelectorAll(".participant-row").forEach((row) => {
-    applyArRoleNameRule(row);
+    applyOurParticipantNameRule(row);
   });
 }
 
