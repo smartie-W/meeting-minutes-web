@@ -355,6 +355,19 @@ function buildEnrichedIndustryMap() {
     if (inferred) merged[name] = inferred;
   });
 
+  INDUSTRY_CLASSIFICATION_RULES.forEach((rule) => {
+    (rule.peers || []).forEach((name) => {
+      if (!merged[name]) {
+        merged[name] = { level1: rule.level1, level2: rule.level2 };
+      }
+    });
+  });
+
+  const cached = loadIndustryKnowledgeCache();
+  Object.entries(cached.companyIndustryMap || {}).forEach(([name, industry]) => {
+    merged[name] = normalizeIndustryPair(industry);
+  });
+
   return merged;
 }
 
