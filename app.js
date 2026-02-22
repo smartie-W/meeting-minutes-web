@@ -263,6 +263,23 @@ const INDUSTRY_KEYWORD_RULES = [
   { keys: ["研究院", "研究所", "大学", "学院"], level1: "教育科研", level2: "高校/科研" },
   { keys: ["信息安全", "网络安全", "安防"], level1: "网络安全", level2: "信息安全" },
   { keys: ["通信技术", "通信科技"], level1: "ICT", level2: "通信技术服务" },
+  { keys: ["运动", "体育", "球鞋", "跑鞋", "服饰"], level1: "消费品", level2: "运动服饰" },
+  { keys: ["服装", "纺织", "鞋业"], level1: "消费品", level2: "服装纺织" },
+  { keys: ["矿业", "煤业", "煤矿"], level1: "能源", level2: "煤炭能源" },
+  { keys: ["酒业", "白酒", "啤酒"], level1: "消费品", level2: "酒类" },
+  { keys: ["连锁", "门店", "便利店"], level1: "零售", level2: "连锁零售" },
+  { keys: ["家居", "家装"], level1: "消费品", level2: "家居家装" },
+  { keys: ["酒店", "文旅", "旅游"], level1: "服务业", level2: "文旅酒店" },
+  { keys: ["教育科技", "教培"], level1: "教育", level2: "教育服务" },
+];
+
+const INDUSTRY_BRAND_RULES = [
+  { keys: ["安踏", "李宁", "特步", "361度", "匹克", "鸿星尔克", "耐克", "阿迪达斯"], level1: "消费品", level2: "运动服饰" },
+  { keys: ["海底捞", "九毛九", "西贝"], level1: "消费品", level2: "餐饮连锁" },
+  { keys: ["瑞幸", "蜜雪冰城", "奈雪", "喜茶"], level1: "消费品", level2: "茶饮咖啡" },
+  { keys: ["伊利", "蒙牛", "君乐宝"], level1: "消费品", level2: "乳制品" },
+  { keys: ["茅台", "五粮液", "泸州老窖", "洋河"], level1: "消费品", level2: "酒类" },
+  { keys: ["万华化学", "恒力石化", "荣盛石化"], level1: "制造", level2: "化工材料" },
 ];
 
 
@@ -1522,6 +1539,15 @@ function inferIndustryByCustomer(customerName) {
     }
   }
 
+  for (const rule of INDUSTRY_BRAND_RULES) {
+    if (rule.keys.some((k) => normalizedName.includes(normalizeCompanyNameText(k)))) {
+      return { level1: rule.level1, level2: rule.level2 };
+    }
+  }
+
+  const inferredFromHistory = inferIndustryFromHistory(name);
+  if (inferredFromHistory) return inferredFromHistory;
+
   for (const rule of INDUSTRY_KEYWORD_RULES) {
     if (rule.keys.some((k) => name.includes(k))) {
       return { level1: rule.level1, level2: rule.level2 };
@@ -1542,6 +1568,35 @@ function normalizeCompanyNameText(value) {
     .replaceAll("集团有限公司", "")
     .replaceAll("有限公司", "")
     .replaceAll("集团", "");
+}
+
+function inferIndustryFromHistory(customerName) {
+  const normalized = normalizeCompanyNameText(customerName);
+  if (!normalized || !Array.isArray(state.records) || !state.records.length) return null;
+
+  const counts = new Map();
+  state.records.forEach((record) => {
+    const names = Array.isArray(record.customerNames) ? record.customerNames : [];
+    names.forEach((name) => {
+      const candidate = normalizeCompanyNameText(name);
+      if (!candidate) return;
+      const matched = candidate.includes(normalized) || normalized.includes(candidate);
+      if (!matched) return;
+
+      const industry = normalizeIndustryPair(
+        (record.customerIndustries && record.customerIndustries[name])
+          || { level1: record.industryLevel1, level2: record.industryLevel2 },
+      );
+      if (industry.level1 === "未知" && industry.level2 === "未知") return;
+      const key = `${industry.level1}|${industry.level2}`;
+      counts.set(key, (counts.get(key) || 0) + 1);
+    });
+  });
+
+  if (!counts.size) return null;
+  const [top] = [...counts.entries()].sort((a, b) => b[1] - a[1])[0];
+  const [level1, level2] = top.split("|");
+  return { level1, level2 };
 }
 
 function inferIndustryFromText(text) {
