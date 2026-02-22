@@ -2341,7 +2341,7 @@ function restoreDraft() {
     if (!draft || typeof draft !== "object") return;
 
     el.recordId.value = String(draft.recordId || "");
-    el.salesName.value = String(draft.salesName || "");
+    setSalesNameControlValue(String(draft.salesName || ""));
     el.meetingMode.value = String(draft.meetingMode || "");
     el.customerName.value = String(draft.customerName || "");
     el.industryLevel1.value = String(draft.industryLevel1 || "");
