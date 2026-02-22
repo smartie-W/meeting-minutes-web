@@ -144,6 +144,7 @@ const CUSTOMER_INDUSTRY_MAP = {
   "蒙泰集团": { level1: "能源", level2: "煤炭能源" },
   "蒙泰": { level1: "能源", level2: "煤炭能源" },
 };
+const XLSX_CUSTOMER_INDUSTRY_OVERRIDES = window.XLSX_CUSTOMER_INDUSTRY_OVERRIDES || {};
 
 const KNOWN_CUSTOMER_FULLNAMES = [
   "上海维科精密模塑股份有限公司",
@@ -476,6 +477,10 @@ const INDUSTRY_PEER_COMPANIES = {
 
 function buildEnrichedIndustryMap() {
   const merged = { ...CUSTOMER_INDUSTRY_MAP };
+
+  Object.entries(XLSX_CUSTOMER_INDUSTRY_OVERRIDES).forEach(([name, industry]) => {
+    merged[name] = normalizeIndustryPair(industry);
+  });
 
   Object.entries(INDUSTRY_PEER_COMPANIES).forEach(([pair, companies]) => {
     const [level1, level2] = pair.split("|");
