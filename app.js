@@ -345,6 +345,23 @@ const COMPANY_ALIAS_NOISE_WORDS = [
   "发展",
 ];
 
+const COMPANY_ALIAS_SUFFIX_WORDS = [
+  "集成电路",
+  "半导体",
+  "微电子",
+  "电子",
+  "芯片",
+  "电路",
+  "智能",
+  "制造",
+  "科技",
+  "技术",
+  "贸易",
+  "装备",
+  "软件",
+  "信息",
+];
+
 
 const INDUSTRY_PEER_COMPANIES = {
   "金融|银行": ["交通银行", "中国银行", "浦发银行", "兴业银行", "民生银行", "中信银行", "光大银行", "北京银行", "宁波银行", "江苏银行", "杭州银行", "南京银行", "上海银行", "浙商银行", "渤海银行"],
@@ -1579,11 +1596,13 @@ async function refreshIndustryByCustomer() {
     const output = onlineResult.industry || fallback;
     el.industryLevel1.value = output.level1;
     el.industryLevel2.value = output.level2;
+    updateIndustryKnowledgeCache(customerName, output, onlineResult.fullNames || []);
     renderCompanyNameSuggestions(customerName, onlineResult.fullNames || []);
   } catch {
     if (seq !== industryLookupSeq) return;
     el.industryLevel1.value = fallback.level1;
     el.industryLevel2.value = fallback.level2;
+    updateIndustryKnowledgeCache(customerName, fallback, []);
     renderCompanyNameSuggestions(customerName, []);
   }
 }
@@ -1694,15 +1713,33 @@ function buildAutoAliasIndustryMap(companyIndustryMap) {
 
 function registerCompanyAlias(aliasMap, name, industry) {
   const normalizedIndustry = normalizeIndustryPair(industry);
+  const candidates = buildAliasCandidates(name);
+  candidates.forEach((alias) => {
+    if (alias && alias.length >= 2 && !aliasMap[alias]) {
+      aliasMap[alias] = normalizedIndustry;
+    }
+  });
+}
+
+function buildAliasCandidates(name) {
+  const set = new Set();
+  const normalizedName = normalizeCompanyNameText(name);
   const core = extractCoreCompanyAlias(name);
-  if (core && core.length >= 2 && !aliasMap[core]) {
-    aliasMap[core] = normalizedIndustry;
+  if (core) set.add(core);
+  if (normalizedName) set.add(normalizedName);
+
+  let stripped = core || normalizedName;
+  COMPANY_ALIAS_SUFFIX_WORDS.forEach((word) => {
+    stripped = stripped.replaceAll(normalizeCompanyNameText(word), "");
+  });
+  if (stripped) {
+    set.add(stripped);
+    if (stripped.length >= 3) set.add(stripped.slice(0, 3));
+    if (stripped.length >= 4) set.add(stripped.slice(0, 4));
+    if (stripped.length >= 5) set.add(stripped.slice(0, 5));
   }
 
-  const normalizedName = normalizeCompanyNameText(name);
-  if (normalizedName && normalizedName.length >= 2 && !aliasMap[normalizedName]) {
-    aliasMap[normalizedName] = normalizedIndustry;
-  }
+  return [...set].filter(Boolean);
 }
 
 function inferIndustryFromHistory(customerName) {
