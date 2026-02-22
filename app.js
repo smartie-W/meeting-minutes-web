@@ -496,6 +496,7 @@ const INDUSTRY_KEYWORD_RULES = [
   { keys: ["电力", "电网"], level1: "能源", level2: "电力" },
   { keys: ["石油", "石化", "天然气", "煤"], level1: "能源", level2: "油气化工" },
   { keys: ["制药", "药业", "生物"], level1: "医疗健康", level2: "生物医药" },
+  { keys: ["基因", "测序", "分子诊断"], level1: "医疗健康", level2: "基因科技/测序" },
   { keys: ["医院", "医疗器械"], level1: "医疗健康", level2: "医疗服务/器械" },
   { keys: ["汽车", "汽配"], level1: "汽车", level2: "整车/零部件" },
   { keys: ["新能源车", "动力电池"], level1: "汽车", level2: "新能源汽车" },
