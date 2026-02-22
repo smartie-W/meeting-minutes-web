@@ -32,7 +32,17 @@
               <div class="grid-2">
                 <div>
                   <label for="sales-name">AR</label>
-                  <input id="sales-name" required />
+                  <select id="sales-name" required>
+                    <option value="" selected disabled>请选择AR</option>
+                    <option value="唐龙军">唐龙军</option>
+                    <option value="李彤">李彤</option>
+                    <option value="周思">周思</option>
+                    <option value="郭淼">郭淼</option>
+                    <option value="张柳云">张柳云</option>
+                    <option value="王雪靖">王雪靖</option>
+                    <option value="其他人">其他人</option>
+                  </select>
+                  <input id="sales-name-other" placeholder="请输入AR姓名" style="display:none; margin-top:8px;" />
                 </div>
                 <div>
                   <label for="meeting-mode">会议方式</label>
