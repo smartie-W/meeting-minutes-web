@@ -2437,35 +2437,46 @@ function applyOurParticipantNameRule(row) {
 
   const roleNameOptions = role === "SR"
     ? SR_NAME_OPTIONS
-    : (role === "FP-PM" || role === "FR-PM")
+    : (role === "FR-PM")
       ? FP_PM_NAME_OPTIONS
-      : (role === "FP-实施" || role === "FR-实施")
+      : (role === "FR-实施")
         ? FP_IMPL_NAME_OPTIONS
         : null;
 
   if (roleNameOptions) {
-    if (nameField.tagName === "INPUT") {
-      const custom = currentName;
-      if (custom && !roleNameOptions.includes(custom)) {
-        nameField.readOnly = false;
-        return;
-      }
-      const select = createRoleNameSelect(roleNameOptions, custom);
+    const customRole = row.dataset.customNameRole || "";
+    const isCurrentCustom = nameField.tagName === "INPUT" && customRole === role;
+    if (isCurrentCustom) {
+      nameField.readOnly = false;
+      return;
+    }
+
+    const selectRole = nameField.tagName === "SELECT" ? (nameField.dataset.roleFor || "") : "";
+    const shouldRebuildSelect = nameField.tagName !== "SELECT" || selectRole !== role;
+    if (shouldRebuildSelect) {
+      const select = createRoleNameSelect(roleNameOptions, currentName);
+      select.dataset.roleFor = role;
       select.addEventListener("change", () => {
         if (select.value === "其他人") {
+          row.dataset.customNameRole = role;
           const input = createNameInput("");
           select.replaceWith(input);
           input.focus();
+        } else {
+          row.dataset.customNameRole = "";
         }
         scheduleDraftSave();
       });
       nameField.replaceWith(select);
-      return;
+    } else {
+      nameField.value = roleNameOptions.includes(currentName) ? currentName : "";
+      nameField.dataset.roleFor = role;
     }
-    // keep select editable with options
+    row.dataset.customNameRole = "";
     return;
   }
 
+  row.dataset.customNameRole = "";
   if (nameField.tagName !== "INPUT") {
     const input = createNameInput(currentName);
     nameField.replaceWith(input);
