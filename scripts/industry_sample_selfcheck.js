@@ -77,6 +77,14 @@ const SAMPLE_CASES = [
   { industry: "机器人机械臂", input: "遨博", expected: "新兴重点产业/机器人机械臂" },
   { industry: "机器人机械臂", input: "大族机器人", expected: "新兴重点产业/机器人机械臂" },
   { industry: "机器人机械臂", input: "智元创新", expected: "新兴重点产业/机器人机械臂" },
+  { industry: "机器人机械臂", input: "宇树科技", expected: "新兴重点产业/机器人机械臂" },
+  { industry: "机器人机械臂", input: "宇树科技股份有限公司", expected: "新兴重点产业/机器人机械臂" },
+  { industry: "机器人机械臂", input: "Unitree", expected: "新兴重点产业/机器人机械臂" },
+  { industry: "机器人机械臂", input: "优必选", expected: "新兴重点产业/机器人机械臂" },
+  { industry: "机器人机械臂", input: "越疆", expected: "新兴重点产业/机器人机械臂" },
+  { industry: "机器人机械臂", input: "傅利叶智能", expected: "新兴重点产业/机器人机械臂" },
+  { industry: "机器人机械臂", input: "云深处", expected: "新兴重点产业/机器人机械臂" },
+  { industry: "机器人机械臂", input: "梅卡曼德", expected: "新兴重点产业/机器人机械臂" },
 ];
 
 function resolveIndustry(name) {
