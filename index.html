@@ -365,7 +365,24 @@
 
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
-    <script src="./data/xlsx_customer_industry_overrides.js"></script>
-    <script src="./app.js"></script>
+    <script>
+      (function loadLatestScripts() {
+        const bust = String(Date.now());
+        const load = (src) => new Promise((resolve, reject) => {
+          const s = document.createElement("script");
+          s.src = src;
+          s.onload = resolve;
+          s.onerror = reject;
+          document.body.appendChild(s);
+        });
+        load("./data/xlsx_customer_industry_overrides.js?v=" + bust)
+          .then(() => load("./app.js?v=" + bust))
+          .catch(() => {
+            // fallback without query params
+            load("./data/xlsx_customer_industry_overrides.js")
+              .then(() => load("./app.js"));
+          });
+      }());
+    </script>
   </body>
 </html>
