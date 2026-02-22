@@ -25,6 +25,9 @@ const SAMPLE_CASES = [
   { industry: "消费电子", input: "小米", expected: "消费电子/智能终端" },
   { industry: "消费电子", input: "OPPO", expected: "消费电子/智能终端" },
   { industry: "消费电子", input: "vivo", expected: "消费电子/智能终端" },
+  { industry: "医疗健康", input: "华大基因", expected: "医疗健康/基因科技/测序" },
+  { industry: "医疗健康", input: "深圳华大基因股份有限公司", expected: "医疗健康/基因科技/测序" },
+  { industry: "医疗健康", input: "华大智造", expected: "医疗健康/基因科技/测序" },
 
   { industry: "智能制造", input: "汇川技术", expected: "第二产业/电子与高端制造" },
   { industry: "智能制造", input: "埃斯顿", expected: "第二产业/电子与高端制造" },
