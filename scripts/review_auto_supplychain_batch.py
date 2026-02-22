@@ -30,6 +30,64 @@ KNOWN_ALIAS_FULLNAME = {
     "麦格纳": "麦格纳汽车技术（上海）有限公司",
     "日立安斯泰莫": "日立安斯泰莫汽车系统（中国）有限公司",
     "伟世通": "伟世通亚太（上海）有限公司",
+    "哈曼": "哈曼（中国）投资有限公司",
+    "高通": "高通无线通信技术（中国）有限公司",
+    "恩智浦": "恩智浦半导体（中国）有限公司",
+    "英飞凌": "英飞凌科技（中国）有限公司",
+    "瑞萨": "瑞萨电子（中国）有限公司",
+    "德赛西威": "惠州市德赛西威汽车电子股份有限公司",
+    "经纬恒润": "北京经纬恒润科技股份有限公司",
+    "小马智行": "小马智行科技有限公司",
+    "文远知行": "文远知行科技有限公司",
+    "地平线": "地平线机器人技术研发有限公司",
+    "四维图新": "北京四维图新科技股份有限公司",
+    "千方科技": "北京千方科技股份有限公司",
+    "禾赛": "禾赛科技有限公司",
+    "速腾聚创": "深圳市速腾聚创科技有限公司",
+    "华域汽车": "华域汽车系统股份有限公司",
+    "联创电子": "联创电子科技股份有限公司",
+    "舜宇": "宁波舜宇光学科技（集团）有限公司",
+    "欧菲光": "欧菲光集团股份有限公司",
+    "保隆科技": "上海保隆汽车科技股份有限公司",
+    "均胜电子": "宁波均胜电子股份有限公司",
+    "万集科技": "北京万集科技股份有限公司",
+    "移远通信": "上海移远通信技术股份有限公司",
+    "广和通": "深圳市广和通无线股份有限公司",
+    "华测导航": "上海华测导航技术股份有限公司",
+    "北斗星通": "北京北斗星通导航技术股份有限公司",
+    "华阳": "惠州市华阳集团股份有限公司",
+    "东软": "东软集团股份有限公司",
+    "亿咖通": "亿咖通（上海）技术有限公司",
+    "科大讯飞": "科大讯飞股份有限公司",
+    "中科创达": "中科创达软件股份有限公司",
+    "京东方": "京东方科技集团股份有限公司",
+    "天马": "天马微电子股份有限公司",
+    "维信诺": "维信诺科技股份有限公司",
+    "歌尔": "歌尔股份有限公司",
+    "瑞声": "瑞声科技控股有限公司",
+    "水晶光电": "浙江水晶光电科技股份有限公司",
+    "联发科": "联发科技股份有限公司",
+    "紫光展锐": "紫光展锐（上海）科技股份有限公司",
+    "绿盟科技": "北京神州绿盟科技有限公司",
+    "奇安信": "奇安信科技集团股份有限公司",
+    "启明星辰": "启明星辰信息技术集团股份有限公司",
+    "住友电工": "住友电工管理（上海）有限公司",
+    "古河电工": "古河电工（上海）有限公司",
+    "安费诺": "安费诺（中国）投资有限公司",
+    "莫仕": "莫仕连接器（成都）有限公司",
+    "立讯精密": "立讯精密工业股份有限公司",
+    "中航光电": "中航光电科技股份有限公司",
+    "得润电子": "深圳市得润电子股份有限公司",
+    "沪光股份": "昆山沪光汽车电器股份有限公司",
+    "天海电器": "天海汽车电子集团股份有限公司",
+    "长盈精密": "深圳市长盈精密技术股份有限公司",
+    "亨通光电": "江苏亨通光电股份有限公司",
+    "中天科技": "江苏中天科技股份有限公司",
+    "长飞光纤": "长飞光纤光缆股份有限公司",
+    "航天电器": "贵州航天电器股份有限公司",
+    "永贵电器": "浙江永贵电器股份有限公司",
+    "瑞可达": "苏州瑞可达连接系统股份有限公司",
+    "电连技术": "深圳市电连技术股份有限公司",
 }
 
 
@@ -159,6 +217,34 @@ def pick_full_name(alias: str, candidates):
     return best, why
 
 
+def pick_local_full_name(alias: str, overrides_keys):
+    if alias in KNOWN_ALIAS_FULLNAME:
+        return KNOWN_ALIAS_FULLNAME[alias], "known_map"
+
+    cands = []
+    for n in overrides_keys:
+        if not n:
+            continue
+        if alias in n and len(n) <= 40:
+            cands.append(n)
+    if not cands:
+        return "", "no_local_candidate"
+
+    def score(name: str):
+        s = 0
+        if alias in name:
+            s += 6
+        if any(k in name for k in ["股份有限公司", "有限责任公司", "有限公司", "集团"]):
+            s += 3
+        if any(k in name for k in ["汽车", "电子", "科技", "系统", "连接", "电器", "通信"]):
+            s += 1
+        s -= max(0, len(name) - 24) * 0.1
+        return s
+
+    cands.sort(key=score, reverse=True)
+    return cands[0], "local_fuzzy"
+
+
 def infer_industry(alias: str, full_name: str, results):
     text = " ".join([alias, full_name] + [f"{x.get('title','')} {x.get('snippet','')}" for x in results])
     if "自动驾驶" in text or "智驾" in text:
@@ -177,9 +263,27 @@ def main():
     xlsx = Path(args.xlsx)
     aliases = parse_xlsx_aliases(xlsx)
 
+    overrides_path = Path("data/xlsx_customer_industry_overrides.json")
+    overrides = json.loads(overrides_path.read_text(encoding="utf-8")) if overrides_path.exists() else {}
+    overrides_keys = list(overrides.keys())
+
     review = []
     for i, alias in enumerate(aliases, 1):
         print(f"[{i}/{len(aliases)}] {alias}")
+        local_name, local_reason = pick_local_full_name(alias, overrides_keys)
+        if local_name:
+            industry = infer_industry(alias, local_name, [])
+            confidence = "high" if local_reason == "known_map" else "medium"
+            review.append({
+                "alias": alias,
+                "fullName": local_name,
+                "reason": local_reason,
+                "confidence": confidence,
+                "industry": industry,
+                "candidates": [local_name],
+                "sources": [],
+            })
+            continue
         try:
             results = fetch_bing(alias)
             candidates = extract_company_names(results)
@@ -234,8 +338,6 @@ def main():
     out_md.write_text("\n".join(lines) + "\n", encoding="utf-8")
 
     # apply into overrides (alias + full name)
-    overrides_path = data_dir / "xlsx_customer_industry_overrides.json"
-    overrides = json.loads(overrides_path.read_text(encoding="utf-8")) if overrides_path.exists() else {}
     add = 0
     for r in review:
         ind = {"level1": r["industry"]["level1"], "level2": r["industry"]["level2"]}
