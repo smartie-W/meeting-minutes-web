@@ -1813,7 +1813,7 @@ async function refreshIndustryByCustomer() {
   try {
     const onlineResult = await lookupCompanyInfoOnline(customerName);
     if (seq !== industryLookupSeq) return;
-    const output = onlineResult.industry || fallback;
+    const output = pickMoreReliableIndustry(fallback, onlineResult.industry);
     el.industryLevel1.value = output.level1;
     el.industryLevel2.value = output.level2;
     updateIndustryKnowledgeCache(customerName, output, onlineResult.fullNames || []);
@@ -1825,6 +1825,24 @@ async function refreshIndustryByCustomer() {
     updateIndustryKnowledgeCache(customerName, fallback, []);
     renderCompanyNameSuggestions(customerName, []);
   }
+}
+
+function pickMoreReliableIndustry(fallbackIndustry, onlineIndustry) {
+  const fallback = normalizeIndustryPair(fallbackIndustry);
+  const online = normalizeIndustryPair(onlineIndustry);
+  const fallbackUnknown = fallback.level1 === "未知" && fallback.level2 === "未知";
+  const onlineUnknown = online.level1 === "未知" && online.level2 === "未知";
+
+  if (onlineUnknown) return fallback;
+  if (fallbackUnknown) return online;
+
+  const fallbackChip = `${fallback.level1}|${fallback.level2}`.includes("半导体") || `${fallback.level1}|${fallback.level2}`.includes("芯片");
+  const onlineGenericSoftware = online.level1 === "软件服务" && online.level2 === "企业软件/SaaS";
+  if (fallbackChip && onlineGenericSoftware) {
+    return fallback;
+  }
+
+  return online;
 }
 
 function inferIndustriesByCustomers(customers) {
