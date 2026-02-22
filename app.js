@@ -2311,7 +2311,7 @@ function scheduleDraftSave() {
 function saveDraft() {
   const draft = {
     recordId: el.recordId.value,
-    salesName: el.salesName.value,
+    salesName: getSalesNameValue(),
     meetingMode: el.meetingMode.value,
     customerName: el.customerName.value,
     industryLevel1: el.industryLevel1.value,
