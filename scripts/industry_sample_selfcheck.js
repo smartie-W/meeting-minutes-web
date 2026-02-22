@@ -20,6 +20,8 @@ const aliasMap = readConstObject("COMPANY_ALIAS_FULLNAME_MAP");
 
 const SAMPLE_CASES = [
   { industry: "消费电子", input: "荣耀", expected: "消费电子/智能终端" },
+  { industry: "消费电子", input: "星纪魅族", expected: "消费电子/智能终端" },
+  { industry: "消费电子", input: "魅族", expected: "消费电子/智能终端" },
   { industry: "消费电子", input: "小米", expected: "消费电子/智能终端" },
   { industry: "消费电子", input: "OPPO", expected: "消费电子/智能终端" },
   { industry: "消费电子", input: "vivo", expected: "消费电子/智能终端" },
