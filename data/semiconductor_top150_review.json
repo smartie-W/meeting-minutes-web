@@ -1,0 +1,1652 @@
+[
+  {
+    "rank": "1",
+    "name": "中芯国际",
+    "detail": "晶圆代工",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "芯片制造"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "2",
+    "name": "华虹集团",
+    "detail": "晶圆制造",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "芯片制造"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "3",
+    "name": "长江存储",
+    "detail": "存储芯片制造",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "芯片制造"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "4",
+    "name": "北方华创",
+    "detail": "半导体设备",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "半导体设备"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "5",
+    "name": "中微公司",
+    "detail": "半导体设备",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "半导体设备"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "6",
+    "name": "长电科技",
+    "detail": "封装测试",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "封装测试"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "7",
+    "name": "通富微电",
+    "detail": "封装测试",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "封装测试"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "8",
+    "name": "华天科技",
+    "detail": "封装测试",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "封装测试"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "9",
+    "name": "兆易创新",
+    "detail": "存储/MCU设计",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "芯片设计"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "10",
+    "name": "韦尔股份",
+    "detail": "图像传感器/芯片设计",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "芯片设计"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "11",
+    "name": "紫光国微",
+    "detail": "集成电路设计/设备/材料相关",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "半导体设备"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "12",
+    "name": "寒武纪",
+    "detail": "集成电路设计/设备/材料相关",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "半导体设备"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "13",
+    "name": "澜起科技",
+    "detail": "集成电路设计/设备/材料相关",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "半导体设备"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "14",
+    "name": "龙芯中科",
+    "detail": "集成电路设计/设备/材料相关",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "半导体设备"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "15",
+    "name": "卓胜微",
+    "detail": "集成电路设计/设备/材料相关",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "半导体设备"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "16",
+    "name": "汇顶科技",
+    "detail": "集成电路设计/设备/材料相关",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "半导体设备"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "17",
+    "name": "圣邦股份",
+    "detail": "集成电路设计/设备/材料相关",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "半导体设备"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "18",
+    "name": "北京君正",
+    "detail": "集成电路设计/设备/材料相关",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "半导体设备"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "19",
+    "name": "格科微",
+    "detail": "集成电路设计/设备/材料相关",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "半导体设备"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "20",
+    "name": "思瑞浦",
+    "detail": "集成电路设计/设备/材料相关",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "半导体设备"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "21",
+    "name": "南芯科技",
+    "detail": "集成电路设计/设备/材料相关",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "半导体设备"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "22",
+    "name": "芯原股份",
+    "detail": "集成电路设计/设备/材料相关",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "半导体设备"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "23",
+    "name": "全志科技",
+    "detail": "集成电路设计/设备/材料相关",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "半导体设备"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "24",
+    "name": "瑞芯微",
+    "detail": "集成电路设计/设备/材料相关",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "半导体设备"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "25",
+    "name": "晶晨股份",
+    "detail": "集成电路设计/设备/材料相关",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "半导体设备"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "26",
+    "name": "士兰微",
+    "detail": "集成电路设计/设备/材料相关",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "半导体设备"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "27",
+    "name": "华润微",
+    "detail": "集成电路设计/设备/材料相关",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "半导体设备"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "28",
+    "name": "比亚迪半导体",
+    "detail": "集成电路设计/设备/材料相关",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "半导体设备"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "29",
+    "name": "三安光电",
+    "detail": "集成电路设计/设备/材料相关",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "半导体设备"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "30",
+    "name": "沪硅产业",
+    "detail": "集成电路设计/设备/材料相关",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "半导体设备"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "31",
+    "name": "拓荆科技",
+    "detail": "集成电路设计/设备/材料相关",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "半导体设备"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "32",
+    "name": "盛美上海",
+    "detail": "集成电路设计/设备/材料相关",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "半导体设备"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "33",
+    "name": "华海清科",
+    "detail": "集成电路设计/设备/材料相关",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "半导体设备"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "34",
+    "name": "长川科技",
+    "detail": "集成电路设计/设备/材料相关",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "半导体设备"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "35",
+    "name": "中科飞测",
+    "detail": "集成电路设计/设备/材料相关",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "半导体设备"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "36",
+    "name": "雅克科技",
+    "detail": "集成电路设计/设备/材料相关",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "半导体设备"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "37",
+    "name": "鼎龙股份",
+    "detail": "集成电路设计/设备/材料相关",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "半导体设备"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "38",
+    "name": "天岳先进",
+    "detail": "集成电路设计/设备/材料相关",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "半导体设备"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "39",
+    "name": "南大光电",
+    "detail": "集成电路设计/设备/材料相关",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "半导体设备"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "40",
+    "name": "佰维存储",
+    "detail": "集成电路设计/设备/材料相关",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "半导体设备"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "41",
+    "name": "乐鑫科技",
+    "detail": "集成电路设计/设备/材料相关",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "半导体设备"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "42",
+    "name": "地平线",
+    "detail": "集成电路设计/设备/材料相关",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "半导体设备"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "43",
+    "name": "紫光展锐",
+    "detail": "集成电路设计/设备/材料相关",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "半导体设备"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "44",
+    "name": "复旦微电",
+    "detail": "集成电路设计/设备/材料相关",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "半导体设备"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "45",
+    "name": "上海贝岭",
+    "detail": "集成电路设计/设备/材料相关",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "半导体设备"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "46",
+    "name": "捷捷微电",
+    "detail": "集成电路设计/设备/材料相关",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "半导体设备"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "47",
+    "name": "国博电子",
+    "detail": "集成电路设计/设备/材料相关",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "半导体设备"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "48",
+    "name": "芯源微",
+    "detail": "集成电路设计/设备/材料相关",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "半导体设备"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "49",
+    "name": "国内半导体企业49",
+    "detail": "半导体相关业务",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "半导体与芯片"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "50",
+    "name": "国内半导体企业50",
+    "detail": "半导体相关业务",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "半导体与芯片"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "51",
+    "name": "国内半导体企业51",
+    "detail": "半导体相关业务",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "半导体与芯片"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "52",
+    "name": "国内半导体企业52",
+    "detail": "半导体相关业务",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "半导体与芯片"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "53",
+    "name": "国内半导体企业53",
+    "detail": "半导体相关业务",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "半导体与芯片"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "54",
+    "name": "国内半导体企业54",
+    "detail": "半导体相关业务",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "半导体与芯片"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "55",
+    "name": "国内半导体企业55",
+    "detail": "半导体相关业务",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "半导体与芯片"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "56",
+    "name": "国内半导体企业56",
+    "detail": "半导体相关业务",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "半导体与芯片"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "57",
+    "name": "国内半导体企业57",
+    "detail": "半导体相关业务",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "半导体与芯片"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "58",
+    "name": "国内半导体企业58",
+    "detail": "半导体相关业务",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "半导体与芯片"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "59",
+    "name": "国内半导体企业59",
+    "detail": "半导体相关业务",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "半导体与芯片"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "60",
+    "name": "国内半导体企业60",
+    "detail": "半导体相关业务",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "半导体与芯片"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "61",
+    "name": "国内半导体企业61",
+    "detail": "半导体相关业务",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "半导体与芯片"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "62",
+    "name": "国内半导体企业62",
+    "detail": "半导体相关业务",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "半导体与芯片"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "63",
+    "name": "国内半导体企业63",
+    "detail": "半导体相关业务",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "半导体与芯片"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "64",
+    "name": "国内半导体企业64",
+    "detail": "半导体相关业务",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "半导体与芯片"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "65",
+    "name": "国内半导体企业65",
+    "detail": "半导体相关业务",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "半导体与芯片"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "66",
+    "name": "国内半导体企业66",
+    "detail": "半导体相关业务",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "半导体与芯片"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "67",
+    "name": "国内半导体企业67",
+    "detail": "半导体相关业务",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "半导体与芯片"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "68",
+    "name": "国内半导体企业68",
+    "detail": "半导体相关业务",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "半导体与芯片"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "69",
+    "name": "国内半导体企业69",
+    "detail": "半导体相关业务",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "半导体与芯片"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "70",
+    "name": "国内半导体企业70",
+    "detail": "半导体相关业务",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "半导体与芯片"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "71",
+    "name": "国内半导体企业71",
+    "detail": "半导体相关业务",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "半导体与芯片"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "72",
+    "name": "国内半导体企业72",
+    "detail": "半导体相关业务",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "半导体与芯片"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "73",
+    "name": "国内半导体企业73",
+    "detail": "半导体相关业务",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "半导体与芯片"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "74",
+    "name": "国内半导体企业74",
+    "detail": "半导体相关业务",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "半导体与芯片"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "75",
+    "name": "国内半导体企业75",
+    "detail": "半导体相关业务",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "半导体与芯片"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "76",
+    "name": "国内半导体企业76",
+    "detail": "半导体相关业务",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "半导体与芯片"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "77",
+    "name": "国内半导体企业77",
+    "detail": "半导体相关业务",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "半导体与芯片"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "78",
+    "name": "国内半导体企业78",
+    "detail": "半导体相关业务",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "半导体与芯片"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "79",
+    "name": "国内半导体企业79",
+    "detail": "半导体相关业务",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "半导体与芯片"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "80",
+    "name": "国内半导体企业80",
+    "detail": "半导体相关业务",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "半导体与芯片"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "81",
+    "name": "国内半导体企业81",
+    "detail": "半导体相关业务",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "半导体与芯片"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "82",
+    "name": "国内半导体企业82",
+    "detail": "半导体相关业务",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "半导体与芯片"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "83",
+    "name": "国内半导体企业83",
+    "detail": "半导体相关业务",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "半导体与芯片"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "84",
+    "name": "国内半导体企业84",
+    "detail": "半导体相关业务",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "半导体与芯片"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "85",
+    "name": "国内半导体企业85",
+    "detail": "半导体相关业务",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "半导体与芯片"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "86",
+    "name": "国内半导体企业86",
+    "detail": "半导体相关业务",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "半导体与芯片"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "87",
+    "name": "国内半导体企业87",
+    "detail": "半导体相关业务",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "半导体与芯片"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "88",
+    "name": "国内半导体企业88",
+    "detail": "半导体相关业务",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "半导体与芯片"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "89",
+    "name": "国内半导体企业89",
+    "detail": "半导体相关业务",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "半导体与芯片"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "90",
+    "name": "国内半导体企业90",
+    "detail": "半导体相关业务",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "半导体与芯片"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "91",
+    "name": "国内半导体企业91",
+    "detail": "半导体相关业务",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "半导体与芯片"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "92",
+    "name": "国内半导体企业92",
+    "detail": "半导体相关业务",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "半导体与芯片"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "93",
+    "name": "国内半导体企业93",
+    "detail": "半导体相关业务",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "半导体与芯片"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "94",
+    "name": "国内半导体企业94",
+    "detail": "半导体相关业务",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "半导体与芯片"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "95",
+    "name": "国内半导体企业95",
+    "detail": "半导体相关业务",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "半导体与芯片"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "96",
+    "name": "国内半导体企业96",
+    "detail": "半导体相关业务",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "半导体与芯片"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "97",
+    "name": "国内半导体企业97",
+    "detail": "半导体相关业务",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "半导体与芯片"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "98",
+    "name": "国内半导体企业98",
+    "detail": "半导体相关业务",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "半导体与芯片"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "99",
+    "name": "国内半导体企业99",
+    "detail": "半导体相关业务",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "半导体与芯片"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "100",
+    "name": "国内半导体企业100",
+    "detail": "半导体相关业务",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "半导体与芯片"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "101",
+    "name": "国内半导体企业101",
+    "detail": "半导体相关业务",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "半导体与芯片"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "102",
+    "name": "国内半导体企业102",
+    "detail": "半导体相关业务",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "半导体与芯片"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "103",
+    "name": "国内半导体企业103",
+    "detail": "半导体相关业务",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "半导体与芯片"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "104",
+    "name": "国内半导体企业104",
+    "detail": "半导体相关业务",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "半导体与芯片"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "105",
+    "name": "国内半导体企业105",
+    "detail": "半导体相关业务",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "半导体与芯片"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "106",
+    "name": "国内半导体企业106",
+    "detail": "半导体相关业务",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "半导体与芯片"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "107",
+    "name": "国内半导体企业107",
+    "detail": "半导体相关业务",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "半导体与芯片"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "108",
+    "name": "国内半导体企业108",
+    "detail": "半导体相关业务",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "半导体与芯片"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "109",
+    "name": "国内半导体企业109",
+    "detail": "半导体相关业务",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "半导体与芯片"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "110",
+    "name": "国内半导体企业110",
+    "detail": "半导体相关业务",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "半导体与芯片"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "111",
+    "name": "国内半导体企业111",
+    "detail": "半导体相关业务",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "半导体与芯片"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "112",
+    "name": "国内半导体企业112",
+    "detail": "半导体相关业务",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "半导体与芯片"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "113",
+    "name": "国内半导体企业113",
+    "detail": "半导体相关业务",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "半导体与芯片"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "114",
+    "name": "国内半导体企业114",
+    "detail": "半导体相关业务",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "半导体与芯片"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "115",
+    "name": "国内半导体企业115",
+    "detail": "半导体相关业务",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "半导体与芯片"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "116",
+    "name": "国内半导体企业116",
+    "detail": "半导体相关业务",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "半导体与芯片"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "117",
+    "name": "国内半导体企业117",
+    "detail": "半导体相关业务",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "半导体与芯片"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "118",
+    "name": "国内半导体企业118",
+    "detail": "半导体相关业务",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "半导体与芯片"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "119",
+    "name": "国内半导体企业119",
+    "detail": "半导体相关业务",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "半导体与芯片"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "120",
+    "name": "国内半导体企业120",
+    "detail": "半导体相关业务",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "半导体与芯片"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "121",
+    "name": "国内半导体企业121",
+    "detail": "半导体相关业务",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "半导体与芯片"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "122",
+    "name": "国内半导体企业122",
+    "detail": "半导体相关业务",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "半导体与芯片"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "123",
+    "name": "国内半导体企业123",
+    "detail": "半导体相关业务",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "半导体与芯片"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "124",
+    "name": "国内半导体企业124",
+    "detail": "半导体相关业务",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "半导体与芯片"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "125",
+    "name": "国内半导体企业125",
+    "detail": "半导体相关业务",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "半导体与芯片"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "126",
+    "name": "国内半导体企业126",
+    "detail": "半导体相关业务",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "半导体与芯片"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "127",
+    "name": "国内半导体企业127",
+    "detail": "半导体相关业务",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "半导体与芯片"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "128",
+    "name": "国内半导体企业128",
+    "detail": "半导体相关业务",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "半导体与芯片"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "129",
+    "name": "国内半导体企业129",
+    "detail": "半导体相关业务",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "半导体与芯片"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "130",
+    "name": "国内半导体企业130",
+    "detail": "半导体相关业务",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "半导体与芯片"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "131",
+    "name": "国内半导体企业131",
+    "detail": "半导体相关业务",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "半导体与芯片"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "132",
+    "name": "国内半导体企业132",
+    "detail": "半导体相关业务",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "半导体与芯片"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "133",
+    "name": "国内半导体企业133",
+    "detail": "半导体相关业务",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "半导体与芯片"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "134",
+    "name": "国内半导体企业134",
+    "detail": "半导体相关业务",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "半导体与芯片"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "135",
+    "name": "国内半导体企业135",
+    "detail": "半导体相关业务",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "半导体与芯片"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "136",
+    "name": "国内半导体企业136",
+    "detail": "半导体相关业务",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "半导体与芯片"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "137",
+    "name": "国内半导体企业137",
+    "detail": "半导体相关业务",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "半导体与芯片"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "138",
+    "name": "国内半导体企业138",
+    "detail": "半导体相关业务",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "半导体与芯片"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "139",
+    "name": "国内半导体企业139",
+    "detail": "半导体相关业务",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "半导体与芯片"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "140",
+    "name": "国内半导体企业140",
+    "detail": "半导体相关业务",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "半导体与芯片"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "141",
+    "name": "国内半导体企业141",
+    "detail": "半导体相关业务",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "半导体与芯片"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "142",
+    "name": "国内半导体企业142",
+    "detail": "半导体相关业务",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "半导体与芯片"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "143",
+    "name": "国内半导体企业143",
+    "detail": "半导体相关业务",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "半导体与芯片"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "144",
+    "name": "国内半导体企业144",
+    "detail": "半导体相关业务",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "半导体与芯片"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "145",
+    "name": "国内半导体企业145",
+    "detail": "半导体相关业务",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "半导体与芯片"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "146",
+    "name": "国内半导体企业146",
+    "detail": "半导体相关业务",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "半导体与芯片"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "147",
+    "name": "国内半导体企业147",
+    "detail": "半导体相关业务",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "半导体与芯片"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "148",
+    "name": "国内半导体企业148",
+    "detail": "半导体相关业务",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "半导体与芯片"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "149",
+    "name": "国内半导体企业149",
+    "detail": "半导体相关业务",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "半导体与芯片"
+    },
+    "current": null,
+    "status": "missing"
+  },
+  {
+    "rank": "150",
+    "name": "国内半导体企业150",
+    "detail": "半导体相关业务",
+    "expected": {
+      "level1": "新兴重点产业",
+      "level2": "半导体与芯片"
+    },
+    "current": null,
+    "status": "missing"
+  }
+]
