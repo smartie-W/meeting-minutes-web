@@ -1894,9 +1894,20 @@ function pickMoreReliableIndustry(fallbackIndustry, onlineIndustry) {
   if (onlineUnknown) return fallback;
   if (fallbackUnknown) return online;
 
-  const fallbackChip = `${fallback.level1}|${fallback.level2}`.includes("半导体") || `${fallback.level1}|${fallback.level2}`.includes("芯片");
+  const fallbackText = `${fallback.level1}|${fallback.level2}`;
+  const onlineText = `${online.level1}|${online.level2}`;
+  const fallbackChip = fallbackText.includes("半导体") || fallbackText.includes("芯片");
+  const onlineChip = onlineText.includes("半导体") || onlineText.includes("芯片");
+  const fallbackBio = fallbackText.includes("生物") || fallbackText.includes("基因") || fallbackText.includes("医疗");
+  const onlineBio = onlineText.includes("生物") || onlineText.includes("基因") || onlineText.includes("医疗");
   const onlineGenericSoftware = online.level1 === "软件服务" && online.level2 === "企业软件/SaaS";
   if (fallbackChip && onlineGenericSoftware) {
+    return fallback;
+  }
+  if (fallbackBio && onlineChip) {
+    return fallback;
+  }
+  if (fallbackChip && onlineBio) {
     return fallback;
   }
 
