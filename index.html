@@ -368,20 +368,27 @@
     <script>
       (function loadLatestScripts() {
         const bust = String(Date.now());
-        const load = (src) => new Promise((resolve, reject) => {
+        const loaded = new Set();
+
+        const loadOnce = (key, src) => new Promise((resolve, reject) => {
+          if (loaded.has(key)) {
+            resolve();
+            return;
+          }
           const s = document.createElement("script");
           s.src = src;
-          s.onload = resolve;
+          s.onload = () => {
+            loaded.add(key);
+            resolve();
+          };
           s.onerror = reject;
           document.body.appendChild(s);
         });
-        load("./data/xlsx_customer_industry_overrides.js?v=" + bust)
-          .then(() => load("./app.js?v=" + bust))
-          .catch(() => {
-            // fallback without query params
-            load("./data/xlsx_customer_industry_overrides.js")
-              .then(() => load("./app.js"));
-          });
+
+        loadOnce("overrides", "./data/xlsx_customer_industry_overrides.js?v=" + bust)
+          .catch(() => loadOnce("overrides", "./data/xlsx_customer_industry_overrides.js"))
+          .then(() => loadOnce("app", "./app.js?v=" + bust))
+          .catch(() => loadOnce("app", "./app.js"));
       }());
     </script>
   </body>
