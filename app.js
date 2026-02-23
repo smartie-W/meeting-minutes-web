@@ -2138,7 +2138,11 @@ function pickMoreReliableIndustry(fallbackIndustry, onlineIndustry) {
   const fallbackBio = fallbackText.includes("生物") || fallbackText.includes("基因") || fallbackText.includes("医疗");
   const onlineBio = onlineText.includes("生物") || onlineText.includes("基因") || onlineText.includes("医疗");
   const onlineGenericSoftware = online.level1 === "软件服务" && online.level2 === "企业软件/SaaS";
+  const fallbackLikelySoftware = isLikelySoftwareCompanyName(fallbackText);
   if (fallbackChip && onlineGenericSoftware) {
+    return fallback;
+  }
+  if (!fallbackLikelySoftware && onlineGenericSoftware && !fallbackUnknown) {
     return fallback;
   }
   if (fallbackBio && onlineChip) {
@@ -2175,7 +2179,13 @@ function inferIndustryByCustomer(customerName) {
   const knownCandidates = getLocalFullNameCandidates(name);
 
   for (const fullName of knownCandidates) {
-    if (ENRICHED_CUSTOMER_INDUSTRY_MAP[fullName]) return ENRICHED_CUSTOMER_INDUSTRY_MAP[fullName];
+    if (ENRICHED_CUSTOMER_INDUSTRY_MAP[fullName]) {
+      const knownIndustry = ENRICHED_CUSTOMER_INDUSTRY_MAP[fullName];
+      if (isGenericSoftwareIndustry(knownIndustry) && !isLikelySoftwareCompanyName(name)) {
+        continue;
+      }
+      return knownIndustry;
+    }
   }
 
   const inferredFromKnown = inferIndustryFromText(knownCandidates.join(" "));
@@ -2233,6 +2243,16 @@ function shouldAvoidGenericSoftwareFallback(name) {
     "酒店", "文旅", "学校", "大学", "研究院", "政府", "公安", "税务", "法院",
   ];
   return nonSoftwareKeywords.some((k) => text.includes(k));
+}
+
+function isLikelySoftwareCompanyName(name) {
+  const text = String(name || "").toLowerCase();
+  if (!text) return false;
+  const strongSoftwareSignals = [
+    "软件", "saas", "erp", "crm", "oa", "低代码", "中台", "协同办公", "企业应用", "信息化",
+    "云服务", "云计算", "数据平台", "管理系统", "it服务",
+  ];
+  return strongSoftwareSignals.some((k) => text.includes(k));
 }
 
 function matchHighPriorityIndustryByName(name) {
