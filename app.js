@@ -2130,6 +2130,14 @@ function matchHighPriorityIndustryByName(name) {
     return { level1: "金融", level2: "保险" };
   }
 
+  if (["电网", "电力", "华能", "华电", "大唐", "国家电投", "长江电力", "广核"].some((k) => text.includes(k))) {
+    return { level1: "能源", level2: "电力" };
+  }
+
+  if (["石油", "石化", "天然气", "煤业", "煤矿", "煤炭"].some((k) => text.includes(k))) {
+    return { level1: "能源", level2: "油气化工" };
+  }
+
   return null;
 }
 
