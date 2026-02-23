@@ -371,33 +371,9 @@
       </div>
     </div>
 
-    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
-    <script>
-      (function loadLatestScripts() {
-        const bust = String(Date.now());
-        const loaded = new Set();
-
-        const loadOnce = (key, src) => new Promise((resolve, reject) => {
-          if (loaded.has(key)) {
-            resolve();
-            return;
-          }
-          const s = document.createElement("script");
-          s.src = src;
-          s.onload = () => {
-            loaded.add(key);
-            resolve();
-          };
-          s.onerror = reject;
-          document.body.appendChild(s);
-        });
-
-        loadOnce("overrides", "./data/xlsx_customer_industry_overrides.js?v=" + bust)
-          .catch(() => loadOnce("overrides", "./data/xlsx_customer_industry_overrides.js"))
-          .then(() => loadOnce("app", "./app.js?v=" + bust))
-          .catch(() => loadOnce("app", "./app.js"));
-      }());
-    </script>
+    <script defer src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+    <script defer src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+    <script defer src="./data/xlsx_customer_industry_overrides.js"></script>
+    <script defer src="./app.js"></script>
   </body>
 </html>
