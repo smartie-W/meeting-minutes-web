@@ -262,10 +262,10 @@ function writeReport(result) {
   lines.push('');
   lines.push(`- 生成时间: ${result.generatedAt}`);
   lines.push('');
-  lines.push('| 行业 | 目标数 | 实测数 | 通过 | 失败 | 通过率 | map样本 | 扩展样本 |');
-  lines.push('|---|---:|---:|---:|---:|---:|---:|---:|');
+  lines.push('| 行业 | 目标数 | 实测数 | 通过 | 失败 | 通过率 | map样本 | 扩展样本 | 广谱补位样本 |');
+  lines.push('|---|---:|---:|---:|---:|---:|---:|---:|---:|');
   result.testResult.forEach((r) => {
-    lines.push(`| ${r.sector} | ${r.desired} | ${r.sampled} | ${r.passed} | ${r.failed} | ${r.passRate}% | ${r.sourceBreakdown.industry_map} | ${r.sourceBreakdown.keyword_expand} |`);
+    lines.push(`| ${r.sector} | ${r.desired} | ${r.sampled} | ${r.passed} | ${r.failed} | ${r.passRate}% | ${r.sourceBreakdown.industry_map} | ${r.sourceBreakdown.keyword_expand} | ${r.sourceBreakdown.broad_fill} |`);
   });
 
   result.testResult.forEach((r) => {
