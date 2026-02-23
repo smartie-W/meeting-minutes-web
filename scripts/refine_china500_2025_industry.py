@@ -118,6 +118,9 @@ def classify_round2(company: str, source_industry: str, level1: str, level2: str
             return "汽车", "轮胎与橡胶件"
         return "汽车", "零部件"
 
+    if "汽车零售和服务" in src:
+        return "汽车", "销售服务"
+
     return l1, l2
 
 
@@ -182,4 +185,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
