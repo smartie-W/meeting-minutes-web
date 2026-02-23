@@ -240,7 +240,7 @@
     "revenue": "108,003.5",
     "sourceLink": "../../gongsi/china500/2025/65.htm",
     "industryLevel1": "汽车",
-    "industryLevel2": "整车/零部件"
+    "industryLevel2": "整车"
   },
   {
     "rank": 28,
@@ -312,7 +312,7 @@
     "revenue": "90,167",
     "sourceLink": "../../gongsi/china500/2025/1514.htm",
     "industryLevel1": "新兴重点产业",
-    "industryLevel2": "半导体与芯片"
+    "industryLevel2": "芯片制造"
   },
   {
     "rank": 36,
@@ -339,7 +339,7 @@
     "revenue": "87,223.9",
     "sourceLink": "../../gongsi/china500/2025/17.htm",
     "industryLevel1": "汽车",
-    "industryLevel2": "整车/零部件"
+    "industryLevel2": "整车"
   },
   {
     "rank": 39,
@@ -366,7 +366,7 @@
     "revenue": "79,890.6",
     "sourceLink": "../../gongsi/china500/2025/1524.htm",
     "industryLevel1": "汽车",
-    "industryLevel2": "整车/零部件"
+    "industryLevel2": "整车"
   },
   {
     "rank": 42,
@@ -384,7 +384,7 @@
     "revenue": "77,736.8",
     "sourceLink": "../../gongsi/china500/2025/1504.htm",
     "industryLevel1": "汽车",
-    "industryLevel2": "整车/零部件"
+    "industryLevel2": "整车"
   },
   {
     "rank": 44,
@@ -465,7 +465,7 @@
     "revenue": "67,199.7",
     "sourceLink": "../../gongsi/china500/2025/1521.htm",
     "industryLevel1": "汽车",
-    "industryLevel2": "整车/零部件"
+    "industryLevel2": "整车"
   },
   {
     "rank": 53,
@@ -528,7 +528,7 @@
     "revenue": "59,693.9",
     "sourceLink": "../../gongsi/china500/2025/1589.htm",
     "industryLevel1": "汽车",
-    "industryLevel2": "整车/零部件"
+    "industryLevel2": "整车"
   },
   {
     "rank": 60,
@@ -591,7 +591,7 @@
     "revenue": "56,059.1",
     "sourceLink": "../../gongsi/china500/2025/1512.htm",
     "industryLevel1": "汽车",
-    "industryLevel2": "整车/零部件"
+    "industryLevel2": "整车"
   },
   {
     "rank": 67,
@@ -654,7 +654,7 @@
     "revenue": "51,309.3",
     "sourceLink": "../../gongsi/china500/2025/1519.htm",
     "industryLevel1": "汽车",
-    "industryLevel2": "整车/零部件"
+    "industryLevel2": "整车"
   },
   {
     "rank": 74,
@@ -689,8 +689,8 @@
     "sourceIndustry": "车辆与零部件",
     "revenue": "50,313.4",
     "sourceLink": "../../gongsi/china500/2025/1373.htm",
-    "industryLevel1": "汽车",
-    "industryLevel2": "整车/零部件"
+    "industryLevel1": "新能源",
+    "industryLevel2": "动力电池"
   },
   {
     "rank": 78,
@@ -996,7 +996,7 @@
     "revenue": "35,779",
     "sourceLink": "../../gongsi/china500/2025/1555.htm",
     "industryLevel1": "汽车",
-    "industryLevel2": "整车/零部件"
+    "industryLevel2": "零部件"
   },
   {
     "rank": 112,
@@ -1203,7 +1203,7 @@
     "revenue": "29,977",
     "sourceLink": "../../gongsi/china500/2025/73.htm",
     "industryLevel1": "汽车",
-    "industryLevel2": "整车/零部件"
+    "industryLevel2": "智能零部件"
   },
   {
     "rank": 135,
@@ -1230,7 +1230,7 @@
     "revenue": "29,717.8",
     "sourceLink": "../../gongsi/china500/2025/1703.htm",
     "industryLevel1": "汽车",
-    "industryLevel2": "整车/零部件"
+    "industryLevel2": "零部件"
   },
   {
     "rank": 138,
@@ -1257,7 +1257,7 @@
     "revenue": "28,101.4",
     "sourceLink": "../../gongsi/china500/2025/189.htm",
     "industryLevel1": "汽车",
-    "industryLevel2": "整车/零部件"
+    "industryLevel2": "整车"
   },
   {
     "rank": 141,
@@ -1428,7 +1428,7 @@
     "revenue": "22,926.8",
     "sourceLink": "../../gongsi/china500/2025/52.htm",
     "industryLevel1": "新兴重点产业",
-    "industryLevel2": "半导体与芯片"
+    "industryLevel2": "芯片设计"
   },
   {
     "rank": 160,
@@ -1518,7 +1518,7 @@
     "revenue": "20,176.8",
     "sourceLink": "../../gongsi/china500/2025/1622.htm",
     "industryLevel1": "汽车",
-    "industryLevel2": "整车/零部件"
+    "industryLevel2": "整车"
   },
   {
     "rank": 170,
@@ -1536,7 +1536,7 @@
     "revenue": "20,077.3",
     "sourceLink": "../../gongsi/china500/2025/1458.htm",
     "industryLevel1": "汽车",
-    "industryLevel2": "整车/零部件"
+    "industryLevel2": "整车"
   },
   {
     "rank": 172,
@@ -1590,7 +1590,7 @@
     "revenue": "18,548.9",
     "sourceLink": "../../gongsi/china500/2025/1652.htm",
     "industryLevel1": "新兴重点产业",
-    "industryLevel2": "半导体与芯片"
+    "industryLevel2": "芯片封测"
   },
   {
     "rank": 178,
@@ -1689,7 +1689,7 @@
     "revenue": "16,529.5",
     "sourceLink": "../../gongsi/china500/2025/1591.htm",
     "industryLevel1": "新兴重点产业",
-    "industryLevel2": "半导体与芯片"
+    "industryLevel2": "芯片设计"
   },
   {
     "rank": 189,
@@ -1841,8 +1841,8 @@
     "sourceIndustry": "半导体、电子元件",
     "revenue": "14,030.7",
     "sourceLink": "../../gongsi/china500/2025/607.htm",
-    "industryLevel1": "新兴重点产业",
-    "industryLevel2": "半导体与芯片"
+    "industryLevel1": "消费电子",
+    "industryLevel2": "智能终端"
   },
   {
     "rank": 206,
@@ -1878,7 +1878,7 @@
     "revenue": "13,211.8",
     "sourceLink": "../../gongsi/china500/2025/94.htm",
     "industryLevel1": "汽车",
-    "industryLevel2": "整车/零部件"
+    "industryLevel2": "整车"
   },
   {
     "rank": 210,
@@ -2147,8 +2147,8 @@
     "sourceIndustry": "车辆与零部件",
     "revenue": "10,655.5",
     "sourceLink": "../../gongsi/china500/2025/621.htm",
-    "industryLevel1": "汽车",
-    "industryLevel2": "整车/零部件"
+    "industryLevel1": "新能源",
+    "industryLevel2": "动力电池"
   },
   {
     "rank": 240,
@@ -2210,8 +2210,8 @@
     "sourceIndustry": "半导体、电子元件",
     "revenue": "10,228.8",
     "sourceLink": "../../gongsi/china500/2025/1317.htm",
-    "industryLevel1": "新兴重点产业",
-    "industryLevel2": "半导体与芯片"
+    "industryLevel1": "消费电子",
+    "industryLevel2": "智能终端"
   },
   {
     "rank": 247,
@@ -2264,8 +2264,8 @@
     "sourceIndustry": "半导体、电子元件",
     "revenue": "9,714.4",
     "sourceLink": "../../gongsi/china500/2025/1196.htm",
-    "industryLevel1": "新兴重点产业",
-    "industryLevel2": "半导体与芯片"
+    "industryLevel1": "消费电子",
+    "industryLevel2": "智能终端"
   },
   {
     "rank": 253,
@@ -2309,8 +2309,8 @@
     "sourceIndustry": "半导体、电子元件",
     "revenue": "9,550.2",
     "sourceLink": "../../gongsi/china500/2025/1406.htm",
-    "industryLevel1": "新兴重点产业",
-    "industryLevel2": "半导体与芯片"
+    "industryLevel1": "消费电子",
+    "industryLevel2": "智能终端"
   },
   {
     "rank": 258,
@@ -2418,7 +2418,7 @@
     "revenue": "9,135.5",
     "sourceLink": "../../gongsi/china500/2025/1453.htm",
     "industryLevel1": "汽车",
-    "industryLevel2": "整车/零部件"
+    "industryLevel2": "整车"
   },
   {
     "rank": 270,
@@ -2616,7 +2616,7 @@
     "revenue": "8,029.9",
     "sourceLink": "../../gongsi/china500/2025/276.htm",
     "industryLevel1": "新兴重点产业",
-    "industryLevel2": "半导体与芯片"
+    "industryLevel2": "芯片制造"
   },
   {
     "rank": 292,
@@ -2688,7 +2688,7 @@
     "revenue": "7,785.8",
     "sourceLink": "../../gongsi/china500/2025/1362.htm",
     "industryLevel1": "新兴重点产业",
-    "industryLevel2": "半导体与芯片"
+    "industryLevel2": "芯片设计"
   },
   {
     "rank": 300,
@@ -2697,7 +2697,7 @@
     "revenue": "7,764",
     "sourceLink": "../../gongsi/china500/2025/1303.htm",
     "industryLevel1": "汽车",
-    "industryLevel2": "整车/零部件"
+    "industryLevel2": "智能零部件"
   },
   {
     "rank": 301,
@@ -2813,8 +2813,8 @@
     "sourceIndustry": "车辆与零部件",
     "revenue": "6,996.5",
     "sourceLink": "../../gongsi/china500/2025/622.htm",
-    "industryLevel1": "汽车",
-    "industryLevel2": "整车/零部件"
+    "industryLevel1": "新能源",
+    "industryLevel2": "动力电池"
   },
   {
     "rank": 314,
@@ -3002,8 +3002,8 @@
     "sourceIndustry": "半导体、电子元件",
     "revenue": "6,144.5",
     "sourceLink": "../../gongsi/china500/2025/1324.htm",
-    "industryLevel1": "新兴重点产业",
-    "industryLevel2": "半导体与芯片"
+    "industryLevel1": "消费电子",
+    "industryLevel2": "智能终端"
   },
   {
     "rank": 335,
@@ -3093,7 +3093,7 @@
     "revenue": "5,853.3",
     "sourceLink": "../../gongsi/china500/2025/132.htm",
     "industryLevel1": "汽车",
-    "industryLevel2": "整车/零部件"
+    "industryLevel2": "整车"
   },
   {
     "rank": 345,
@@ -3156,7 +3156,7 @@
     "revenue": "5,679.7",
     "sourceLink": "../../gongsi/china500/2025/1629.htm",
     "industryLevel1": "汽车",
-    "industryLevel2": "整车/零部件"
+    "industryLevel2": "整车"
   },
   {
     "rank": 352,
@@ -3246,7 +3246,7 @@
     "revenue": "5,455.3",
     "sourceLink": "../../gongsi/china500/2025/318.htm",
     "industryLevel1": "汽车",
-    "industryLevel2": "整车/零部件"
+    "industryLevel2": "智能零部件"
   },
   {
     "rank": 362,
@@ -3300,7 +3300,7 @@
     "revenue": "5,333.3",
     "sourceLink": "../../gongsi/china500/2025/223.htm",
     "industryLevel1": "汽车",
-    "industryLevel2": "整车/零部件"
+    "industryLevel2": "整车"
   },
   {
     "rank": 368,
@@ -3318,7 +3318,7 @@
     "revenue": "5,322.2",
     "sourceLink": "../../gongsi/china500/2025/1223.htm",
     "industryLevel1": "新兴重点产业",
-    "industryLevel2": "半导体与芯片"
+    "industryLevel2": "芯片设计"
   },
   {
     "rank": 370,
@@ -3363,7 +3363,7 @@
     "revenue": "5,179.8",
     "sourceLink": "../../gongsi/china500/2025/1608.htm",
     "industryLevel1": "新兴重点产业",
-    "industryLevel2": "半导体与芯片"
+    "industryLevel2": "芯片设计"
   },
   {
     "rank": 375,
@@ -3372,7 +3372,7 @@
     "revenue": "5,172.6",
     "sourceLink": "../../gongsi/china500/2025/248.htm",
     "industryLevel1": "汽车",
-    "industryLevel2": "整车/零部件"
+    "industryLevel2": "整车"
   },
   {
     "rank": 376,
@@ -3425,8 +3425,8 @@
     "sourceIndustry": "半导体、电子元件",
     "revenue": "5,110.4",
     "sourceLink": "../../gongsi/china500/2025/1354.htm",
-    "industryLevel1": "新兴重点产业",
-    "industryLevel2": "半导体与芯片"
+    "industryLevel1": "消费电子",
+    "industryLevel2": "智能终端"
   },
   {
     "rank": 382,
@@ -3480,7 +3480,7 @@
     "revenue": "5,019",
     "sourceLink": "../../gongsi/china500/2025/1695.htm",
     "industryLevel1": "新兴重点产业",
-    "industryLevel2": "半导体与芯片"
+    "industryLevel2": "芯片设计"
   },
   {
     "rank": 388,
@@ -3498,7 +3498,7 @@
     "revenue": "4,998",
     "sourceLink": "../../gongsi/china500/2025/1301.htm",
     "industryLevel1": "新兴重点产业",
-    "industryLevel2": "半导体与芯片"
+    "industryLevel2": "芯片设计"
   },
   {
     "rank": 390,
@@ -3542,8 +3542,8 @@
     "sourceIndustry": "车辆与零部件",
     "revenue": "4,918.8",
     "sourceLink": "../../gongsi/china500/2025/1644.htm",
-    "industryLevel1": "汽车",
-    "industryLevel2": "整车/零部件"
+    "industryLevel1": "新能源",
+    "industryLevel2": "动力电池"
   },
   {
     "rank": 395,
@@ -3561,7 +3561,7 @@
     "revenue": "4,888.3",
     "sourceLink": "../../gongsi/china500/2025/1464.htm",
     "industryLevel1": "新兴重点产业",
-    "industryLevel2": "半导体与芯片"
+    "industryLevel2": "芯片设计"
   },
   {
     "rank": 397,
@@ -3569,8 +3569,8 @@
     "sourceIndustry": "半导体、电子元件",
     "revenue": "4,883.9",
     "sourceLink": "../../gongsi/china500/2025/1619.htm",
-    "industryLevel1": "新兴重点产业",
-    "industryLevel2": "半导体与芯片"
+    "industryLevel1": "消费电子",
+    "industryLevel2": "智能终端"
   },
   {
     "rank": 398,
@@ -3804,7 +3804,7 @@
     "revenue": "4,470.2",
     "sourceLink": "../../gongsi/china500/2025/1712.htm",
     "industryLevel1": "汽车",
-    "industryLevel2": "整车/零部件"
+    "industryLevel2": "整车"
   },
   {
     "rank": 424,
@@ -3831,7 +3831,7 @@
     "revenue": "4,419.9",
     "sourceLink": "../../gongsi/china500/2025/1713.htm",
     "industryLevel1": "汽车",
-    "industryLevel2": "整车/零部件"
+    "industryLevel2": "轮胎与橡胶件"
   },
   {
     "rank": 427,
@@ -3957,7 +3957,7 @@
     "revenue": "4,146.9",
     "sourceLink": "../../gongsi/china500/2025/1717.htm",
     "industryLevel1": "新兴重点产业",
-    "industryLevel2": "半导体与芯片"
+    "industryLevel2": "半导体设备"
   },
   {
     "rank": 441,
@@ -4164,7 +4164,7 @@
     "revenue": "3,927.6",
     "sourceLink": "../../gongsi/china500/2025/1722.htm",
     "industryLevel1": "汽车",
-    "industryLevel2": "整车/零部件"
+    "industryLevel2": "轮胎与橡胶件"
   },
   {
     "rank": 464,
@@ -4173,7 +4173,7 @@
     "revenue": "3,924.3",
     "sourceLink": "../../gongsi/china500/2025/1459.htm",
     "industryLevel1": "汽车",
-    "industryLevel2": "整车/零部件"
+    "industryLevel2": "零部件"
   },
   {
     "rank": 465,
@@ -4235,8 +4235,8 @@
     "sourceIndustry": "车辆与零部件",
     "revenue": "3,856.9",
     "sourceLink": "../../gongsi/china500/2025/1698.htm",
-    "industryLevel1": "汽车",
-    "industryLevel2": "整车/零部件"
+    "industryLevel1": "新能源",
+    "industryLevel2": "动力电池"
   },
   {
     "rank": 472,
@@ -4263,7 +4263,7 @@
     "revenue": "3,838.4",
     "sourceLink": "../../gongsi/china500/2025/1725.htm",
     "industryLevel1": "汽车",
-    "industryLevel2": "整车/零部件"
+    "industryLevel2": "智能零部件"
   },
   {
     "rank": 475,
@@ -4308,7 +4308,7 @@
     "revenue": "3,798.1",
     "sourceLink": "../../gongsi/china500/2025/1381.htm",
     "industryLevel1": "新兴重点产业",
-    "industryLevel2": "半导体与芯片"
+    "industryLevel2": "芯片设计"
   },
   {
     "rank": 480,
@@ -4425,7 +4425,7 @@
     "revenue": "3,697",
     "sourceLink": "../../gongsi/china500/2025/1730.htm",
     "industryLevel1": "汽车",
-    "industryLevel2": "整车/零部件"
+    "industryLevel2": "智能零部件"
   },
   {
     "rank": 493,
@@ -4470,7 +4470,7 @@
     "revenue": "3,658.6",
     "sourceLink": "../../gongsi/china500/2025/1218.htm",
     "industryLevel1": "汽车",
-    "industryLevel2": "整车/零部件"
+    "industryLevel2": "智能零部件"
   },
   {
     "rank": 498,
