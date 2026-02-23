@@ -1,0 +1,992 @@
+[
+  {
+    "alias": "德赛西威",
+    "input": "德赛西威",
+    "fullName": "惠州市德赛西威汽车电子股份有限公司",
+    "source": "known",
+    "industryLevel1": "汽车",
+    "industryLevel2": "智能座舱",
+    "desc": "智能座舱/域控",
+    "candidates": []
+  },
+  {
+    "alias": "华阳集团",
+    "input": "华阳集团",
+    "fullName": "惠州市华阳集团股份有限公司",
+    "source": "known",
+    "industryLevel1": "汽车",
+    "industryLevel2": "智能座舱",
+    "desc": "智能座舱/HUD/车载电子",
+    "candidates": []
+  },
+  {
+    "alias": "均胜电子",
+    "input": "均胜电子",
+    "fullName": "宁波均胜电子股份有限公司",
+    "source": "known",
+    "industryLevel1": "汽车",
+    "industryLevel2": "智能座舱",
+    "desc": "汽车电子/安全/座舱",
+    "candidates": []
+  },
+  {
+    "alias": "航盛电子",
+    "input": "航盛电子",
+    "fullName": "深圳市航盛电子股份有限公司",
+    "source": "known",
+    "industryLevel1": "汽车",
+    "industryLevel2": "智能座舱",
+    "desc": "车载信息娱乐/座舱",
+    "candidates": []
+  },
+  {
+    "alias": "继峰股份",
+    "input": "继峰股份",
+    "fullName": "",
+    "source": "error",
+    "industryLevel1": "汽车",
+    "industryLevel2": "智能座舱",
+    "desc": "座椅/座舱部件与系统",
+    "candidates": []
+  },
+  {
+    "alias": "中科创达",
+    "input": "中科创达",
+    "fullName": "中科创达软件股份有限公司",
+    "source": "known",
+    "industryLevel1": "汽车",
+    "industryLevel2": "智能座舱",
+    "desc": "智能座舱软件/OS/生态",
+    "candidates": []
+  },
+  {
+    "alias": "东软集团",
+    "input": "东软集团",
+    "fullName": "东软集团股份有限公司",
+    "source": "known",
+    "industryLevel1": "汽车",
+    "industryLevel2": "智能座舱",
+    "desc": "汽车软件/座舱/车联网",
+    "candidates": []
+  },
+  {
+    "alias": "博泰车联网",
+    "input": "博泰车联网",
+    "fullName": "博泰车联网科技（上海）股份有限公司",
+    "source": "known",
+    "industryLevel1": "汽车",
+    "industryLevel2": "智能座舱",
+    "desc": "车联网/座舱",
+    "candidates": []
+  },
+  {
+    "alias": "亿咖通科技",
+    "input": "亿咖通科技",
+    "fullName": "亿咖通（上海）技术有限公司",
+    "source": "known",
+    "industryLevel1": "汽车",
+    "industryLevel2": "智能座舱",
+    "desc": "智能座舱平台",
+    "candidates": []
+  },
+  {
+    "alias": "四维图新",
+    "input": "四维图新",
+    "fullName": "北京四维图新科技股份有限公司",
+    "source": "known",
+    "industryLevel1": "汽车",
+    "industryLevel2": "智能零部件",
+    "desc": "地图/定位/座舱生态",
+    "candidates": []
+  },
+  {
+    "alias": "高德",
+    "input": "高德",
+    "fullName": "高德软件有限公司",
+    "source": "known",
+    "industryLevel1": "汽车",
+    "industryLevel2": "智能零部件",
+    "desc": "地图/定位/出行",
+    "candidates": []
+  },
+  {
+    "alias": "百度",
+    "input": "百度 Apollo",
+    "fullName": "百度在线网络技术（北京）有限公司",
+    "source": "known",
+    "industryLevel1": "汽车",
+    "industryLevel2": "智能零部件",
+    "desc": "智能驾驶平台/定位/地图",
+    "candidates": []
+  },
+  {
+    "alias": "华为智能汽车解决方案",
+    "input": "华为智能汽车解决方案",
+    "fullName": "华为技术有限公司",
+    "source": "known",
+    "industryLevel1": "汽车",
+    "industryLevel2": "智能驾驶",
+    "desc": "智能座舱/智驾/车控",
+    "candidates": []
+  },
+  {
+    "alias": "中兴通讯车联网",
+    "input": "中兴通讯车联网",
+    "fullName": "中兴通讯股份有限公司",
+    "source": "known",
+    "industryLevel1": "汽车",
+    "industryLevel2": "智能驾驶",
+    "desc": "V2X/车联网",
+    "candidates": []
+  },
+  {
+    "alias": "星网宇达",
+    "input": "星网宇达",
+    "fullName": "北京星网宇达科技股份有限公司",
+    "source": "known",
+    "industryLevel1": "汽车",
+    "industryLevel2": "智能零部件",
+    "desc": "惯导/组合导航",
+    "candidates": []
+  },
+  {
+    "alias": "北斗星通",
+    "input": "北斗星通",
+    "fullName": "北京北斗星通导航技术股份有限公司",
+    "source": "known",
+    "industryLevel1": "汽车",
+    "industryLevel2": "智能零部件",
+    "desc": "北斗/GNSS/定位",
+    "candidates": []
+  },
+  {
+    "alias": "华测导航",
+    "input": "华测导航",
+    "fullName": "上海华测导航技术股份有限公司",
+    "source": "known",
+    "industryLevel1": "汽车",
+    "industryLevel2": "智能零部件",
+    "desc": "GNSS/RTK/定位",
+    "candidates": []
+  },
+  {
+    "alias": "千寻位置",
+    "input": "千寻位置",
+    "fullName": "千寻位置网络有限公司",
+    "source": "known",
+    "industryLevel1": "汽车",
+    "industryLevel2": "智能零部件",
+    "desc": "高精度定位服务",
+    "candidates": []
+  },
+  {
+    "alias": "合众思壮",
+    "input": "合众思壮",
+    "fullName": "北京合众思壮科技股份有限公司",
+    "source": "known",
+    "industryLevel1": "汽车",
+    "industryLevel2": "智能零部件",
+    "desc": "GNSS/北斗/定位",
+    "candidates": []
+  },
+  {
+    "alias": "司南导航",
+    "input": "司南导航",
+    "fullName": "上海司南导航技术股份有限公司",
+    "source": "known",
+    "industryLevel1": "汽车",
+    "industryLevel2": "智能零部件",
+    "desc": "GNSS/定位",
+    "candidates": []
+  },
+  {
+    "alias": "华大北斗",
+    "input": "华大北斗",
+    "fullName": "深圳华大北斗科技股份有限公司",
+    "source": "known",
+    "industryLevel1": "汽车",
+    "industryLevel2": "智能零部件",
+    "desc": "北斗芯片/定位",
+    "candidates": []
+  },
+  {
+    "alias": "和芯星通",
+    "input": "和芯星通",
+    "fullName": "北京和芯星通科技有限公司",
+    "source": "known",
+    "industryLevel1": "汽车",
+    "industryLevel2": "智能零部件",
+    "desc": "GNSS芯片/模块",
+    "candidates": []
+  },
+  {
+    "alias": "移远通信",
+    "input": "移远通信",
+    "fullName": "上海移远通信技术股份有限公司",
+    "source": "known",
+    "industryLevel1": "汽车",
+    "industryLevel2": "智能零部件",
+    "desc": "车载模组/通信/定位",
+    "candidates": []
+  },
+  {
+    "alias": "广和通",
+    "input": "广和通",
+    "fullName": "深圳市广和通无线股份有限公司",
+    "source": "known",
+    "industryLevel1": "ICT",
+    "industryLevel2": "通信模组",
+    "desc": "车载通信模组",
+    "candidates": []
+  },
+  {
+    "alias": "美格智能",
+    "input": "美格智能",
+    "fullName": "深圳市美格智能技术股份有限公司",
+    "source": "known",
+    "industryLevel1": "ICT",
+    "industryLevel2": "通信模组",
+    "desc": "蜂窝/车载模组",
+    "candidates": []
+  },
+  {
+    "alias": "中科星图",
+    "input": "中科星图",
+    "fullName": "中科星图股份有限公司",
+    "source": "known",
+    "industryLevel1": "汽车",
+    "industryLevel2": "智能零部件",
+    "desc": "时空大数据/定位相关",
+    "candidates": []
+  },
+  {
+    "alias": "卡斯柯",
+    "input": "卡斯柯",
+    "fullName": "卡斯柯信号有限公司",
+    "source": "known",
+    "industryLevel1": "汽车",
+    "industryLevel2": "智能零部件",
+    "desc": "轨交/信号与定位相关技术",
+    "candidates": []
+  },
+  {
+    "alias": "经纬恒润",
+    "input": "经纬恒润",
+    "fullName": "北京经纬恒润科技股份有限公司",
+    "source": "known",
+    "industryLevel1": "汽车",
+    "industryLevel2": "智能座舱",
+    "desc": "汽车电子/域控/软件",
+    "candidates": []
+  },
+  {
+    "alias": "诚迈科技",
+    "input": "诚迈科技",
+    "fullName": "诚迈科技（南京）股份有限公司",
+    "source": "known",
+    "industryLevel1": "汽车",
+    "industryLevel2": "智能座舱",
+    "desc": "操作系统/座舱软件",
+    "candidates": []
+  },
+  {
+    "alias": "普华基础软件",
+    "input": "普华基础软件",
+    "fullName": "普华基础软件股份有限公司",
+    "source": "known",
+    "industryLevel1": "软件服务",
+    "industryLevel2": "工业软件/车载软件",
+    "desc": "车载基础软件/OS",
+    "candidates": []
+  },
+  {
+    "alias": "中汽研",
+    "input": "中汽研",
+    "fullName": "中国汽车工程研究院股份有限公司",
+    "source": "known",
+    "industryLevel1": "科研与技术服务",
+    "industryLevel2": "检测认证",
+    "desc": "测试认证/功能安全相关生态",
+    "candidates": []
+  },
+  {
+    "alias": "地平线",
+    "input": "地平线",
+    "fullName": "地平线机器人技术研发有限公司",
+    "source": "known",
+    "industryLevel1": "汽车",
+    "industryLevel2": "智能驾驶",
+    "desc": "智驾芯片/域控生态",
+    "candidates": []
+  },
+  {
+    "alias": "黑芝麻智能",
+    "input": "黑芝麻智能",
+    "fullName": "黑芝麻智能科技有限公司",
+    "source": "known",
+    "industryLevel1": "汽车",
+    "industryLevel2": "智能驾驶",
+    "desc": "车规芯片/智驾",
+    "candidates": []
+  },
+  {
+    "alias": "芯驰科技",
+    "input": "芯驰科技",
+    "fullName": "南京芯驰半导体科技股份有限公司",
+    "source": "known",
+    "industryLevel1": "汽车",
+    "industryLevel2": "智能座舱",
+    "desc": "车规 SoC/座舱/网关",
+    "candidates": []
+  },
+  {
+    "alias": "紫光展锐",
+    "input": "紫光展锐",
+    "fullName": "紫光展锐（上海）科技股份有限公司",
+    "source": "known",
+    "industryLevel1": "ICT",
+    "industryLevel2": "通信模组",
+    "desc": "通信/车载连接相关",
+    "candidates": []
+  },
+  {
+    "alias": "联发科",
+    "input": "联发科",
+    "fullName": "联发科技股份有限公司",
+    "source": "known",
+    "industryLevel1": "汽车",
+    "industryLevel2": "智能座舱",
+    "desc": "车载座舱/连接 SoC",
+    "candidates": []
+  },
+  {
+    "alias": "高通",
+    "input": "高通",
+    "fullName": "高通无线通信技术（中国）有限公司",
+    "source": "known",
+    "industryLevel1": "汽车",
+    "industryLevel2": "智能座舱",
+    "desc": "车载座舱/连接/平台",
+    "candidates": []
+  },
+  {
+    "alias": "英伟达",
+    "input": "英伟达 NVIDIA",
+    "fullName": "英伟达半导体科技（上海）有限公司",
+    "source": "known",
+    "industryLevel1": "汽车",
+    "industryLevel2": "智能驾驶",
+    "desc": "智驾计算平台",
+    "candidates": []
+  },
+  {
+    "alias": "Mobileye",
+    "input": "Mobileye",
+    "fullName": "Mobileye Vision Technologies Ltd.",
+    "source": "known",
+    "industryLevel1": "汽车",
+    "industryLevel2": "智能驾驶",
+    "desc": "ADAS/视觉方案",
+    "candidates": []
+  },
+  {
+    "alias": "博世",
+    "input": "博世 Bosch",
+    "fullName": "博世（中国）投资有限公司",
+    "source": "known",
+    "industryLevel1": "汽车",
+    "industryLevel2": "智能驾驶",
+    "desc": "ADAS/底盘/传感器/ECU",
+    "candidates": []
+  },
+  {
+    "alias": "大陆",
+    "input": "大陆 Continental",
+    "fullName": "大陆投资（中国）有限公司",
+    "source": "known",
+    "industryLevel1": "汽车",
+    "industryLevel2": "智能驾驶",
+    "desc": "ADAS/座舱/传感器",
+    "candidates": []
+  },
+  {
+    "alias": "采埃孚",
+    "input": "采埃孚 ZF",
+    "fullName": "采埃孚（中国）投资有限公司",
+    "source": "known",
+    "industryLevel1": "汽车",
+    "industryLevel2": "智能驾驶",
+    "desc": "底盘/智驾/转向",
+    "candidates": []
+  },
+  {
+    "alias": "安波福",
+    "input": "安波福 Aptiv",
+    "fullName": "安波福（中国）投资有限公司",
+    "source": "known",
+    "industryLevel1": "汽车",
+    "industryLevel2": "智能座舱",
+    "desc": "车载架构/连接/域控",
+    "candidates": []
+  },
+  {
+    "alias": "法雷奥",
+    "input": "法雷奥 Valeo",
+    "fullName": "法雷奥企业管理（上海）有限公司",
+    "source": "known",
+    "industryLevel1": "汽车",
+    "industryLevel2": "智能驾驶",
+    "desc": "ADAS 传感器/座舱",
+    "candidates": []
+  },
+  {
+    "alias": "电装",
+    "input": "电装 DENSO",
+    "fullName": "电装（中国）投资有限公司",
+    "source": "known",
+    "industryLevel1": "汽车",
+    "industryLevel2": "智能传感器",
+    "desc": "汽车电子/控制器/传感器",
+    "candidates": []
+  },
+  {
+    "alias": "松下车载",
+    "input": "松下车载",
+    "fullName": "松下汽车电子系统有限公司",
+    "source": "known",
+    "industryLevel1": "汽车",
+    "industryLevel2": "整车/零部件",
+    "desc": "车载电子/娱乐",
+    "candidates": []
+  },
+  {
+    "alias": "哈曼",
+    "input": "哈曼 HARMAN",
+    "fullName": "哈曼（中国）投资有限公司",
+    "source": "known",
+    "industryLevel1": "汽车",
+    "industryLevel2": "智能座舱",
+    "desc": "车载娱乐/座舱",
+    "candidates": []
+  },
+  {
+    "alias": "伟世通",
+    "input": "伟世通 Visteon",
+    "fullName": "伟世通亚太（上海）有限公司",
+    "source": "known",
+    "industryLevel1": "汽车",
+    "industryLevel2": "智能座舱",
+    "desc": "座舱/域控",
+    "candidates": []
+  },
+  {
+    "alias": "博泽",
+    "input": "博泽 Brose",
+    "fullName": "博泽汽车技术企业管理（中国）有限公司",
+    "source": "known",
+    "industryLevel1": "汽车",
+    "industryLevel2": "整车/零部件",
+    "desc": "车身电子/机电",
+    "candidates": []
+  },
+  {
+    "alias": "海拉",
+    "input": "海拉 HELLA",
+    "fullName": "海拉（上海）管理有限公司",
+    "source": "known",
+    "industryLevel1": "汽车",
+    "industryLevel2": "智能传感器",
+    "desc": "照明/电子/传感器",
+    "candidates": []
+  },
+  {
+    "alias": "纵目科技",
+    "input": "纵目科技",
+    "fullName": "纵目科技（上海）股份有限公司",
+    "source": "known",
+    "industryLevel1": "汽车",
+    "industryLevel2": "智能驾驶",
+    "desc": "ADAS/泊车",
+    "candidates": []
+  },
+  {
+    "alias": "Momenta",
+    "input": "Momenta",
+    "fullName": "北京初速度科技有限公司",
+    "source": "known",
+    "industryLevel1": "软件服务",
+    "industryLevel2": "工业软件/车载软件",
+    "desc": "高阶辅助驾驶软件",
+    "candidates": []
+  },
+  {
+    "alias": "小马智行",
+    "input": "小马智行 Pony.ai",
+    "fullName": "小马智行科技有限公司",
+    "source": "known",
+    "industryLevel1": "汽车",
+    "industryLevel2": "智能驾驶",
+    "desc": "自动驾驶",
+    "candidates": []
+  },
+  {
+    "alias": "文远知行",
+    "input": "文远知行 WeRide",
+    "fullName": "文远知行科技有限公司",
+    "source": "known",
+    "industryLevel1": "汽车",
+    "industryLevel2": "智能驾驶",
+    "desc": "自动驾驶",
+    "candidates": []
+  },
+  {
+    "alias": "轻舟智航",
+    "input": "轻舟智航 QCraft",
+    "fullName": "北京轻舟智航科技有限公司",
+    "source": "known",
+    "industryLevel1": "汽车",
+    "industryLevel2": "智能驾驶",
+    "desc": "自动驾驶",
+    "candidates": []
+  },
+  {
+    "alias": "元戎启行",
+    "input": "元戎启行 DeepRoute.ai",
+    "fullName": "深圳元戎启行科技有限公司",
+    "source": "known",
+    "industryLevel1": "汽车",
+    "industryLevel2": "智能驾驶",
+    "desc": "自动驾驶",
+    "candidates": []
+  },
+  {
+    "alias": "蘑菇车联",
+    "input": "蘑菇车联",
+    "fullName": "北京蘑菇车联信息科技有限公司",
+    "source": "known",
+    "industryLevel1": "汽车",
+    "industryLevel2": "智能驾驶",
+    "desc": "车路协同/V2X",
+    "candidates": []
+  },
+  {
+    "alias": "千方科技",
+    "input": "千方科技",
+    "fullName": "北京千方科技股份有限公司",
+    "source": "known",
+    "industryLevel1": "汽车",
+    "industryLevel2": "智能驾驶",
+    "desc": "交通/车路协同/感知",
+    "candidates": []
+  },
+  {
+    "alias": "赛目科技",
+    "input": "赛目科技",
+    "fullName": "北京赛目科技股份有限公司",
+    "source": "known",
+    "industryLevel1": "汽车",
+    "industryLevel2": "智能驾驶",
+    "desc": "自动驾驶仿真/测试",
+    "candidates": []
+  },
+  {
+    "alias": "禾多科技",
+    "input": "禾多科技",
+    "fullName": "北京禾多科技有限公司",
+    "source": "known",
+    "industryLevel1": "汽车",
+    "industryLevel2": "智能驾驶",
+    "desc": "自动驾驶/智驾方案",
+    "candidates": []
+  },
+  {
+    "alias": "佑驾创新",
+    "input": "佑驾创新",
+    "fullName": "深圳佑驾创新科技股份有限公司",
+    "source": "known",
+    "industryLevel1": "汽车",
+    "industryLevel2": "智能驾驶",
+    "desc": "ADAS/智能驾驶",
+    "candidates": []
+  },
+  {
+    "alias": "驭势科技",
+    "input": "驭势科技 UISEE",
+    "fullName": "北京驭势科技有限责任公司",
+    "source": "known",
+    "industryLevel1": "汽车",
+    "industryLevel2": "智能驾驶",
+    "desc": "自动驾驶/物流场景",
+    "candidates": []
+  },
+  {
+    "alias": "仙途智能",
+    "input": "仙途智能 Futurology",
+    "fullName": "上海仙途智能科技有限公司",
+    "source": "known",
+    "industryLevel1": "汽车",
+    "industryLevel2": "智能驾驶",
+    "desc": "无人环卫/车路协同",
+    "candidates": []
+  },
+  {
+    "alias": "图森未来",
+    "input": "图森未来 TuSimple",
+    "fullName": "图森未来（北京）科技有限公司",
+    "source": "known",
+    "industryLevel1": "汽车",
+    "industryLevel2": "智能驾驶",
+    "desc": "干线自动驾驶",
+    "candidates": []
+  },
+  {
+    "alias": "华域汽车",
+    "input": "华域汽车",
+    "fullName": "华域汽车系统股份有限公司",
+    "source": "known",
+    "industryLevel1": "汽车",
+    "industryLevel2": "整车/零部件",
+    "desc": "Tier1 集团，覆盖多类系统",
+    "candidates": []
+  },
+  {
+    "alias": "延锋",
+    "input": "延锋",
+    "fullName": "延锋汽车饰件系统有限公司",
+    "source": "known",
+    "industryLevel1": "汽车",
+    "industryLevel2": "智能座舱",
+    "desc": "座舱系统/内饰与电子集成",
+    "candidates": []
+  },
+  {
+    "alias": "联合汽车电子",
+    "input": "联合汽车电子 UAES",
+    "fullName": "联合汽车电子有限公司",
+    "source": "known",
+    "industryLevel1": "汽车",
+    "industryLevel2": "整车/零部件",
+    "desc": "动力/电控/电子系统",
+    "candidates": []
+  },
+  {
+    "alias": "伯特利",
+    "input": "伯特利",
+    "fullName": "芜湖伯特利汽车安全系统股份有限公司",
+    "source": "known",
+    "industryLevel1": "汽车",
+    "industryLevel2": "整车/零部件",
+    "desc": "制动/线控底盘与电子",
+    "candidates": []
+  },
+  {
+    "alias": "拓普集团",
+    "input": "拓普集团",
+    "fullName": "宁波拓普集团股份有限公司",
+    "source": "known",
+    "industryLevel1": "汽车",
+    "industryLevel2": "整车/零部件",
+    "desc": "底盘/热管理/机电系统",
+    "candidates": []
+  },
+  {
+    "alias": "保隆科技",
+    "input": "保隆科技",
+    "fullName": "上海保隆汽车科技股份有限公司",
+    "source": "known",
+    "industryLevel1": "汽车",
+    "industryLevel2": "智能传感器",
+    "desc": "TPMS/传感器/空气悬架等",
+    "candidates": []
+  },
+  {
+    "alias": "德尔股份",
+    "input": "德尔股份",
+    "fullName": "阜新德尔汽车部件股份有限公司",
+    "source": "known",
+    "industryLevel1": "汽车",
+    "industryLevel2": "整车/零部件",
+    "desc": "电泵/电控/机电系统",
+    "candidates": []
+  },
+  {
+    "alias": "精进电动",
+    "input": "精进电动",
+    "fullName": "精进电动科技股份有限公司",
+    "source": "known",
+    "industryLevel1": "汽车",
+    "industryLevel2": "整车/零部件",
+    "desc": "电驱/电控",
+    "candidates": []
+  },
+  {
+    "alias": "汇川联合动力",
+    "input": "汇川联合动力",
+    "fullName": "苏州汇川联合动力系统股份有限公司",
+    "source": "known",
+    "industryLevel1": "汽车",
+    "industryLevel2": "整车/零部件",
+    "desc": "电驱/电控",
+    "candidates": []
+  },
+  {
+    "alias": "英搏尔",
+    "input": "英搏尔",
+    "fullName": "珠海英搏尔电气股份有限公司",
+    "source": "known",
+    "industryLevel1": "汽车",
+    "industryLevel2": "整车/零部件",
+    "desc": "电机/电控",
+    "candidates": []
+  },
+  {
+    "alias": "比亚迪半导体",
+    "input": "比亚迪半导体",
+    "fullName": "比亚迪半导体股份有限公司",
+    "source": "known",
+    "industryLevel1": "电子信息",
+    "industryLevel2": "半导体与芯片",
+    "desc": "车规功率器件/芯片",
+    "candidates": []
+  },
+  {
+    "alias": "斯达半导",
+    "input": "斯达半导",
+    "fullName": "嘉兴斯达半导体股份有限公司",
+    "source": "known",
+    "industryLevel1": "电子信息",
+    "industryLevel2": "半导体与芯片",
+    "desc": "车规 IGBT/功率器件",
+    "candidates": []
+  },
+  {
+    "alias": "士兰微",
+    "input": "士兰微",
+    "fullName": "杭州士兰微电子股份有限公司",
+    "source": "known",
+    "industryLevel1": "电子信息",
+    "industryLevel2": "半导体与芯片",
+    "desc": "功率器件/车规芯片",
+    "candidates": []
+  },
+  {
+    "alias": "华润微",
+    "input": "华润微",
+    "fullName": "华润微电子有限公司",
+    "source": "known",
+    "industryLevel1": "电子信息",
+    "industryLevel2": "半导体与芯片",
+    "desc": "功率器件/车规",
+    "candidates": []
+  },
+  {
+    "alias": "中颖电子",
+    "input": "中颖电子",
+    "fullName": "上海中颖电子股份有限公司",
+    "source": "known",
+    "industryLevel1": "电子信息",
+    "industryLevel2": "半导体与芯片",
+    "desc": "MCU 等控制芯片相关",
+    "candidates": []
+  },
+  {
+    "alias": "纳芯微",
+    "input": "纳芯微",
+    "fullName": "苏州纳芯微电子股份有限公司",
+    "source": "known",
+    "industryLevel1": "汽车",
+    "industryLevel2": "智能传感器",
+    "desc": "车规模拟/隔离/传感接口",
+    "candidates": []
+  },
+  {
+    "alias": "圣邦股份",
+    "input": "圣邦股份",
+    "fullName": "圣邦微电子（北京）股份有限公司",
+    "source": "known",
+    "industryLevel1": "电子信息",
+    "industryLevel2": "半导体与芯片",
+    "desc": "模拟芯片/车规方向",
+    "candidates": []
+  },
+  {
+    "alias": "思特威",
+    "input": "思特威",
+    "fullName": "思特威（上海）电子科技股份有限公司",
+    "source": "known",
+    "industryLevel1": "汽车",
+    "industryLevel2": "智能传感器",
+    "desc": "图像传感器 CIS，车载方向",
+    "candidates": []
+  },
+  {
+    "alias": "格科微",
+    "input": "格科微",
+    "fullName": "格科微有限公司",
+    "source": "known",
+    "industryLevel1": "汽车",
+    "industryLevel2": "智能传感器",
+    "desc": "CIS/传感器",
+    "candidates": []
+  },
+  {
+    "alias": "舜宇光学",
+    "input": "舜宇光学",
+    "fullName": "舜宇光学科技（集团）有限公司",
+    "source": "known",
+    "industryLevel1": "汽车",
+    "industryLevel2": "智能传感器",
+    "desc": "车载镜头/摄像头模组",
+    "candidates": []
+  },
+  {
+    "alias": "联创电子",
+    "input": "联创电子",
+    "fullName": "联创电子科技股份有限公司",
+    "source": "known",
+    "industryLevel1": "汽车",
+    "industryLevel2": "智能传感器",
+    "desc": "车载镜头/光学",
+    "candidates": []
+  },
+  {
+    "alias": "欧菲光",
+    "input": "欧菲光",
+    "fullName": "欧菲光集团股份有限公司",
+    "source": "known",
+    "industryLevel1": "汽车",
+    "industryLevel2": "智能传感器",
+    "desc": "摄像头模组/车载方向",
+    "candidates": []
+  },
+  {
+    "alias": "大立科技",
+    "input": "大立科技",
+    "fullName": "浙江大立科技股份有限公司",
+    "source": "known",
+    "industryLevel1": "汽车",
+    "industryLevel2": "智能传感器",
+    "desc": "红外热成像/感知",
+    "candidates": []
+  },
+  {
+    "alias": "睿创微纳",
+    "input": "睿创微纳",
+    "fullName": "烟台睿创微纳技术股份有限公司",
+    "source": "known",
+    "industryLevel1": "汽车",
+    "industryLevel2": "智能传感器",
+    "desc": "红外/热成像传感",
+    "candidates": []
+  },
+  {
+    "alias": "速腾聚创",
+    "input": "速腾聚创 RoboSense",
+    "fullName": "深圳市速腾聚创科技有限公司",
+    "source": "known",
+    "industryLevel1": "汽车",
+    "industryLevel2": "智能传感器",
+    "desc": "激光雷达",
+    "candidates": []
+  },
+  {
+    "alias": "禾赛科技",
+    "input": "禾赛科技 Hesai",
+    "fullName": "禾赛科技有限公司",
+    "source": "known",
+    "industryLevel1": "汽车",
+    "industryLevel2": "智能传感器",
+    "desc": "激光雷达",
+    "candidates": []
+  },
+  {
+    "alias": "图达通",
+    "input": "图达通 Innovusion",
+    "fullName": "图达通智能科技（苏州）有限公司",
+    "source": "known",
+    "industryLevel1": "汽车",
+    "industryLevel2": "智能传感器",
+    "desc": "激光雷达",
+    "candidates": []
+  },
+  {
+    "alias": "北醒科技",
+    "input": "北醒科技 Benewake",
+    "fullName": "北京北醒光子科技有限公司",
+    "source": "known",
+    "industryLevel1": "汽车",
+    "industryLevel2": "智能传感器",
+    "desc": "激光雷达/测距",
+    "candidates": []
+  },
+  {
+    "alias": "森思泰克",
+    "input": "森思泰克",
+    "fullName": "森思泰克（北京）科技有限公司",
+    "source": "known",
+    "industryLevel1": "汽车",
+    "industryLevel2": "智能传感器",
+    "desc": "毫米波雷达/传感",
+    "candidates": []
+  },
+  {
+    "alias": "木牛科技",
+    "input": "木牛科技",
+    "fullName": "木牛科技（宁波）有限公司",
+    "source": "known",
+    "industryLevel1": "汽车",
+    "industryLevel2": "智能零部件",
+    "desc": "定位/车载相关方向",
+    "candidates": []
+  },
+  {
+    "alias": "中海达",
+    "input": "中海达",
+    "fullName": "广州中海达卫星导航技术股份有限公司",
+    "source": "known",
+    "industryLevel1": "汽车",
+    "industryLevel2": "智能零部件",
+    "desc": "GNSS/定位/测绘",
+    "candidates": []
+  },
+  {
+    "alias": "北方导航",
+    "input": "北方导航",
+    "fullName": "北方导航控制技术股份有限公司",
+    "source": "known",
+    "industryLevel1": "汽车",
+    "industryLevel2": "智能零部件",
+    "desc": "惯导/导航相关",
+    "candidates": []
+  },
+  {
+    "alias": "宁德时代",
+    "input": "宁德时代",
+    "fullName": "宁德时代新能源科技股份有限公司",
+    "source": "known",
+    "industryLevel1": "新能源",
+    "industryLevel2": "动力电池",
+    "desc": "智能电动核心：电池/系统集成",
+    "candidates": []
+  },
+  {
+    "alias": "国轩高科",
+    "input": "国轩高科",
+    "fullName": "国轩高科股份有限公司",
+    "source": "known",
+    "industryLevel1": "新能源",
+    "industryLevel2": "动力电池",
+    "desc": "动力电池/系统集成",
+    "candidates": []
+  },
+  {
+    "alias": "广州导远电子科技有限公司",
+    "input": "广州导远电子科技有限公司",
+    "fullName": "广州导远电子科技有限公司",
+    "source": "known",
+    "industryLevel1": "汽车",
+    "industryLevel2": "智能零部件",
+    "desc": "GNSS/定位/车载",
+    "candidates": []
+  }
+]
