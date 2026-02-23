@@ -401,7 +401,7 @@
       "上海汽车集团股份有限公司",
       "浙江吉利控股集团有限公司"
     ],
-    "peerReason": "self_oem"
+    "peerReason": "keep_specific"
   },
   {
     "rank": 28,
@@ -564,7 +564,7 @@
       "上海汽车集团股份有限公司",
       "浙江吉利控股集团有限公司"
     ],
-    "peerReason": "self_oem"
+    "peerReason": "keep_specific"
   },
   {
     "rank": 39,
@@ -609,7 +609,7 @@
       "上海汽车集团股份有限公司",
       "浙江吉利控股集团有限公司"
     ],
-    "peerReason": "self_oem"
+    "peerReason": "keep_specific"
   },
   {
     "rank": 42,
@@ -639,7 +639,7 @@
       "上海汽车集团股份有限公司",
       "中国第一汽车集团有限公司"
     ],
-    "peerReason": "self_oem"
+    "peerReason": "keep_specific"
   },
   {
     "rank": 44,
@@ -773,7 +773,7 @@
       "上海汽车集团股份有限公司",
       "北京汽车集团有限公司"
     ],
-    "peerReason": "self_oem"
+    "peerReason": "keep_specific"
   },
   {
     "rank": 53,
@@ -876,7 +876,7 @@
       "上海汽车集团股份有限公司",
       "奇瑞控股集团有限公司"
     ],
-    "peerReason": "self_oem"
+    "peerReason": "keep_specific"
   },
   {
     "rank": 60,
@@ -981,7 +981,7 @@
       "上海汽车集团股份有限公司",
       "广州汽车工业集团有限公司"
     ],
-    "peerReason": "self_oem"
+    "peerReason": "keep_specific"
   },
   {
     "rank": 67,
@@ -1086,7 +1086,7 @@
       "上海汽车集团股份有限公司",
       "东风汽车集团有限公司"
     ],
-    "peerReason": "self_oem"
+    "peerReason": "keep_specific"
   },
   {
     "rank": 74,
@@ -1146,7 +1146,7 @@
       "上海汽车集团股份有限公司",
       "宁德时代新能源科技股份有限公司"
     ],
-    "peerReason": "self_battery"
+    "peerReason": "keep_specific"
   },
   {
     "rank": 78,
@@ -1998,7 +1998,7 @@
       "上海汽车集团股份有限公司",
       "潍柴动力股份有限公司"
     ],
-    "peerReason": "self_parts"
+    "peerReason": "keep_specific"
   },
   {
     "rank": 135,
@@ -2088,7 +2088,7 @@
       "上海汽车集团股份有限公司",
       "长城汽车股份有限公司"
     ],
-    "peerReason": "self_oem"
+    "peerReason": "keep_specific"
   },
   {
     "rank": 141,
@@ -2342,7 +2342,7 @@
       "中升集团控股有限公司",
       "中国永达汽车服务控股有限公司"
     ],
-    "peerReason": "self_sales"
+    "peerReason": "keep_specific"
   },
   {
     "rank": 158,
@@ -2522,7 +2522,7 @@
       "上海汽车集团股份有限公司",
       "赛力斯集团股份有限公司"
     ],
-    "peerReason": "self_oem"
+    "peerReason": "keep_specific"
   },
   {
     "rank": 170,
@@ -2552,7 +2552,7 @@
       "上海汽车集团股份有限公司",
       "理想汽车"
     ],
-    "peerReason": "self_oem"
+    "peerReason": "keep_specific"
   },
   {
     "rank": 172,
@@ -3121,7 +3121,7 @@
       "上海汽车集团股份有限公司",
       "中国重汽（香港）有限公司"
     ],
-    "peerReason": "self_oem"
+    "peerReason": "keep_specific"
   },
   {
     "rank": 210,
@@ -3571,7 +3571,7 @@
       "上海汽车集团股份有限公司",
       "天能动力国际有限公司"
     ],
-    "peerReason": "self_battery"
+    "peerReason": "keep_specific"
   },
   {
     "rank": 240,
@@ -4021,7 +4021,7 @@
       "上海汽车集团股份有限公司",
       "蔚来集团"
     ],
-    "peerReason": "self_oem"
+    "peerReason": "keep_specific"
   },
   {
     "rank": 270,
@@ -4080,7 +4080,7 @@
       "中升集团控股有限公司",
       "中国永达汽车服务控股有限公司"
     ],
-    "peerReason": "self_sales"
+    "peerReason": "keep_specific"
   },
   {
     "rank": 274,
@@ -4483,7 +4483,7 @@
       "上海汽车集团股份有限公司",
       "宁波均胜电子股份有限公司"
     ],
-    "peerReason": "self_parts"
+    "peerReason": "keep_specific"
   },
   {
     "rank": 301,
@@ -4678,7 +4678,7 @@
       "上海汽车集团股份有限公司",
       "超威动力控股有限公司"
     ],
-    "peerReason": "self_battery"
+    "peerReason": "keep_specific"
   },
   {
     "rank": 314,
@@ -5139,7 +5139,7 @@
       "上海汽车集团股份有限公司",
       "安徽江淮汽车集团股份有限公司"
     ],
-    "peerReason": "self_oem"
+    "peerReason": "keep_specific"
   },
   {
     "rank": 345,
@@ -5243,7 +5243,7 @@
       "上海汽车集团股份有限公司",
       "小鹏汽车有限公司"
     ],
-    "peerReason": "self_oem"
+    "peerReason": "keep_specific"
   },
   {
     "rank": 352,
@@ -5393,7 +5393,7 @@
       "上海汽车集团股份有限公司",
       "福耀玻璃工业集团股份有限公司"
     ],
-    "peerReason": "self_parts"
+    "peerReason": "keep_specific"
   },
   {
     "rank": 362,
@@ -5482,7 +5482,7 @@
       "上海汽车集团股份有限公司",
       "江铃汽车股份有限公司"
     ],
-    "peerReason": "self_oem"
+    "peerReason": "keep_specific"
   },
   {
     "rank": 368,
@@ -5602,7 +5602,7 @@
       "上海汽车集团股份有限公司",
       "宇通客车股份有限公司"
     ],
-    "peerReason": "self_oem"
+    "peerReason": "keep_specific"
   },
   {
     "rank": 376,
@@ -5885,7 +5885,7 @@
       "上海汽车集团股份有限公司",
       "国轩高科股份有限公司"
     ],
-    "peerReason": "self_battery"
+    "peerReason": "keep_specific"
   },
   {
     "rank": 395,
@@ -6317,7 +6317,7 @@
       "上海汽车集团股份有限公司",
       "浙江零跑科技股份有限公司"
     ],
-    "peerReason": "self_oem"
+    "peerReason": "keep_specific"
   },
   {
     "rank": 424,
@@ -6356,13 +6356,13 @@
     "revenue": "4,419.9",
     "sourceLink": "../../gongsi/china500/2025/1713.htm",
     "industryLevel1": "汽车",
-    "industryLevel2": "零部件",
+    "industryLevel2": "轮胎与橡胶件",
     "peerCompanies": [
       "比亚迪股份有限公司",
       "上海汽车集团股份有限公司",
       "赛轮集团股份有限公司"
     ],
-    "peerReason": "self_auto_default"
+    "peerReason": "keep_specific"
   },
   {
     "rank": 427,
@@ -6910,13 +6910,13 @@
     "revenue": "3,927.6",
     "sourceLink": "../../gongsi/china500/2025/1722.htm",
     "industryLevel1": "汽车",
-    "industryLevel2": "零部件",
+    "industryLevel2": "轮胎与橡胶件",
     "peerCompanies": [
       "比亚迪股份有限公司",
       "上海汽车集团股份有限公司",
       "双星集团有限责任公司"
     ],
-    "peerReason": "self_auto_default"
+    "peerReason": "keep_specific"
   },
   {
     "rank": 464,
@@ -7036,7 +7036,7 @@
       "上海汽车集团股份有限公司",
       "中创新航科技集团股份有限公司"
     ],
-    "peerReason": "self_battery"
+    "peerReason": "keep_specific"
   },
   {
     "rank": 472,
@@ -7081,7 +7081,7 @@
       "上海汽车集团股份有限公司",
       "惠州市德赛西威汽车电子股份有限公司"
     ],
-    "peerReason": "self_parts"
+    "peerReason": "keep_specific"
   },
   {
     "rank": 475,
@@ -7351,7 +7351,7 @@
       "上海汽车集团股份有限公司",
       "宁波拓普集团股份有限公司"
     ],
-    "peerReason": "self_parts"
+    "peerReason": "keep_specific"
   },
   {
     "rank": 493,
@@ -7426,7 +7426,7 @@
       "上海汽车集团股份有限公司",
       "宁波华翔电子股份有限公司"
     ],
-    "peerReason": "self_parts"
+    "peerReason": "keep_specific"
   },
   {
     "rank": 498,
