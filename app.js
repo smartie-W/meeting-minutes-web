@@ -2167,7 +2167,10 @@ function inferIndustryByCustomer(customerName) {
   const normalizedName = normalizeCompanyNameText(name);
   const coreAlias = extractCoreCompanyAlias(name);
   if (coreAlias && AUTO_ALIAS_INDUSTRY_MAP[coreAlias]) {
-    return AUTO_ALIAS_INDUSTRY_MAP[coreAlias];
+    const aliasIndustry = AUTO_ALIAS_INDUSTRY_MAP[coreAlias];
+    if (!(isGenericSoftwareIndustry(aliasIndustry) && shouldAvoidGenericSoftwareFallback(name))) {
+      return aliasIndustry;
+    }
   }
   const knownCandidates = getLocalFullNameCandidates(name);
 
@@ -2186,6 +2189,9 @@ function inferIndustryByCustomer(customerName) {
       normalizedName.includes(normalizedKey) ||
       normalizedKey.includes(normalizedName)
     ) {
+      if (isGenericSoftwareIndustry(industry) && shouldAvoidGenericSoftwareFallback(name)) {
+        continue;
+      }
       return industry;
     }
   }
@@ -2214,6 +2220,19 @@ function inferIndustryByCustomer(customerName) {
 function isGenericSoftwareIndustry(industry) {
   const pair = normalizeIndustryPair(industry);
   return pair.level1 === "软件服务" && pair.level2 === "企业软件/SaaS";
+}
+
+function shouldAvoidGenericSoftwareFallback(name) {
+  const text = String(name || "");
+  if (!text) return false;
+  const nonSoftwareKeywords = [
+    "金拱门", "麦当劳", "肯德基", "星巴克", "海底捞", "餐饮", "咖啡", "食品", "饮料", "零售", "商超",
+    "汽车", "汽配", "车载", "座舱", "智驾", "自动驾驶", "半导体", "芯片", "电子", "制造", "装备",
+    "工厂", "电气", "机械", "银行", "证券", "保险", "基金", "电力", "电网", "石油", "天然气", "煤",
+    "医药", "医疗", "医院", "生物", "药业", "物流", "快递", "仓储", "地产", "物业", "建筑", "建工",
+    "酒店", "文旅", "学校", "大学", "研究院", "政府", "公安", "税务", "法院",
+  ];
+  return nonSoftwareKeywords.some((k) => text.includes(k));
 }
 
 function matchHighPriorityIndustryByName(name) {
@@ -2330,6 +2349,10 @@ function registerCompanyAlias(aliasMap, name, industry) {
   const normalizedIndustry = normalizeIndustryPair(industry);
   const candidates = buildAliasCandidates(name);
   candidates.forEach((alias) => {
+    if (isGenericSoftwareIndustry(normalizedIndustry) && alias.length <= 5) {
+      // Prevent short generic-software aliases from polluting cross-industry company recognition.
+      return;
+    }
     if (alias && alias.length >= 2 && !aliasMap[alias]) {
       aliasMap[alias] = normalizedIndustry;
     }
