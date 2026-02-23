@@ -2037,6 +2037,8 @@ function inferIndustriesByCustomers(customers) {
 function inferIndustryByCustomer(customerName) {
   const name = String(customerName || "").trim();
   if (!name) return { level1: "未知", level2: "未知" };
+  const highPriority = matchHighPriorityIndustryByName(name);
+  if (highPriority) return highPriority;
   const normalizedName = normalizeCompanyNameText(name);
   const coreAlias = extractCoreCompanyAlias(name);
   if (coreAlias && AUTO_ALIAS_INDUSTRY_MAP[coreAlias]) {
