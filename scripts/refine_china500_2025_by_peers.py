@@ -40,7 +40,7 @@ def post_compare(company_id: str):
         headers={"User-Agent": "Mozilla/5.0", "Content-Type": "application/x-www-form-urlencoded"},
         method="POST",
     )
-    with urllib.request.urlopen(req, timeout=20) as resp:
+    with urllib.request.urlopen(req, timeout=4.5) as resp:
         raw = resp.read().decode("utf-8", "ignore")
     data = json.loads(raw)
     peers = [x.get("company", "").strip() for x in data.get("companys", []) if x.get("company")]
@@ -95,7 +95,8 @@ def main():
     api_miss = 0
     changes = []
 
-    for item in review:
+    total = len(review)
+    for idx, item in enumerate(review, start=1):
         name = item["companyName"]
         cid = parse_company_id(item.get("sourceLink", ""))
         peers = peer_cache.get(cid, [])
@@ -108,7 +109,9 @@ def main():
             except Exception:
                 api_miss += 1
                 peers = []
-            time.sleep(0.08)
+            if api_hits % 20 == 0 and api_hits > 0:
+                PEER_CACHE_JSON.write_text(json.dumps(peer_cache, ensure_ascii=False, indent=2), encoding="utf-8")
+            time.sleep(0.04)
 
         old = (item.get("industryLevel1", "未知"), item.get("industryLevel2", "未知"))
         new_l1, new_l2, reason = infer_by_peers(item, peers)
@@ -133,6 +136,9 @@ def main():
                     "peerCompanies": peers[:5],
                 }
             )
+
+        if idx % 25 == 0 or idx == total:
+            print(f"[{idx}/{total}] api_hits={api_hits} api_miss={api_miss} changed={len(changes)}")
 
     REVIEW_JSON.write_text(json.dumps(review, ensure_ascii=False, indent=2), encoding="utf-8")
     OVERRIDES_JSON.write_text(json.dumps(overrides, ensure_ascii=False, indent=2), encoding="utf-8")
@@ -168,4 +174,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
