@@ -2188,7 +2188,7 @@ function inferIndustryByCustomer(customerName) {
   }
 
   const inferredFromKnown = inferIndustryFromText(knownCandidates.join(" "));
-  if (inferredFromKnown) return inferredFromKnown;
+  if (inferredFromKnown && !isLowConfidenceIndustryMatch(name, "known_text")) return inferredFromKnown;
 
   for (const [key, industry] of Object.entries(ENRICHED_CUSTOMER_INDUSTRY_MAP)) {
     const normalizedKey = normalizeCompanyNameText(key);
@@ -2201,12 +2201,15 @@ function inferIndustryByCustomer(customerName) {
       if (isGenericSoftwareIndustry(industry) && shouldAvoidGenericSoftwareFallback(name)) {
         continue;
       }
+      if (isLowConfidenceIndustryMatch(name, "fuzzy_map")) {
+        continue;
+      }
       return industry;
     }
   }
 
   const fromRule = matchIndustryByRules(`${name} ${knownCandidates.join(" ")}`);
-  if (fromRule) return fromRule;
+  if (fromRule && !isLowConfidenceIndustryMatch(name, "rule")) return fromRule;
 
   for (const rule of INDUSTRY_BRAND_RULES) {
     if (rule.keys.some((k) => normalizedName.includes(normalizeCompanyNameText(k)))) {
@@ -2219,6 +2222,9 @@ function inferIndustryByCustomer(customerName) {
 
   for (const rule of INDUSTRY_KEYWORD_RULES) {
     if (rule.keys.some((k) => name.includes(k))) {
+      if (isLowConfidenceIndustryMatch(name, "keyword")) {
+        return { level1: "未知", level2: "未知" };
+      }
       return { level1: rule.level1, level2: rule.level2 };
     }
   }
@@ -2252,6 +2258,31 @@ function isLikelySoftwareCompanyName(name) {
     "云服务", "云计算", "数据平台", "管理系统", "it服务",
   ];
   return strongSoftwareSignals.some((k) => text.includes(k));
+}
+
+function hasExplicitIndustryHint(name) {
+  const text = String(name || "");
+  if (!text) return false;
+  const hints = [
+    "银行", "证券", "保险", "基金", "金融", "汽车", "汽配", "智驾", "座舱", "车载",
+    "半导体", "芯片", "集成电路", "电子", "制造", "机械", "装备", "工业", "机器人",
+    "酒店", "餐饮", "咖啡", "食品", "饮料", "零售", "商贸", "超市",
+    "电力", "电网", "能源", "石油", "天然气", "煤", "化工",
+    "医药", "医疗", "生物", "物流", "快递", "仓储", "建筑", "建工", "地产",
+  ];
+  return hints.some((k) => text.includes(k));
+}
+
+function isLowConfidenceIndustryMatch(name, source) {
+  if (!name) return true;
+  const normalized = normalizeCompanyNameText(name);
+  const core = extractCoreCompanyAlias(name);
+  const shortName = normalized.length > 0 && normalized.length <= 6;
+  const shortCore = core.length > 0 && core.length <= 4;
+  const weakSource = ["known_text", "fuzzy_map", "rule", "keyword", "online_text"].includes(source);
+  if (!weakSource) return false;
+  if (hasExplicitIndustryHint(name)) return false;
+  return shortName || shortCore;
 }
 
 function matchHighPriorityIndustryByName(name) {
@@ -2472,7 +2503,9 @@ async function lookupCompanyInfoOnline(customerName) {
     const text = [data.Heading, data.AbstractText, ...related].filter(Boolean).join(" ");
     const inferred = inferIndustryFromText(text);
     const fullNames = extractCompanyFullNames([data.Heading, data.AbstractText, ...related]);
-    const resolved = inferred || inferIndustryByCustomer(customerName);
+    const resolved = (inferred && !isLowConfidenceIndustryMatch(customerName, "online_text"))
+      ? inferred
+      : inferIndustryByCustomer(customerName);
     updateIndustryKnowledgeCache(customerName, resolved, fullNames);
     return {
       industry: resolved,
