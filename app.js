@@ -2138,11 +2138,10 @@ function pickMoreReliableIndustry(fallbackIndustry, onlineIndustry) {
   const fallbackBio = fallbackText.includes("生物") || fallbackText.includes("基因") || fallbackText.includes("医疗");
   const onlineBio = onlineText.includes("生物") || onlineText.includes("基因") || onlineText.includes("医疗");
   const onlineGenericSoftware = online.level1 === "软件服务" && online.level2 === "企业软件/SaaS";
-  const fallbackLikelySoftware = isLikelySoftwareCompanyName(fallbackText);
   if (fallbackChip && onlineGenericSoftware) {
     return fallback;
   }
-  if (!fallbackLikelySoftware && onlineGenericSoftware && !fallbackUnknown) {
+  if (onlineGenericSoftware && !fallbackUnknown) {
     return fallback;
   }
   if (fallbackBio && onlineChip) {
