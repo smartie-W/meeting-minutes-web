@@ -80,6 +80,12 @@ def infer_by_peers(item, peers):
                 return "新兴重点产业", "芯片制造", "peer_fab_weak"
 
     if "车辆与零部件" in src or "汽车零售和服务" in src or l1 == "汽车" or (l1 == "新能源" and l2 == "动力电池"):
+        # Never downgrade already-specific labels from round2.
+        if l1 == "新能源" and l2 == "动力电池":
+            return "新能源", "动力电池", "keep_specific"
+        if l1 == "汽车" and l2 in {"整车", "智能零部件", "销售服务", "轮胎与橡胶件"}:
+            return l1, l2, "keep_specific"
+
         if name in AUTO_SALES or "汽车零售和服务" in src:
             return "汽车", "销售服务", "self_sales"
         if name in AUTO_BATTERY or any(k in name for k in ["电池", "锂能", "新能源科技"]):
