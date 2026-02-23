@@ -2814,10 +2814,55 @@ function pickPrimaryIndustry(customerIndustries) {
 }
 
 function normalizeIndustryPair(value) {
+  const normalizeL1 = (level1Raw, level2Raw) => {
+    const level1 = String(level1Raw || "未知").trim();
+    const level2 = String(level2Raw || "未知").trim();
+
+    if (level1 === "第二产业") {
+      if (level2 === "建筑业") return "建筑基建";
+      if (level2 === "电力热力燃气与水务") return "能源";
+      if (level2 === "采矿业") return "采矿与资源";
+      return "制造";
+    }
+
+    if (level1 === "第三产业") {
+      if (level2 === "信息传输软件和信息技术服务业") return "软件服务";
+      if (level2 === "金融业") return "金融";
+      if (level2 === "批发和零售业") return "零售";
+      if (level2 === "交通运输仓储和邮政业") return "物流";
+      if (level2 === "住宿和餐饮业") return "消费服务";
+      if (level2 === "房地产业") return "房地产";
+      if (level2 === "租赁和商务服务业") return "企业服务";
+      if (level2 === "科学研究和技术服务业") return "科研与技术服务";
+      if (level2 === "教育") return "教育";
+      if (level2 === "卫生和社会工作") return "医疗健康";
+      if (level2 === "文化体育和娱乐业") return "文娱";
+      if (level2 === "公共管理和社会组织") return "政务";
+      return "服务业";
+    }
+
+    if (level1 === "新兴重点产业") {
+      if (["半导体与芯片", "芯片设计", "芯片制造", "半导体设备", "新一代信息技术", "数字经济"].includes(level2)) {
+        return "电子信息";
+      }
+      if (["自动驾驶", "新能源汽车"].includes(level2)) return "汽车";
+      if (["机器人机械臂", "高端装备制造"].includes(level2)) return "制造";
+      if (level2 === "新能源") return "新能源";
+      if (level2 === "新材料") return "新材料";
+      if (level2 === "节能环保") return "节能环保";
+      if (level2 === "生物医药") return "医疗健康";
+      if (level2 === "低空经济") return "低空经济";
+      return "战略新兴";
+    }
+
+    return level1 || "未知";
+  };
+
   if (value && typeof value === "object") {
+    const level2 = String(value.level2 || "未知");
     return {
-      level1: String(value.level1 || "未知"),
-      level2: String(value.level2 || "未知"),
+      level1: normalizeL1(value.level1, level2),
+      level2,
     };
   }
 
@@ -2826,11 +2871,11 @@ function normalizeIndustryPair(value) {
   if (text.includes("/")) {
     const [level1, level2] = text.split("/");
     return {
-      level1: level1 || "未知",
+      level1: normalizeL1(level1 || "未知", level2 || "未知"),
       level2: level2 || "未知",
     };
   }
-  return { level1: text, level2: "未知" };
+  return { level1: normalizeL1(text, "未知"), level2: "未知" };
 }
 
 function formatIndustry(value) {
