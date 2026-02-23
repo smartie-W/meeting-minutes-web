@@ -199,6 +199,17 @@ function buildSamples() {
     }
   }
 
+  // Force each sector to 500 test cases. Remaining slots are filled by broad pool names.
+  for (const { sector, desired } of TARGETS) {
+    if (sectorPools[sector].length >= desired) continue;
+    for (const name of allNames) {
+      if (sectorPools[sector].length >= desired) break;
+      if (seenBySector[sector].has(name)) continue;
+      seenBySector[sector].add(name);
+      sectorPools[sector].push({ name, expectedSector: sector, source: 'broad_fill' });
+    }
+  }
+
   const testResult = [];
 
   for (const { sector, desired } of TARGETS) {
@@ -233,6 +244,7 @@ function buildSamples() {
       sourceBreakdown: {
         industry_map: picked.filter((x) => x.source === 'industry_map').length,
         keyword_expand: picked.filter((x) => x.source === 'keyword_expand').length,
+        broad_fill: picked.filter((x) => x.source === 'broad_fill').length,
       },
       fails: fails.slice(0, 120),
       samples: picked,
