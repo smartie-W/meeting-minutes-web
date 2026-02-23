@@ -1,0 +1,452 @@
+[
+  {
+    "alias": "中科星图",
+    "fullName": "中科星图股份有限公司",
+    "oldIndustry": {
+      "level1": "汽车",
+      "level2": "智能零部件"
+    },
+    "onlineIndustry": {
+      "level1": "汽车",
+      "level2": "智能零部件"
+    },
+    "consistent": true,
+    "sources": [],
+    "error": "URLError"
+  },
+  {
+    "alias": "卡斯柯",
+    "fullName": "卡斯柯信号有限公司",
+    "oldIndustry": {
+      "level1": "汽车",
+      "level2": "智能零部件"
+    },
+    "onlineIndustry": {
+      "level1": "汽车",
+      "level2": "智能零部件"
+    },
+    "consistent": true,
+    "sources": [],
+    "error": "URLError"
+  },
+  {
+    "alias": "诚迈科技",
+    "fullName": "诚迈科技（南京）股份有限公司",
+    "oldIndustry": {
+      "level1": "汽车",
+      "level2": "智能座舱"
+    },
+    "onlineIndustry": {
+      "level1": "汽车",
+      "level2": "智能座舱"
+    },
+    "consistent": true,
+    "sources": [],
+    "error": "URLError"
+  },
+  {
+    "alias": "普华基础软件",
+    "fullName": "普华基础软件股份有限公司",
+    "oldIndustry": {
+      "level1": "软件服务",
+      "level2": "工业软件/车载软件"
+    },
+    "onlineIndustry": {
+      "level1": "软件服务",
+      "level2": "工业软件/车载软件"
+    },
+    "consistent": true,
+    "sources": [],
+    "error": "URLError"
+  },
+  {
+    "alias": "中汽研",
+    "fullName": "中国汽车工程研究院股份有限公司",
+    "oldIndustry": {
+      "level1": "科研与技术服务",
+      "level2": "检测认证"
+    },
+    "onlineIndustry": {
+      "level1": "科研与技术服务",
+      "level2": "检测认证"
+    },
+    "consistent": true,
+    "sources": [],
+    "error": "URLError"
+  },
+  {
+    "alias": "紫光展锐",
+    "fullName": "紫光展锐（上海）科技股份有限公司",
+    "oldIndustry": {
+      "level1": "ICT",
+      "level2": "通信模组"
+    },
+    "onlineIndustry": {
+      "level1": "ICT",
+      "level2": "通信模组"
+    },
+    "consistent": true,
+    "sources": [],
+    "error": "URLError"
+  },
+  {
+    "alias": "联发科",
+    "fullName": "联发科技股份有限公司",
+    "oldIndustry": {
+      "level1": "汽车",
+      "level2": "智能座舱"
+    },
+    "onlineIndustry": {
+      "level1": "汽车",
+      "level2": "智能座舱"
+    },
+    "consistent": true,
+    "sources": [],
+    "error": "URLError"
+  },
+  {
+    "alias": "高通",
+    "fullName": "高通无线通信技术（中国）有限公司",
+    "oldIndustry": {
+      "level1": "汽车",
+      "level2": "智能座舱"
+    },
+    "onlineIndustry": {
+      "level1": "汽车",
+      "level2": "智能座舱"
+    },
+    "consistent": true,
+    "sources": [],
+    "error": "URLError"
+  },
+  {
+    "alias": "英伟达 NVIDIA",
+    "fullName": "英伟达半导体科技（上海）有限公司",
+    "oldIndustry": {
+      "level1": "汽车",
+      "level2": "智能驾驶"
+    },
+    "onlineIndustry": {
+      "level1": "汽车",
+      "level2": "智能驾驶"
+    },
+    "consistent": true,
+    "sources": [],
+    "error": "URLError"
+  },
+  {
+    "alias": "Mobileye",
+    "fullName": "Mobileye Vision Technologies Ltd.",
+    "oldIndustry": {
+      "level1": "汽车",
+      "level2": "智能驾驶"
+    },
+    "onlineIndustry": {
+      "level1": "汽车",
+      "level2": "智能驾驶"
+    },
+    "consistent": true,
+    "sources": [],
+    "error": "URLError"
+  },
+  {
+    "alias": "博世 Bosch",
+    "fullName": "博世（中国）投资有限公司",
+    "oldIndustry": {
+      "level1": "汽车",
+      "level2": "智能驾驶"
+    },
+    "onlineIndustry": {
+      "level1": "汽车",
+      "level2": "智能驾驶"
+    },
+    "consistent": true,
+    "sources": [],
+    "error": "URLError"
+  },
+  {
+    "alias": "大陆 Continental",
+    "fullName": "大陆投资（中国）有限公司",
+    "oldIndustry": {
+      "level1": "汽车",
+      "level2": "智能驾驶"
+    },
+    "onlineIndustry": {
+      "level1": "汽车",
+      "level2": "智能驾驶"
+    },
+    "consistent": true,
+    "sources": [],
+    "error": "URLError"
+  },
+  {
+    "alias": "采埃孚 ZF",
+    "fullName": "采埃孚（中国）投资有限公司",
+    "oldIndustry": {
+      "level1": "汽车",
+      "level2": "智能驾驶"
+    },
+    "onlineIndustry": {
+      "level1": "汽车",
+      "level2": "智能驾驶"
+    },
+    "consistent": true,
+    "sources": [],
+    "error": "URLError"
+  },
+  {
+    "alias": "安波福 Aptiv",
+    "fullName": "安波福（中国）投资有限公司",
+    "oldIndustry": {
+      "level1": "汽车",
+      "level2": "智能座舱"
+    },
+    "onlineIndustry": {
+      "level1": "汽车",
+      "level2": "智能座舱"
+    },
+    "consistent": true,
+    "sources": [],
+    "error": "URLError"
+  },
+  {
+    "alias": "法雷奥 Valeo",
+    "fullName": "法雷奥企业管理（上海）有限公司",
+    "oldIndustry": {
+      "level1": "汽车",
+      "level2": "智能驾驶"
+    },
+    "onlineIndustry": {
+      "level1": "汽车",
+      "level2": "智能驾驶"
+    },
+    "consistent": true,
+    "sources": [],
+    "error": "URLError"
+  },
+  {
+    "alias": "电装 DENSO",
+    "fullName": "电装（中国）投资有限公司",
+    "oldIndustry": {
+      "level1": "汽车",
+      "level2": "智能传感器"
+    },
+    "onlineIndustry": {
+      "level1": "汽车",
+      "level2": "智能传感器"
+    },
+    "consistent": true,
+    "sources": [],
+    "error": "URLError"
+  },
+  {
+    "alias": "松下车载",
+    "fullName": "松下汽车电子系统有限公司",
+    "oldIndustry": {
+      "level1": "汽车",
+      "level2": "整车/零部件"
+    },
+    "onlineIndustry": {
+      "level1": "汽车",
+      "level2": "整车/零部件"
+    },
+    "consistent": true,
+    "sources": [],
+    "error": "URLError"
+  },
+  {
+    "alias": "哈曼 HARMAN",
+    "fullName": "哈曼（中国）投资有限公司",
+    "oldIndustry": {
+      "level1": "汽车",
+      "level2": "智能座舱"
+    },
+    "onlineIndustry": {
+      "level1": "汽车",
+      "level2": "智能座舱"
+    },
+    "consistent": true,
+    "sources": [],
+    "error": "URLError"
+  },
+  {
+    "alias": "伟世通 Visteon",
+    "fullName": "伟世通亚太（上海）有限公司",
+    "oldIndustry": {
+      "level1": "汽车",
+      "level2": "智能座舱"
+    },
+    "onlineIndustry": {
+      "level1": "汽车",
+      "level2": "智能座舱"
+    },
+    "consistent": true,
+    "sources": [],
+    "error": "URLError"
+  },
+  {
+    "alias": "博泽 Brose",
+    "fullName": "博泽汽车技术企业管理（中国）有限公司",
+    "oldIndustry": {
+      "level1": "汽车",
+      "level2": "整车/零部件"
+    },
+    "onlineIndustry": {
+      "level1": "汽车",
+      "level2": "整车/零部件"
+    },
+    "consistent": true,
+    "sources": [],
+    "error": "URLError"
+  },
+  {
+    "alias": "海拉 HELLA",
+    "fullName": "海拉（上海）管理有限公司",
+    "oldIndustry": {
+      "level1": "汽车",
+      "level2": "智能传感器"
+    },
+    "onlineIndustry": {
+      "level1": "汽车",
+      "level2": "智能传感器"
+    },
+    "consistent": true,
+    "sources": [],
+    "error": "URLError"
+  },
+  {
+    "alias": "纵目科技",
+    "fullName": "纵目科技（上海）股份有限公司",
+    "oldIndustry": {
+      "level1": "汽车",
+      "level2": "智能驾驶"
+    },
+    "onlineIndustry": {
+      "level1": "汽车",
+      "level2": "智能驾驶"
+    },
+    "consistent": true,
+    "sources": [],
+    "error": "URLError"
+  },
+  {
+    "alias": "Momenta",
+    "fullName": "北京初速度科技有限公司",
+    "oldIndustry": {
+      "level1": "软件服务",
+      "level2": "工业软件/车载软件"
+    },
+    "onlineIndustry": {
+      "level1": "软件服务",
+      "level2": "工业软件/车载软件"
+    },
+    "consistent": true,
+    "sources": [],
+    "error": "URLError"
+  },
+  {
+    "alias": "小马智行 Pony.ai",
+    "fullName": "小马智行科技有限公司",
+    "oldIndustry": {
+      "level1": "汽车",
+      "level2": "智能驾驶"
+    },
+    "onlineIndustry": {
+      "level1": "汽车",
+      "level2": "智能驾驶"
+    },
+    "consistent": true,
+    "sources": [],
+    "error": "URLError"
+  },
+  {
+    "alias": "文远知行 WeRide",
+    "fullName": "文远知行科技有限公司",
+    "oldIndustry": {
+      "level1": "汽车",
+      "level2": "智能驾驶"
+    },
+    "onlineIndustry": {
+      "level1": "汽车",
+      "level2": "智能驾驶"
+    },
+    "consistent": true,
+    "sources": [],
+    "error": "URLError"
+  },
+  {
+    "alias": "轻舟智航 QCraft",
+    "fullName": "北京轻舟智航科技有限公司",
+    "oldIndustry": {
+      "level1": "汽车",
+      "level2": "智能驾驶"
+    },
+    "onlineIndustry": {
+      "level1": "汽车",
+      "level2": "智能驾驶"
+    },
+    "consistent": true,
+    "sources": [],
+    "error": "URLError"
+  },
+  {
+    "alias": "元戎启行 DeepRoute.ai",
+    "fullName": "深圳元戎启行科技有限公司",
+    "oldIndustry": {
+      "level1": "汽车",
+      "level2": "智能驾驶"
+    },
+    "onlineIndustry": {
+      "level1": "汽车",
+      "level2": "智能驾驶"
+    },
+    "consistent": true,
+    "sources": [],
+    "error": "URLError"
+  },
+  {
+    "alias": "蘑菇车联",
+    "fullName": "北京蘑菇车联信息科技有限公司",
+    "oldIndustry": {
+      "level1": "汽车",
+      "level2": "智能驾驶"
+    },
+    "onlineIndustry": {
+      "level1": "汽车",
+      "level2": "智能驾驶"
+    },
+    "consistent": true,
+    "sources": [],
+    "error": "URLError"
+  },
+  {
+    "alias": "千方科技",
+    "fullName": "北京千方科技股份有限公司",
+    "oldIndustry": {
+      "level1": "汽车",
+      "level2": "智能驾驶"
+    },
+    "onlineIndustry": {
+      "level1": "汽车",
+      "level2": "智能驾驶"
+    },
+    "consistent": true,
+    "sources": [],
+    "error": "URLError"
+  },
+  {
+    "alias": "赛目科技",
+    "fullName": "北京赛目科技股份有限公司",
+    "oldIndustry": {
+      "level1": "汽车",
+      "level2": "智能驾驶"
+    },
+    "onlineIndustry": {
+      "level1": "汽车",
+      "level2": "智能驾驶"
+    },
+    "consistent": true,
+    "sources": [],
+    "error": "URLError"
+  }
+]
