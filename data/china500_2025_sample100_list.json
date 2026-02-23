@@ -1,0 +1,1476 @@
+[
+  {
+    "rank": 1,
+    "companyName": "国家电网有限公司",
+    "sourceIndustry": "公用设施",
+    "revenue": "548,414.4",
+    "sourceLink": "../../gongsi/china500/2025/1475.htm",
+    "industryLevel1": "能源",
+    "industryLevel2": "电力",
+    "peerCompanies": [
+      "国家电网有限公司",
+      "中国南方电网有限责任公司",
+      "中国华电集团有限公司"
+    ],
+    "peerReason": "keep"
+  },
+  {
+    "rank": 2,
+    "companyName": "中国石油天然气集团有限公司",
+    "sourceIndustry": "炼油",
+    "revenue": "412,645.3",
+    "sourceLink": "../../gongsi/china500/2025/1476.htm",
+    "industryLevel1": "能源",
+    "industryLevel2": "油气化工",
+    "peerCompanies": [
+      "中国石油天然气集团有限公司",
+      "中国石油化工集团有限公司",
+      "台湾中油股份有限公司"
+    ],
+    "peerReason": "keep"
+  },
+  {
+    "rank": 3,
+    "companyName": "中国石油化工集团有限公司",
+    "sourceIndustry": "炼油",
+    "revenue": "407,490.1",
+    "sourceLink": "../../gongsi/china500/2025/1477.htm",
+    "industryLevel1": "能源",
+    "industryLevel2": "油气化工",
+    "peerCompanies": [
+      "中国石油天然气集团有限公司",
+      "中国石油化工集团有限公司",
+      "台湾中油股份有限公司"
+    ],
+    "peerReason": "keep"
+  },
+  {
+    "rank": 4,
+    "companyName": "中国建筑集团有限公司",
+    "sourceIndustry": "工程与建筑",
+    "revenue": "304,121.3",
+    "sourceLink": "../../gongsi/china500/2025/1478.htm",
+    "industryLevel1": "第二产业",
+    "industryLevel2": "建筑业",
+    "peerCompanies": [
+      "中国建筑集团有限公司",
+      "中国铁路工程集团有限公司",
+      "中国铁道建筑集团有限公司"
+    ],
+    "peerReason": "keep"
+  },
+  {
+    "rank": 5,
+    "companyName": "中国工商银行股份有限公司",
+    "sourceIndustry": "银行：商业储蓄",
+    "revenue": "221,461.3",
+    "sourceLink": "../../gongsi/china500/2025/7.htm",
+    "industryLevel1": "金融",
+    "industryLevel2": "银行",
+    "peerCompanies": [
+      "中国工商银行股份有限公司",
+      "中国农业银行股份有限公司",
+      "中国建设银行股份有限公司"
+    ],
+    "peerReason": "keep"
+  },
+  {
+    "rank": 6,
+    "companyName": "鸿海精密工业股份有限公司",
+    "sourceIndustry": "电子、电气设备",
+    "revenue": "213,699.1",
+    "sourceLink": "../../gongsi/china500/2025/1479.htm",
+    "industryLevel1": "第二产业",
+    "industryLevel2": "电子与高端制造",
+    "peerCompanies": [
+      "鸿海精密工业股份有限公司",
+      "美的集团股份有限公司",
+      "小米集团"
+    ],
+    "peerReason": "keep"
+  },
+  {
+    "rank": 7,
+    "companyName": "中国农业银行股份有限公司",
+    "sourceIndustry": "银行：商业储蓄",
+    "revenue": "197,466.4",
+    "sourceLink": "../../gongsi/china500/2025/501.htm",
+    "industryLevel1": "金融",
+    "industryLevel2": "银行",
+    "peerCompanies": [
+      "中国工商银行股份有限公司",
+      "中国农业银行股份有限公司",
+      "中国建设银行股份有限公司"
+    ],
+    "peerReason": "keep"
+  },
+  {
+    "rank": 10,
+    "companyName": "中国铁路工程集团有限公司",
+    "sourceIndustry": "工程与建筑",
+    "revenue": "161,336.5",
+    "sourceLink": "../../gongsi/china500/2025/1481.htm",
+    "industryLevel1": "第二产业",
+    "industryLevel2": "建筑业",
+    "peerCompanies": [
+      "中国建筑集团有限公司",
+      "中国铁路工程集团有限公司",
+      "中国铁道建筑集团有限公司"
+    ],
+    "peerReason": "keep"
+  },
+  {
+    "rank": 11,
+    "companyName": "京东集团股份有限公司",
+    "sourceIndustry": "互联网服务和零售",
+    "revenue": "161,055.4",
+    "sourceLink": "../../gongsi/china500/2025/657.htm",
+    "industryLevel1": "零售",
+    "industryLevel2": "电商/零售",
+    "peerCompanies": [
+      "京东集团股份有限公司",
+      "阿里巴巴集团控股有限公司",
+      "腾讯控股有限公司"
+    ],
+    "peerReason": "keep"
+  },
+  {
+    "rank": 12,
+    "companyName": "中国人寿保险（集团）公司",
+    "sourceIndustry": "人寿与健康保险（股份）",
+    "revenue": "160,276.8",
+    "sourceLink": "../../gongsi/china500/2025/1485.htm",
+    "industryLevel1": "金融",
+    "industryLevel2": "保险",
+    "peerCompanies": [
+      "中国人寿保险（集团）公司",
+      "中国平安保险（集团）股份有限公司",
+      "中国太平洋保险（集团）股份有限公司"
+    ],
+    "peerReason": "keep"
+  },
+  {
+    "rank": 13,
+    "companyName": "中国平安保险（集团）股份有限公司",
+    "sourceIndustry": "人寿与健康保险（股份）",
+    "revenue": "158,627",
+    "sourceLink": "../../gongsi/china500/2025/16.htm",
+    "industryLevel1": "金融",
+    "industryLevel2": "保险",
+    "peerCompanies": [
+      "中国人寿保险（集团）公司",
+      "中国平安保险（集团）股份有限公司",
+      "中国太平洋保险（集团）股份有限公司"
+    ],
+    "peerReason": "keep"
+  },
+  {
+    "rank": 15,
+    "companyName": "中国移动通信集团有限公司",
+    "sourceIndustry": "电信",
+    "revenue": "145,239.9",
+    "sourceLink": "../../gongsi/china500/2025/1486.htm",
+    "industryLevel1": "ICT",
+    "industryLevel2": "运营商/通信",
+    "peerCompanies": [
+      "中国移动通信集团有限公司",
+      "中国电信集团有限公司",
+      "中国联合网络通信股份有限公司"
+    ],
+    "peerReason": "keep"
+  },
+  {
+    "rank": 17,
+    "companyName": "中国中信集团有限公司",
+    "sourceIndustry": "多元化金融",
+    "revenue": "138,940.6",
+    "sourceLink": "../../gongsi/china500/2025/1497.htm",
+    "industryLevel1": "金融",
+    "industryLevel2": "基金资管",
+    "peerCompanies": [
+      "中国中信集团有限公司",
+      "中国华润有限公司",
+      "杭州市实业投资集团有限公司"
+    ],
+    "peerReason": "keep"
+  },
+  {
+    "rank": 18,
+    "companyName": "阿里巴巴集团控股有限公司",
+    "sourceIndustry": "互联网服务和零售",
+    "revenue": "138,065",
+    "sourceLink": "../../gongsi/china500/2025/1193.htm",
+    "industryLevel1": "零售",
+    "industryLevel2": "电商/零售",
+    "peerCompanies": [
+      "京东集团股份有限公司",
+      "阿里巴巴集团控股有限公司",
+      "腾讯控股有限公司"
+    ],
+    "peerReason": "keep"
+  },
+  {
+    "rank": 19,
+    "companyName": "中国海洋石油集团有限公司",
+    "sourceIndustry": "采矿、原油生产",
+    "revenue": "130,832",
+    "sourceLink": "../../gongsi/china500/2025/1482.htm",
+    "industryLevel1": "第二产业",
+    "industryLevel2": "采矿业",
+    "peerCompanies": [
+      "中国海洋石油集团有限公司",
+      "山东能源集团有限公司",
+      "陕西煤业化工集团有限责任公司"
+    ],
+    "peerReason": "keep"
+  },
+  {
+    "rank": 20,
+    "companyName": "中国华润有限公司",
+    "sourceIndustry": "多元化金融",
+    "revenue": "129,623.5",
+    "sourceLink": "../../gongsi/china500/2025/1491.htm",
+    "industryLevel1": "金融",
+    "industryLevel2": "基金资管",
+    "peerCompanies": [
+      "中国中信集团有限公司",
+      "中国华润有限公司",
+      "杭州市实业投资集团有限公司"
+    ],
+    "peerReason": "keep"
+  },
+  {
+    "rank": 21,
+    "companyName": "中国宝武钢铁集团有限公司",
+    "sourceIndustry": "金属产品",
+    "revenue": "125,112.5",
+    "sourceLink": "../../gongsi/china500/2025/1484.htm",
+    "industryLevel1": "第二产业",
+    "industryLevel2": "金属与装备制造",
+    "peerCompanies": [
+      "中国宝武钢铁集团有限公司",
+      "中国五矿集团有限公司",
+      "江西铜业集团有限公司"
+    ],
+    "peerReason": "keep"
+  },
+  {
+    "rank": 22,
+    "companyName": "恒力集团有限公司",
+    "sourceIndustry": "纺织",
+    "revenue": "121,126",
+    "sourceLink": "../../gongsi/china500/2025/1502.htm",
+    "industryLevel1": "消费品",
+    "industryLevel2": "服装纺织",
+    "peerCompanies": [
+      "恒力集团有限公司",
+      "山东魏桥创业集团有限公司"
+    ],
+    "peerReason": "keep"
+  },
+  {
+    "rank": 23,
+    "companyName": "山东能源集团有限公司",
+    "sourceIndustry": "采矿、原油生产",
+    "revenue": "120,426",
+    "sourceLink": "../../gongsi/china500/2025/1490.htm",
+    "industryLevel1": "第二产业",
+    "industryLevel2": "采矿业",
+    "peerCompanies": [
+      "中国海洋石油集团有限公司",
+      "山东能源集团有限公司",
+      "陕西煤业化工集团有限责任公司"
+    ],
+    "peerReason": "keep"
+  },
+  {
+    "rank": 24,
+    "companyName": "华为投资控股有限公司",
+    "sourceIndustry": "网络、通讯设备",
+    "revenue": "119,812.8",
+    "sourceLink": "../../gongsi/china500/2025/1499.htm",
+    "industryLevel1": "ICT",
+    "industryLevel2": "通信技术服务",
+    "peerCompanies": [
+      "华为投资控股有限公司",
+      "亨通集团有限公司",
+      "中兴通讯股份有限公司"
+    ],
+    "peerReason": "keep"
+  },
+  {
+    "rank": 25,
+    "companyName": "中国南方电网有限责任公司",
+    "sourceIndustry": "公用设施",
+    "revenue": "118,607.5",
+    "sourceLink": "../../gongsi/china500/2025/1493.htm",
+    "industryLevel1": "能源",
+    "industryLevel2": "电力",
+    "peerCompanies": [
+      "国家电网有限公司",
+      "中国南方电网有限责任公司",
+      "中国华电集团有限公司"
+    ],
+    "peerReason": "keep"
+  },
+  {
+    "rank": 26,
+    "companyName": "中国五矿集团有限公司",
+    "sourceIndustry": "金属产品",
+    "revenue": "115,805.6",
+    "sourceLink": "../../gongsi/china500/2025/1488.htm",
+    "industryLevel1": "第二产业",
+    "industryLevel2": "金属与装备制造",
+    "peerCompanies": [
+      "中国宝武钢铁集团有限公司",
+      "中国五矿集团有限公司",
+      "江西铜业集团有限公司"
+    ],
+    "peerReason": "keep"
+  },
+  {
+    "rank": 27,
+    "companyName": "比亚迪股份有限公司",
+    "sourceIndustry": "车辆与零部件",
+    "revenue": "108,003.5",
+    "sourceLink": "../../gongsi/china500/2025/65.htm",
+    "industryLevel1": "汽车",
+    "industryLevel2": "整车",
+    "peerCompanies": [
+      "比亚迪股份有限公司",
+      "上海汽车集团股份有限公司",
+      "浙江吉利控股集团有限公司"
+    ],
+    "peerReason": "self_oem"
+  },
+  {
+    "rank": 28,
+    "companyName": "国家能源投资集团有限责任公司",
+    "sourceIndustry": "能源",
+    "revenue": "107,690.2",
+    "sourceLink": "../../gongsi/china500/2025/1492.htm",
+    "industryLevel1": "能源",
+    "industryLevel2": "电力",
+    "peerCompanies": [
+      "国家能源投资集团有限责任公司",
+      "中国华能集团有限公司",
+      "国家电力投资集团有限公司"
+    ],
+    "peerReason": "keep"
+  },
+  {
+    "rank": 29,
+    "companyName": "厦门建发集团有限公司",
+    "sourceIndustry": "贸易",
+    "revenue": "100,600.1",
+    "sourceLink": "../../gongsi/china500/2025/1489.htm",
+    "industryLevel1": "批发零售",
+    "industryLevel2": "贸易",
+    "peerCompanies": [
+      "厦门建发集团有限公司",
+      "中粮集团有限公司",
+      "物产中大集团股份有限公司"
+    ],
+    "peerReason": "keep"
+  },
+  {
+    "rank": 31,
+    "companyName": "中国邮政集团有限公司",
+    "sourceIndustry": "邮件、包裹及货物包装运输",
+    "revenue": "97,544.4",
+    "sourceLink": "../../gongsi/china500/2025/1494.htm",
+    "industryLevel1": "物流",
+    "industryLevel2": "快递物流",
+    "peerCompanies": [
+      "中国邮政集团有限公司"
+    ],
+    "peerReason": "keep"
+  },
+  {
+    "rank": 33,
+    "companyName": "浙江荣盛控股集团有限公司",
+    "sourceIndustry": "化学品",
+    "revenue": "91,534",
+    "sourceLink": "../../gongsi/china500/2025/1506.htm",
+    "industryLevel1": "第二产业",
+    "industryLevel2": "化工与材料制造",
+    "peerCompanies": [
+      "浙江荣盛控股集团有限公司",
+      "盛虹控股集团有限公司",
+      "浙江恒逸集团有限公司"
+    ],
+    "peerReason": "keep"
+  },
+  {
+    "rank": 34,
+    "companyName": "中国医药集团有限公司",
+    "sourceIndustry": "批发：保健",
+    "revenue": "91,485.7",
+    "sourceLink": "../../gongsi/china500/2025/1500.htm",
+    "industryLevel1": "医疗健康",
+    "industryLevel2": "医疗服务/器械",
+    "peerCompanies": [
+      "中国医药集团有限公司",
+      "上海医药集团股份有限公司",
+      "九州通医药集团股份有限公司"
+    ],
+    "peerReason": "keep"
+  },
+  {
+    "rank": 35,
+    "companyName": "台积公司",
+    "sourceIndustry": "半导体、电子元件",
+    "revenue": "90,167",
+    "sourceLink": "../../gongsi/china500/2025/1514.htm",
+    "industryLevel1": "新兴重点产业",
+    "industryLevel2": "芯片制造",
+    "peerCompanies": [
+      "台积公司",
+      "TCL科技集团股份有限公司",
+      "日月光投资控股股份有限公司"
+    ],
+    "peerReason": "self_fab"
+  },
+  {
+    "rank": 36,
+    "companyName": "中粮集团有限公司",
+    "sourceIndustry": "贸易",
+    "revenue": "88,260",
+    "sourceLink": "../../gongsi/china500/2025/1495.htm",
+    "industryLevel1": "批发零售",
+    "industryLevel2": "贸易",
+    "peerCompanies": [
+      "厦门建发集团有限公司",
+      "中粮集团有限公司",
+      "物产中大集团股份有限公司"
+    ],
+    "peerReason": "keep"
+  },
+  {
+    "rank": 37,
+    "companyName": "中国电信集团有限公司",
+    "sourceIndustry": "电信",
+    "revenue": "87,996.5",
+    "sourceLink": "../../gongsi/china500/2025/1505.htm",
+    "industryLevel1": "ICT",
+    "industryLevel2": "运营商/通信",
+    "peerCompanies": [
+      "中国移动通信集团有限公司",
+      "中国电信集团有限公司",
+      "中国联合网络通信股份有限公司"
+    ],
+    "peerReason": "keep"
+  },
+  {
+    "rank": 38,
+    "companyName": "上海汽车集团股份有限公司",
+    "sourceIndustry": "车辆与零部件",
+    "revenue": "87,223.9",
+    "sourceLink": "../../gongsi/china500/2025/17.htm",
+    "industryLevel1": "汽车",
+    "industryLevel2": "整车",
+    "peerCompanies": [
+      "比亚迪股份有限公司",
+      "上海汽车集团股份有限公司",
+      "浙江吉利控股集团有限公司"
+    ],
+    "peerReason": "self_oem"
+  },
+  {
+    "rank": 39,
+    "companyName": "中国人民保险集团股份有限公司",
+    "sourceIndustry": "财产与意外保险（股份）",
+    "revenue": "86,477.6",
+    "sourceLink": "../../gongsi/china500/2025/631.htm",
+    "industryLevel1": "金融",
+    "industryLevel2": "保险",
+    "peerCompanies": [
+      "中国人民保险集团股份有限公司",
+      "中国再保险（集团）股份有限公司",
+      "众安在线财产保险股份有限公司"
+    ],
+    "peerReason": "keep"
+  },
+  {
+    "rank": 41,
+    "companyName": "浙江吉利控股集团有限公司",
+    "sourceIndustry": "车辆与零部件",
+    "revenue": "79,890.6",
+    "sourceLink": "../../gongsi/china500/2025/1524.htm",
+    "industryLevel1": "汽车",
+    "industryLevel2": "整车",
+    "peerCompanies": [
+      "比亚迪股份有限公司",
+      "上海汽车集团股份有限公司",
+      "浙江吉利控股集团有限公司"
+    ],
+    "peerReason": "self_oem"
+  },
+  {
+    "rank": 42,
+    "companyName": "盛虹控股集团有限公司",
+    "sourceIndustry": "化学品",
+    "revenue": "78,611.7",
+    "sourceLink": "../../gongsi/china500/2025/1523.htm",
+    "industryLevel1": "第二产业",
+    "industryLevel2": "化工与材料制造",
+    "peerCompanies": [
+      "浙江荣盛控股集团有限公司",
+      "盛虹控股集团有限公司",
+      "浙江恒逸集团有限公司"
+    ],
+    "peerReason": "keep"
+  },
+  {
+    "rank": 45,
+    "companyName": "山东魏桥创业集团有限公司",
+    "sourceIndustry": "纺织",
+    "revenue": "77,626.2",
+    "sourceLink": "../../gongsi/china500/2025/1517.htm",
+    "industryLevel1": "消费品",
+    "industryLevel2": "服装纺织",
+    "peerCompanies": [
+      "恒力集团有限公司",
+      "山东魏桥创业集团有限公司"
+    ],
+    "peerReason": "keep"
+  },
+  {
+    "rank": 48,
+    "companyName": "陕西煤业化工集团有限责任公司",
+    "sourceIndustry": "采矿、原油生产",
+    "revenue": "73,683.6",
+    "sourceLink": "../../gongsi/china500/2025/1515.htm",
+    "industryLevel1": "第二产业",
+    "industryLevel2": "采矿业",
+    "peerCompanies": [
+      "中国海洋石油集团有限公司",
+      "山东能源集团有限公司",
+      "陕西煤业化工集团有限责任公司"
+    ],
+    "peerReason": "keep"
+  },
+  {
+    "rank": 50,
+    "companyName": "联想集团有限公司",
+    "sourceIndustry": "计算机、办公设备",
+    "revenue": "69,077",
+    "sourceLink": "../../gongsi/china500/2025/20.htm",
+    "industryLevel1": "第二产业",
+    "industryLevel2": "电子与高端制造",
+    "peerCompanies": [
+      "联想集团有限公司",
+      "广达电脑股份有限公司",
+      "纬创集团"
+    ],
+    "peerReason": "keep"
+  },
+  {
+    "rank": 51,
+    "companyName": "中国保利集团有限公司",
+    "sourceIndustry": "房地产",
+    "revenue": "67,617.7",
+    "sourceLink": "../../gongsi/china500/2025/1520.htm",
+    "industryLevel1": "房地产",
+    "industryLevel2": "房地产开发",
+    "peerCompanies": [
+      "中国保利集团有限公司",
+      "万科企业股份有限公司",
+      "碧桂园控股有限公司"
+    ],
+    "peerReason": "keep"
+  },
+  {
+    "rank": 55,
+    "companyName": "中国远洋海运集团有限公司",
+    "sourceIndustry": "船务",
+    "revenue": "64,863.1",
+    "sourceLink": "../../gongsi/china500/2025/1501.htm",
+    "industryLevel1": "交通运输",
+    "industryLevel2": "交通基础设施",
+    "peerCompanies": [
+      "中国远洋海运集团有限公司",
+      "长荣海运股份有限公司"
+    ],
+    "peerReason": "keep"
+  },
+  {
+    "rank": 57,
+    "companyName": "中国兵器工业集团有限公司",
+    "sourceIndustry": "航天与防务",
+    "revenue": "61,519.5",
+    "sourceLink": "../../gongsi/china500/2025/1508.htm",
+    "industryLevel1": "第二产业",
+    "industryLevel2": "金属与装备制造",
+    "peerCompanies": [
+      "中国兵器工业集团有限公司",
+      "中国兵器装备集团公司"
+    ],
+    "peerReason": "keep"
+  },
+  {
+    "rank": 63,
+    "companyName": "美的集团股份有限公司",
+    "sourceIndustry": "电子、电气设备",
+    "revenue": "56,855.5",
+    "sourceLink": "../../gongsi/china500/2025/656.htm",
+    "industryLevel1": "第二产业",
+    "industryLevel2": "电子与高端制造",
+    "peerCompanies": [
+      "鸿海精密工业股份有限公司",
+      "美的集团股份有限公司",
+      "小米集团"
+    ],
+    "peerReason": "keep"
+  },
+  {
+    "rank": 68,
+    "companyName": "中国华能集团有限公司",
+    "sourceIndustry": "能源",
+    "revenue": "55,760.2",
+    "sourceLink": "../../gongsi/china500/2025/1522.htm",
+    "industryLevel1": "能源",
+    "industryLevel2": "电力",
+    "peerCompanies": [
+      "国家能源投资集团有限责任公司",
+      "中国华能集团有限公司",
+      "国家电力投资集团有限公司"
+    ],
+    "peerReason": "keep"
+  },
+  {
+    "rank": 71,
+    "companyName": "中国联合网络通信股份有限公司",
+    "sourceIndustry": "电信",
+    "revenue": "54,146",
+    "sourceLink": "../../gongsi/china500/2025/14.htm",
+    "industryLevel1": "ICT",
+    "industryLevel2": "运营商/通信",
+    "peerCompanies": [
+      "中国移动通信集团有限公司",
+      "中国电信集团有限公司",
+      "中国联合网络通信股份有限公司"
+    ],
+    "peerReason": "keep"
+  },
+  {
+    "rank": 79,
+    "companyName": "万科企业股份有限公司",
+    "sourceIndustry": "房地产",
+    "revenue": "47,695.5",
+    "sourceLink": "../../gongsi/china500/2025/45.htm",
+    "industryLevel1": "房地产",
+    "industryLevel2": "房地产开发",
+    "peerCompanies": [
+      "中国保利集团有限公司",
+      "万科企业股份有限公司",
+      "碧桂园控股有限公司"
+    ],
+    "peerReason": "keep"
+  },
+  {
+    "rank": 81,
+    "companyName": "浙江省交通投资集团有限公司",
+    "sourceIndustry": "运输及物流",
+    "revenue": "45,971.6",
+    "sourceLink": "../../gongsi/china500/2025/1537.htm",
+    "industryLevel1": "物流",
+    "industryLevel2": "供应链/仓储",
+    "peerCompanies": [
+      "浙江省交通投资集团有限公司",
+      "顺丰控股股份有限公司",
+      "山东高速集团有限公司"
+    ],
+    "peerReason": "keep"
+  },
+  {
+    "rank": 82,
+    "companyName": "中国兵器装备集团公司",
+    "sourceIndustry": "航天与防务",
+    "revenue": "45,481.8",
+    "sourceLink": "../../gongsi/china500/2025/1542.htm",
+    "industryLevel1": "第二产业",
+    "industryLevel2": "金属与装备制造",
+    "peerCompanies": [
+      "中国兵器工业集团有限公司",
+      "中国兵器装备集团公司"
+    ],
+    "peerReason": "keep"
+  },
+  {
+    "rank": 83,
+    "companyName": "泰康保险集团股份有限公司",
+    "sourceIndustry": "人寿与健康保险（互助）",
+    "revenue": "45,456",
+    "sourceLink": "../../gongsi/china500/2025/1565.htm",
+    "industryLevel1": "金融",
+    "industryLevel2": "保险",
+    "peerCompanies": [
+      "泰康保险集团股份有限公司"
+    ],
+    "peerReason": "keep"
+  },
+  {
+    "rank": 86,
+    "companyName": "广达电脑股份有限公司",
+    "sourceIndustry": "计算机、办公设备",
+    "revenue": "43,949.6",
+    "sourceLink": "../../gongsi/china500/2025/1543.htm",
+    "industryLevel1": "第二产业",
+    "industryLevel2": "电子与高端制造",
+    "peerCompanies": [
+      "联想集团有限公司",
+      "广达电脑股份有限公司",
+      "纬创集团"
+    ],
+    "peerReason": "keep"
+  },
+  {
+    "rank": 87,
+    "companyName": "中国建材集团有限公司",
+    "sourceIndustry": "建材、玻璃",
+    "revenue": "43,504.9",
+    "sourceLink": "../../gongsi/china500/2025/1527.htm",
+    "industryLevel1": "第二产业",
+    "industryLevel2": "化工与材料制造",
+    "peerCompanies": [
+      "中国建材集团有限公司",
+      "北京金隅集团股份有限公司",
+      "振石控股集团有限公司"
+    ],
+    "peerReason": "keep"
+  },
+  {
+    "rank": 88,
+    "companyName": "中国机械工业集团有限公司",
+    "sourceIndustry": "工业机械",
+    "revenue": "43,269.2",
+    "sourceLink": "../../gongsi/china500/2025/1534.htm",
+    "industryLevel1": "制造",
+    "industryLevel2": "工业制造",
+    "peerCompanies": [
+      "中国机械工业集团有限公司",
+      "广州工业投资控股集团有限公司",
+      "中国中车集团有限公司"
+    ],
+    "peerReason": "keep"
+  },
+  {
+    "rank": 93,
+    "companyName": "顺丰控股股份有限公司",
+    "sourceIndustry": "运输及物流",
+    "revenue": "39,529.4",
+    "sourceLink": "../../gongsi/china500/2025/1283.htm",
+    "industryLevel1": "物流",
+    "industryLevel2": "供应链/仓储",
+    "peerCompanies": [
+      "浙江省交通投资集团有限公司",
+      "顺丰控股股份有限公司",
+      "山东高速集团有限公司"
+    ],
+    "peerReason": "keep"
+  },
+  {
+    "rank": 97,
+    "companyName": "广州工业投资控股集团有限公司",
+    "sourceIndustry": "工业机械",
+    "revenue": "38,344.6",
+    "sourceLink": "../../gongsi/china500/2025/1561.htm",
+    "industryLevel1": "制造",
+    "industryLevel2": "工业制造",
+    "peerCompanies": [
+      "中国机械工业集团有限公司",
+      "广州工业投资控股集团有限公司",
+      "中国中车集团有限公司"
+    ],
+    "peerReason": "keep"
+  },
+  {
+    "rank": 98,
+    "companyName": "上海医药集团股份有限公司",
+    "sourceIndustry": "批发：保健",
+    "revenue": "38,255",
+    "sourceLink": "../../gongsi/china500/2025/136.htm",
+    "industryLevel1": "医疗健康",
+    "industryLevel2": "医疗服务/器械",
+    "peerCompanies": [
+      "中国医药集团有限公司",
+      "上海医药集团股份有限公司",
+      "九州通医药集团股份有限公司"
+    ],
+    "peerReason": "keep"
+  },
+  {
+    "rank": 104,
+    "companyName": "新希望控股集团有限公司",
+    "sourceIndustry": "食品生产",
+    "revenue": "37,283.9",
+    "sourceLink": "../../gongsi/china500/2025/1547.htm",
+    "industryLevel1": "消费品",
+    "industryLevel2": "食品饮料",
+    "peerCompanies": [
+      "新希望控股集团有限公司",
+      "万洲国际有限公司",
+      "牧原食品股份有限公司"
+    ],
+    "peerReason": "keep"
+  },
+  {
+    "rank": 108,
+    "companyName": "长江和记实业有限公司",
+    "sourceIndustry": "专业零售",
+    "revenue": "36,057.3",
+    "sourceLink": "../../gongsi/china500/2025/1571.htm",
+    "industryLevel1": "零售",
+    "industryLevel2": "连锁零售",
+    "peerCompanies": [
+      "长江和记实业有限公司",
+      "周大福珠宝集团有限公司",
+      "中国黄金集团黄金珠宝股份有限公司"
+    ],
+    "peerReason": "keep"
+  },
+  {
+    "rank": 115,
+    "companyName": "广州医药集团有限公司",
+    "sourceIndustry": "制药",
+    "revenue": "35,164.1",
+    "sourceLink": "../../gongsi/china500/2025/1563.htm",
+    "industryLevel1": "医疗健康",
+    "industryLevel2": "生物医药",
+    "peerCompanies": [
+      "广州医药集团有限公司",
+      "无锡药明康德新药开发股份有限公司",
+      "石药集团有限公司"
+    ],
+    "peerReason": "keep"
+  },
+  {
+    "rank": 136,
+    "companyName": "文晔科技股份有限公司",
+    "sourceIndustry": "批发：电子、办公设备",
+    "revenue": "29,889.4",
+    "sourceLink": "../../gongsi/china500/2025/1654.htm",
+    "industryLevel1": "批发零售",
+    "industryLevel2": "贸易",
+    "peerCompanies": [
+      "文晔科技股份有限公司",
+      "大联大投资控股股份有限公司",
+      "神州数码集团股份有限公司"
+    ],
+    "peerReason": "keep"
+  },
+  {
+    "rank": 143,
+    "companyName": "大联大投资控股股份有限公司",
+    "sourceIndustry": "批发：电子、办公设备",
+    "revenue": "27,432",
+    "sourceLink": "../../gongsi/china500/2025/1651.htm",
+    "industryLevel1": "批发零售",
+    "industryLevel2": "贸易",
+    "peerCompanies": [
+      "文晔科技股份有限公司",
+      "大联大投资控股股份有限公司",
+      "神州数码集团股份有限公司"
+    ],
+    "peerReason": "keep"
+  },
+  {
+    "rank": 145,
+    "companyName": "亨通集团有限公司",
+    "sourceIndustry": "网络、通讯设备",
+    "revenue": "27,187.8",
+    "sourceLink": "../../gongsi/china500/2025/1586.htm",
+    "industryLevel1": "ICT",
+    "industryLevel2": "通信技术服务",
+    "peerCompanies": [
+      "华为投资控股有限公司",
+      "亨通集团有限公司",
+      "中兴通讯股份有限公司"
+    ],
+    "peerReason": "keep"
+  },
+  {
+    "rank": 146,
+    "companyName": "四川省宜宾五粮液集团有限公司",
+    "sourceIndustry": "饮料",
+    "revenue": "27,142.6",
+    "sourceLink": "../../gongsi/china500/2025/1587.htm",
+    "industryLevel1": "消费品",
+    "industryLevel2": "食品饮料",
+    "peerCompanies": [
+      "四川省宜宾五粮液集团有限公司",
+      "贵州茅台酒股份有限公司",
+      "农夫山泉股份有限公司"
+    ],
+    "peerReason": "keep"
+  },
+  {
+    "rank": 151,
+    "companyName": "万洲国际有限公司",
+    "sourceIndustry": "食品生产",
+    "revenue": "25,941",
+    "sourceLink": "../../gongsi/china500/2025/1191.htm",
+    "industryLevel1": "消费品",
+    "industryLevel2": "食品饮料",
+    "peerCompanies": [
+      "新希望控股集团有限公司",
+      "万洲国际有限公司",
+      "牧原食品股份有限公司"
+    ],
+    "peerReason": "keep"
+  },
+  {
+    "rank": 155,
+    "companyName": "中国南方航空股份有限公司",
+    "sourceIndustry": "航空",
+    "revenue": "24,213.9",
+    "sourceLink": "../../gongsi/china500/2025/35.htm",
+    "industryLevel1": "交通运输",
+    "industryLevel2": "交通基础设施",
+    "peerCompanies": [
+      "中国南方航空股份有限公司",
+      "中国国际航空股份有限公司",
+      "中国东方航空股份有限公司"
+    ],
+    "peerReason": "keep"
+  },
+  {
+    "rank": 156,
+    "companyName": "贵州茅台酒股份有限公司",
+    "sourceIndustry": "饮料",
+    "revenue": "24,202.8",
+    "sourceLink": "../../gongsi/china500/2025/235.htm",
+    "industryLevel1": "消费品",
+    "industryLevel2": "食品饮料",
+    "peerCompanies": [
+      "四川省宜宾五粮液集团有限公司",
+      "贵州茅台酒股份有限公司",
+      "农夫山泉股份有限公司"
+    ],
+    "peerReason": "keep"
+  },
+  {
+    "rank": 157,
+    "companyName": "中升集团控股有限公司",
+    "sourceIndustry": "汽车零售和服务",
+    "revenue": "23,366.2",
+    "sourceLink": "../../gongsi/china500/2025/643.htm",
+    "industryLevel1": "汽车",
+    "industryLevel2": "销售服务",
+    "peerCompanies": [
+      "中升集团控股有限公司",
+      "中国永达汽车服务控股有限公司"
+    ],
+    "peerReason": "self_sales"
+  },
+  {
+    "rank": 158,
+    "companyName": "中国国际航空股份有限公司",
+    "sourceIndustry": "航空",
+    "revenue": "23,168.1",
+    "sourceLink": "../../gongsi/china500/2025/43.htm",
+    "industryLevel1": "交通运输",
+    "industryLevel2": "交通基础设施",
+    "peerCompanies": [
+      "中国南方航空股份有限公司",
+      "中国国际航空股份有限公司",
+      "中国东方航空股份有限公司"
+    ],
+    "peerReason": "keep"
+  },
+  {
+    "rank": 159,
+    "companyName": "TCL科技集团股份有限公司",
+    "sourceIndustry": "半导体、电子元件",
+    "revenue": "22,926.8",
+    "sourceLink": "../../gongsi/china500/2025/52.htm",
+    "industryLevel1": "新兴重点产业",
+    "industryLevel2": "芯片设计",
+    "peerCompanies": [
+      "台积公司",
+      "TCL科技集团股份有限公司",
+      "日月光投资控股股份有限公司"
+    ],
+    "peerReason": "keep"
+  },
+  {
+    "rank": 168,
+    "companyName": "统一企业股份有限公司",
+    "sourceIndustry": "食品：消费产品",
+    "revenue": "20,487.5",
+    "sourceLink": "../../gongsi/china500/2025/1594.htm",
+    "industryLevel1": "消费品",
+    "industryLevel2": "食品饮料",
+    "peerCompanies": [
+      "统一企业股份有限公司",
+      "内蒙古伊利实业集团股份有限公司",
+      "中国蒙牛乳业有限公司"
+    ],
+    "peerReason": "keep"
+  },
+  {
+    "rank": 177,
+    "companyName": "日月光投资控股股份有限公司",
+    "sourceIndustry": "半导体、电子元件",
+    "revenue": "18,548.9",
+    "sourceLink": "../../gongsi/china500/2025/1652.htm",
+    "industryLevel1": "新兴重点产业",
+    "industryLevel2": "芯片封测",
+    "peerCompanies": [
+      "台积公司",
+      "TCL科技集团股份有限公司",
+      "日月光投资控股股份有限公司"
+    ],
+    "peerReason": "self_osat"
+  },
+  {
+    "rank": 189,
+    "companyName": "中国再保险（集团）股份有限公司",
+    "sourceIndustry": "财产与意外保险（股份）",
+    "revenue": "16,418.3",
+    "sourceLink": "../../gongsi/china500/2025/1227.htm",
+    "industryLevel1": "金融",
+    "industryLevel2": "保险",
+    "peerCompanies": [
+      "中国人民保险集团股份有限公司",
+      "中国再保险（集团）股份有限公司",
+      "众安在线财产保险股份有限公司"
+    ],
+    "peerReason": "keep"
+  },
+  {
+    "rank": 190,
+    "companyName": "内蒙古伊利实业集团股份有限公司",
+    "sourceIndustry": "食品：消费产品",
+    "revenue": "16,091.2",
+    "sourceLink": "../../gongsi/china500/2025/109.htm",
+    "industryLevel1": "消费品",
+    "industryLevel2": "食品饮料",
+    "peerCompanies": [
+      "统一企业股份有限公司",
+      "内蒙古伊利实业集团股份有限公司",
+      "中国蒙牛乳业有限公司"
+    ],
+    "peerReason": "keep"
+  },
+  {
+    "rank": 194,
+    "companyName": "北京金隅集团股份有限公司",
+    "sourceIndustry": "建材、玻璃",
+    "revenue": "15,386.9",
+    "sourceLink": "../../gongsi/china500/2025/200.htm",
+    "industryLevel1": "第二产业",
+    "industryLevel2": "化工与材料制造",
+    "peerCompanies": [
+      "中国建材集团有限公司",
+      "北京金隅集团股份有限公司",
+      "振石控股集团有限公司"
+    ],
+    "peerReason": "keep"
+  },
+  {
+    "rank": 202,
+    "companyName": "长荣海运股份有限公司",
+    "sourceIndustry": "船务",
+    "revenue": "14,441.6",
+    "sourceLink": "../../gongsi/china500/2025/1653.htm",
+    "industryLevel1": "交通运输",
+    "industryLevel2": "交通基础设施",
+    "peerCompanies": [
+      "中国远洋海运集团有限公司",
+      "长荣海运股份有限公司"
+    ],
+    "peerReason": "keep"
+  },
+  {
+    "rank": 212,
+    "companyName": "徐工集团工程机械股份有限公司",
+    "sourceIndustry": "建筑和农业机械",
+    "revenue": "12,739",
+    "sourceLink": "../../gongsi/china500/2025/127.htm",
+    "industryLevel1": "制造",
+    "industryLevel2": "工业制造",
+    "peerCompanies": [
+      "徐工集团工程机械股份有限公司",
+      "三一重工股份有限公司",
+      "中联重科股份有限公司"
+    ],
+    "peerReason": "keep"
+  },
+  {
+    "rank": 226,
+    "companyName": "周大福珠宝集团有限公司",
+    "sourceIndustry": "专业零售",
+    "revenue": "11,490.1",
+    "sourceLink": "../../gongsi/china500/2025/1663.htm",
+    "industryLevel1": "零售",
+    "industryLevel2": "连锁零售",
+    "peerCompanies": [
+      "长江和记实业有限公司",
+      "周大福珠宝集团有限公司",
+      "中国黄金集团黄金珠宝股份有限公司"
+    ],
+    "peerReason": "keep"
+  },
+  {
+    "rank": 236,
+    "companyName": "三一重工股份有限公司",
+    "sourceIndustry": "建筑和农业机械",
+    "revenue": "10,893.8",
+    "sourceLink": "../../gongsi/china500/2025/157.htm",
+    "industryLevel1": "制造",
+    "industryLevel2": "工业制造",
+    "peerCompanies": [
+      "徐工集团工程机械股份有限公司",
+      "三一重工股份有限公司",
+      "中联重科股份有限公司"
+    ],
+    "peerReason": "keep"
+  },
+  {
+    "rank": 243,
+    "companyName": "大秦铁路股份有限公司",
+    "sourceIndustry": "铁路运输",
+    "revenue": "10,371.8",
+    "sourceLink": "../../gongsi/china500/2025/113.htm",
+    "industryLevel1": "交通运输",
+    "industryLevel2": "交通基础设施",
+    "peerCompanies": [
+      "大秦铁路股份有限公司",
+      "京沪高速铁路股份有限公司",
+      "中国铁路物资股份有限公司"
+    ],
+    "peerReason": "keep"
+  },
+  {
+    "rank": 248,
+    "companyName": "高鑫零售有限公司",
+    "sourceIndustry": "综合商业",
+    "revenue": "9,944.4",
+    "sourceLink": "../../gongsi/china500/2025/1705.htm",
+    "industryLevel1": "批发零售",
+    "industryLevel2": "贸易",
+    "peerCompanies": [
+      "高鑫零售有限公司",
+      "永辉超市股份有限公司",
+      "物美科技集团有限公司"
+    ],
+    "peerReason": "keep"
+  },
+  {
+    "rank": 249,
+    "companyName": "安踏体育用品集团有限公司",
+    "sourceIndustry": "服装",
+    "revenue": "9,843.5",
+    "sourceLink": "../../gongsi/china500/2025/1609.htm",
+    "industryLevel1": "消费品",
+    "industryLevel2": "服装纺织",
+    "peerCompanies": [
+      "安踏体育用品集团有限公司",
+      "李宁有限公司",
+      "申洲国际集团控股有限公司"
+    ],
+    "peerReason": "keep"
+  },
+  {
+    "rank": 260,
+    "companyName": "永辉超市股份有限公司",
+    "sourceIndustry": "综合商业",
+    "revenue": "9,391.5",
+    "sourceLink": "../../gongsi/china500/2025/513.htm",
+    "industryLevel1": "批发零售",
+    "industryLevel2": "贸易",
+    "peerCompanies": [
+      "高鑫零售有限公司",
+      "永辉超市股份有限公司",
+      "物美科技集团有限公司"
+    ],
+    "peerReason": "keep"
+  },
+  {
+    "rank": 273,
+    "companyName": "中国永达汽车服务控股有限公司",
+    "sourceIndustry": "汽车零售和服务",
+    "revenue": "8,814.2",
+    "sourceLink": "../../gongsi/china500/2025/1368.htm",
+    "industryLevel1": "汽车",
+    "industryLevel2": "销售服务",
+    "peerCompanies": [
+      "中升集团控股有限公司",
+      "中国永达汽车服务控股有限公司"
+    ],
+    "peerReason": "self_sales"
+  },
+  {
+    "rank": 276,
+    "companyName": "国泰海通证券股份有限公司",
+    "sourceIndustry": "证券",
+    "revenue": "8,583.1",
+    "sourceLink": "../../gongsi/china500/2025/1234.htm",
+    "industryLevel1": "金融",
+    "industryLevel2": "证券",
+    "peerCompanies": [
+      "国泰海通证券股份有限公司",
+      "华泰证券股份有限公司",
+      "中国银河证券股份有限公司"
+    ],
+    "peerReason": "keep"
+  },
+  {
+    "rank": 279,
+    "companyName": "北京蓝色光标数据科技集团股份有限公司",
+    "sourceIndustry": "广告及市场营销",
+    "revenue": "8,449.6",
+    "sourceLink": "../../gongsi/china500/2025/1323.htm",
+    "industryLevel1": "第三产业",
+    "industryLevel2": "租赁和商务服务业",
+    "peerCompanies": [
+      "北京蓝色光标数据科技集团股份有限公司"
+    ],
+    "peerReason": "keep"
+  },
+  {
+    "rank": 288,
+    "companyName": "玖龙纸业（控股）有限公司",
+    "sourceIndustry": "林产品与纸制品",
+    "revenue": "8,268.9",
+    "sourceLink": "../../gongsi/china500/2025/186.htm",
+    "industryLevel1": "第二产业",
+    "industryLevel2": "食品与轻工制造",
+    "peerCompanies": [
+      "玖龙纸业（控股）有限公司",
+      "山东太阳纸业股份有限公司",
+      "山鹰国际控股股份公司"
+    ],
+    "peerReason": "keep"
+  },
+  {
+    "rank": 304,
+    "companyName": "华泰证券股份有限公司",
+    "sourceIndustry": "证券",
+    "revenue": "7,544.7",
+    "sourceLink": "../../gongsi/china500/2025/237.htm",
+    "industryLevel1": "金融",
+    "industryLevel2": "证券",
+    "peerCompanies": [
+      "国泰海通证券股份有限公司",
+      "华泰证券股份有限公司",
+      "中国银河证券股份有限公司"
+    ],
+    "peerReason": "keep"
+  },
+  {
+    "rank": 338,
+    "companyName": "北京国际人力资本集团股份有限公司",
+    "sourceIndustry": "多元化外包服务",
+    "revenue": "5,980.6",
+    "sourceLink": "../../gongsi/china500/2025/1684.htm",
+    "industryLevel1": "第三产业",
+    "industryLevel2": "租赁和商务服务业",
+    "peerCompanies": [
+      "北京国际人力资本集团股份有限公司"
+    ],
+    "peerReason": "keep"
+  },
+  {
+    "rank": 342,
+    "companyName": "海底捞国际控股有限公司",
+    "sourceIndustry": "食品：饮食服务业",
+    "revenue": "5,942.1",
+    "sourceLink": "../../gongsi/china500/2025/1389.htm",
+    "industryLevel1": "第三产业",
+    "industryLevel2": "住宿和餐饮业",
+    "peerCompanies": [
+      "海底捞国际控股有限公司"
+    ],
+    "peerReason": "keep"
+  },
+  {
+    "rank": 343,
+    "companyName": "京沪高速铁路股份有限公司",
+    "sourceIndustry": "铁路运输",
+    "revenue": "5,859.1",
+    "sourceLink": "../../gongsi/china500/2025/1400.htm",
+    "industryLevel1": "交通运输",
+    "industryLevel2": "交通基础设施",
+    "peerCompanies": [
+      "大秦铁路股份有限公司",
+      "京沪高速铁路股份有限公司",
+      "中国铁路物资股份有限公司"
+    ],
+    "peerReason": "keep"
+  },
+  {
+    "rank": 346,
+    "companyName": "浙农集团股份有限公司",
+    "sourceIndustry": "批发：食品",
+    "revenue": "5,833.9",
+    "sourceLink": "../../gongsi/china500/2025/1437.htm",
+    "industryLevel1": "批发零售",
+    "industryLevel2": "贸易",
+    "peerCompanies": [
+      "浙农集团股份有限公司",
+      "福建万辰生物科技集团股份有限公司"
+    ],
+    "peerReason": "keep"
+  },
+  {
+    "rank": 353,
+    "companyName": "山东太阳纸业股份有限公司",
+    "sourceIndustry": "林产品与纸制品",
+    "revenue": "5,660.2",
+    "sourceLink": "../../gongsi/china500/2025/330.htm",
+    "industryLevel1": "第二产业",
+    "industryLevel2": "食品与轻工制造",
+    "peerCompanies": [
+      "玖龙纸业（控股）有限公司",
+      "山东太阳纸业股份有限公司",
+      "山鹰国际控股股份公司"
+    ],
+    "peerReason": "keep"
+  },
+  {
+    "rank": 356,
+    "companyName": "银河娱乐集团有限公司",
+    "sourceIndustry": "酒店、赌场、度假村",
+    "revenue": "5,566.2",
+    "sourceLink": "../../gongsi/china500/2025/1707.htm",
+    "industryLevel1": "服务业",
+    "industryLevel2": "文旅酒店",
+    "peerCompanies": [
+      "银河娱乐集团有限公司",
+      "新濠国际发展有限公司",
+      "澳门博彩控股有限公司"
+    ],
+    "peerReason": "keep"
+  },
+  {
+    "rank": 362,
+    "companyName": "无锡药明康德新药开发股份有限公司",
+    "sourceIndustry": "制药",
+    "revenue": "5,453.8",
+    "sourceLink": "../../gongsi/china500/2025/1471.htm",
+    "industryLevel1": "医疗健康",
+    "industryLevel2": "生物医药",
+    "peerCompanies": [
+      "广州医药集团有限公司",
+      "无锡药明康德新药开发股份有限公司",
+      "石药集团有限公司"
+    ],
+    "peerReason": "keep"
+  },
+  {
+    "rank": 366,
+    "companyName": "渤海租赁股份有限公司",
+    "sourceIndustry": "设备租赁",
+    "revenue": "5,341.2",
+    "sourceLink": "../../gongsi/china500/2025/1275.htm",
+    "industryLevel1": "第三产业",
+    "industryLevel2": "租赁和商务服务业",
+    "peerCompanies": [
+      "渤海租赁股份有限公司",
+      "国银金融租赁股份有限公司"
+    ],
+    "peerReason": "keep"
+  },
+  {
+    "rank": 382,
+    "companyName": "深圳迈瑞生物医疗电子股份有限公司",
+    "sourceIndustry": "医疗器材和设备",
+    "revenue": "5,104.2",
+    "sourceLink": "../../gongsi/china500/2025/1441.htm",
+    "industryLevel1": "医疗健康",
+    "industryLevel2": "医疗服务/器械",
+    "peerCompanies": [
+      "深圳迈瑞生物医疗电子股份有限公司"
+    ],
+    "peerReason": "keep"
+  },
+  {
+    "rank": 407,
+    "companyName": "新濠国际发展有限公司",
+    "sourceIndustry": "酒店、赌场、度假村",
+    "revenue": "4,635.8",
+    "sourceLink": "../../gongsi/china500/2025/1700.htm",
+    "industryLevel1": "服务业",
+    "industryLevel2": "文旅酒店",
+    "peerCompanies": [
+      "银河娱乐集团有限公司",
+      "新濠国际发展有限公司",
+      "澳门博彩控股有限公司"
+    ],
+    "peerReason": "keep"
+  },
+  {
+    "rank": 410,
+    "companyName": "众安在线财产保险股份有限公司",
+    "sourceIndustry": "财产与意外保险（股份）",
+    "revenue": "4,617.4",
+    "sourceLink": "../../gongsi/china500/2025/1641.htm",
+    "industryLevel1": "金融",
+    "industryLevel2": "保险",
+    "peerCompanies": [
+      "中国人民保险集团股份有限公司",
+      "中国再保险（集团）股份有限公司",
+      "众安在线财产保险股份有限公司"
+    ],
+    "peerReason": "keep"
+  },
+  {
+    "rank": 419,
+    "companyName": "福建万辰生物科技集团股份有限公司",
+    "sourceIndustry": "批发：食品",
+    "revenue": "4,493.1",
+    "sourceLink": "../../gongsi/china500/2025/1711.htm",
+    "industryLevel1": "批发零售",
+    "industryLevel2": "贸易",
+    "peerCompanies": [
+      "浙农集团股份有限公司",
+      "福建万辰生物科技集团股份有限公司"
+    ],
+    "peerReason": "keep"
+  },
+  {
+    "rank": 422,
+    "companyName": "浙江大华技术股份有限公司",
+    "sourceIndustry": "信息技术服务",
+    "revenue": "4,472.6",
+    "sourceLink": "../../gongsi/china500/2025/1270.htm",
+    "industryLevel1": "软件服务",
+    "industryLevel2": "企业软件/SaaS",
+    "peerCompanies": [
+      "浙江大华技术股份有限公司"
+    ],
+    "peerReason": "keep"
+  },
+  {
+    "rank": 455,
+    "companyName": "李宁有限公司",
+    "sourceIndustry": "服装",
+    "revenue": "3,985.4",
+    "sourceLink": "../../gongsi/china500/2025/257.htm",
+    "industryLevel1": "消费品",
+    "industryLevel2": "服装纺织",
+    "peerCompanies": [
+      "安踏体育用品集团有限公司",
+      "李宁有限公司",
+      "申洲国际集团控股有限公司"
+    ],
+    "peerReason": "keep"
+  },
+  {
+    "rank": 457,
+    "companyName": "国银金融租赁股份有限公司",
+    "sourceIndustry": "设备租赁",
+    "revenue": "3,969.7",
+    "sourceLink": "../../gongsi/china500/2025/1632.htm",
+    "industryLevel1": "第三产业",
+    "industryLevel2": "租赁和商务服务业",
+    "peerCompanies": [
+      "渤海租赁股份有限公司",
+      "国银金融租赁股份有限公司"
+    ],
+    "peerReason": "keep"
+  }
+]
