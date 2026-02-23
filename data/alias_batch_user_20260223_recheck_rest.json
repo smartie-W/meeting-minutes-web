@@ -1,0 +1,587 @@
+[
+  {
+    "alias": "禾多科技",
+    "fullName": "北京禾多科技有限公司",
+    "oldIndustry": {
+      "level1": "汽车",
+      "level2": "智能驾驶"
+    },
+    "onlineIndustry": {
+      "level1": "汽车",
+      "level2": "智能驾驶"
+    },
+    "consistent": true,
+    "sources": [],
+    "error": "URLError"
+  },
+  {
+    "alias": "佑驾创新",
+    "fullName": "深圳佑驾创新科技股份有限公司",
+    "oldIndustry": {
+      "level1": "汽车",
+      "level2": "智能驾驶"
+    },
+    "onlineIndustry": {
+      "level1": "汽车",
+      "level2": "智能驾驶"
+    },
+    "consistent": true,
+    "sources": [],
+    "error": "URLError"
+  },
+  {
+    "alias": "驭势科技 UISEE",
+    "fullName": "北京驭势科技有限责任公司",
+    "oldIndustry": {
+      "level1": "汽车",
+      "level2": "智能驾驶"
+    },
+    "onlineIndustry": {
+      "level1": "汽车",
+      "level2": "智能驾驶"
+    },
+    "consistent": true,
+    "sources": [],
+    "error": "URLError"
+  },
+  {
+    "alias": "仙途智能 Futurology",
+    "fullName": "上海仙途智能科技有限公司",
+    "oldIndustry": {
+      "level1": "汽车",
+      "level2": "智能驾驶"
+    },
+    "onlineIndustry": {
+      "level1": "汽车",
+      "level2": "智能驾驶"
+    },
+    "consistent": true,
+    "sources": [],
+    "error": "URLError"
+  },
+  {
+    "alias": "图森未来 TuSimple",
+    "fullName": "图森未来（北京）科技有限公司",
+    "oldIndustry": {
+      "level1": "汽车",
+      "level2": "智能驾驶"
+    },
+    "onlineIndustry": {
+      "level1": "汽车",
+      "level2": "智能驾驶"
+    },
+    "consistent": true,
+    "sources": [],
+    "error": "URLError"
+  },
+  {
+    "alias": "华域汽车",
+    "fullName": "华域汽车系统股份有限公司",
+    "oldIndustry": {
+      "level1": "汽车",
+      "level2": "整车/零部件"
+    },
+    "onlineIndustry": {
+      "level1": "汽车",
+      "level2": "整车/零部件"
+    },
+    "consistent": true,
+    "sources": [],
+    "error": "URLError"
+  },
+  {
+    "alias": "延锋",
+    "fullName": "延锋汽车饰件系统有限公司",
+    "oldIndustry": {
+      "level1": "汽车",
+      "level2": "智能座舱"
+    },
+    "onlineIndustry": {
+      "level1": "汽车",
+      "level2": "智能座舱"
+    },
+    "consistent": true,
+    "sources": [],
+    "error": "URLError"
+  },
+  {
+    "alias": "联合汽车电子 UAES",
+    "fullName": "联合汽车电子有限公司",
+    "oldIndustry": {
+      "level1": "汽车",
+      "level2": "整车/零部件"
+    },
+    "onlineIndustry": {
+      "level1": "汽车",
+      "level2": "整车/零部件"
+    },
+    "consistent": true,
+    "sources": [],
+    "error": "URLError"
+  },
+  {
+    "alias": "伯特利",
+    "fullName": "芜湖伯特利汽车安全系统股份有限公司",
+    "oldIndustry": {
+      "level1": "汽车",
+      "level2": "整车/零部件"
+    },
+    "onlineIndustry": {
+      "level1": "汽车",
+      "level2": "整车/零部件"
+    },
+    "consistent": true,
+    "sources": [],
+    "error": "URLError"
+  },
+  {
+    "alias": "拓普集团",
+    "fullName": "宁波拓普集团股份有限公司",
+    "oldIndustry": {
+      "level1": "汽车",
+      "level2": "整车/零部件"
+    },
+    "onlineIndustry": {
+      "level1": "汽车",
+      "level2": "整车/零部件"
+    },
+    "consistent": true,
+    "sources": [],
+    "error": "URLError"
+  },
+  {
+    "alias": "保隆科技",
+    "fullName": "上海保隆汽车科技股份有限公司",
+    "oldIndustry": {
+      "level1": "汽车",
+      "level2": "智能传感器"
+    },
+    "onlineIndustry": {
+      "level1": "汽车",
+      "level2": "智能传感器"
+    },
+    "consistent": true,
+    "sources": [],
+    "error": "URLError"
+  },
+  {
+    "alias": "德尔股份",
+    "fullName": "阜新德尔汽车部件股份有限公司",
+    "oldIndustry": {
+      "level1": "汽车",
+      "level2": "整车/零部件"
+    },
+    "onlineIndustry": {
+      "level1": "汽车",
+      "level2": "整车/零部件"
+    },
+    "consistent": true,
+    "sources": [],
+    "error": "URLError"
+  },
+  {
+    "alias": "精进电动",
+    "fullName": "精进电动科技股份有限公司",
+    "oldIndustry": {
+      "level1": "汽车",
+      "level2": "整车/零部件"
+    },
+    "onlineIndustry": {
+      "level1": "汽车",
+      "level2": "整车/零部件"
+    },
+    "consistent": true,
+    "sources": [],
+    "error": "URLError"
+  },
+  {
+    "alias": "汇川联合动力",
+    "fullName": "苏州汇川联合动力系统股份有限公司",
+    "oldIndustry": {
+      "level1": "汽车",
+      "level2": "整车/零部件"
+    },
+    "onlineIndustry": {
+      "level1": "汽车",
+      "level2": "整车/零部件"
+    },
+    "consistent": true,
+    "sources": [],
+    "error": "URLError"
+  },
+  {
+    "alias": "英搏尔",
+    "fullName": "珠海英搏尔电气股份有限公司",
+    "oldIndustry": {
+      "level1": "汽车",
+      "level2": "整车/零部件"
+    },
+    "onlineIndustry": {
+      "level1": "汽车",
+      "level2": "整车/零部件"
+    },
+    "consistent": true,
+    "sources": [],
+    "error": "URLError"
+  },
+  {
+    "alias": "比亚迪半导体",
+    "fullName": "比亚迪半导体股份有限公司",
+    "oldIndustry": {
+      "level1": "电子信息",
+      "level2": "半导体与芯片"
+    },
+    "onlineIndustry": {
+      "level1": "电子信息",
+      "level2": "半导体与芯片"
+    },
+    "consistent": true,
+    "sources": [],
+    "error": "URLError"
+  },
+  {
+    "alias": "斯达半导",
+    "fullName": "嘉兴斯达半导体股份有限公司",
+    "oldIndustry": {
+      "level1": "电子信息",
+      "level2": "半导体与芯片"
+    },
+    "onlineIndustry": {
+      "level1": "电子信息",
+      "level2": "半导体与芯片"
+    },
+    "consistent": true,
+    "sources": [],
+    "error": "URLError"
+  },
+  {
+    "alias": "士兰微",
+    "fullName": "杭州士兰微电子股份有限公司",
+    "oldIndustry": {
+      "level1": "电子信息",
+      "level2": "半导体与芯片"
+    },
+    "onlineIndustry": {
+      "level1": "电子信息",
+      "level2": "半导体与芯片"
+    },
+    "consistent": true,
+    "sources": [],
+    "error": "URLError"
+  },
+  {
+    "alias": "华润微",
+    "fullName": "华润微电子有限公司",
+    "oldIndustry": {
+      "level1": "电子信息",
+      "level2": "半导体与芯片"
+    },
+    "onlineIndustry": {
+      "level1": "电子信息",
+      "level2": "半导体与芯片"
+    },
+    "consistent": true,
+    "sources": [],
+    "error": "URLError"
+  },
+  {
+    "alias": "中颖电子",
+    "fullName": "上海中颖电子股份有限公司",
+    "oldIndustry": {
+      "level1": "电子信息",
+      "level2": "半导体与芯片"
+    },
+    "onlineIndustry": {
+      "level1": "电子信息",
+      "level2": "半导体与芯片"
+    },
+    "consistent": true,
+    "sources": [],
+    "error": "URLError"
+  },
+  {
+    "alias": "纳芯微",
+    "fullName": "苏州纳芯微电子股份有限公司",
+    "oldIndustry": {
+      "level1": "汽车",
+      "level2": "智能传感器"
+    },
+    "onlineIndustry": {
+      "level1": "汽车",
+      "level2": "智能传感器"
+    },
+    "consistent": true,
+    "sources": [],
+    "error": "URLError"
+  },
+  {
+    "alias": "圣邦股份",
+    "fullName": "圣邦微电子（北京）股份有限公司",
+    "oldIndustry": {
+      "level1": "电子信息",
+      "level2": "半导体与芯片"
+    },
+    "onlineIndustry": {
+      "level1": "电子信息",
+      "level2": "半导体与芯片"
+    },
+    "consistent": true,
+    "sources": [],
+    "error": "URLError"
+  },
+  {
+    "alias": "思特威",
+    "fullName": "思特威（上海）电子科技股份有限公司",
+    "oldIndustry": {
+      "level1": "汽车",
+      "level2": "智能传感器"
+    },
+    "onlineIndustry": {
+      "level1": "汽车",
+      "level2": "智能传感器"
+    },
+    "consistent": true,
+    "sources": [],
+    "error": "URLError"
+  },
+  {
+    "alias": "格科微",
+    "fullName": "格科微有限公司",
+    "oldIndustry": {
+      "level1": "汽车",
+      "level2": "智能传感器"
+    },
+    "onlineIndustry": {
+      "level1": "汽车",
+      "level2": "智能传感器"
+    },
+    "consistent": true,
+    "sources": [],
+    "error": "URLError"
+  },
+  {
+    "alias": "舜宇光学",
+    "fullName": "舜宇光学科技（集团）有限公司",
+    "oldIndustry": {
+      "level1": "汽车",
+      "level2": "智能传感器"
+    },
+    "onlineIndustry": {
+      "level1": "汽车",
+      "level2": "智能传感器"
+    },
+    "consistent": true,
+    "sources": [],
+    "error": "URLError"
+  },
+  {
+    "alias": "联创电子",
+    "fullName": "联创电子科技股份有限公司",
+    "oldIndustry": {
+      "level1": "汽车",
+      "level2": "智能传感器"
+    },
+    "onlineIndustry": {
+      "level1": "汽车",
+      "level2": "智能传感器"
+    },
+    "consistent": true,
+    "sources": [],
+    "error": "URLError"
+  },
+  {
+    "alias": "欧菲光",
+    "fullName": "欧菲光集团股份有限公司",
+    "oldIndustry": {
+      "level1": "汽车",
+      "level2": "智能传感器"
+    },
+    "onlineIndustry": {
+      "level1": "汽车",
+      "level2": "智能传感器"
+    },
+    "consistent": true,
+    "sources": [],
+    "error": "URLError"
+  },
+  {
+    "alias": "大立科技",
+    "fullName": "浙江大立科技股份有限公司",
+    "oldIndustry": {
+      "level1": "汽车",
+      "level2": "智能传感器"
+    },
+    "onlineIndustry": {
+      "level1": "汽车",
+      "level2": "智能传感器"
+    },
+    "consistent": true,
+    "sources": [],
+    "error": "URLError"
+  },
+  {
+    "alias": "睿创微纳",
+    "fullName": "烟台睿创微纳技术股份有限公司",
+    "oldIndustry": {
+      "level1": "汽车",
+      "level2": "智能传感器"
+    },
+    "onlineIndustry": {
+      "level1": "汽车",
+      "level2": "智能传感器"
+    },
+    "consistent": true,
+    "sources": [],
+    "error": "URLError"
+  },
+  {
+    "alias": "速腾聚创 RoboSense",
+    "fullName": "深圳市速腾聚创科技有限公司",
+    "oldIndustry": {
+      "level1": "汽车",
+      "level2": "智能传感器"
+    },
+    "onlineIndustry": {
+      "level1": "汽车",
+      "level2": "智能传感器"
+    },
+    "consistent": true,
+    "sources": [],
+    "error": "URLError"
+  },
+  {
+    "alias": "禾赛科技 Hesai",
+    "fullName": "禾赛科技有限公司",
+    "oldIndustry": {
+      "level1": "汽车",
+      "level2": "智能传感器"
+    },
+    "onlineIndustry": {
+      "level1": "汽车",
+      "level2": "智能传感器"
+    },
+    "consistent": true,
+    "sources": [],
+    "error": "URLError"
+  },
+  {
+    "alias": "图达通 Innovusion",
+    "fullName": "图达通智能科技（苏州）有限公司",
+    "oldIndustry": {
+      "level1": "汽车",
+      "level2": "智能传感器"
+    },
+    "onlineIndustry": {
+      "level1": "汽车",
+      "level2": "智能传感器"
+    },
+    "consistent": true,
+    "sources": [],
+    "error": "URLError"
+  },
+  {
+    "alias": "北醒科技 Benewake",
+    "fullName": "北京北醒光子科技有限公司",
+    "oldIndustry": {
+      "level1": "汽车",
+      "level2": "智能传感器"
+    },
+    "onlineIndustry": {
+      "level1": "汽车",
+      "level2": "智能传感器"
+    },
+    "consistent": true,
+    "sources": [],
+    "error": "URLError"
+  },
+  {
+    "alias": "森思泰克",
+    "fullName": "森思泰克（北京）科技有限公司",
+    "oldIndustry": {
+      "level1": "汽车",
+      "level2": "智能传感器"
+    },
+    "onlineIndustry": {
+      "level1": "汽车",
+      "level2": "智能传感器"
+    },
+    "consistent": true,
+    "sources": [],
+    "error": "URLError"
+  },
+  {
+    "alias": "木牛科技",
+    "fullName": "木牛科技（宁波）有限公司",
+    "oldIndustry": {
+      "level1": "汽车",
+      "level2": "智能零部件"
+    },
+    "onlineIndustry": {
+      "level1": "汽车",
+      "level2": "智能零部件"
+    },
+    "consistent": true,
+    "sources": [],
+    "error": "URLError"
+  },
+  {
+    "alias": "中海达",
+    "fullName": "广州中海达卫星导航技术股份有限公司",
+    "oldIndustry": {
+      "level1": "汽车",
+      "level2": "智能零部件"
+    },
+    "onlineIndustry": {
+      "level1": "汽车",
+      "level2": "智能零部件"
+    },
+    "consistent": true,
+    "sources": [],
+    "error": "URLError"
+  },
+  {
+    "alias": "北方导航",
+    "fullName": "北方导航控制技术股份有限公司",
+    "oldIndustry": {
+      "level1": "汽车",
+      "level2": "智能零部件"
+    },
+    "onlineIndustry": {
+      "level1": "汽车",
+      "level2": "智能零部件"
+    },
+    "consistent": true,
+    "sources": [],
+    "error": "URLError"
+  },
+  {
+    "alias": "宁德时代",
+    "fullName": "宁德时代新能源科技股份有限公司",
+    "oldIndustry": {
+      "level1": "新能源",
+      "level2": "动力电池"
+    },
+    "onlineIndustry": {
+      "level1": "新能源",
+      "level2": "动力电池"
+    },
+    "consistent": true,
+    "sources": [],
+    "error": "URLError"
+  },
+  {
+    "alias": "国轩高科",
+    "fullName": "国轩高科股份有限公司",
+    "oldIndustry": {
+      "level1": "新能源",
+      "level2": "动力电池"
+    },
+    "onlineIndustry": {
+      "level1": "新能源",
+      "level2": "动力电池"
+    },
+    "consistent": true,
+    "sources": [],
+    "error": "URLError"
+  }
+]
