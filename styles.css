@@ -215,6 +215,25 @@ textarea.long-input {
   flex: 0 0 18px;
 }
 
+.section-label-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin: 8px 0 6px;
+}
+
+.section-label-row label {
+  margin: 0;
+}
+
+.btn.btn-inline {
+  padding: 5px 10px;
+  font-size: 14px;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
 .suggestions {
   display: flex;
   gap: 6px;
@@ -500,5 +519,10 @@ th {
 
   .kpis {
     grid-template-columns: 1fr 1fr;
+  }
+
+  .section-label-row {
+    flex-wrap: wrap;
+    align-items: flex-start;
   }
 }
