@@ -548,7 +548,7 @@ const INDUSTRY_KEYWORD_RULES = [
   { keys: ["eda", "电路仿真", "电路设计"], level1: "电子信息", level2: "半导体EDA" },
   { keys: ["半导体", "集成电路", "微电子", "芯片", "晶圆"], level1: "电子信息", level2: "半导体" },
   { keys: ["机器人", "自动化", "智能装备", "数控"], level1: "制造", level2: "智能制造" },
-  { keys: ["软件", "信息技术", "信息科技", "信息", "网络", "数码", "数字科技", "云", "saas", "科技"], level1: "软件服务", level2: "企业软件/SaaS" },
+  { keys: ["软件", "信息技术", "信息科技", "网络服务", "数字科技", "云计算", "saas", "数字化"], level1: "软件服务", level2: "企业软件/SaaS" },
   { keys: ["光伏", "储能", "新能源", "新能"], level1: "新能源", level2: "光伏/储能" },
   { keys: ["材料", "新材料", "纳米", "化工"], level1: "制造", level2: "新材料/化工" },
   { keys: ["检测", "检验", "认证"], level1: "专业服务", level2: "检测认证" },
@@ -657,6 +657,15 @@ const COMPANY_ALIAS_SUFFIX_WORDS = [
 
 
 const INDUSTRY_PEER_COMPANIES = {
+  "能源|电力": ["国家电网", "南方电网", "中国华能", "国家电投", "中国华电", "中国大唐", "中国长江电力", "中国广核电力", "浙能电力"],
+  "能源|油气化工": ["中国石油", "中国石化", "中国海油", "恒力集团", "荣盛控股", "盛虹控股", "延长石油", "台湾中油", "新奥天然气"],
+  "第二产业|建筑业": ["中国建筑", "中国中铁", "中国铁建", "中国交建", "中国电建", "中国能建", "太平洋建设", "上海建工", "陕西建工", "安徽建工", "中国化学工程"],
+  "第二产业|电子与高端制造": ["鸿海精密", "广达电脑", "和硕联合", "纬创集团", "仁宝电脑", "立讯精密", "京东方", "TCL科技", "TCL实业", "歌尔股份", "蓝思科技"],
+  "汽车|整车/零部件": ["比亚迪", "上汽集团", "吉利控股", "一汽集团", "北汽集团", "广汽集团", "东风汽车", "奇瑞控股", "长城汽车", "赛力斯", "理想汽车", "蔚来", "小鹏汽车", "宇通客车", "江淮汽车"],
+  "消费电子|智能终端": ["华为", "小米", "荣耀", "OPPO", "vivo", "联想", "传音控股", "华硕电脑"],
+  "零售|电商/零售": ["京东", "阿里巴巴", "拼多多", "美团", "苏宁易购", "唯品会", "永辉超市", "物美科技", "高鑫零售"],
+  "消费品|食品饮料": ["伊利", "蒙牛", "五粮液", "贵州茅台", "青岛啤酒", "康师傅", "农夫山泉", "海天味业", "泸州老窖", "洋河股份", "温氏食品", "牧原食品"],
+  "交通运输|交通基础设施": ["中国远洋海运", "顺丰控股", "中国外运", "圆通速递", "韵达控股", "申通快递", "中通快递", "极兔速递", "宁波舟山港", "上港集团"],
   "金融|银行": ["交通银行", "中国银行", "浦发银行", "兴业银行", "民生银行", "中信银行", "光大银行", "北京银行", "宁波银行", "江苏银行", "杭州银行", "南京银行", "上海银行", "浙商银行", "渤海银行"],
   "金融|证券": ["中信证券", "国泰君安", "华泰证券", "海通证券", "广发证券", "中金公司", "中信建投", "东方证券", "兴业证券", "申万宏源", "招商证券", "国信证券"],
   "金融|基金资管": ["易方达基金", "华夏基金", "南方基金", "嘉实基金", "富国基金", "广发基金", "博时基金", "汇添富基金", "中欧基金", "中银基金"],
@@ -2051,6 +2060,67 @@ function inferIndustryByCustomer(customerName) {
   }
 
   return { level1: "未知", level2: "未知" };
+}
+
+function isGenericSoftwareIndustry(industry) {
+  const pair = normalizeIndustryPair(industry);
+  return pair.level1 === "软件服务" && pair.level2 === "企业软件/SaaS";
+}
+
+function matchHighPriorityIndustryByName(name) {
+  const text = String(name || "");
+  const lower = text.toLowerCase();
+  const normalized = normalizeCompanyNameText(text);
+
+  if (
+    lower.includes("华大基因") ||
+    lower.includes("bgi") ||
+    text.includes("基因") ||
+    text.includes("测序")
+  ) {
+    return { level1: "医疗健康", level2: "基因科技/测序" };
+  }
+
+  if (
+    ["机器人", "机械臂", "人形机器人", "机器狗", "四足机器人"].some((k) => text.includes(k)) ||
+    ["unitree", "agibot"].some((k) => lower.includes(k)) ||
+    ["宇树", "智元", "优必选", "越疆", "傅利叶", "云深处", "梅卡曼德", "节卡", "遨博", "新松", "埃夫特"].some((k) => normalized.includes(normalizeCompanyNameText(k)))
+  ) {
+    return { level1: "新兴重点产业", level2: "机器人机械臂" };
+  }
+
+  if (
+    ["半导体", "集成电路", "晶圆", "芯片", "微电子", "eda"].some((k) => lower.includes(k)) ||
+    ["中芯", "台积", "华虹", "北方华创", "中微", "拓荆", "华海清科", "华润微", "士兰微"].some((k) => normalized.includes(normalizeCompanyNameText(k)))
+  ) {
+    return { level1: "新兴重点产业", level2: "半导体与芯片" };
+  }
+
+  if (["银行", "农商", "城商"].some((k) => text.includes(k))) {
+    return { level1: "金融", level2: "银行" };
+  }
+  if (["证券", "期货"].some((k) => text.includes(k))) {
+    return { level1: "金融", level2: "证券" };
+  }
+  if (["保险", "人寿", "财险"].some((k) => text.includes(k))) {
+    return { level1: "金融", level2: "保险" };
+  }
+
+  return null;
+}
+
+function normalizeIndustryByCompanyName(name, industry) {
+  const highPriority = matchHighPriorityIndustryByName(name);
+  if (highPriority) return highPriority;
+
+  const pair = normalizeIndustryPair(industry);
+  if (isGenericSoftwareIndustry(pair)) {
+    const fromRule = matchIndustryByRules(String(name || ""));
+    if (fromRule && !isGenericSoftwareIndustry(fromRule)) {
+      return fromRule;
+    }
+  }
+  return pair;
 }
 
 function normalizeCompanyNameText(value) {
