@@ -58,27 +58,38 @@ def infer_by_peers(item, peers):
     l1 = item.get("industryLevel1", "未知")
     l2 = item.get("industryLevel2", "未知")
     peer_set = set(peers or [])
+    low_name = name.lower()
 
-    if "半导体、电子元件" in src or l1 == "新兴重点产业":
-        if name in SEMICON_FAB or peer_set & SEMICON_FAB:
-            return "新兴重点产业", "芯片制造", "peer_fab"
-        if name in SEMICON_EQUIP or peer_set & SEMICON_EQUIP:
-            return "新兴重点产业", "半导体设备", "peer_equipment"
-        if name in SEMICON_OSAT or peer_set & SEMICON_OSAT:
-            return "新兴重点产业", "芯片封测", "peer_osat"
-        if name in SEMICON_DESIGN or peer_set & SEMICON_DESIGN:
-            return "新兴重点产业", "芯片设计", "peer_design"
+    if "半导体、电子元件" in src or (l1 == "新兴重点产业" and "芯片" in l2):
+        if name in SEMICON_FAB or any(k in name for k in ["晶圆", "代工", "制造"]):
+            return "新兴重点产业", "芯片制造", "self_fab"
+        if name in SEMICON_EQUIP or any(k in name for k in ["装备", "设备"]):
+            return "新兴重点产业", "半导体设备", "self_equipment"
+        if name in SEMICON_OSAT or any(k in name for k in ["封测", "封装"]):
+            return "新兴重点产业", "芯片封测", "self_osat"
+        if name in SEMICON_DESIGN or any(k in name for k in ["芯片", "半导体", "微电子", "集成电路", "电子"]):
+            return "新兴重点产业", "芯片设计", "self_design"
+
+        # peer evidence only as weak fallback for generic class
+        if l2 in {"半导体与芯片", "芯片设计"}:
+            if len(peer_set & SEMICON_EQUIP) >= 2:
+                return "新兴重点产业", "半导体设备", "peer_equipment_weak"
+            if len(peer_set & SEMICON_OSAT) >= 2:
+                return "新兴重点产业", "芯片封测", "peer_osat_weak"
+            if len(peer_set & SEMICON_FAB) >= 2:
+                return "新兴重点产业", "芯片制造", "peer_fab_weak"
 
     if "车辆与零部件" in src or "汽车零售和服务" in src or l1 == "汽车" or (l1 == "新能源" and l2 == "动力电池"):
-        if name in AUTO_SALES or peer_set & AUTO_SALES or "汽车零售和服务" in src:
-            return "汽车", "销售服务", "peer_sales"
-        if name in AUTO_BATTERY or peer_set & AUTO_BATTERY:
-            return "新能源", "动力电池", "peer_battery"
-        if name in AUTO_OEM or peer_set & AUTO_OEM:
-            return "汽车", "整车", "peer_oem"
-        if name in AUTO_PARTS or peer_set & AUTO_PARTS:
-            return "汽车", "智能零部件", "peer_parts"
-        return "汽车", "零部件", "peer_auto_default"
+        if name in AUTO_SALES or "汽车零售和服务" in src:
+            return "汽车", "销售服务", "self_sales"
+        if name in AUTO_BATTERY or any(k in name for k in ["电池", "锂能", "新能源科技"]):
+            return "新能源", "动力电池", "self_battery"
+        if name in AUTO_OEM or any(k in name for k in ["汽车集团", "汽车股份", "重汽", "客车", "汽车有限公司", "整车"]):
+            return "汽车", "整车", "self_oem"
+        if name in AUTO_PARTS or any(k in name for k in ["汽车电子", "零部件", "玻璃", "内饰", "底盘", "控制"]):
+            return "汽车", "智能零部件", "self_parts"
+        if "车辆与零部件" in src:
+            return "汽车", "零部件", "self_auto_default"
 
     return l1, l2, "keep"
 
