@@ -1,0 +1,452 @@
+[
+  {
+    "alias": "德赛西威",
+    "fullName": "惠州市德赛西威汽车电子股份有限公司",
+    "oldIndustry": {
+      "level1": "汽车",
+      "level2": "智能座舱"
+    },
+    "onlineIndustry": {
+      "level1": "汽车",
+      "level2": "智能座舱"
+    },
+    "consistent": true,
+    "sources": [],
+    "error": "URLError"
+  },
+  {
+    "alias": "华阳集团",
+    "fullName": "惠州市华阳集团股份有限公司",
+    "oldIndustry": {
+      "level1": "汽车",
+      "level2": "智能座舱"
+    },
+    "onlineIndustry": {
+      "level1": "汽车",
+      "level2": "智能座舱"
+    },
+    "consistent": true,
+    "sources": [],
+    "error": "URLError"
+  },
+  {
+    "alias": "均胜电子",
+    "fullName": "宁波均胜电子股份有限公司",
+    "oldIndustry": {
+      "level1": "汽车",
+      "level2": "智能座舱"
+    },
+    "onlineIndustry": {
+      "level1": "汽车",
+      "level2": "智能座舱"
+    },
+    "consistent": true,
+    "sources": [],
+    "error": "URLError"
+  },
+  {
+    "alias": "航盛电子",
+    "fullName": "深圳市航盛电子股份有限公司",
+    "oldIndustry": {
+      "level1": "汽车",
+      "level2": "智能座舱"
+    },
+    "onlineIndustry": {
+      "level1": "汽车",
+      "level2": "智能座舱"
+    },
+    "consistent": true,
+    "sources": [],
+    "error": "URLError"
+  },
+  {
+    "alias": "继峰股份",
+    "fullName": "继峰股份",
+    "oldIndustry": {
+      "level1": "汽车",
+      "level2": "智能座舱"
+    },
+    "onlineIndustry": {
+      "level1": "汽车",
+      "level2": "智能座舱"
+    },
+    "consistent": true,
+    "sources": [],
+    "error": "URLError"
+  },
+  {
+    "alias": "中科创达",
+    "fullName": "中科创达软件股份有限公司",
+    "oldIndustry": {
+      "level1": "汽车",
+      "level2": "智能座舱"
+    },
+    "onlineIndustry": {
+      "level1": "汽车",
+      "level2": "智能座舱"
+    },
+    "consistent": true,
+    "sources": [],
+    "error": "URLError"
+  },
+  {
+    "alias": "东软集团",
+    "fullName": "东软集团股份有限公司",
+    "oldIndustry": {
+      "level1": "汽车",
+      "level2": "智能座舱"
+    },
+    "onlineIndustry": {
+      "level1": "汽车",
+      "level2": "智能座舱"
+    },
+    "consistent": true,
+    "sources": [],
+    "error": "URLError"
+  },
+  {
+    "alias": "博泰车联网",
+    "fullName": "博泰车联网科技（上海）股份有限公司",
+    "oldIndustry": {
+      "level1": "汽车",
+      "level2": "智能座舱"
+    },
+    "onlineIndustry": {
+      "level1": "汽车",
+      "level2": "智能座舱"
+    },
+    "consistent": true,
+    "sources": [],
+    "error": "URLError"
+  },
+  {
+    "alias": "亿咖通科技",
+    "fullName": "亿咖通（上海）技术有限公司",
+    "oldIndustry": {
+      "level1": "汽车",
+      "level2": "智能座舱"
+    },
+    "onlineIndustry": {
+      "level1": "汽车",
+      "level2": "智能座舱"
+    },
+    "consistent": true,
+    "sources": [],
+    "error": "URLError"
+  },
+  {
+    "alias": "四维图新",
+    "fullName": "北京四维图新科技股份有限公司",
+    "oldIndustry": {
+      "level1": "汽车",
+      "level2": "智能零部件"
+    },
+    "onlineIndustry": {
+      "level1": "汽车",
+      "level2": "智能零部件"
+    },
+    "consistent": true,
+    "sources": [],
+    "error": "URLError"
+  },
+  {
+    "alias": "高德",
+    "fullName": "高德软件有限公司",
+    "oldIndustry": {
+      "level1": "汽车",
+      "level2": "智能零部件"
+    },
+    "onlineIndustry": {
+      "level1": "汽车",
+      "level2": "智能零部件"
+    },
+    "consistent": true,
+    "sources": [],
+    "error": "URLError"
+  },
+  {
+    "alias": "百度 Apollo",
+    "fullName": "百度在线网络技术（北京）有限公司",
+    "oldIndustry": {
+      "level1": "汽车",
+      "level2": "智能零部件"
+    },
+    "onlineIndustry": {
+      "level1": "汽车",
+      "level2": "智能零部件"
+    },
+    "consistent": true,
+    "sources": [],
+    "error": "URLError"
+  },
+  {
+    "alias": "华为智能汽车解决方案",
+    "fullName": "华为技术有限公司",
+    "oldIndustry": {
+      "level1": "汽车",
+      "level2": "智能驾驶"
+    },
+    "onlineIndustry": {
+      "level1": "汽车",
+      "level2": "智能驾驶"
+    },
+    "consistent": true,
+    "sources": [],
+    "error": "URLError"
+  },
+  {
+    "alias": "中兴通讯车联网",
+    "fullName": "中兴通讯股份有限公司",
+    "oldIndustry": {
+      "level1": "汽车",
+      "level2": "智能驾驶"
+    },
+    "onlineIndustry": {
+      "level1": "汽车",
+      "level2": "智能驾驶"
+    },
+    "consistent": true,
+    "sources": [],
+    "error": "URLError"
+  },
+  {
+    "alias": "星网宇达",
+    "fullName": "北京星网宇达科技股份有限公司",
+    "oldIndustry": {
+      "level1": "汽车",
+      "level2": "智能零部件"
+    },
+    "onlineIndustry": {
+      "level1": "汽车",
+      "level2": "智能零部件"
+    },
+    "consistent": true,
+    "sources": [],
+    "error": "URLError"
+  },
+  {
+    "alias": "北斗星通",
+    "fullName": "北京北斗星通导航技术股份有限公司",
+    "oldIndustry": {
+      "level1": "汽车",
+      "level2": "智能零部件"
+    },
+    "onlineIndustry": {
+      "level1": "汽车",
+      "level2": "智能零部件"
+    },
+    "consistent": true,
+    "sources": [],
+    "error": "URLError"
+  },
+  {
+    "alias": "华测导航",
+    "fullName": "上海华测导航技术股份有限公司",
+    "oldIndustry": {
+      "level1": "汽车",
+      "level2": "智能零部件"
+    },
+    "onlineIndustry": {
+      "level1": "汽车",
+      "level2": "智能零部件"
+    },
+    "consistent": true,
+    "sources": [],
+    "error": "URLError"
+  },
+  {
+    "alias": "千寻位置",
+    "fullName": "千寻位置网络有限公司",
+    "oldIndustry": {
+      "level1": "汽车",
+      "level2": "智能零部件"
+    },
+    "onlineIndustry": {
+      "level1": "汽车",
+      "level2": "智能零部件"
+    },
+    "consistent": true,
+    "sources": [],
+    "error": "URLError"
+  },
+  {
+    "alias": "合众思壮",
+    "fullName": "北京合众思壮科技股份有限公司",
+    "oldIndustry": {
+      "level1": "汽车",
+      "level2": "智能零部件"
+    },
+    "onlineIndustry": {
+      "level1": "汽车",
+      "level2": "智能零部件"
+    },
+    "consistent": true,
+    "sources": [],
+    "error": "URLError"
+  },
+  {
+    "alias": "司南导航",
+    "fullName": "上海司南导航技术股份有限公司",
+    "oldIndustry": {
+      "level1": "汽车",
+      "level2": "智能零部件"
+    },
+    "onlineIndustry": {
+      "level1": "汽车",
+      "level2": "智能零部件"
+    },
+    "consistent": true,
+    "sources": [],
+    "error": "URLError"
+  },
+  {
+    "alias": "华大北斗",
+    "fullName": "深圳华大北斗科技股份有限公司",
+    "oldIndustry": {
+      "level1": "汽车",
+      "level2": "智能零部件"
+    },
+    "onlineIndustry": {
+      "level1": "汽车",
+      "level2": "智能零部件"
+    },
+    "consistent": true,
+    "sources": [],
+    "error": "URLError"
+  },
+  {
+    "alias": "和芯星通",
+    "fullName": "北京和芯星通科技有限公司",
+    "oldIndustry": {
+      "level1": "汽车",
+      "level2": "智能零部件"
+    },
+    "onlineIndustry": {
+      "level1": "汽车",
+      "level2": "智能零部件"
+    },
+    "consistent": true,
+    "sources": [],
+    "error": "URLError"
+  },
+  {
+    "alias": "移远通信",
+    "fullName": "上海移远通信技术股份有限公司",
+    "oldIndustry": {
+      "level1": "汽车",
+      "level2": "智能零部件"
+    },
+    "onlineIndustry": {
+      "level1": "汽车",
+      "level2": "智能零部件"
+    },
+    "consistent": true,
+    "sources": [],
+    "error": "URLError"
+  },
+  {
+    "alias": "广和通",
+    "fullName": "深圳市广和通无线股份有限公司",
+    "oldIndustry": {
+      "level1": "ICT",
+      "level2": "通信模组"
+    },
+    "onlineIndustry": {
+      "level1": "ICT",
+      "level2": "通信模组"
+    },
+    "consistent": true,
+    "sources": [],
+    "error": "URLError"
+  },
+  {
+    "alias": "美格智能",
+    "fullName": "深圳市美格智能技术股份有限公司",
+    "oldIndustry": {
+      "level1": "ICT",
+      "level2": "通信模组"
+    },
+    "onlineIndustry": {
+      "level1": "ICT",
+      "level2": "通信模组"
+    },
+    "consistent": true,
+    "sources": [],
+    "error": "URLError"
+  },
+  {
+    "alias": "地平线",
+    "fullName": "地平线机器人技术研发有限公司",
+    "oldIndustry": {
+      "level1": "汽车",
+      "level2": "智能驾驶"
+    },
+    "onlineIndustry": {
+      "level1": "汽车",
+      "level2": "智能驾驶"
+    },
+    "consistent": true,
+    "sources": [],
+    "error": "URLError"
+  },
+  {
+    "alias": "黑芝麻智能",
+    "fullName": "黑芝麻智能科技有限公司",
+    "oldIndustry": {
+      "level1": "汽车",
+      "level2": "智能驾驶"
+    },
+    "onlineIndustry": {
+      "level1": "汽车",
+      "level2": "智能驾驶"
+    },
+    "consistent": true,
+    "sources": [],
+    "error": "URLError"
+  },
+  {
+    "alias": "芯驰科技",
+    "fullName": "南京芯驰半导体科技股份有限公司",
+    "oldIndustry": {
+      "level1": "汽车",
+      "level2": "智能座舱"
+    },
+    "onlineIndustry": {
+      "level1": "汽车",
+      "level2": "智能座舱"
+    },
+    "consistent": true,
+    "sources": [],
+    "error": "URLError"
+  },
+  {
+    "alias": "经纬恒润",
+    "fullName": "北京经纬恒润科技股份有限公司",
+    "oldIndustry": {
+      "level1": "汽车",
+      "level2": "智能座舱"
+    },
+    "onlineIndustry": {
+      "level1": "汽车",
+      "level2": "智能座舱"
+    },
+    "consistent": true,
+    "sources": [],
+    "error": "URLError"
+  },
+  {
+    "alias": "广州导远电子科技有限公司",
+    "fullName": "广州导远电子科技有限公司",
+    "oldIndustry": {
+      "level1": "汽车",
+      "level2": "智能零部件"
+    },
+    "onlineIndustry": {
+      "level1": "汽车",
+      "level2": "智能零部件"
+    },
+    "consistent": true,
+    "sources": [],
+    "error": "URLError"
+  }
+]
