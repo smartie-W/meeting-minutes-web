@@ -189,7 +189,7 @@ textarea.long-input {
   display: flex;
   align-items: center;
   gap: 10px;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
   min-height: 38px;
 }
 
@@ -228,10 +228,14 @@ textarea.long-input {
 }
 
 .btn.btn-inline {
-  padding: 5px 10px;
+  padding: 7px 12px;
   font-size: 14px;
   line-height: 1.2;
   white-space: nowrap;
+}
+
+.focus-modules-action {
+  margin-left: auto;
 }
 
 .suggestions {
@@ -524,5 +528,9 @@ th {
   .section-label-row {
     flex-wrap: wrap;
     align-items: flex-start;
+  }
+
+  .focus-modules-action {
+    margin-left: 0;
   }
 }
