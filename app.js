@@ -692,7 +692,17 @@ function buildEnrichedIndustryMap() {
 
   Object.entries(XLSX_CUSTOMER_INDUSTRY_OVERRIDES).forEach(([name, industry]) => {
     if (!isLikelyCompanyName(name)) return;
-    merged[name] = normalizeIndustryPair(industry);
+    const normalizedOverride = normalizeIndustryByCompanyName(name, industry);
+    const existing = normalizeIndustryByCompanyName(name, merged[name]);
+    if (!merged[name]) {
+      merged[name] = normalizedOverride;
+      return;
+    }
+    if (isGenericSoftwareIndustry(normalizedOverride) && !isGenericSoftwareIndustry(existing)) {
+      merged[name] = existing;
+      return;
+    }
+    merged[name] = normalizedOverride;
   });
 
   Object.entries(INDUSTRY_PEER_COMPANIES).forEach(([pair, companies]) => {
@@ -718,9 +728,21 @@ function buildEnrichedIndustryMap() {
 
   const cached = loadIndustryKnowledgeCache();
   Object.entries(cached.companyIndustryMap || {}).forEach(([name, industry]) => {
+    const normalizedCached = normalizeIndustryByCompanyName(name, industry);
     if (!merged[name]) {
-      merged[name] = normalizeIndustryPair(industry);
+      merged[name] = normalizedCached;
+      return;
     }
+    const existing = normalizeIndustryByCompanyName(name, merged[name]);
+    if (isGenericSoftwareIndustry(normalizedCached) && !isGenericSoftwareIndustry(existing)) {
+      merged[name] = existing;
+      return;
+    }
+    merged[name] = normalizedCached;
+  });
+
+  Object.entries(merged).forEach(([name, industry]) => {
+    merged[name] = normalizeIndustryByCompanyName(name, industry);
   });
 
   return merged;
