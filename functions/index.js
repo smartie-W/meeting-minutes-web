@@ -12,6 +12,7 @@ const SMTP_PORT = Number(process.env.SMTP_PORT || 465);
 const SMTP_USER = process.env.SMTP_USER || "";
 const SMTP_PASS = process.env.SMTP_PASS || "";
 const SMTP_FROM = process.env.SMTP_FROM || SMTP_USER || "noreply@example.com";
+const WEB_BASE_URL = process.env.WEB_BASE_URL || "https://smartie-w.github.io/meeting-minutes-web/";
 
 let mailer = null;
 
@@ -64,43 +65,23 @@ function getMailer() {
   return mailer;
 }
 
-function buildMail(record) {
+function buildRecordUrl(recordId) {
+  const base = WEB_BASE_URL.endsWith("/") ? WEB_BASE_URL : `${WEB_BASE_URL}/`;
+  return `${base}?view=history&recordId=${encodeURIComponent(recordId)}`;
+}
+
+function buildMail(record, recordId) {
   const customer = listToText(record.customerNames);
   const ar = asText(record.salesName);
-  const mode = asText(record.meetingMode);
   const time = asText(record.meetingTime);
-  const location = asText(record.meetingLocation);
-  const topic = asText(record.meetingTopic);
-  const industry = `${asText(record.industryLevel1)}/${asText(record.industryLevel2)}`;
-  const modules = listToText(record.focusModules);
-  const content = asText(record.meetingContent);
-  const nextActions = asText(record.nextActions);
-  const customerParticipants = participantsToText(record.customerParticipants);
-  const ourParticipants = participantsToText(record.ourParticipants);
-  const createdAt = asText(record.updatedAt || new Date().toISOString());
-
-  const subject = `[销售会议纪要] ${customer} | AR:${ar} | ${topic}`;
+  const recordUrl = buildRecordUrl(recordId);
+  const subject = `[销售会议纪要] AR:${ar} | 客户:${customer} | 会议时间:${time}`;
   const html = `
     <div style="font-family:Arial,'PingFang SC','Microsoft YaHei',sans-serif;line-height:1.6;color:#1f2937;">
       <h2 style="margin:0 0 12px;">新会议纪要已提交</h2>
-      <table cellpadding="6" cellspacing="0" style="border-collapse:collapse;">
-        <tr><td><b>客户名称</b></td><td>${escapeHtml(customer)}</td></tr>
-        <tr><td><b>AR</b></td><td>${escapeHtml(ar)}</td></tr>
-        <tr><td><b>会议方式</b></td><td>${escapeHtml(mode)}</td></tr>
-        <tr><td><b>会议时间</b></td><td>${escapeHtml(time)}</td></tr>
-        <tr><td><b>会议地点</b></td><td>${escapeHtml(location)}</td></tr>
-        <tr><td><b>行业</b></td><td>${escapeHtml(industry)}</td></tr>
-        <tr><td><b>会议议题</b></td><td>${escapeHtml(topic)}</td></tr>
-        <tr><td><b>关注模块</b></td><td>${escapeHtml(modules)}</td></tr>
-        <tr><td><b>客户参会</b></td><td>${escapeHtml(customerParticipants)}</td></tr>
-        <tr><td><b>我方参会</b></td><td>${escapeHtml(ourParticipants)}</td></tr>
-        <tr><td><b>提交时间</b></td><td>${escapeHtml(createdAt)}</td></tr>
-      </table>
-      <hr style="margin:16px 0;border:none;border-top:1px solid #e5e7eb;" />
-      <div><b>会议纪要内容</b></div>
-      <div style="white-space:pre-wrap;">${escapeHtml(content)}</div>
-      <div style="margin-top:12px;"><b>后续行动</b></div>
-      <div style="white-space:pre-wrap;">${escapeHtml(nextActions)}</div>
+      <div style="margin:8px 0 12px;">AR: ${escapeHtml(ar)} | 客户: ${escapeHtml(customer)} | 会议时间: ${escapeHtml(time)}</div>
+      <a href="${escapeHtml(recordUrl)}" target="_blank" rel="noopener noreferrer" style="display:inline-block;padding:8px 12px;background:#0b6a88;color:#fff;text-decoration:none;border-radius:8px;">打开纪要详情</a>
+      <div style="margin-top:10px;color:#4b5563;font-size:13px;word-break:break-all;">${escapeHtml(recordUrl)}</div>
     </div>
   `;
 
@@ -108,21 +89,9 @@ function buildMail(record) {
     "新会议纪要已提交",
     `客户名称: ${customer}`,
     `AR: ${ar}`,
-    `会议方式: ${mode}`,
     `会议时间: ${time}`,
-    `会议地点: ${location}`,
-    `行业: ${industry}`,
-    `会议议题: ${topic}`,
-    `关注模块: ${modules}`,
-    `客户参会: ${customerParticipants}`,
-    `我方参会: ${ourParticipants}`,
-    `提交时间: ${createdAt}`,
     "",
-    "会议纪要内容:",
-    content,
-    "",
-    "后续行动:",
-    nextActions,
+    `纪要详情链接: ${recordUrl}`,
   ].join("\n");
 
   return { subject, html, text };
@@ -143,7 +112,8 @@ exports.notifyMeetingMinutesCreated = onDocumentCreated(
 
     try {
       const transport = getMailer();
-      const mail = buildMail(record);
+      const recordId = event.params?.recordId || record.id || "";
+      const mail = buildMail(record, recordId);
       await transport.sendMail({
         from: SMTP_FROM,
         to: NOTIFY_TO_EMAIL,
