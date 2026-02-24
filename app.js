@@ -973,6 +973,7 @@ const state = {
   pendingDeleteRecordId: "",
   managerAuthenticated: false,
   pendingView: "",
+  pendingOpenRecordId: "",
   firestore: null,
   cloudUnsubscribe: null,
   aiResult: {
@@ -1076,6 +1077,7 @@ const el = {
 boot();
 
 function boot() {
+  initRecordDeepLink();
   bindEvents();
   applyManagerPreset("week");
   fillAiConfigInputs();
@@ -1094,6 +1096,22 @@ function boot() {
   setTimeout(syncArParticipantNames, 400);
   render();
   initCloudSync();
+}
+
+function initRecordDeepLink() {
+  try {
+    const params = new URLSearchParams(window.location.search || "");
+    const recordId = params.get("recordId");
+    const view = params.get("view");
+    if (recordId) {
+      state.pendingOpenRecordId = recordId.trim();
+    }
+    if (view === "history") {
+      activateView("history");
+    }
+  } catch {
+    state.pendingOpenRecordId = "";
+  }
 }
 
 function bindEvents() {
@@ -1837,6 +1855,17 @@ async function submitDeleteAuth() {
 function render() {
   renderManager();
   renderHistory();
+  tryOpenRecordDetailByDeepLink();
+}
+
+function tryOpenRecordDetailByDeepLink() {
+  const recordId = String(state.pendingOpenRecordId || "").trim();
+  if (!recordId) return;
+  const index = state.records.findIndex((record) => String(record.id || "") === recordId);
+  if (index < 0) return;
+  activateView("history");
+  openHistoryDetailModal([state.records[index]], 0);
+  state.pendingOpenRecordId = "";
 }
 
 function resetParticipantSections() {
