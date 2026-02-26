@@ -2860,13 +2860,13 @@ function saveDraft() {
     nextActions: el.nextActions.value,
     savedAt: new Date().toISOString(),
   };
-  localStorage.setItem(getActiveDraftKey(), JSON.stringify(draft));
+  getDraftStorage().setItem(getActiveDraftKey(), JSON.stringify(draft));
   updateDraftStatus(`草稿已自动保存：${new Date(draft.savedAt).toLocaleString()}`);
 }
 
 function restoreDraft() {
   try {
-    const raw = localStorage.getItem(getActiveDraftKey());
+    const raw = getDraftStorage().getItem(getActiveDraftKey());
     if (!raw) return false;
     const draft = JSON.parse(raw);
     if (!draft || typeof draft !== "object") return false;
@@ -2903,7 +2903,7 @@ function restoreDraft() {
 }
 
 function clearDraft() {
-  localStorage.removeItem(getActiveDraftKey());
+  getDraftStorage().removeItem(getActiveDraftKey());
 }
 
 function updateDraftStatus(text) {
@@ -2954,11 +2954,16 @@ function flushDraftSafely() {
       savedAt: new Date().toISOString(),
     };
     if (hasDraftContent(draft)) {
-      localStorage.setItem(getActiveDraftKey(), JSON.stringify(draft));
+      getDraftStorage().setItem(getActiveDraftKey(), JSON.stringify(draft));
     }
   } catch {
     // ignore unload-time errors
   }
+}
+
+function getDraftStorage() {
+  // sessionStorage: refresh 可恢复，关闭标签页后自动清空
+  return window.sessionStorage;
 }
 
 function isEditingSession() {
