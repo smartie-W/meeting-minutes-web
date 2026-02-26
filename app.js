@@ -989,6 +989,8 @@ const state = {
   pendingOpenRecordId: "",
   firestore: null,
   cloudUnsubscribe: null,
+  apiMode: false,
+  apiPollTimer: null,
   cloudStatus: "connecting",
   cloudStatusText: "云同步：连接中",
   autoSyncTried: false,
@@ -1006,6 +1008,7 @@ let industryLookupTimer = null;
 let draftSaveTimer = null;
 let saveInProgress = false;
 let cloudReconnectTimer = null;
+let apiReconnectTimer = null;
 
 const el = {
   tabs: [...document.querySelectorAll(".tab")],
