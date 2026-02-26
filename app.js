@@ -987,6 +987,7 @@ const state = {
   managerAuthenticated: false,
   pendingView: "",
   pendingOpenRecordId: "",
+  pendingEditRecordId: "",
   firestore: null,
   cloudUnsubscribe: null,
   apiMode: false,
@@ -1080,6 +1081,7 @@ const el = {
   historyItemTemplate: document.querySelector("#history-item-template"),
   historyDetailModal: document.querySelector("#history-detail-modal"),
   historyDetailDelete: document.querySelector("#history-detail-delete"),
+  historyDetailEdit: document.querySelector("#history-detail-edit"),
   historyDetailNext: document.querySelector("#history-detail-next"),
   historyDetailClose: document.querySelector("#history-detail-close"),
   historyDetailTitle: document.querySelector("#history-detail-title"),
@@ -1129,15 +1131,23 @@ function initRecordDeepLink() {
   try {
     const params = new URLSearchParams(window.location.search || "");
     const recordId = params.get("recordId");
+    const editRecordId = params.get("editRecordId");
     const view = params.get("view");
     if (recordId) {
       state.pendingOpenRecordId = recordId.trim();
+    }
+    if (editRecordId) {
+      state.pendingEditRecordId = editRecordId.trim();
+    }
+    if (view === "sales") {
+      activateView("sales");
     }
     if (view === "history") {
       activateView("history");
     }
   } catch {
     state.pendingOpenRecordId = "";
+    state.pendingEditRecordId = "";
   }
 }
 
@@ -1216,6 +1226,9 @@ function bindEvents() {
   el.historyFrPm.addEventListener("input", applyHistoryFilters);
   el.historyDetailClose.addEventListener("click", closeHistoryDetailModal);
   el.historyDetailDelete.addEventListener("click", openDeleteAuthModal);
+  if (el.historyDetailEdit) {
+    el.historyDetailEdit.addEventListener("click", openHistoryEditPage);
+  }
   el.historyDetailNext.addEventListener("click", openNextHistoryDetail);
   el.historyDetailModal.addEventListener("click", (event) => {
     if (event.target instanceof Element && event.target.closest("[data-close-modal='true']")) {
@@ -1865,6 +1878,21 @@ function openDeleteAuthModal() {
   setTimeout(() => el.historyDeleteAuthUsername.focus(), 0);
 }
 
+function openHistoryEditPage() {
+  const record = state.historyModalList[state.historyModalIndex];
+  const recordId = String(record?.id || "").trim();
+  if (!recordId) return;
+  const url = getRecordEditUrl(recordId);
+  try {
+    const opened = window.open(url, "_blank");
+    if (!opened) {
+      window.location.href = url;
+    }
+  } catch {
+    window.location.href = url;
+  }
+}
+
 function closeDeleteAuthModal() {
   el.historyDeleteAuthModal.classList.remove("open");
   el.historyDeleteAuthModal.setAttribute("aria-hidden", "true");
@@ -1907,7 +1935,53 @@ async function submitDeleteAuth() {
 function render() {
   renderManager();
   renderHistory();
+  tryOpenRecordEditByDeepLink();
   tryOpenRecordDetailByDeepLink();
+}
+
+function tryOpenRecordEditByDeepLink() {
+  const recordId = String(state.pendingEditRecordId || "").trim();
+  if (!recordId) return;
+  const index = state.records.findIndex((record) => String(record.id || "") === recordId);
+  if (index < 0) return;
+  activateView("sales");
+  fillFormWithRecord(state.records[index]);
+  state.pendingEditRecordId = "";
+}
+
+function fillFormWithRecord(record) {
+  if (!record) return;
+  el.recordId.value = String(record.id || "");
+  setSalesNameControlValue(record.salesName || "");
+  el.meetingMode.value = record.meetingMode || "";
+  el.meetingTime.value = toDateTimeLocalValue(record.meetingTime || record.meetingDate);
+  el.meetingLocation.value = String(record.meetingLocation || "").trim();
+  el.customerName.value = (record.customerNames || []).join("、");
+  const normalizedIndustry = normalizeIndustryPair({
+    level1: record.industryLevel1,
+    level2: record.industryLevel2,
+  });
+  el.industryLevel1.value = normalizedIndustry.level1 === "未知" ? "" : normalizedIndustry.level1;
+  el.industryLevel2.value = normalizedIndustry.level2 === "未知" ? "" : normalizedIndustry.level2;
+  el.meetingTopic.value = String(record.meetingTopic || "");
+  setParticipants(el.customerParticipants, normalizeParticipants(record.customerParticipants));
+  setParticipants(el.ourParticipants, normalizeParticipants(record.ourParticipants));
+  setSelectedFocusModules(record.focusModules || []);
+  el.deployMode.value = record.intentDeployMode || "";
+  applyDeployCoopRule();
+  if (el.deployMode.value !== "SAAS") {
+    el.coopMode.value = record.intentCoopMode || "";
+  }
+  setMigrationSources(el.migrationSources, normalizeMigrationSources(record.migrationSources));
+  el.meetingContent.value = String(record.meetingContent || "");
+  el.nextActions.value = String(record.nextActions || "");
+  autoGrowLongInput(el.meetingContent);
+  autoGrowLongInput(el.nextActions);
+  applyMeetingModeLocationRule();
+  syncArParticipantNames();
+  el.companyNameSuggestions.innerHTML = "";
+  updateDraftStatus("已载入历史纪要，可修改后点“保存纪要”更新");
+  scheduleDraftSave();
 }
 
 function tryOpenRecordDetailByDeepLink() {
@@ -3912,6 +3986,14 @@ function getRecordDetailUrl(recordId) {
   const current = new URL(window.location.href);
   current.searchParams.set("view", "history");
   current.searchParams.set("recordId", String(recordId || ""));
+  return current.toString();
+}
+
+function getRecordEditUrl(recordId) {
+  const current = new URL(window.location.href);
+  current.searchParams.set("view", "sales");
+  current.searchParams.set("editRecordId", String(recordId || ""));
+  current.searchParams.delete("recordId");
   return current.toString();
 }
 
