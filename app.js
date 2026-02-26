@@ -3618,6 +3618,7 @@ function initDataSync() {
 }
 
 function initCloudSync() {
+  state.apiMode = false;
   if (!window.firebase || !isFirebaseConfigured(FIREBASE_CONFIG)) {
     setCloudStatus("local", "云同步：本地模式");
     return;
