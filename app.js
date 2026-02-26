@@ -1104,6 +1104,7 @@ function boot() {
   applyMeetingModeLocationRule();
   refreshIndustryByCustomer();
   syncLongInputHeights();
+  renderCloudStatusBadge();
   // Browser autofill/restore may set role values after initial render without firing change.
   setTimeout(syncArParticipantNames, 0);
   setTimeout(syncArParticipantNames, 400);
