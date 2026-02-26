@@ -217,6 +217,51 @@ textarea.long-input {
   max-width: 360px;
 }
 
+.history-layout {
+  display: grid;
+  grid-template-columns: minmax(260px, 0.9fr) minmax(420px, 1.5fr);
+  gap: 14px;
+  align-items: start;
+}
+
+.history-layout.has-detail {
+  grid-template-columns: minmax(260px, 0.9fr) minmax(380px, 1.3fr) minmax(360px, 1.2fr);
+}
+
+.history-detail-panel {
+  display: none;
+  min-height: 420px;
+}
+
+.history-detail-panel.open {
+  display: block;
+}
+
+.history-detail-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+}
+
+.history-detail-header h3 {
+  margin: 0;
+}
+
+.history-detail-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.history-detail-body {
+  max-height: 72vh;
+  overflow: auto;
+  line-height: 1.55;
+}
+
 .participant-list {
   display: grid;
   gap: 8px;
@@ -566,6 +611,11 @@ th {
 
   .grid-sales,
   .grid-manager {
+    grid-template-columns: 1fr;
+  }
+
+  .history-layout,
+  .history-layout.has-detail {
     grid-template-columns: 1fr;
   }
 
