@@ -1950,12 +1950,15 @@ function tryOpenRecordEditByDeepLink() {
   if (index < 0) return;
   activateView("sales");
   fillFormWithRecord(state.records[index]);
+  state.editingRecordId = recordId;
   state.pendingEditRecordId = "";
 }
 
 function fillFormWithRecord(record) {
   if (!record) return;
-  el.recordId.value = String(record.id || "");
+  const recordId = String(record.id || "").trim();
+  el.recordId.value = recordId;
+  state.editingRecordId = recordId;
   setSalesNameControlValue(record.salesName || "");
   el.meetingMode.value = record.meetingMode || "";
   el.meetingTime.value = toDateTimeLocalValue(record.meetingTime || record.meetingDate);
@@ -1984,7 +1987,7 @@ function fillFormWithRecord(record) {
   applyMeetingModeLocationRule();
   syncArParticipantNames();
   el.companyNameSuggestions.innerHTML = "";
-  updateDraftStatus("已载入历史纪要，可修改后点“保存纪要”更新");
+  updateDraftStatus("编辑模式：保存将覆盖原纪要");
   scheduleDraftSave();
 }
 
