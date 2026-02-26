@@ -1868,8 +1868,10 @@ function openHistoryDetailModal(records, index) {
     <div class="detail-label" style="margin-top:10px;">后续行动</div>
     <div class="detail-value">${escapeHtml(record.nextActions || "-")}</div>
   `;
+  if (el.historyLayout) {
+    el.historyLayout.classList.add("has-detail");
+  }
   el.historyDetailModal.classList.add("open");
-  el.historyDetailModal.setAttribute("aria-hidden", "false");
   syncHistoryDetailNextButton();
 }
 
@@ -1881,7 +1883,9 @@ function openNextHistoryDetail() {
 
 function closeHistoryDetailModal() {
   el.historyDetailModal.classList.remove("open");
-  el.historyDetailModal.setAttribute("aria-hidden", "true");
+  if (el.historyLayout) {
+    el.historyLayout.classList.remove("has-detail");
+  }
   state.historyModalList = [];
   state.historyModalIndex = -1;
   state.pendingDeleteRecordId = "";
