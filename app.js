@@ -11,6 +11,12 @@ const FIREBASE_CONFIG = window.FIREBASE_CONFIG || {
   messagingSenderId: "951263111259",
   appId: "1:951263111259:web:0877b8556416dbb90ff77e",
 };
+const MAIL_NOTIFY_CONFIG = window.MAIL_NOTIFY_CONFIG || {
+  enabled: false,
+  endpoint: "",
+  timeoutMs: 5000,
+  bearerToken: "",
+};
 const MANAGER_LOGIN_USERNAME_HASH = "b9da0fb79af831a6fabf669f54009b0cdccbf598cfe1b95256500bbb69f25787";
 const MANAGER_LOGIN_PASSWORD_HASH = "93067cdf900054c81ef9fc1a87a7c7c08bdf614b467dcfc91423526f50db4df2";
 const MIGRATION_SOURCE_OPTIONS = ["无", "Jira", "Cf", "禅道", "pingcode", "TB", "飞书项目", "飞书知识库", "Tapd"];
@@ -1394,9 +1400,17 @@ async function handleSaveRecord(event) {
     alert(`保存失败：${error.message || "请稍后重试"}`);
     return;
   }
+  const notifyResult = await notifyByWorker(record);
   clearDraft();
   resetForm();
   render();
+  if (!notifyResult.enabled) {
+    updateDraftStatus("保存成功");
+  } else if (notifyResult.ok) {
+    updateDraftStatus("保存成功，已发送邮件通知");
+  } else {
+    updateDraftStatus(`保存成功，邮件通知失败：${notifyResult.message}`);
+  }
 }
 
 function resetForm() {
@@ -3326,6 +3340,62 @@ function loadRecords() {
 
 function persistRecords() {
   localStorage.setItem(RECORDS_KEY, JSON.stringify(state.records));
+}
+
+function getRecordDetailUrl(recordId) {
+  const current = new URL(window.location.href);
+  current.searchParams.set("view", "history");
+  current.searchParams.set("recordId", String(recordId || ""));
+  return current.toString();
+}
+
+function normalizeNotifyTimeout(timeoutMs) {
+  const num = Number(timeoutMs);
+  if (!Number.isFinite(num) || num <= 0) return 5000;
+  return Math.min(Math.max(Math.floor(num), 1000), 15000);
+}
+
+async function notifyByWorker(record) {
+  const endpoint = String(MAIL_NOTIFY_CONFIG.endpoint || "").trim();
+  if (!MAIL_NOTIFY_CONFIG.enabled || !endpoint) {
+    return { enabled: false, ok: false, message: "" };
+  }
+
+  const customer = Array.isArray(record.customerNames) && record.customerNames.length
+    ? record.customerNames[0]
+    : "";
+
+  const payload = {
+    recordId: record.id,
+    ar: record.salesName || "",
+    customerName: customer,
+    meetingTime: record.meetingTime || "",
+    detailUrl: getRecordDetailUrl(record.id),
+  };
+
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), normalizeNotifyTimeout(MAIL_NOTIFY_CONFIG.timeoutMs));
+  const headers = { "Content-Type": "application/json" };
+  const token = String(MAIL_NOTIFY_CONFIG.bearerToken || "").trim();
+  if (token) headers.Authorization = `Bearer ${token}`;
+
+  try {
+    const response = await fetch(endpoint, {
+      method: "POST",
+      headers,
+      body: JSON.stringify(payload),
+      signal: controller.signal,
+    });
+    if (!response.ok) {
+      const text = await response.text();
+      return { enabled: true, ok: false, message: text || `HTTP ${response.status}` };
+    }
+    return { enabled: true, ok: true, message: "" };
+  } catch (error) {
+    return { enabled: true, ok: false, message: error?.message || "请求失败" };
+  } finally {
+    clearTimeout(timer);
+  }
 }
 
 function loadAiConfig() {
