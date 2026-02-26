@@ -231,10 +231,13 @@ textarea.long-input {
 .history-detail-panel {
   display: none;
   min-height: 420px;
+  max-height: 78vh;
+  overflow: hidden;
 }
 
 .history-detail-panel.open {
-  display: block;
+  display: flex;
+  flex-direction: column;
 }
 
 .history-detail-header {
@@ -245,6 +248,10 @@ textarea.long-input {
   border-bottom: 1px solid var(--line);
   padding-bottom: 10px;
   margin-bottom: 10px;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background: var(--panel);
 }
 
 .history-detail-header h3 {
@@ -257,9 +264,11 @@ textarea.long-input {
 }
 
 .history-detail-body {
-  max-height: 72vh;
+  max-height: none;
+  flex: 1;
   overflow: auto;
   line-height: 1.55;
+  padding-right: 2px;
 }
 
 .participant-list {
