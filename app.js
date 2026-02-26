@@ -1049,6 +1049,7 @@ const el = {
 
   exportBtn: document.querySelector("#export-btn"),
   syncLocalToCloudBtn: document.querySelector("#sync-local-to-cloud-btn"),
+  cleanupDuplicatesBtn: document.querySelector("#cleanup-duplicates-btn"),
 
   filterSales: document.querySelector("#filter-sales"),
   presetButtons: [...document.querySelectorAll(".preset-btn")],
@@ -1195,6 +1196,9 @@ function bindEvents() {
   el.exportBtn.addEventListener("click", exportRecords);
   if (el.syncLocalToCloudBtn) {
     el.syncLocalToCloudBtn.addEventListener("click", syncLocalRecordsToCloud);
+  }
+  if (el.cleanupDuplicatesBtn) {
+    el.cleanupDuplicatesBtn.addEventListener("click", cleanupDuplicateRecords);
   }
 
   el.applyFilter.addEventListener("click", () => {
@@ -3998,6 +4002,38 @@ async function syncLocalRecordsToCloud(options = {}) {
   } finally {
     state.autoSyncRunning = false;
   }
+}
+
+async function cleanupDuplicateRecords() {
+  if (!window.confirm("将按指纹保留最新一条并删除历史重复记录，是否继续？")) return;
+
+  if (state.apiMode) {
+    try {
+      const response = await withRetry(
+        async () => requestMeetingApi("/api/admin/dedupe", { method: "POST" }),
+        { retries: 1, baseDelay: 450 },
+      );
+      const removed = Number(response?.dedupe?.removed || 0);
+      const groups = Number(response?.dedupe?.duplicateGroups || 0);
+      scheduleApiPolling(100);
+      alert(`清理完成：删除 ${removed} 条重复记录（重复组 ${groups}）`);
+    } catch (error) {
+      const resolved = resolveApiErrorStatus(error);
+      const userMessage = resolved.text && resolved.text !== "云同步：API异常"
+        ? `${resolved.text}，请检查配置后重试`
+        : (error.message || "请稍后重试");
+      alert(`清理失败：${userMessage}`);
+    }
+    return;
+  }
+
+  const before = Array.isArray(state.records) ? state.records.length : 0;
+  state.records = dedupeRecords(state.records || []);
+  const after = state.records.length;
+  const removed = Math.max(0, before - after);
+  persistRecords();
+  render();
+  alert(`本地清理完成：删除 ${removed} 条重复记录`);
 }
 
 function persistRecords() {
