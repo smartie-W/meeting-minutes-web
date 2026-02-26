@@ -3778,7 +3778,8 @@ async function syncLocalRecordsToCloud(options = {}) {
   state.autoSyncRunning = true;
 
   try {
-    if (!state.firestore || state.cloudStatus !== "connected") {
+    const connected = isApiConnected() || (!!state.firestore && state.cloudStatus === "connected");
+    if (!connected) {
       if (!silent) alert("云同步未连接，请稍后重试");
       return;
     }
@@ -3817,12 +3818,26 @@ async function syncLocalRecordsToCloud(options = {}) {
     for (const record of pending) {
       try {
         // eslint-disable-next-line no-await-in-loop
-        await withRetry(
-          async () => {
-            await state.firestore.collection(FIREBASE_COLLECTION).doc(record.id).set(record, { merge: true });
-          },
-          { retries: 2, baseDelay: 450 },
-        );
+        if (state.apiMode) {
+          // eslint-disable-next-line no-await-in-loop
+          await withRetry(
+            async () => {
+              await requestMeetingApi("/api/records", {
+                method: "POST",
+                body: JSON.stringify({ record }),
+              });
+            },
+            { retries: 2, baseDelay: 450 },
+          );
+        } else {
+          // eslint-disable-next-line no-await-in-loop
+          await withRetry(
+            async () => {
+              await state.firestore.collection(FIREBASE_COLLECTION).doc(record.id).set(record, { merge: true });
+            },
+            { retries: 2, baseDelay: 450 },
+          );
+        }
         success += 1;
       } catch {
         failed += 1;
@@ -3842,6 +3857,9 @@ async function syncLocalRecordsToCloud(options = {}) {
       alert(`补传完成：成功 ${success} 条，已全部上云。`);
     } else if (success > 0) {
       updateDraftStatus(`已自动补传 ${success} 条本地纪要到云端`);
+    }
+    if (state.apiMode) {
+      scheduleApiPolling(100);
     }
   } finally {
     state.autoSyncRunning = false;
