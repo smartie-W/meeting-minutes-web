@@ -1242,11 +1242,6 @@ function bindEvents() {
     el.historyDetailEdit.addEventListener("click", openHistoryEditPage);
   }
   el.historyDetailNext.addEventListener("click", openNextHistoryDetail);
-  el.historyDetailModal.addEventListener("click", (event) => {
-    if (event.target instanceof Element && event.target.closest("[data-close-modal='true']")) {
-      closeHistoryDetailModal();
-    }
-  });
   el.historyDeleteAuthSubmit.addEventListener("click", submitDeleteAuth);
   el.historyDeleteAuthCancel.addEventListener("click", closeDeleteAuthModal);
   el.historyDeleteAuthPassword.addEventListener("keydown", (event) => {
