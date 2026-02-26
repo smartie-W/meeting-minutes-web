@@ -1739,6 +1739,7 @@ function applyHistoryFilters() {
   state.historySr = el.historySr.value.trim();
   state.historyFrImpl = el.historyFrImpl.value.trim();
   state.historyFrPm = el.historyFrPm.value.trim();
+  closeHistoryDetailModal();
   renderHistory();
 }
 
