@@ -100,6 +100,10 @@ const listStmt = db.prepare(`
 SELECT id, payload_json FROM meeting_records
 ORDER BY meeting_time DESC, updated_at DESC
 `);
+const listWithMetaStmt = db.prepare(`
+SELECT id, fingerprint, meeting_time, updated_at, payload_json
+FROM meeting_records
+`);
 
 const deleteStmt = db.prepare('DELETE FROM meeting_records WHERE id = ?');
 const getByFingerprintStmt = db.prepare(`
@@ -334,6 +338,69 @@ function performIndustryRefresh(reason = 'scheduled') {
   return lastIndustryRefreshMeta;
 }
 
+function getRowSortTimestamp(row) {
+  try {
+    const payload = JSON.parse(String(row?.payload_json || '{}'));
+    const payloadUpdatedAt = Date.parse(String(payload?.updatedAt || ''));
+    if (!Number.isNaN(payloadUpdatedAt)) return payloadUpdatedAt;
+  } catch {
+    // ignore json parse error
+  }
+  const rowUpdatedAt = Date.parse(String(row?.updated_at || ''));
+  if (!Number.isNaN(rowUpdatedAt)) return rowUpdatedAt;
+  const meetingAt = Date.parse(String(row?.meeting_time || ''));
+  if (!Number.isNaN(meetingAt)) return meetingAt;
+  return 0;
+}
+
+function compareRowsForLatest(a, b) {
+  const ta = getRowSortTimestamp(a);
+  const tb = getRowSortTimestamp(b);
+  if (tb !== ta) return tb - ta;
+  return String(b.id || '').localeCompare(String(a.id || ''));
+}
+
+function performDeduplicateByFingerprint(reason = 'manual') {
+  const rows = listWithMetaStmt.all();
+  const grouped = new Map();
+  rows.forEach((row) => {
+    const fp = String(row?.fingerprint || '').trim();
+    if (!fp) return;
+    if (!grouped.has(fp)) grouped.set(fp, []);
+    grouped.get(fp).push(row);
+  });
+
+  const toDelete = [];
+  grouped.forEach((items) => {
+    if (!Array.isArray(items) || items.length <= 1) return;
+    const sorted = [...items].sort(compareRowsForLatest);
+    const duplicates = sorted.slice(1);
+    duplicates.forEach((row) => {
+      if (row?.id) toDelete.push(String(row.id));
+    });
+  });
+
+  const tx = db.transaction((ids) => {
+    let removed = 0;
+    ids.forEach((id) => {
+      const r = deleteStmt.run(id);
+      removed += Number(r?.changes || 0);
+    });
+    return removed;
+  });
+  const removed = tx(toDelete);
+
+  return {
+    ok: true,
+    reason,
+    scanned: rows.length,
+    duplicateGroups: [...grouped.values()].filter((x) => x.length > 1).length,
+    removed,
+    remained: rows.length - removed,
+    at: nowIso(),
+  };
+}
+
 function scheduleDailyIndustryRefresh() {
   if (industryRefreshTimer) {
     clearTimeout(industryRefreshTimer);
@@ -460,6 +527,19 @@ app.post('/api/admin/industry-refresh', authMiddleware, (_req, res) => {
     res.status(500).json({
       ok: false,
       error: 'industry_refresh_failed',
+      message: String(error?.message || error),
+    });
+  }
+});
+
+app.post('/api/admin/dedupe', authMiddleware, (_req, res) => {
+  try {
+    const meta = performDeduplicateByFingerprint('manual');
+    res.json({ ok: true, dedupe: meta });
+  } catch (error) {
+    res.status(500).json({
+      ok: false,
+      error: 'dedupe_failed',
       message: String(error?.message || error),
     });
   }
