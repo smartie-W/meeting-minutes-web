@@ -1803,6 +1803,7 @@ function renderHistory() {
   if (!hasFilters) {
     el.historyList.innerHTML = '<li class="record-item">请输入客户名称、AR或SR后自动查询</li>';
     el.historySummary.textContent = "当前共 0 条匹配结果";
+    closeHistoryDetailModal();
     return;
   }
 
@@ -1812,6 +1813,7 @@ function renderHistory() {
 
   if (!records.length) {
     el.historyList.innerHTML = '<li class="record-item">暂无匹配纪要</li>';
+    closeHistoryDetailModal();
     return;
   }
 
