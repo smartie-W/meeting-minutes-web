@@ -3499,6 +3499,7 @@ function initCloudSync() {
           persistRecords();
           render();
           setCloudStatus("connected", "云同步：已连接");
+          triggerAutoSyncLocalToCloud();
         },
         (error) => {
           console.error("firebase onSnapshot failed:", error);
