@@ -1092,8 +1092,10 @@ function boot() {
   applySalesNameRule();
   applyDeployCoopRule();
   ensureMeetingTimeDefault();
-  clearDraft();
-  updateDraftStatus("草稿未保存");
+  const hasDraft = restoreDraft();
+  if (!hasDraft) {
+    updateDraftStatus("草稿未保存");
+  }
   applyMeetingModeLocationRule();
   refreshIndustryByCustomer();
   syncLongInputHeights();
@@ -2729,9 +2731,9 @@ function saveDraft() {
 function restoreDraft() {
   try {
     const raw = localStorage.getItem(DRAFT_KEY);
-    if (!raw) return;
+    if (!raw) return false;
     const draft = JSON.parse(raw);
-    if (!draft || typeof draft !== "object") return;
+    if (!draft || typeof draft !== "object") return false;
 
     el.recordId.value = String(draft.recordId || "");
     setSalesNameControlValue(String(draft.salesName || ""));
@@ -2757,8 +2759,10 @@ function restoreDraft() {
         ? `已恢复草稿：${new Date(String(draft.savedAt)).toLocaleString()}`
         : "已恢复草稿",
     );
+    return true;
   } catch {
     updateDraftStatus("草稿恢复失败");
+    return false;
   }
 }
 
