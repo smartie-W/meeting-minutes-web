@@ -10,7 +10,7 @@
 ```bash
 cd server
 npm install
-PORT=8091 DB_PATH=./meeting_minutes.db API_KEY=your_token ALLOWED_ORIGINS=https://smartie-w.github.io,https://hyjy.online,https://www.hyjy.online BACKUP_DIR=./backups BACKUP_RETENTION_DAYS=30 BACKUP_DAILY_HOUR=3 BACKUP_DAILY_MINUTE=15 BACKUP_ON_START=true npm start
+PORT=8091 DB_PATH=./meeting_minutes.db API_KEY=your_token ALLOWED_ORIGINS=https://smartie-w.github.io,https://hyjy.online,https://www.hyjy.online BACKUP_DIR=./backups BACKUP_RETENTION_DAYS=30 BACKUP_DAILY_HOUR=3 BACKUP_DAILY_MINUTE=15 BACKUP_ON_START=true INDUSTRY_REFRESH_DAILY_HOUR=4 INDUSTRY_REFRESH_DAILY_MINUTE=10 INDUSTRY_REFRESH_ON_START=true npm start
 ```
 
 ## 健康检查
@@ -24,6 +24,7 @@ curl -s http://127.0.0.1:8091/api/health
 - `POST /api/records` body: `{ "record": {...} }`
 - `DELETE /api/records/:id`
 - `POST /api/admin/backup`（手动触发备份）
+- `POST /api/admin/industry-refresh`（手动触发未知行业复查）
 
 ## 自动备份
 - 默认每天 `03:15` 执行一次备份
@@ -35,6 +36,12 @@ curl -s http://127.0.0.1:8091/api/health
 
 ```bash
 curl -s -X POST "http://127.0.0.1:8091/api/admin/backup" -H "Authorization: Bearer your_token"
+```
+
+手动行业复查示例：
+
+```bash
+curl -s -X POST "http://127.0.0.1:8091/api/admin/industry-refresh" -H "Authorization: Bearer your_token"
 ```
 
 ## 前端接入
