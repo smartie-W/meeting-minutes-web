@@ -7,14 +7,23 @@ const Database = require('better-sqlite3');
 const PORT = Number(process.env.PORT || 8091);
 const DB_PATH = process.env.DB_PATH || path.join(__dirname, 'meeting_minutes.db');
 const API_KEY = String(process.env.API_KEY || '').trim();
+const BACKUP_DIR = process.env.BACKUP_DIR || path.join(path.dirname(path.resolve(DB_PATH)), 'backups');
+const BACKUP_RETENTION_DAYS = Number(process.env.BACKUP_RETENTION_DAYS || 30);
+const BACKUP_DAILY_HOUR = Number(process.env.BACKUP_DAILY_HOUR || 3);
+const BACKUP_DAILY_MINUTE = Number(process.env.BACKUP_DAILY_MINUTE || 15);
+const BACKUP_ON_START = String(process.env.BACKUP_ON_START || 'false').toLowerCase() === 'true';
 const ALLOWED_ORIGINS = String(process.env.ALLOWED_ORIGINS || '*')
   .split(',')
   .map((x) => x.trim())
   .filter(Boolean);
 
 fs.mkdirSync(path.dirname(path.resolve(DB_PATH)), { recursive: true });
+fs.mkdirSync(path.resolve(BACKUP_DIR), { recursive: true });
 const db = new Database(DB_PATH);
 db.pragma('journal_mode = WAL');
+
+let lastBackupMeta = null;
+let backupTimer = null;
 
 const createTableSql = `
 CREATE TABLE IF NOT EXISTS meeting_records (
@@ -56,6 +65,95 @@ LIMIT 1
 
 function nowIso() {
   return new Date().toISOString();
+}
+
+function two(n) {
+  return String(n).padStart(2, '0');
+}
+
+function formatLocalDateTime(date) {
+  const y = date.getFullYear();
+  const m = two(date.getMonth() + 1);
+  const d = two(date.getDate());
+  const hh = two(date.getHours());
+  const mm = two(date.getMinutes());
+  const ss = two(date.getSeconds());
+  return `${y}${m}${d}_${hh}${mm}${ss}`;
+}
+
+function getBackupFilePath(date = new Date()) {
+  const stamp = formatLocalDateTime(date);
+  return path.join(path.resolve(BACKUP_DIR), `meeting_minutes_${stamp}.db`);
+}
+
+function cleanupOldBackups() {
+  const retentionDays = Number.isFinite(BACKUP_RETENTION_DAYS) && BACKUP_RETENTION_DAYS > 0
+    ? BACKUP_RETENTION_DAYS
+    : 30;
+  const cutoff = Date.now() - retentionDays * 24 * 60 * 60 * 1000;
+  const files = fs.readdirSync(path.resolve(BACKUP_DIR));
+  let removed = 0;
+  files.forEach((name) => {
+    if (!name.endsWith('.db')) return;
+    const full = path.join(path.resolve(BACKUP_DIR), name);
+    try {
+      const stat = fs.statSync(full);
+      if (stat.mtimeMs < cutoff) {
+        fs.unlinkSync(full);
+        removed += 1;
+      }
+    } catch {
+      // ignore cleanup failure for single file
+    }
+  });
+  return removed;
+}
+
+function performBackup(reason = 'scheduled') {
+  db.pragma('wal_checkpoint(TRUNCATE)');
+  const dest = getBackupFilePath(new Date());
+  fs.copyFileSync(path.resolve(DB_PATH), dest);
+  const stat = fs.statSync(dest);
+  const removed = cleanupOldBackups();
+  lastBackupMeta = {
+    ok: true,
+    reason,
+    file: dest,
+    size: stat.size,
+    removed,
+    at: nowIso(),
+  };
+  return lastBackupMeta;
+}
+
+function scheduleDailyBackup() {
+  if (backupTimer) {
+    clearTimeout(backupTimer);
+    backupTimer = null;
+  }
+  const now = new Date();
+  const next = new Date(now);
+  next.setHours(BACKUP_DAILY_HOUR, BACKUP_DAILY_MINUTE, 0, 0);
+  if (next.getTime() <= now.getTime()) {
+    next.setDate(next.getDate() + 1);
+  }
+  const delay = Math.max(1000, next.getTime() - now.getTime());
+  backupTimer = setTimeout(() => {
+    try {
+      const meta = performBackup('scheduled');
+      console.log(`[meeting-api] backup ok (${meta.reason}) => ${meta.file}`);
+    } catch (error) {
+      console.error('[meeting-api] backup failed:', error);
+      lastBackupMeta = {
+        ok: false,
+        reason: 'scheduled',
+        error: String(error?.message || error),
+        at: nowIso(),
+      };
+    } finally {
+      scheduleDailyBackup();
+    }
+  }, delay);
 }
 
 function normalizeRecord(record) {
@@ -120,7 +218,26 @@ app.get('/api/health', (_req, res) => {
     mode: 'api-server',
     now: nowIso(),
     dbPath: path.resolve(DB_PATH),
+    backup: {
+      dir: path.resolve(BACKUP_DIR),
+      retentionDays: BACKUP_RETENTION_DAYS,
+      dailyAt: `${two(BACKUP_DAILY_HOUR)}:${two(BACKUP_DAILY_MINUTE)}`,
+      last: lastBackupMeta,
+    },
   });
+});
+
+app.post('/api/admin/backup', authMiddleware, (_req, res) => {
+  try {
+    const meta = performBackup('manual');
+    res.json({ ok: true, backup: meta });
+  } catch (error) {
+    res.status(500).json({
+      ok: false,
+      error: 'backup_failed',
+      message: String(error?.message || error),
+    });
+  }
 });
 
 app.get('/api/records', authMiddleware, (_req, res) => {
@@ -189,4 +306,14 @@ app.use((err, _req, res, _next) => {
 app.listen(PORT, () => {
   console.log(`[meeting-api] listening on :${PORT}`);
   console.log(`[meeting-api] db: ${path.resolve(DB_PATH)}`);
+  console.log(`[meeting-api] backup dir: ${path.resolve(BACKUP_DIR)} | daily ${two(BACKUP_DAILY_HOUR)}:${two(BACKUP_DAILY_MINUTE)} | retention ${BACKUP_RETENTION_DAYS}d`);
+  if (BACKUP_ON_START) {
+    try {
+      const meta = performBackup('startup');
+      console.log(`[meeting-api] backup ok (${meta.reason}) => ${meta.file}`);
+    } catch (error) {
+      console.error('[meeting-api] startup backup failed:', error);
+    }
+  }
+  scheduleDailyBackup();
 });
