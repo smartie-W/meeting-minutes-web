@@ -3346,6 +3346,58 @@ function isCloudModeEnabled() {
   return isFirebaseConfigured(FIREBASE_CONFIG);
 }
 
+function renderCloudStatusBadge() {
+  if (!el.cloudStatusBadge) return;
+  const status = String(state.cloudStatus || "connecting");
+  const text = String(state.cloudStatusText || "云同步：连接中");
+  el.cloudStatusBadge.textContent = text;
+  el.cloudStatusBadge.className = `status-badge status-${status}`;
+}
+
+function setCloudStatus(status, text) {
+  state.cloudStatus = status;
+  state.cloudStatusText = text;
+  renderCloudStatusBadge();
+}
+
+function clearCloudReconnectTimer() {
+  if (!cloudReconnectTimer) return;
+  clearTimeout(cloudReconnectTimer);
+  cloudReconnectTimer = null;
+}
+
+function scheduleCloudReconnect(delayMs = 2000) {
+  if (!isCloudModeEnabled()) return;
+  if (cloudReconnectTimer) return;
+  setCloudStatus("reconnecting", "云同步：重连中");
+  cloudReconnectTimer = setTimeout(() => {
+    cloudReconnectTimer = null;
+    initCloudSync();
+  }, Math.max(1000, Number(delayMs) || 2000));
+}
+
+async function sleep(ms) {
+  await new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+async function withRetry(task, options = {}) {
+  const retries = Number(options.retries ?? 2);
+  const baseDelay = Number(options.baseDelay ?? 350);
+  let lastError = null;
+  for (let i = 0; i <= retries; i += 1) {
+    try {
+      // eslint-disable-next-line no-await-in-loop
+      return await task();
+    } catch (error) {
+      lastError = error;
+      if (i >= retries) break;
+      // eslint-disable-next-line no-await-in-loop
+      await sleep(baseDelay * (i + 1));
+    }
+  }
+  throw lastError;
+}
+
 function getRecordTimestamp(record) {
   const updated = Date.parse(String(record?.updatedAt || ""));
   if (!Number.isNaN(updated)) return updated;
@@ -3400,36 +3452,62 @@ function dedupeRecords(records) {
 
 function initCloudSync() {
   if (!window.firebase || !isFirebaseConfigured(FIREBASE_CONFIG)) {
+    setCloudStatus("local", "云同步：本地模式");
     return;
   }
 
   try {
+    setCloudStatus("connecting", "云同步：连接中");
+    clearCloudReconnectTimer();
     if (!firebase.apps.length) {
       firebase.initializeApp(FIREBASE_CONFIG);
     }
     state.firestore = firebase.firestore();
+    if (state.cloudUnsubscribe) {
+      state.cloudUnsubscribe();
+      state.cloudUnsubscribe = null;
+    }
     state.cloudUnsubscribe = state.firestore
       .collection(FIREBASE_COLLECTION)
-      .onSnapshot((snapshot) => {
-        const records = [];
-        snapshot.forEach((doc) => {
-          records.push(normalizeRecordIndustry({ id: doc.id, ...doc.data() }));
-        });
-        state.records = dedupeRecords(records);
-        persistRecords();
-        render();
-      });
+      .onSnapshot(
+        (snapshot) => {
+          const records = [];
+          snapshot.forEach((doc) => {
+            records.push(normalizeRecordIndustry({ id: doc.id, ...doc.data() }));
+          });
+          state.records = dedupeRecords(records);
+          persistRecords();
+          render();
+          setCloudStatus("connected", "云同步：已连接");
+        },
+        (error) => {
+          console.error("firebase onSnapshot failed:", error);
+          const code = String(error?.code || "");
+          setCloudStatus("disconnected", `云同步：异常${code ? `(${code})` : ""}`);
+          scheduleCloudReconnect(2500);
+        },
+      );
   } catch (error) {
     console.error("firebase init failed:", error);
+    setCloudStatus("disconnected", "云同步：连接失败");
+    scheduleCloudReconnect(2500);
   }
 }
 
 async function upsertRecord(record) {
   if (state.firestore) {
-    await state.firestore.collection(FIREBASE_COLLECTION).doc(record.id).set(record, { merge: true });
+    await withRetry(
+      async () => {
+        await state.firestore.collection(FIREBASE_COLLECTION).doc(record.id).set(record, { merge: true });
+      },
+      { retries: 2, baseDelay: 450 },
+    );
+    setCloudStatus("connected", "云同步：已连接");
     return;
   }
   if (isCloudModeEnabled()) {
+    setCloudStatus("disconnected", "云同步：未连接");
+    scheduleCloudReconnect(1500);
     throw new Error("云同步未连接，请刷新页面后重试");
   }
 
@@ -3445,10 +3523,18 @@ async function upsertRecord(record) {
 
 async function deleteRecordById(recordId) {
   if (state.firestore) {
-    await state.firestore.collection(FIREBASE_COLLECTION).doc(recordId).delete();
+    await withRetry(
+      async () => {
+        await state.firestore.collection(FIREBASE_COLLECTION).doc(recordId).delete();
+      },
+      { retries: 2, baseDelay: 450 },
+    );
+    setCloudStatus("connected", "云同步：已连接");
     return;
   }
   if (isCloudModeEnabled()) {
+    setCloudStatus("disconnected", "云同步：未连接");
+    scheduleCloudReconnect(1500);
     throw new Error("云同步未连接，请刷新页面后重试");
   }
 
