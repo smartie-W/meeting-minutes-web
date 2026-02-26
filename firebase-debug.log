@@ -23,3 +23,5 @@
 [info] 
 [info] 3. Paste or enter the authorization code below once you have it:
 [info] 
+[debug] [2026-02-26T02:45:44.163Z] >>> [apiv2][query] POST https://accounts.google.com/o/oauth2/token [none]
+[debug] [2026-02-26T02:45:44.163Z] >>> [apiv2][body] POST https://accounts.google.com/o/oauth2/token [omitted]
