@@ -1441,7 +1441,11 @@ async function handleSaveRecord(event) {
       updateDraftStatus(`保存成功，邮件通知失败：${notifyResult.message}`);
     }
   } catch (error) {
-    alert(`保存失败：${error.message || "请稍后重试"}`);
+    const resolved = resolveApiErrorStatus(error);
+    const userMessage = resolved.text && resolved.text !== "云同步：API异常"
+      ? `${resolved.text}，请检查配置后重试`
+      : (error.message || "请稍后重试");
+    alert(`保存失败：${userMessage}`);
   } finally {
     saveInProgress = false;
   }
