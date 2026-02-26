@@ -210,6 +210,13 @@ textarea.long-input {
   gap: 10px;
 }
 
+.history-filters-vertical {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+  max-width: 360px;
+}
+
 .participant-list {
   display: grid;
   gap: 8px;
@@ -564,6 +571,10 @@ th {
 
   .grid-5 {
     grid-template-columns: 1fr;
+  }
+
+  .history-filters-vertical {
+    max-width: 100%;
   }
 
   .panel.wide {
