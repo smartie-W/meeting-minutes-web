@@ -25,6 +25,7 @@ curl -s http://127.0.0.1:8091/api/health
 - `DELETE /api/records/:id`
 - `POST /api/admin/backup`（手动触发备份）
 - `POST /api/admin/industry-refresh`（手动触发未知行业复查）
+- `POST /api/notify`（发送会议纪要邮件通知）
 
 ## 自动备份
 - 默认每天 `03:15` 执行一次备份
@@ -44,6 +45,23 @@ curl -s -X POST "http://127.0.0.1:8091/api/admin/backup" -H "Authorization: Bear
 curl -s -X POST "http://127.0.0.1:8091/api/admin/industry-refresh" -H "Authorization: Bearer your_token"
 ```
 
+邮件通知示例：
+
+```bash
+curl -s -X POST "http://127.0.0.1:8091/api/notify" \
+  -H "Authorization: Bearer your_token" \
+  -H "Content-Type: application/json" \
+  -d '{"recordId":"abc123","ar":"周思","customerName":"上海某客户","meetingTime":"2026-02-26T14:30","detailUrl":"https://hyjy.online/?view=history&recordId=abc123"}'
+```
+
+邮件相关环境变量（Resend）：
+
+- `MAIL_NOTIFY_ENABLED=true`
+- `MAIL_PROVIDER=resend`
+- `RESEND_API_KEY=...`
+- `MAIL_FROM=notify@你的已验证域名`
+- `NOTIFY_TO_EMAIL=wangqiming@ones.cn`
+
 ## 前端接入
 在 `index.html` 的 `window.MEETING_API_CONFIG` 里填写：
 
@@ -55,6 +73,19 @@ curl -s -X POST "http://127.0.0.1:8091/api/admin/industry-refresh" -H "Authoriza
     apiKey: "your_token",
     pollIntervalMs: 4000,
     requestTimeoutMs: 8000
+  };
+</script>
+```
+
+前端邮件配置已支持自动回退到 `${MEETING_API_CONFIG.baseUrl}/api/notify`，可保持：
+
+```html
+<script>
+  window.MAIL_NOTIFY_CONFIG = {
+    enabled: true,
+    endpoint: "",
+    timeoutMs: 5000,
+    bearerToken: ""
   };
 </script>
 ```
