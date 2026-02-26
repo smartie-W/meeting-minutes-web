@@ -982,6 +982,8 @@ const state = {
   pendingOpenRecordId: "",
   firestore: null,
   cloudUnsubscribe: null,
+  cloudStatus: "connecting",
+  cloudStatusText: "云同步：连接中",
   aiResult: {
     summary: "暂无",
     globalKeywords: [],
@@ -994,6 +996,7 @@ let industryLookupSeq = 0;
 let industryLookupTimer = null;
 let draftSaveTimer = null;
 let saveInProgress = false;
+let cloudReconnectTimer = null;
 
 const el = {
   tabs: [...document.querySelectorAll(".tab")],
@@ -1028,6 +1031,7 @@ const el = {
   nextActions: document.querySelector("#next-actions"),
   formReset: document.querySelector("#form-reset"),
   draftStatus: document.querySelector("#draft-status"),
+  cloudStatusBadge: document.querySelector("#cloud-status-badge"),
 
   exportBtn: document.querySelector("#export-btn"),
 
