@@ -3590,63 +3590,87 @@ function loadRawLocalRecords() {
   }
 }
 
-async function syncLocalRecordsToCloud() {
-  if (!state.firestore || state.cloudStatus !== "connected") {
-    alert("云同步未连接，请稍后重试");
-    return;
-  }
+function triggerAutoSyncLocalToCloud() {
+  if (state.autoSyncTried || state.autoSyncRunning) return;
+  state.autoSyncTried = true;
+  void syncLocalRecordsToCloud({ silent: true, skipConfirm: true });
+}
 
-  const localRecords = dedupeRecords(loadRawLocalRecords());
-  if (!localRecords.length) {
-    alert("当前浏览器没有可补传的本地纪要");
-    return;
-  }
+async function syncLocalRecordsToCloud(options = {}) {
+  const silent = Boolean(options.silent);
+  const skipConfirm = Boolean(options.skipConfirm);
+  if (state.autoSyncRunning) return;
+  state.autoSyncRunning = true;
 
-  const cloudRecords = dedupeRecords(state.records || []);
-  const cloudIdSet = new Set(cloudRecords.map((x) => String(x.id || "").trim()).filter(Boolean));
-  const cloudFingerprintSet = new Set(cloudRecords.map((x) => getRecordFingerprint(x)));
-
-  const pending = localRecords
-    .filter((r) => {
-      const id = String(r.id || "").trim();
-      if (id && cloudIdSet.has(id)) return false;
-      const fp = getRecordFingerprint(r);
-      if (cloudFingerprintSet.has(fp)) return false;
-      return true;
-    })
-    .map((r) => ({ ...r, id: String(r.id || "").trim() || crypto.randomUUID() }));
-
-  if (!pending.length) {
-    alert("本地纪要已全部在云端，无需补传");
-    return;
-  }
-
-  if (!window.confirm(`检测到 ${pending.length} 条本地纪要未上云，是否立即补传？`)) {
-    return;
-  }
-
-  let success = 0;
-  let failed = 0;
-  for (const record of pending) {
-    try {
-      // eslint-disable-next-line no-await-in-loop
-      await withRetry(
-        async () => {
-          await state.firestore.collection(FIREBASE_COLLECTION).doc(record.id).set(record, { merge: true });
-        },
-        { retries: 2, baseDelay: 450 },
-      );
-      success += 1;
-    } catch {
-      failed += 1;
+  try {
+    if (!state.firestore || state.cloudStatus !== "connected") {
+      if (!silent) alert("云同步未连接，请稍后重试");
+      return;
     }
-  }
 
-  if (failed > 0) {
-    alert(`补传完成：成功 ${success} 条，失败 ${failed} 条。可再次点击重试失败项。`);
-    return;
+    const localRecords = dedupeRecords(loadRawLocalRecords());
+    if (!localRecords.length) {
+      if (!silent) alert("当前浏览器没有可补传的本地纪要");
+      return;
+    }
+
+    const cloudRecords = dedupeRecords(state.records || []);
+    const cloudIdSet = new Set(cloudRecords.map((x) => String(x.id || "").trim()).filter(Boolean));
+    const cloudFingerprintSet = new Set(cloudRecords.map((x) => getRecordFingerprint(x)));
+
+    const pending = localRecords
+      .filter((r) => {
+        const id = String(r.id || "").trim();
+        if (id && cloudIdSet.has(id)) return false;
+        const fp = getRecordFingerprint(r);
+        if (cloudFingerprintSet.has(fp)) return false;
+        return true;
+      })
+      .map((r) => ({ ...r, id: String(r.id || "").trim() || crypto.randomUUID() }));
+
+    if (!pending.length) {
+      if (!silent) alert("本地纪要已全部在云端，无需补传");
+      return;
+    }
+
+    if (!skipConfirm && !window.confirm(`检测到 ${pending.length} 条本地纪要未上云，是否立即补传？`)) {
+      return;
+    }
+
+    let success = 0;
+    let failed = 0;
+    for (const record of pending) {
+      try {
+        // eslint-disable-next-line no-await-in-loop
+        await withRetry(
+          async () => {
+            await state.firestore.collection(FIREBASE_COLLECTION).doc(record.id).set(record, { merge: true });
+          },
+          { retries: 2, baseDelay: 450 },
+        );
+        success += 1;
+      } catch {
+        failed += 1;
+      }
+    }
+
+    if (failed > 0) {
+      if (!silent) {
+        alert(`补传完成：成功 ${success} 条，失败 ${failed} 条。可再次点击重试失败项。`);
+      } else if (success > 0) {
+        updateDraftStatus(`已自动补传 ${success} 条本地纪要到云端（失败 ${failed} 条）`);
+      }
+      return;
+    }
+
+    if (!silent) {
+      alert(`补传完成：成功 ${success} 条，已全部上云。`);
+    } else if (success > 0) {
+      updateDraftStatus(`已自动补传 ${success} 条本地纪要到云端`);
+    }
+  } finally {
+    state.autoSyncRunning = false;
   }
-  alert(`补传完成：成功 ${success} 条，已全部上云。`);
 }
 
 function persistRecords() {
