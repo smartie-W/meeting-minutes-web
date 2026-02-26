@@ -1,0 +1,60 @@
+[debug] [2026-02-26T02:48:37.310Z] ----------------------------------------------------------------------
+[debug] [2026-02-26T02:48:37.311Z] Command:       /usr/local/bin/node /Users/wang/node_modules/.bin/firebase deploy --only functions --project xiaoshouyejifenxi
+[debug] [2026-02-26T02:48:37.312Z] CLI Version:   15.7.0
+[debug] [2026-02-26T02:48:37.312Z] Platform:      darwin
+[debug] [2026-02-26T02:48:37.312Z] Node Version:  v22.19.0
+[debug] [2026-02-26T02:48:37.312Z] Time:          Thu Feb 26 2026 10:48:37 GMT+0800 (中国标准时间)
+[debug] [2026-02-26T02:48:37.312Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2026-02-26T02:48:38.074Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2026-02-26T02:48:38.074Z] > authorizing via signed-in user (wqmsybyq163@gmail.com)
+[debug] [2026-02-26T02:48:38.074Z] [iam] checking project xiaoshouyejifenxi for permissions ["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get"]
+[debug] [2026-02-26T02:48:38.075Z] Checked if tokens are valid: true, expires at: 1772077685042
+[debug] [2026-02-26T02:48:38.075Z] Checked if tokens are valid: true, expires at: 1772077685042
+[debug] [2026-02-26T02:48:38.076Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/xiaoshouyejifenxi:testIamPermissions [none]
+[debug] [2026-02-26T02:48:38.076Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/xiaoshouyejifenxi:testIamPermissions  x-goog-user-project=xiaoshouyejifenxi
+[debug] [2026-02-26T02:48:38.076Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/xiaoshouyejifenxi:testIamPermissions {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get"]}
+[debug] [2026-02-26T02:48:39.118Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/xiaoshouyejifenxi:testIamPermissions 200
+[debug] [2026-02-26T02:48:39.118Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/xiaoshouyejifenxi:testIamPermissions {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get"]}
+[debug] [2026-02-26T02:48:39.118Z] Checked if tokens are valid: true, expires at: 1772077685042
+[debug] [2026-02-26T02:48:39.118Z] Checked if tokens are valid: true, expires at: 1772077685042
+[debug] [2026-02-26T02:48:39.118Z] >>> [apiv2][query] POST https://iam.googleapis.com/v1/projects/xiaoshouyejifenxi/serviceAccounts/xiaoshouyejifenxi@appspot.gserviceaccount.com:testIamPermissions [none]
+[debug] [2026-02-26T02:48:39.119Z] >>> [apiv2][body] POST https://iam.googleapis.com/v1/projects/xiaoshouyejifenxi/serviceAccounts/xiaoshouyejifenxi@appspot.gserviceaccount.com:testIamPermissions {"permissions":["iam.serviceAccounts.actAs"]}
+[debug] [2026-02-26T02:48:40.448Z] <<< [apiv2][status] POST https://iam.googleapis.com/v1/projects/xiaoshouyejifenxi/serviceAccounts/xiaoshouyejifenxi@appspot.gserviceaccount.com:testIamPermissions 404
+[debug] [2026-02-26T02:48:40.448Z] <<< [apiv2][body] POST https://iam.googleapis.com/v1/projects/xiaoshouyejifenxi/serviceAccounts/xiaoshouyejifenxi@appspot.gserviceaccount.com:testIamPermissions {"error":{"code":404,"message":"Unknown service account","status":"NOT_FOUND"}}
+[debug] [2026-02-26T02:48:40.448Z] [functions] service account IAM check errored, deploy may fail: Request to https://iam.googleapis.com/v1/projects/xiaoshouyejifenxi/serviceAccounts/xiaoshouyejifenxi@appspot.gserviceaccount.com:testIamPermissions had HTTP Error: 404, Unknown service account {"name":"FirebaseError","children":[],"context":{"body":{"error":{"code":404,"message":"Unknown service account","status":"NOT_FOUND"}},"response":{"statusCode":404}},"exit":1,"message":"Request to https://iam.googleapis.com/v1/projects/xiaoshouyejifenxi/serviceAccounts/xiaoshouyejifenxi@appspot.gserviceaccount.com:testIamPermissions had HTTP Error: 404, Unknown service account","status":404}
+[info] 
+[info] === Deploying to 'xiaoshouyejifenxi'...
+[info] 
+[info] i  deploying functions 
+[debug] [2026-02-26T02:48:40.451Z] Checked if tokens are valid: true, expires at: 1772077685042
+[debug] [2026-02-26T02:48:40.451Z] Checked if tokens are valid: true, expires at: 1772077685042
+[debug] [2026-02-26T02:48:40.451Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/xiaoshouyejifenxi/services/cloudresourcemanager.googleapis.com [none]
+[debug] [2026-02-26T02:48:40.451Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/xiaoshouyejifenxi/services/cloudresourcemanager.googleapis.com  x-goog-user-project=xiaoshouyejifenxi
+[debug] [2026-02-26T02:48:42.220Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/xiaoshouyejifenxi/services/cloudresourcemanager.googleapis.com 200
+[debug] [2026-02-26T02:48:42.221Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/xiaoshouyejifenxi/services/cloudresourcemanager.googleapis.com [omitted]
+[debug] [2026-02-26T02:48:42.227Z] Checked if tokens are valid: true, expires at: 1772077685042
+[debug] [2026-02-26T02:48:42.227Z] Checked if tokens are valid: true, expires at: 1772077685042
+[debug] [2026-02-26T02:48:42.228Z] >>> [apiv2][query] GET https://cloudresourcemanager.googleapis.com/v1/projects/xiaoshouyejifenxi [none]
+[debug] [2026-02-26T02:48:42.503Z] <<< [apiv2][status] GET https://cloudresourcemanager.googleapis.com/v1/projects/xiaoshouyejifenxi 200
+[debug] [2026-02-26T02:48:42.503Z] <<< [apiv2][body] GET https://cloudresourcemanager.googleapis.com/v1/projects/xiaoshouyejifenxi {"projectNumber":"951263111259","projectId":"xiaoshouyejifenxi","lifecycleState":"ACTIVE","name":"xiaoshouyejifenxi ","labels":{"firebase":"enabled","firebase-core":"disabled"},"createTime":"2026-02-13T14:38:40.904746Z"}
+[info] i  functions: preparing codebase default for deployment 
+[info] i  functions: ensuring required API cloudfunctions.googleapis.com is enabled... 
+[debug] [2026-02-26T02:48:42.504Z] Checked if tokens are valid: true, expires at: 1772077685042
+[debug] [2026-02-26T02:48:42.504Z] Checked if tokens are valid: true, expires at: 1772077685042
+[debug] [2026-02-26T02:48:42.505Z] Checked if tokens are valid: true, expires at: 1772077685042
+[debug] [2026-02-26T02:48:42.505Z] Checked if tokens are valid: true, expires at: 1772077685042
+[info] i  functions: ensuring required API cloudbuild.googleapis.com is enabled... 
+[debug] [2026-02-26T02:48:42.505Z] Checked if tokens are valid: true, expires at: 1772077685042
+[debug] [2026-02-26T02:48:42.505Z] Checked if tokens are valid: true, expires at: 1772077685042
+[info] i  artifactregistry: ensuring required API artifactregistry.googleapis.com is enabled... 
+[debug] [2026-02-26T02:48:42.505Z] Checked if tokens are valid: true, expires at: 1772077685042
+[debug] [2026-02-26T02:48:42.505Z] Checked if tokens are valid: true, expires at: 1772077685042
+[debug] [2026-02-26T02:48:42.505Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/xiaoshouyejifenxi/services/cloudfunctions.googleapis.com [none]
+[debug] [2026-02-26T02:48:42.505Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/xiaoshouyejifenxi/services/cloudfunctions.googleapis.com  x-goog-user-project=xiaoshouyejifenxi
+[debug] [2026-02-26T02:48:42.506Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/xiaoshouyejifenxi/services/runtimeconfig.googleapis.com [none]
+[debug] [2026-02-26T02:48:42.506Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/xiaoshouyejifenxi/services/runtimeconfig.googleapis.com  x-goog-user-project=xiaoshouyejifenxi
+[debug] [2026-02-26T02:48:42.507Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/xiaoshouyejifenxi/services/cloudbuild.googleapis.com [none]
+[debug] [2026-02-26T02:48:42.507Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/xiaoshouyejifenxi/services/cloudbuild.googleapis.com  x-goog-user-project=xiaoshouyejifenxi
+[debug] [2026-02-26T02:48:42.508Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/xiaoshouyejifenxi/services/artifactregistry.googleapis.com [none]
+[debug] [2026-02-26T02:48:42.509Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/xiaoshouyejifenxi/services/artifactregistry.googleapis.com  x-goog-user-project=xiaoshouyejifenxi
