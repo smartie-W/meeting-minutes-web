@@ -1238,6 +1238,13 @@ function bindEvents() {
       closeManagerLoginModal();
     }
   });
+  window.addEventListener("beforeunload", flushDraftSafely);
+  window.addEventListener("pagehide", flushDraftSafely);
+  document.addEventListener("visibilitychange", () => {
+    if (document.visibilityState === "hidden") {
+      flushDraftSafely();
+    }
+  });
 }
 
 function applyManagerPreset(preset) {
