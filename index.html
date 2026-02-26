@@ -273,7 +273,7 @@
       </section>
 
       <section id="view-history" class="view">
-        <div class="grid">
+        <div id="history-layout" class="history-layout">
           <section class="panel">
             <h2>会议纪要历史查询</h2>
             <div class="history-filters-vertical">
@@ -313,6 +313,19 @@
             <h2>查询结果</h2>
             <ul id="history-list" class="records"></ul>
           </section>
+
+          <section id="history-detail-modal" class="panel history-detail-panel">
+            <div class="history-detail-header">
+              <h3 id="history-detail-title">会议纪要详情</h3>
+              <div class="history-detail-actions">
+                <button type="button" id="history-detail-delete" class="btn danger">删除</button>
+                <button type="button" id="history-detail-edit" class="btn">编辑</button>
+                <button type="button" id="history-detail-next" class="btn">下一个</button>
+                <button type="button" id="history-detail-close" class="btn">关闭</button>
+              </div>
+            </div>
+            <div id="history-detail-body" class="history-detail-body"></div>
+          </section>
         </div>
       </section>
     </main>
@@ -328,22 +341,6 @@
         <div class="tags"></div>
       </li>
     </template>
-
-    <div id="history-detail-modal" class="modal" aria-hidden="true">
-      <div class="modal-backdrop" data-close-modal="true"></div>
-      <div class="modal-dialog" role="dialog" aria-modal="true" aria-label="会议纪要详情">
-        <div class="modal-header">
-          <h3 id="history-detail-title">会议纪要详情</h3>
-          <div class="modal-header-actions">
-            <button type="button" id="history-detail-delete" class="btn danger">删除</button>
-            <button type="button" id="history-detail-edit" class="btn">编辑</button>
-            <button type="button" id="history-detail-next" class="btn">下一个</button>
-            <button type="button" id="history-detail-close" class="btn">关闭</button>
-          </div>
-        </div>
-        <div id="history-detail-body" class="modal-body"></div>
-      </div>
-    </div>
 
     <div id="history-delete-auth-modal" class="modal" aria-hidden="true">
       <div class="modal-backdrop" data-close-delete-auth="true"></div>
