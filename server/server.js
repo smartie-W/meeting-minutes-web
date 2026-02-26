@@ -15,6 +15,11 @@ const BACKUP_ON_START = String(process.env.BACKUP_ON_START || 'false').toLowerCa
 const INDUSTRY_REFRESH_DAILY_HOUR = Number(process.env.INDUSTRY_REFRESH_DAILY_HOUR || 4);
 const INDUSTRY_REFRESH_DAILY_MINUTE = Number(process.env.INDUSTRY_REFRESH_DAILY_MINUTE || 10);
 const INDUSTRY_REFRESH_ON_START = String(process.env.INDUSTRY_REFRESH_ON_START || 'false').toLowerCase() === 'true';
+const MAIL_NOTIFY_ENABLED = String(process.env.MAIL_NOTIFY_ENABLED || 'false').toLowerCase() === 'true';
+const MAIL_PROVIDER = String(process.env.MAIL_PROVIDER || 'resend').trim().toLowerCase();
+const RESEND_API_KEY = String(process.env.RESEND_API_KEY || '').trim();
+const MAIL_FROM = String(process.env.MAIL_FROM || '').trim();
+const NOTIFY_TO_EMAIL = String(process.env.NOTIFY_TO_EMAIL || 'wangqiming@ones.cn').trim();
 const ALLOWED_ORIGINS = String(process.env.ALLOWED_ORIGINS || '*')
   .split(',')
   .map((x) => x.trim())
@@ -445,6 +450,79 @@ function normalizeRecord(record) {
   return base;
 }
 
+function escapeHtml(input) {
+  return String(input || '')
+    .replaceAll('&', '&amp;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;')
+    .replaceAll('"', '&quot;')
+    .replaceAll("'", '&#39;');
+}
+
+function buildNotifySubject(payload) {
+  const ar = String(payload?.ar || '').trim() || '-';
+  const customer = String(payload?.customerName || '').trim() || '-';
+  const meetingTime = String(payload?.meetingTime || '').trim() || '-';
+  return `[销售会议纪要] AR:${ar} | 客户:${customer} | 会议时间:${meetingTime}`;
+}
+
+function buildNotifyText(payload, detailUrl) {
+  return [
+    '新的会议纪要已保存',
+    `AR: ${String(payload?.ar || '').trim() || '-'}`,
+    `客户: ${String(payload?.customerName || '').trim() || '-'}`,
+    `会议时间: ${String(payload?.meetingTime || '').trim() || '-'}`,
+    `纪要详情链接: ${detailUrl}`,
+  ].join('\n');
+}
+
+function buildNotifyHtml(payload, detailUrl) {
+  return `
+    <div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'PingFang SC','Noto Sans SC',sans-serif;line-height:1.6;color:#111827;">
+      <h2 style="margin:0 0 12px;">新的会议纪要已保存</h2>
+      <p style="margin:6px 0;"><strong>AR：</strong>${escapeHtml(String(payload?.ar || '').trim() || '-')}</p>
+      <p style="margin:6px 0;"><strong>客户：</strong>${escapeHtml(String(payload?.customerName || '').trim() || '-')}</p>
+      <p style="margin:6px 0;"><strong>会议时间：</strong>${escapeHtml(String(payload?.meetingTime || '').trim() || '-')}</p>
+      <p style="margin:14px 0 8px;">纪要详情链接：</p>
+      <a href="${escapeHtml(detailUrl)}" target="_blank" rel="noopener noreferrer" style="display:inline-block;padding:9px 14px;background:#0b6a88;color:#fff;text-decoration:none;border-radius:8px;">打开纪要详情</a>
+      <div style="margin-top:10px;color:#4b5563;word-break:break-all;">${escapeHtml(detailUrl)}</div>
+    </div>
+  `;
+}
+
+async function sendByResend(payload, detailUrl) {
+  if (!RESEND_API_KEY) throw new Error('missing RESEND_API_KEY');
+  if (!MAIL_FROM) throw new Error('missing MAIL_FROM');
+  const response = await fetch('https://api.resend.com/emails', {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${RESEND_API_KEY}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      from: MAIL_FROM,
+      to: [NOTIFY_TO_EMAIL],
+      subject: buildNotifySubject(payload),
+      html: buildNotifyHtml(payload, detailUrl),
+      text: buildNotifyText(payload, detailUrl),
+    }),
+  });
+  const result = await response.json().catch(() => ({}));
+  if (!response.ok) {
+    throw new Error(String(result?.message || result?.error || `resend http ${response.status}`));
+  }
+  return { id: String(result?.id || '') };
+}
+
+async function sendMeetingNotify(payload) {
+  if (!MAIL_NOTIFY_ENABLED) return { ok: false, skipped: true, reason: 'disabled' };
+  if (MAIL_PROVIDER !== 'resend') return { ok: false, skipped: true, reason: 'unsupported_provider' };
+  const detailUrl = String(payload?.detailUrl || '').trim();
+  if (!detailUrl) return { ok: false, skipped: true, reason: 'missing_detail_url' };
+  const sent = await sendByResend(payload, detailUrl);
+  return { ok: true, provider: 'resend', messageId: sent.id };
+}
+
 function fingerprintOf(record) {
   const customers = [...(record.customerNames || [])].sort().join('|');
   return [
@@ -545,6 +623,22 @@ app.post('/api/admin/dedupe', authMiddleware, (_req, res) => {
   }
 });
 
+app.post('/api/notify', authMiddleware, async (req, res) => {
+  const payload = req.body && typeof req.body === 'object' ? req.body : {};
+  try {
+    const result = await sendMeetingNotify(payload);
+    if (!result.ok) {
+      return res.status(200).json({ ok: false, error: result.reason || 'notify_skipped' });
+    }
+    return res.status(200).json({ ok: true, provider: result.provider, messageId: result.messageId || '' });
+  } catch (error) {
+    return res.status(500).json({
+      ok: false,
+      error: String(error?.message || error),
+    });
+  }
+});
+
 app.get('/api/records', authMiddleware, (_req, res) => {
   const rows = listStmt.all();
   const records = rows.map((row) => {
@@ -613,6 +707,7 @@ app.listen(PORT, () => {
   console.log(`[meeting-api] db: ${path.resolve(DB_PATH)}`);
   console.log(`[meeting-api] backup dir: ${path.resolve(BACKUP_DIR)} | daily ${two(BACKUP_DAILY_HOUR)}:${two(BACKUP_DAILY_MINUTE)} | retention ${BACKUP_RETENTION_DAYS}d`);
   console.log(`[meeting-api] industry refresh daily ${two(INDUSTRY_REFRESH_DAILY_HOUR)}:${two(INDUSTRY_REFRESH_DAILY_MINUTE)}`);
+  console.log(`[meeting-api] notify: ${MAIL_NOTIFY_ENABLED ? `on (${MAIL_PROVIDER}) => ${NOTIFY_TO_EMAIL}` : 'off'}`);
   if (BACKUP_ON_START) {
     try {
       const meta = performBackup('startup');
