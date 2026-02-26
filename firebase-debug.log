@@ -12,3 +12,20 @@
 [debug] [2026-02-26T02:35:40.050Z] <<< [apiv2][body] GET https://firebase-public.firebaseio.com/cli.json {"cloudBuildErrorAfter":1594252800000,"cloudBuildWarnAfter":1590019200000,"defaultNode10After":1594252800000,"minVersion":"3.0.5","node8DeploysDisabledAfter":1613390400000,"node8RuntimeDisabledAfter":1615809600000,"node8WarnAfter":1600128000000}
 [info] 
 [info] i  Firebase optionally collects CLI and Emulator Suite usage and error reporting information to help improve our products. Data is collected in accordance with Google's privacy policy (https://policies.google.com/privacy) and is not used to identify you. 
+[debug] [2026-02-26T02:39:25.496Z] >>> [apiv2][query] POST https://auth.firebase.tools/attest [none]
+[debug] [2026-02-26T02:39:25.496Z] >>> [apiv2][body] POST https://auth.firebase.tools/attest {"session_id":"4a3e2ed2-6915-490a-9bbf-7cab19cf48c8"}
+[debug] [2026-02-26T02:39:27.467Z] <<< [apiv2][status] POST https://auth.firebase.tools/attest 200
+[debug] [2026-02-26T02:39:27.468Z] <<< [apiv2][body] POST https://auth.firebase.tools/attest {"token":"BP5VgaqZNZNB9CfCI0iIaHVDcTvgK2DHUEZOxPRZxkU"}
+[info] 
+[info] To sign in to the Firebase CLI:
+[info] 
+[info] 1. Take note of your session ID:
+[info] 
+[info]    4A3E2
+[info] 
+[info] 2. Visit the URL below on any device and follow the instructions to get your code:
+[info] 
+[info]    https://auth.firebase.tools/login?code_challenge=ZID1fc3wUdKndaMh_0PmIz8HFd7xhrG0raEb9WengT4&session=4a3e2ed2-6915-490a-9bbf-7cab19cf48c8&attest=BP5VgaqZNZNB9CfCI0iIaHVDcTvgK2DHUEZOxPRZxkU
+[info] 
+[info] 3. Paste or enter the authorization code below once you have it:
+[info] 
