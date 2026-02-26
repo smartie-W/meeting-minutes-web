@@ -1079,6 +1079,7 @@ const el = {
   historySr: document.querySelector("#history-sr"),
   historyFrImpl: document.querySelector("#history-fr-impl"),
   historyFrPm: document.querySelector("#history-fr-pm"),
+  historyLayout: document.querySelector("#history-layout"),
   historySummary: document.querySelector("#history-summary"),
   historyList: document.querySelector("#history-list"),
   historyItemTemplate: document.querySelector("#history-item-template"),
