@@ -379,6 +379,15 @@
     <script defer src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
     <script defer src="./data/xlsx_customer_industry_overrides.js"></script>
     <script>
+      window.MEETING_API_CONFIG = window.MEETING_API_CONFIG || {
+        enabled: false,
+        baseUrl: "",
+        apiKey: "",
+        pollIntervalMs: 4000,
+        requestTimeoutMs: 8000,
+      };
+    </script>
+    <script>
       window.MAIL_NOTIFY_CONFIG = window.MAIL_NOTIFY_CONFIG || {
         enabled: false,
         endpoint: "",
