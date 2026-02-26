@@ -4097,8 +4097,15 @@ function normalizeNotifyTimeout(timeoutMs) {
 }
 
 async function notifyByWorker(record) {
-  const endpoint = String(MAIL_NOTIFY_CONFIG.endpoint || "").trim();
-  if (!MAIL_NOTIFY_CONFIG.enabled || !endpoint) {
+  if (!MAIL_NOTIFY_CONFIG.enabled) {
+    return { enabled: false, ok: false, message: "" };
+  }
+  const configuredEndpoint = String(MAIL_NOTIFY_CONFIG.endpoint || "").trim();
+  const fallbackEndpoint = state.apiMode
+    ? `${normalizeApiBaseUrl(MEETING_API_CONFIG.baseUrl)}/api/notify`
+    : "";
+  const endpoint = configuredEndpoint || fallbackEndpoint;
+  if (!endpoint) {
     return { enabled: false, ok: false, message: "" };
   }
 
@@ -4117,7 +4124,7 @@ async function notifyByWorker(record) {
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), normalizeNotifyTimeout(MAIL_NOTIFY_CONFIG.timeoutMs));
   const headers = { "Content-Type": "application/json" };
-  const token = String(MAIL_NOTIFY_CONFIG.bearerToken || "").trim();
+  const token = String(MAIL_NOTIFY_CONFIG.bearerToken || MEETING_API_CONFIG.apiKey || "").trim();
   if (token) headers.Authorization = `Bearer ${token}`;
 
   try {
@@ -4127,9 +4134,18 @@ async function notifyByWorker(record) {
       body: JSON.stringify(payload),
       signal: controller.signal,
     });
+    const text = await response.text();
+    let data = null;
+    try {
+      data = text ? JSON.parse(text) : null;
+    } catch {
+      data = null;
+    }
     if (!response.ok) {
-      const text = await response.text();
       return { enabled: true, ok: false, message: text || `HTTP ${response.status}` };
+    }
+    if (data && data.ok === false) {
+      return { enabled: true, ok: false, message: data.error || "通知未发送" };
     }
     return { enabled: true, ok: true, message: "" };
   } catch (error) {
