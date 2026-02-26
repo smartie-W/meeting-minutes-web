@@ -3664,6 +3664,20 @@ function initCloudSync() {
 }
 
 async function upsertRecord(record) {
+  if (state.apiMode) {
+    await withRetry(
+      async () => {
+        await requestMeetingApi("/api/records", {
+          method: "POST",
+          body: JSON.stringify({ record }),
+        });
+      },
+      { retries: 2, baseDelay: 450 },
+    );
+    setCloudStatus("connected", "云同步：已连接");
+    scheduleApiPolling(100);
+    return;
+  }
   if (state.firestore) {
     await withRetry(
       async () => {
@@ -3691,6 +3705,19 @@ async function upsertRecord(record) {
 }
 
 async function deleteRecordById(recordId) {
+  if (state.apiMode) {
+    await withRetry(
+      async () => {
+        await requestMeetingApi(`/api/records/${encodeURIComponent(recordId)}`, {
+          method: "DELETE",
+        });
+      },
+      { retries: 2, baseDelay: 450 },
+    );
+    setCloudStatus("connected", "云同步：已连接");
+    scheduleApiPolling(100);
+    return;
+  }
   if (state.firestore) {
     await withRetry(
       async () => {
