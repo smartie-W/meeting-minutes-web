@@ -225,7 +225,7 @@ textarea.long-input {
 }
 
 .history-layout.has-detail {
-  grid-template-columns: minmax(260px, 2fr) minmax(260px, 2fr) minmax(360px, 6fr);
+  grid-template-columns: minmax(220px, 1.5fr) minmax(260px, 2fr) minmax(360px, 6.5fr);
 }
 
 .history-detail-panel {
