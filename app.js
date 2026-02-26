@@ -1446,6 +1446,7 @@ async function handleSaveRecord(event) {
   try {
     await upsertRecord(record);
     const notifyResult = await notifyByWorker(record);
+    cleanupEditQueryParam();
     clearDraft();
     resetForm();
     render();
@@ -1464,6 +1465,20 @@ async function handleSaveRecord(event) {
     alert(`保存失败：${userMessage}`);
   } finally {
     saveInProgress = false;
+  }
+}
+
+function cleanupEditQueryParam() {
+  try {
+    const current = new URL(window.location.href);
+    if (!current.searchParams.has("editRecordId")) return;
+    current.searchParams.delete("editRecordId");
+    if (current.searchParams.get("view") === "sales" && !current.searchParams.get("recordId")) {
+      current.searchParams.delete("view");
+    }
+    window.history.replaceState({}, "", current.toString());
+  } catch {
+    // ignore url cleanup errors
   }
 }
 
