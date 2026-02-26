@@ -984,6 +984,8 @@ const state = {
   cloudUnsubscribe: null,
   cloudStatus: "connecting",
   cloudStatusText: "云同步：连接中",
+  autoSyncTried: false,
+  autoSyncRunning: false,
   aiResult: {
     summary: "暂无",
     globalKeywords: [],
