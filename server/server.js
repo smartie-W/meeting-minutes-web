@@ -12,6 +12,9 @@ const BACKUP_RETENTION_DAYS = Number(process.env.BACKUP_RETENTION_DAYS || 30);
 const BACKUP_DAILY_HOUR = Number(process.env.BACKUP_DAILY_HOUR || 3);
 const BACKUP_DAILY_MINUTE = Number(process.env.BACKUP_DAILY_MINUTE || 15);
 const BACKUP_ON_START = String(process.env.BACKUP_ON_START || 'false').toLowerCase() === 'true';
+const INDUSTRY_REFRESH_DAILY_HOUR = Number(process.env.INDUSTRY_REFRESH_DAILY_HOUR || 4);
+const INDUSTRY_REFRESH_DAILY_MINUTE = Number(process.env.INDUSTRY_REFRESH_DAILY_MINUTE || 10);
+const INDUSTRY_REFRESH_ON_START = String(process.env.INDUSTRY_REFRESH_ON_START || 'false').toLowerCase() === 'true';
 const ALLOWED_ORIGINS = String(process.env.ALLOWED_ORIGINS || '*')
   .split(',')
   .map((x) => x.trim())
@@ -24,6 +27,48 @@ db.pragma('journal_mode = WAL');
 
 let lastBackupMeta = null;
 let backupTimer = null;
+let lastIndustryRefreshMeta = null;
+let industryRefreshTimer = null;
+
+const COMPANY_INDUSTRY_HINTS = [
+  { key: '金拱门', level1: '消费服务', level2: '餐饮连锁' },
+  { key: '麦当劳', level1: '消费服务', level2: '餐饮连锁' },
+  { key: '招商银行', level1: '金融', level2: '银行' },
+  { key: '中国银行', level1: '金融', level2: '银行' },
+  { key: '工商银行', level1: '金融', level2: '银行' },
+  { key: '农业银行', level1: '金融', level2: '银行' },
+  { key: '建设银行', level1: '金融', level2: '银行' },
+  { key: '平安', level1: '金融', level2: '保险' },
+  { key: '中国人寿', level1: '金融', level2: '保险' },
+  { key: '宁德时代', level1: '新能源', level2: '动力电池' },
+  { key: '中芯国际', level1: '电子信息', level2: '半导体与芯片' },
+  { key: '华大基因', level1: '医疗健康', level2: '基因科技/测序' },
+  { key: '前程无忧', level1: '企业服务', level2: '人力资源服务' },
+  { key: '智联招聘', level1: '企业服务', level2: '人力资源服务' },
+  { key: 'boss直聘', level1: '企业服务', level2: '人力资源服务' },
+  { key: '导远', level1: '汽车', level2: '智能零部件' },
+  { key: '远峰', level1: '汽车', level2: '智能零部件' },
+];
+
+const INDUSTRY_PATTERN_HINTS = [
+  { re: /(银行|农商银行|商业银行)/i, level1: '金融', level2: '银行' },
+  { re: /(证券|基金|信托)/i, level1: '金融', level2: '证券与基金' },
+  { re: /(保险)/i, level1: '金融', level2: '保险' },
+  { re: /(电力|电网|发电|燃气|石油|石化|煤业|能源)/i, level1: '能源', level2: '综合能源' },
+  { re: /(汽车电子|汽车技术|汽车科技|汽车零部件|座舱|智驾)/i, level1: '汽车', level2: '智能零部件' },
+  { re: /(汽车|新能源车|主机厂)/i, level1: '汽车', level2: '整车/零部件' },
+  { re: /(芯片|半导体|集成电路|EDA)/i, level1: '电子信息', level2: '半导体与芯片' },
+  { re: /(机器人|机械臂|自动化设备)/i, level1: '制造', level2: '智能制造' },
+  { re: /(电子|电气|精密|仪器|装备|机电|制造|工业)/i, level1: '制造', level2: '工业制造' },
+  { re: /(软件|信息技术|信息科技|网络科技|互联网|SaaS|数字)/i, level1: '软件服务', level2: '企业软件/SaaS' },
+  { re: /(医药|医疗|医院|生物|基因|器械)/i, level1: '医疗健康', level2: '医疗服务/生物医药' },
+  { re: /(零售|商贸|商超|百货|电商|便利店|超市)/i, level1: '零售', level2: '综合零售/电商' },
+  { re: /(餐饮|食品|奶茶|咖啡|酒店|酒楼|火锅|快餐)/i, level1: '消费服务', level2: '餐饮连锁' },
+  { re: /(物流|供应链|仓储|快递|运输)/i, level1: '物流', level2: '物流与供应链' },
+  { re: /(地产|置业|物业|房地产)/i, level1: '房地产', level2: '房地产开发/运营' },
+  { re: /(建筑|建工|工程|城建|路桥|隧道|基建)/i, level1: '建筑基建', level2: '工程建设' },
+  { re: /(人力资源|人才|猎聘|招聘|劳务)/i, level1: '企业服务', level2: '人力资源服务' },
+];
 
 const createTableSql = `
 CREATE TABLE IF NOT EXISTS meeting_records (
@@ -156,6 +201,169 @@ function scheduleDailyBackup() {
   }, delay);
 }
 
+function normalizeIndustryValue(value) {
+  return String(value || '').trim();
+}
+
+function isUnknownIndustryValue(value) {
+  const text = normalizeIndustryValue(value);
+  if (!text) return true;
+  return text.includes('未知') || text === '-' || text.toLowerCase() === 'unknown';
+}
+
+function shouldRefreshIndustry(record) {
+  if (!record || typeof record !== 'object') return false;
+  if (isUnknownIndustryValue(record.industryLevel1) || isUnknownIndustryValue(record.industryLevel2)) return true;
+  if (isUnknownIndustryValue(record.meetingIndustry)) return true;
+  const map = record.customerIndustries;
+  if (map && typeof map === 'object') {
+    const values = Object.values(map);
+    if (values.some((x) => isUnknownIndustryValue(x?.level1) || isUnknownIndustryValue(x?.level2))) return true;
+  }
+  return false;
+}
+
+function inferIndustryByName(companyName) {
+  const name = String(companyName || '').trim();
+  if (!name) return null;
+  const lowerName = name.toLowerCase();
+  const direct = COMPANY_INDUSTRY_HINTS.find((item) => lowerName.includes(item.key.toLowerCase()));
+  if (direct) {
+    return { level1: direct.level1, level2: direct.level2, confidence: 'high' };
+  }
+  const pattern = INDUSTRY_PATTERN_HINTS.find((item) => item.re.test(name));
+  if (pattern) {
+    return { level1: pattern.level1, level2: pattern.level2, confidence: 'medium' };
+  }
+  return null;
+}
+
+function inferIndustryForRecord(record) {
+  const customers = Array.isArray(record?.customerNames) ? record.customerNames : [];
+  for (const name of customers) {
+    const inferred = inferIndustryByName(name);
+    if (inferred) return inferred;
+  }
+  return null;
+}
+
+function applyIndustryToRecord(record, inferred) {
+  const level1 = String(inferred?.level1 || '').trim();
+  const level2 = String(inferred?.level2 || '').trim();
+  if (!level1 || !level2) return null;
+
+  const next = { ...(record || {}) };
+  next.industryLevel1 = level1;
+  next.industryLevel2 = level2;
+  next.meetingIndustry = `${level1}/${level2}`;
+
+  const map = (next.customerIndustries && typeof next.customerIndustries === 'object')
+    ? { ...next.customerIndustries }
+    : {};
+  const customers = Array.isArray(next.customerNames) ? next.customerNames : [];
+  customers.forEach((name) => {
+    const key = String(name || '').trim();
+    if (!key) return;
+    map[key] = { level1, level2 };
+  });
+  next.customerIndustries = map;
+
+  return next;
+}
+
+function performIndustryRefresh(reason = 'scheduled') {
+  const rows = listStmt.all();
+  let scanned = 0;
+  let refreshed = 0;
+  let skipped = 0;
+  let unchanged = 0;
+  const ts = nowIso();
+
+  rows.forEach((row) => {
+    scanned += 1;
+    let payload;
+    try {
+      payload = JSON.parse(row.payload_json);
+    } catch {
+      skipped += 1;
+      return;
+    }
+    if (!shouldRefreshIndustry(payload)) {
+      unchanged += 1;
+      return;
+    }
+    const inferred = inferIndustryForRecord(payload);
+    if (!inferred) {
+      skipped += 1;
+      return;
+    }
+    const updated = applyIndustryToRecord(payload, inferred);
+    if (!updated) {
+      skipped += 1;
+      return;
+    }
+
+    const normalized = normalizeRecord(updated);
+    if (!normalized.id) {
+      skipped += 1;
+      return;
+    }
+
+    const fingerprint = fingerprintOf(normalized);
+    upsertStmt.run({
+      id: normalized.id,
+      fingerprint,
+      sales_name: normalized.salesName,
+      meeting_time: normalized.meetingTime,
+      payload_json: JSON.stringify({ ...updated, updatedAt: ts }),
+      created_at: ts,
+      updated_at: ts,
+    });
+    refreshed += 1;
+  });
+
+  lastIndustryRefreshMeta = {
+    ok: true,
+    reason,
+    scanned,
+    refreshed,
+    unchanged,
+    skipped,
+    at: nowIso(),
+  };
+  return lastIndustryRefreshMeta;
+}
+
+function scheduleDailyIndustryRefresh() {
+  if (industryRefreshTimer) {
+    clearTimeout(industryRefreshTimer);
+    industryRefreshTimer = null;
+  }
+  const now = new Date();
+  const next = new Date(now);
+  next.setHours(INDUSTRY_REFRESH_DAILY_HOUR, INDUSTRY_REFRESH_DAILY_MINUTE, 0, 0);
+  if (next.getTime() <= now.getTime()) {
+    next.setDate(next.getDate() + 1);
+  }
+  const delay = Math.max(1000, next.getTime() - now.getTime());
+  industryRefreshTimer = setTimeout(() => {
+    try {
+      const meta = performIndustryRefresh('scheduled');
+      console.log(`[meeting-api] industry refresh ok (${meta.reason}) scanned=${meta.scanned} refreshed=${meta.refreshed}`);
+    } catch (error) {
+      console.error('[meeting-api] industry refresh failed:', error);
+      lastIndustryRefreshMeta = {
+        ok: false,
+        reason: 'scheduled',
+        error: String(error?.message || error),
+        at: nowIso(),
+      };
+    } finally {
+      scheduleDailyIndustryRefresh();
+    }
+  }, delay);
+}
+
 function normalizeRecord(record) {
   const base = { ...(record || {}) };
   base.id = String(base.id || '').trim();
@@ -224,6 +432,10 @@ app.get('/api/health', (_req, res) => {
       dailyAt: `${two(BACKUP_DAILY_HOUR)}:${two(BACKUP_DAILY_MINUTE)}`,
       last: lastBackupMeta,
     },
+    industryRefresh: {
+      dailyAt: `${two(INDUSTRY_REFRESH_DAILY_HOUR)}:${two(INDUSTRY_REFRESH_DAILY_MINUTE)}`,
+      last: lastIndustryRefreshMeta,
+    },
   });
 });
 
@@ -235,6 +447,19 @@ app.post('/api/admin/backup', authMiddleware, (_req, res) => {
     res.status(500).json({
       ok: false,
       error: 'backup_failed',
+      message: String(error?.message || error),
+    });
+  }
+});
+
+app.post('/api/admin/industry-refresh', authMiddleware, (_req, res) => {
+  try {
+    const meta = performIndustryRefresh('manual');
+    res.json({ ok: true, industryRefresh: meta });
+  } catch (error) {
+    res.status(500).json({
+      ok: false,
+      error: 'industry_refresh_failed',
       message: String(error?.message || error),
     });
   }
@@ -307,6 +532,7 @@ app.listen(PORT, () => {
   console.log(`[meeting-api] listening on :${PORT}`);
   console.log(`[meeting-api] db: ${path.resolve(DB_PATH)}`);
   console.log(`[meeting-api] backup dir: ${path.resolve(BACKUP_DIR)} | daily ${two(BACKUP_DAILY_HOUR)}:${two(BACKUP_DAILY_MINUTE)} | retention ${BACKUP_RETENTION_DAYS}d`);
+  console.log(`[meeting-api] industry refresh daily ${two(INDUSTRY_REFRESH_DAILY_HOUR)}:${two(INDUSTRY_REFRESH_DAILY_MINUTE)}`);
   if (BACKUP_ON_START) {
     try {
       const meta = performBackup('startup');
@@ -315,5 +541,14 @@ app.listen(PORT, () => {
       console.error('[meeting-api] startup backup failed:', error);
     }
   }
+  if (INDUSTRY_REFRESH_ON_START) {
+    try {
+      const meta = performIndustryRefresh('startup');
+      console.log(`[meeting-api] industry refresh ok (${meta.reason}) scanned=${meta.scanned} refreshed=${meta.refreshed}`);
+    } catch (error) {
+      console.error('[meeting-api] startup industry refresh failed:', error);
+    }
+  }
   scheduleDailyBackup();
+  scheduleDailyIndustryRefresh();
 });
