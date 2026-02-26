@@ -1,0 +1,6 @@
+name = "meeting-minutes-mail-notify"
+main = "src/index.js"
+compatibility_date = "2026-02-26"
+
+[observability.logs]
+enabled = true

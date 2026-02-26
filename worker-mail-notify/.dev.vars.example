@@ -1,0 +1,17 @@
+# Resend API Key
+RESEND_API_KEY=re_xxx
+
+# Sender address (must be verified in Resend)
+MAIL_FROM=meeting-notify@yourdomain.com
+
+# Receiver mailbox
+NOTIFY_TO_EMAIL=wangqiming@ones.cn
+
+# Optional: protect endpoint with bearer token
+BEARER_TOKEN=
+
+# Optional: CORS allow-list (comma-separated), empty means *
+ALLOWED_ORIGINS=https://smartie-w.github.io
+
+# Optional: fallback base url for detail link
+WEB_BASE_URL=https://smartie-w.github.io/meeting-minutes-web/
