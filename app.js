@@ -3359,8 +3359,16 @@ function isFirebaseConfigured(config) {
   return Boolean(config?.apiKey && config?.projectId && config?.appId);
 }
 
+function isMeetingApiConfigured(config) {
+  return Boolean(config?.enabled && String(config?.baseUrl || "").trim());
+}
+
 function isCloudModeEnabled() {
-  return isFirebaseConfigured(FIREBASE_CONFIG);
+  return isMeetingApiConfigured(MEETING_API_CONFIG) || isFirebaseConfigured(FIREBASE_CONFIG);
+}
+
+function isApiConnected() {
+  return state.apiMode && state.cloudStatus === "connected";
 }
 
 function renderCloudStatusBadge() {
@@ -3385,7 +3393,7 @@ function updateSyncLocalToCloudButton() {
     el.syncLocalToCloudBtn.title = "当前为本地模式";
     return;
   }
-  const connected = state.cloudStatus === "connected" && !!state.firestore;
+  const connected = isApiConnected() || (state.cloudStatus === "connected" && !!state.firestore);
   el.syncLocalToCloudBtn.disabled = !connected;
   el.syncLocalToCloudBtn.title = connected ? "把当前浏览器本地纪要补传到云端" : "云未连接，暂不可补传";
 }
@@ -3402,7 +3410,23 @@ function scheduleCloudReconnect(delayMs = 2000) {
   setCloudStatus("reconnecting", "云同步：重连中");
   cloudReconnectTimer = setTimeout(() => {
     cloudReconnectTimer = null;
-    initCloudSync();
+    initDataSync();
+  }, Math.max(1000, Number(delayMs) || 2000));
+}
+
+function clearApiReconnectTimer() {
+  if (!apiReconnectTimer) return;
+  clearTimeout(apiReconnectTimer);
+  apiReconnectTimer = null;
+}
+
+function scheduleApiReconnect(delayMs = 2000) {
+  if (!isMeetingApiConfigured(MEETING_API_CONFIG)) return;
+  if (apiReconnectTimer) return;
+  setCloudStatus("reconnecting", "云同步：重连中");
+  apiReconnectTimer = setTimeout(() => {
+    apiReconnectTimer = null;
+    initDataSync();
   }, Math.max(1000, Number(delayMs) || 2000));
 }
 
