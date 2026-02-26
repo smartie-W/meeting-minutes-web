@@ -11,6 +11,13 @@ const FIREBASE_CONFIG = window.FIREBASE_CONFIG || {
   messagingSenderId: "951263111259",
   appId: "1:951263111259:web:0877b8556416dbb90ff77e",
 };
+const MEETING_API_CONFIG = window.MEETING_API_CONFIG || {
+  enabled: false,
+  baseUrl: "",
+  apiKey: "",
+  pollIntervalMs: 4000,
+  requestTimeoutMs: 8000,
+};
 const MAIL_NOTIFY_CONFIG = window.MAIL_NOTIFY_CONFIG || {
   enabled: false,
   endpoint: "",
