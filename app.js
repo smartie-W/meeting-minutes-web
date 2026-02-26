@@ -1122,7 +1122,7 @@ function boot() {
   setTimeout(syncArParticipantNames, 0);
   setTimeout(syncArParticipantNames, 400);
   render();
-  initCloudSync();
+  initDataSync();
 }
 
 function initRecordDeepLink() {
