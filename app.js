@@ -1034,6 +1034,7 @@ const el = {
   cloudStatusBadge: document.querySelector("#cloud-status-badge"),
 
   exportBtn: document.querySelector("#export-btn"),
+  syncLocalToCloudBtn: document.querySelector("#sync-local-to-cloud-btn"),
 
   filterSales: document.querySelector("#filter-sales"),
   presetButtons: [...document.querySelectorAll(".preset-btn")],
@@ -1169,6 +1170,9 @@ function bindEvents() {
   el.addMigrationSource.addEventListener("click", () => addMigrationSourceRow(el.migrationSources));
 
   el.exportBtn.addEventListener("click", exportRecords);
+  if (el.syncLocalToCloudBtn) {
+    el.syncLocalToCloudBtn.addEventListener("click", syncLocalRecordsToCloud);
+  }
 
   el.applyFilter.addEventListener("click", () => {
     state.filterSales = el.filterSales.value.trim();
@@ -3359,6 +3363,19 @@ function setCloudStatus(status, text) {
   state.cloudStatus = status;
   state.cloudStatusText = text;
   renderCloudStatusBadge();
+  updateSyncLocalToCloudButton();
+}
+
+function updateSyncLocalToCloudButton() {
+  if (!el.syncLocalToCloudBtn) return;
+  if (!isCloudModeEnabled()) {
+    el.syncLocalToCloudBtn.disabled = true;
+    el.syncLocalToCloudBtn.title = "当前为本地模式";
+    return;
+  }
+  const connected = state.cloudStatus === "connected" && !!state.firestore;
+  el.syncLocalToCloudBtn.disabled = !connected;
+  el.syncLocalToCloudBtn.title = connected ? "把当前浏览器本地纪要补传到云端" : "云未连接，暂不可补传";
 }
 
 function clearCloudReconnectTimer() {
@@ -3556,6 +3573,77 @@ function loadRecords() {
   } catch {
     return [];
   }
+}
+
+function loadRawLocalRecords() {
+  try {
+    const raw = localStorage.getItem(RECORDS_KEY);
+    if (!raw) return [];
+    const parsed = JSON.parse(raw);
+    if (!Array.isArray(parsed)) return [];
+    return parsed.map((record) => normalizeRecordIndustry(record));
+  } catch {
+    return [];
+  }
+}
+
+async function syncLocalRecordsToCloud() {
+  if (!state.firestore || state.cloudStatus !== "connected") {
+    alert("云同步未连接，请稍后重试");
+    return;
+  }
+
+  const localRecords = dedupeRecords(loadRawLocalRecords());
+  if (!localRecords.length) {
+    alert("当前浏览器没有可补传的本地纪要");
+    return;
+  }
+
+  const cloudRecords = dedupeRecords(state.records || []);
+  const cloudIdSet = new Set(cloudRecords.map((x) => String(x.id || "").trim()).filter(Boolean));
+  const cloudFingerprintSet = new Set(cloudRecords.map((x) => getRecordFingerprint(x)));
+
+  const pending = localRecords
+    .filter((r) => {
+      const id = String(r.id || "").trim();
+      if (id && cloudIdSet.has(id)) return false;
+      const fp = getRecordFingerprint(r);
+      if (cloudFingerprintSet.has(fp)) return false;
+      return true;
+    })
+    .map((r) => ({ ...r, id: String(r.id || "").trim() || crypto.randomUUID() }));
+
+  if (!pending.length) {
+    alert("本地纪要已全部在云端，无需补传");
+    return;
+  }
+
+  if (!window.confirm(`检测到 ${pending.length} 条本地纪要未上云，是否立即补传？`)) {
+    return;
+  }
+
+  let success = 0;
+  let failed = 0;
+  for (const record of pending) {
+    try {
+      // eslint-disable-next-line no-await-in-loop
+      await withRetry(
+        async () => {
+          await state.firestore.collection(FIREBASE_COLLECTION).doc(record.id).set(record, { merge: true });
+        },
+        { retries: 2, baseDelay: 450 },
+      );
+      success += 1;
+    } catch {
+      failed += 1;
+    }
+  }
+
+  if (failed > 0) {
+    alert(`补传完成：成功 ${success} 条，失败 ${failed} 条。可再次点击重试失败项。`);
+    return;
+  }
+  alert(`补传完成：成功 ${success} 条，已全部上云。`);
 }
 
 function persistRecords() {
