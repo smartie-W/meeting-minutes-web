@@ -1140,7 +1140,10 @@ function initRecordDeepLink() {
       state.pendingOpenRecordId = recordId.trim();
     }
     if (editRecordId) {
-      state.pendingEditRecordId = editRecordId.trim();
+      const rid = editRecordId.trim();
+      state.pendingEditRecordId = rid;
+      // Lock edit mode early to avoid accidental "new record" save before cloud data finishes loading.
+      state.editingRecordId = rid;
     }
     if (view === "sales") {
       activateView("sales");
@@ -1151,6 +1154,7 @@ function initRecordDeepLink() {
   } catch {
     state.pendingOpenRecordId = "";
     state.pendingEditRecordId = "";
+    state.editingRecordId = "";
   }
 }
 
