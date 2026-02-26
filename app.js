@@ -1231,6 +1231,7 @@ function bindEvents() {
 
   el.historyCustomer.addEventListener("input", applyHistoryFilters);
   el.historyAr.addEventListener("input", applyHistoryFilters);
+  el.historyAr.addEventListener("change", applyHistoryFilters);
   el.historySr.addEventListener("input", applyHistoryFilters);
   el.historyFrImpl.addEventListener("input", applyHistoryFilters);
   el.historyFrPm.addEventListener("input", applyHistoryFilters);
