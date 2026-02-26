@@ -1471,6 +1471,7 @@ function resetForm() {
   el.form.reset();
   applySalesNameRule();
   el.recordId.value = "";
+  state.editingRecordId = "";
   resetParticipantSections();
   resetMigrationSources();
   setSelectedFocusModules([]);
