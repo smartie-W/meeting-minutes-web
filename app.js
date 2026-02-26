@@ -1,6 +1,7 @@
 const RECORDS_KEY = "sales_meeting_minutes_records_v2";
 const AI_CONFIG_KEY = "sales_meeting_minutes_ai_config_v2";
 const DRAFT_KEY = "sales_meeting_minutes_draft_v1";
+const DRAFT_EDIT_KEY_PREFIX = "sales_meeting_minutes_draft_edit_v1_";
 const INDUSTRY_KNOWLEDGE_CACHE_KEY = "sales_meeting_minutes_industry_knowledge_v1";
 const FIREBASE_COLLECTION = "meeting_minutes_records";
 const FIREBASE_CONFIG = window.FIREBASE_CONFIG || {
@@ -1395,9 +1396,8 @@ async function handleSaveRecord(event) {
   const chain = inferIndustryChain(customerNames[0] || "", { level1: industryLevel1, level2: industryLevel2 });
 
   const fixedEditId = String(state.editingRecordId || "").trim();
-  const formRecordId = String(el.recordId.value || "").trim();
   const record = {
-    id: fixedEditId || formRecordId || crypto.randomUUID(),
+    id: fixedEditId || crypto.randomUUID(),
     salesName: getSalesNameValue(),
     meetingMode: el.meetingMode.value,
     meetingTime: el.meetingTime.value,
@@ -2860,18 +2860,18 @@ function saveDraft() {
     nextActions: el.nextActions.value,
     savedAt: new Date().toISOString(),
   };
-  localStorage.setItem(DRAFT_KEY, JSON.stringify(draft));
+  localStorage.setItem(getActiveDraftKey(), JSON.stringify(draft));
   updateDraftStatus(`草稿已自动保存：${new Date(draft.savedAt).toLocaleString()}`);
 }
 
 function restoreDraft() {
   try {
-    const raw = localStorage.getItem(DRAFT_KEY);
+    const raw = localStorage.getItem(getActiveDraftKey());
     if (!raw) return false;
     const draft = JSON.parse(raw);
     if (!draft || typeof draft !== "object") return false;
 
-    el.recordId.value = String(draft.recordId || "");
+    el.recordId.value = isEditingSession() ? String(draft.recordId || "") : "";
     setSalesNameControlValue(String(draft.salesName || ""));
     el.meetingMode.value = String(draft.meetingMode || "");
     el.customerName.value = String(draft.customerName || "");
@@ -2903,7 +2903,7 @@ function restoreDraft() {
 }
 
 function clearDraft() {
-  localStorage.removeItem(DRAFT_KEY);
+  localStorage.removeItem(getActiveDraftKey());
 }
 
 function updateDraftStatus(text) {
@@ -2954,11 +2954,37 @@ function flushDraftSafely() {
       savedAt: new Date().toISOString(),
     };
     if (hasDraftContent(draft)) {
-      localStorage.setItem(DRAFT_KEY, JSON.stringify(draft));
+      localStorage.setItem(getActiveDraftKey(), JSON.stringify(draft));
     }
   } catch {
     // ignore unload-time errors
   }
+}
+
+function isEditingSession() {
+  const currentEditId = String(state.editingRecordId || "").trim();
+  if (currentEditId) return true;
+  try {
+    const params = new URLSearchParams(window.location.search || "");
+    return Boolean(String(params.get("editRecordId") || "").trim());
+  } catch {
+    return false;
+  }
+}
+
+function getActiveDraftKey() {
+  const editId = String(state.editingRecordId || state.pendingEditRecordId || "").trim();
+  if (editId) return `${DRAFT_EDIT_KEY_PREFIX}${editId}`;
+  if (isEditingSession()) {
+    try {
+      const params = new URLSearchParams(window.location.search || "");
+      const fromUrl = String(params.get("editRecordId") || "").trim();
+      if (fromUrl) return `${DRAFT_EDIT_KEY_PREFIX}${fromUrl}`;
+    } catch {
+      // ignore parse error
+    }
+  }
+  return DRAFT_KEY;
 }
 
 function getSelectedFocusModules() {
