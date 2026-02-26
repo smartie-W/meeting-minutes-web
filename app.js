@@ -1390,8 +1390,10 @@ async function handleSaveRecord(event) {
   const industryLevel2 = el.industryLevel2.value.trim() || inferredIndustry.level2;
   const chain = inferIndustryChain(customerNames[0] || "", { level1: industryLevel1, level2: industryLevel2 });
 
+  const fixedEditId = String(state.editingRecordId || "").trim();
+  const formRecordId = String(el.recordId.value || "").trim();
   const record = {
-    id: el.recordId.value || crypto.randomUUID(),
+    id: fixedEditId || formRecordId || crypto.randomUUID(),
     salesName: getSalesNameValue(),
     meetingMode: el.meetingMode.value,
     meetingTime: el.meetingTime.value,
