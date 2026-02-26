@@ -993,6 +993,7 @@ const state = {
 let industryLookupSeq = 0;
 let industryLookupTimer = null;
 let draftSaveTimer = null;
+let saveInProgress = false;
 
 const el = {
   tabs: [...document.querySelectorAll(".tab")],
@@ -1333,6 +1334,7 @@ function submitManagerLogin() {
 
 async function handleSaveRecord(event) {
   event.preventDefault();
+  if (saveInProgress) return;
   applyDeployCoopRule();
 
   const customerNames = splitByComma(el.customerName.value);
@@ -1396,22 +1398,24 @@ async function handleSaveRecord(event) {
     return;
   }
 
+  saveInProgress = true;
   try {
     await upsertRecord(record);
+    const notifyResult = await notifyByWorker(record);
+    clearDraft();
+    resetForm();
+    render();
+    if (!notifyResult.enabled) {
+      updateDraftStatus("保存成功");
+    } else if (notifyResult.ok) {
+      updateDraftStatus("保存成功，已发送邮件通知");
+    } else {
+      updateDraftStatus(`保存成功，邮件通知失败：${notifyResult.message}`);
+    }
   } catch (error) {
     alert(`保存失败：${error.message || "请稍后重试"}`);
-    return;
-  }
-  const notifyResult = await notifyByWorker(record);
-  clearDraft();
-  resetForm();
-  render();
-  if (!notifyResult.enabled) {
-    updateDraftStatus("保存成功");
-  } else if (notifyResult.ok) {
-    updateDraftStatus("保存成功，已发送邮件通知");
-  } else {
-    updateDraftStatus(`保存成功，邮件通知失败：${notifyResult.message}`);
+  } finally {
+    saveInProgress = false;
   }
 }
 
@@ -3277,6 +3281,62 @@ function isFirebaseConfigured(config) {
   return Boolean(config?.apiKey && config?.projectId && config?.appId);
 }
 
+function isCloudModeEnabled() {
+  return isFirebaseConfigured(FIREBASE_CONFIG);
+}
+
+function getRecordTimestamp(record) {
+  const updated = Date.parse(String(record?.updatedAt || ""));
+  if (!Number.isNaN(updated)) return updated;
+  return getMeetingTimeSortValue(record);
+}
+
+function getRecordFingerprint(record) {
+  const customers = Array.isArray(record?.customerNames)
+    ? [...record.customerNames].map((x) => String(x || "").trim()).filter(Boolean).sort().join("|")
+    : "";
+  return [
+    String(record?.salesName || "").trim(),
+    String(record?.meetingMode || "").trim(),
+    String(record?.meetingTime || "").trim(),
+    String(record?.meetingLocation || "").trim(),
+    customers,
+    String(record?.meetingTopic || "").trim(),
+    String(record?.meetingContent || "").trim(),
+    String(record?.nextActions || "").trim(),
+  ].join("||");
+}
+
+function pickNewerRecord(a, b) {
+  return getRecordTimestamp(b) >= getRecordTimestamp(a) ? b : a;
+}
+
+function dedupeRecords(records) {
+  const byId = new Map();
+  (records || []).forEach((item) => {
+    const record = normalizeRecordIndustry(item);
+    const id = String(record.id || "").trim();
+    if (!id) return;
+    if (!byId.has(id)) {
+      byId.set(id, record);
+      return;
+    }
+    byId.set(id, pickNewerRecord(byId.get(id), record));
+  });
+
+  const byFingerprint = new Map();
+  [...byId.values()].forEach((record) => {
+    const fp = getRecordFingerprint(record);
+    if (!byFingerprint.has(fp)) {
+      byFingerprint.set(fp, record);
+      return;
+    }
+    byFingerprint.set(fp, pickNewerRecord(byFingerprint.get(fp), record));
+  });
+
+  return [...byFingerprint.values()];
+}
+
 function initCloudSync() {
   if (!window.firebase || !isFirebaseConfigured(FIREBASE_CONFIG)) {
     return;
@@ -3294,7 +3354,7 @@ function initCloudSync() {
         snapshot.forEach((doc) => {
           records.push(normalizeRecordIndustry({ id: doc.id, ...doc.data() }));
         });
-        state.records = records;
+        state.records = dedupeRecords(records);
         persistRecords();
         render();
       });
@@ -3308,6 +3368,9 @@ async function upsertRecord(record) {
     await state.firestore.collection(FIREBASE_COLLECTION).doc(record.id).set(record, { merge: true });
     return;
   }
+  if (isCloudModeEnabled()) {
+    throw new Error("云同步未连接，请刷新页面后重试");
+  }
 
   const index = state.records.findIndex((item) => item.id === record.id);
   if (index >= 0) {
@@ -3315,6 +3378,7 @@ async function upsertRecord(record) {
   } else {
     state.records.push(record);
   }
+  state.records = dedupeRecords(state.records);
   persistRecords();
 }
 
@@ -3323,10 +3387,14 @@ async function deleteRecordById(recordId) {
     await state.firestore.collection(FIREBASE_COLLECTION).doc(recordId).delete();
     return;
   }
+  if (isCloudModeEnabled()) {
+    throw new Error("云同步未连接，请刷新页面后重试");
+  }
 
   const index = state.records.findIndex((item) => item.id === recordId);
   if (index < 0) return;
   state.records.splice(index, 1);
+  state.records = dedupeRecords(state.records);
   persistRecords();
 }
 
@@ -3336,7 +3404,7 @@ function loadRecords() {
     if (!raw) return [];
     const parsed = JSON.parse(raw);
     if (!Array.isArray(parsed)) return [];
-    return parsed.map((record) => normalizeRecordIndustry(record));
+    return dedupeRecords(parsed);
   } catch {
     return [];
   }
