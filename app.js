@@ -2790,6 +2790,56 @@ function updateDraftStatus(text) {
   el.draftStatus.textContent = text;
 }
 
+function hasDraftContent(draft) {
+  if (!draft || typeof draft !== "object") return false;
+  const textFields = [
+    draft.salesName,
+    draft.customerName,
+    draft.meetingMode,
+    draft.meetingTime,
+    draft.meetingLocation,
+    draft.meetingTopic,
+    draft.meetingContent,
+    draft.nextActions,
+  ];
+  if (textFields.some((x) => String(x || "").trim())) return true;
+  if (Array.isArray(draft.focusModules) && draft.focusModules.length) return true;
+  if (Array.isArray(draft.customerParticipants) && draft.customerParticipants.length) return true;
+  if (Array.isArray(draft.ourParticipants) && draft.ourParticipants.length) return true;
+  if (Array.isArray(draft.migrationSources) && draft.migrationSources.length) return true;
+  return false;
+}
+
+function flushDraftSafely() {
+  try {
+    const draft = {
+      recordId: el.recordId.value,
+      salesName: getSalesNameValue(),
+      meetingMode: el.meetingMode.value,
+      customerName: el.customerName.value,
+      industryLevel1: el.industryLevel1.value,
+      industryLevel2: el.industryLevel2.value,
+      meetingTime: el.meetingTime.value,
+      meetingLocation: el.meetingLocation.value,
+      meetingTopic: el.meetingTopic.value,
+      focusModules: getSelectedFocusModules(),
+      intentDeployMode: el.deployMode.value,
+      intentCoopMode: el.coopMode.value,
+      migrationSources: readMigrationSources(el.migrationSources),
+      customerParticipants: readParticipants(el.customerParticipants),
+      ourParticipants: readParticipants(el.ourParticipants),
+      meetingContent: el.meetingContent.value,
+      nextActions: el.nextActions.value,
+      savedAt: new Date().toISOString(),
+    };
+    if (hasDraftContent(draft)) {
+      localStorage.setItem(DRAFT_KEY, JSON.stringify(draft));
+    }
+  } catch {
+    // ignore unload-time errors
+  }
+}
+
 function getSelectedFocusModules() {
   return el.focusModules.filter((item) => item.checked).map((item) => item.value);
 }
