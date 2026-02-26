@@ -3504,6 +3504,119 @@ function dedupeRecords(records) {
   return [...byFingerprint.values()];
 }
 
+function normalizeApiBaseUrl(baseUrl) {
+  return String(baseUrl || "").trim().replace(/\/+$/, "");
+}
+
+function getApiRequestTimeoutMs() {
+  const ms = Number(MEETING_API_CONFIG.requestTimeoutMs || 8000);
+  if (!Number.isFinite(ms) || ms <= 0) return 8000;
+  return Math.min(Math.max(Math.floor(ms), 1500), 30000);
+}
+
+function getApiPollIntervalMs() {
+  const ms = Number(MEETING_API_CONFIG.pollIntervalMs || 4000);
+  if (!Number.isFinite(ms) || ms <= 0) return 4000;
+  return Math.min(Math.max(Math.floor(ms), 2000), 30000);
+}
+
+function getApiHeaders() {
+  const headers = { "Content-Type": "application/json" };
+  const token = String(MEETING_API_CONFIG.apiKey || "").trim();
+  if (token) {
+    headers.Authorization = `Bearer ${token}`;
+  }
+  return headers;
+}
+
+async function requestMeetingApi(path, options = {}) {
+  const base = normalizeApiBaseUrl(MEETING_API_CONFIG.baseUrl);
+  if (!base) throw new Error("meeting api baseUrl missing");
+  const url = `${base}${path}`;
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), getApiRequestTimeoutMs());
+  try {
+    const response = await fetch(url, {
+      ...options,
+      headers: {
+        ...getApiHeaders(),
+        ...(options.headers || {}),
+      },
+      signal: controller.signal,
+    });
+    if (!response.ok) {
+      const text = await response.text();
+      throw new Error(text || `HTTP ${response.status}`);
+    }
+    if (response.status === 204) return null;
+    const text = await response.text();
+    if (!text) return null;
+    return JSON.parse(text);
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
+function clearApiPolling() {
+  if (!state.apiPollTimer) return;
+  clearTimeout(state.apiPollTimer);
+  state.apiPollTimer = null;
+}
+
+function scheduleApiPolling(delayMs = getApiPollIntervalMs()) {
+  clearApiPolling();
+  state.apiPollTimer = setTimeout(() => {
+    state.apiPollTimer = null;
+    void pollMeetingApiRecords();
+  }, delayMs);
+}
+
+async function pollMeetingApiRecords() {
+  if (!state.apiMode) return;
+  try {
+    const response = await withRetry(
+      async () => requestMeetingApi("/api/records"),
+      { retries: 1, baseDelay: 300 },
+    );
+    const rows = Array.isArray(response?.records) ? response.records : [];
+    state.records = dedupeRecords(rows.map((record) => normalizeRecordIndustry(record)));
+    persistRecords();
+    render();
+    setCloudStatus("connected", "云同步：已连接");
+    triggerAutoSyncLocalToCloud();
+    scheduleApiPolling();
+  } catch (error) {
+    console.error("meeting api poll failed:", error);
+    setCloudStatus("disconnected", "云同步：API异常");
+    scheduleApiReconnect(2500);
+  }
+}
+
+function initMeetingApiSync() {
+  state.apiMode = true;
+  state.firestore = null;
+  if (state.cloudUnsubscribe) {
+    state.cloudUnsubscribe();
+    state.cloudUnsubscribe = null;
+  }
+  setCloudStatus("connecting", "云同步：连接中");
+  clearCloudReconnectTimer();
+  clearApiReconnectTimer();
+  clearApiPolling();
+  void pollMeetingApiRecords();
+}
+
+function initDataSync() {
+  if (isMeetingApiConfigured(MEETING_API_CONFIG)) {
+    initMeetingApiSync();
+    return;
+  }
+  state.apiMode = false;
+  clearApiReconnectTimer();
+  clearApiPolling();
+  initCloudSync();
+}
+
 function initCloudSync() {
   if (!window.firebase || !isFirebaseConfigured(FIREBASE_CONFIG)) {
     setCloudStatus("local", "云同步：本地模式");
