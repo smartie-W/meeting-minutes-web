@@ -1,3 +1,5 @@
 .auto-sync/
 worker-mail-notify/node_modules/
 worker-mail-notify/.dev.vars
+server/node_modules/
+server/meeting_minutes.db
