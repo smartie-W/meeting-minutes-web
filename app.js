@@ -988,6 +988,7 @@ const state = {
   pendingView: "",
   pendingOpenRecordId: "",
   pendingEditRecordId: "",
+  editingRecordId: "",
   firestore: null,
   cloudUnsubscribe: null,
   apiMode: false,
