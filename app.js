@@ -3452,6 +3452,14 @@ async function withRetry(task, options = {}) {
   throw lastError;
 }
 
+class ApiRequestError extends Error {
+  constructor(message, status = 0) {
+    super(message);
+    this.name = "ApiRequestError";
+    this.status = Number(status) || 0;
+  }
+}
+
 function getRecordTimestamp(record) {
   const updated = Date.parse(String(record?.updatedAt || ""));
   if (!Number.isNaN(updated)) return updated;
@@ -3546,7 +3554,7 @@ async function requestMeetingApi(path, options = {}) {
     });
     if (!response.ok) {
       const text = await response.text();
-      throw new Error(text || `HTTP ${response.status}`);
+      throw new ApiRequestError(text || `HTTP ${response.status}`, response.status);
     }
     if (response.status === 204) return null;
     const text = await response.text();
@@ -3555,6 +3563,24 @@ async function requestMeetingApi(path, options = {}) {
   } finally {
     clearTimeout(timer);
   }
+}
+
+function resolveApiErrorStatus(error) {
+  const status = Number(error?.status || 0);
+  const message = String(error?.message || "");
+  if (status === 401) {
+    return { status: "disconnected", text: "云同步：鉴权失败" };
+  }
+  if (status === 403 || message.includes("forbidden_origin") || message.includes("CORS")) {
+    return { status: "disconnected", text: "云同步：跨域拦截" };
+  }
+  if (status === 404) {
+    return { status: "disconnected", text: "云同步：API地址错误" };
+  }
+  if (message.includes("meeting api baseUrl missing")) {
+    return { status: "disconnected", text: "云同步：API未配置" };
+  }
+  return { status: "disconnected", text: "云同步：API异常" };
 }
 
 function clearApiPolling() {
@@ -3587,8 +3613,16 @@ async function pollMeetingApiRecords() {
     scheduleApiPolling();
   } catch (error) {
     console.error("meeting api poll failed:", error);
-    setCloudStatus("disconnected", "云同步：API异常");
-    scheduleApiReconnect(2500);
+    const resolved = resolveApiErrorStatus(error);
+    setCloudStatus(resolved.status, resolved.text);
+    // Non-transient configuration errors should not spin reconnect loop.
+    const stopReconnect = resolved.text === "云同步：鉴权失败"
+      || resolved.text === "云同步：跨域拦截"
+      || resolved.text === "云同步：API地址错误"
+      || resolved.text === "云同步：API未配置";
+    if (!stopReconnect) {
+      scheduleApiReconnect(2500);
+    }
   }
 }
 
