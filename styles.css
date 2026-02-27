@@ -416,6 +416,22 @@ textarea.long-input {
   border-color: #f0cad2;
 }
 
+.link-btn {
+  appearance: none;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  background: transparent;
+  color: var(--primary);
+  cursor: pointer;
+  text-decoration: underline;
+  font: inherit;
+}
+
+.link-btn:hover {
+  color: var(--primary-strong);
+}
+
 .records {
   margin: 0;
   list-style: none;
@@ -582,6 +598,10 @@ th {
 
 .auth-dialog {
   width: min(460px, calc(100vw - 32px));
+}
+
+.manager-records-dialog {
+  width: min(980px, calc(100vw - 32px));
 }
 
 .auth-error {
