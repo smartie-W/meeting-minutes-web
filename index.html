@@ -172,8 +172,6 @@
               <button type="button" class="btn preset-btn" data-preset="quarter">本季度</button>
               <button type="button" class="btn preset-btn" data-preset="year">本年</button>
             </div>
-            <label for="filter-sales">指定销售（可选）</label>
-            <input id="filter-sales" placeholder="输入姓名过滤，例如：王敏" />
             <div class="actions">
               <button id="apply-filter" class="btn primary">应用筛选</button>
               <button id="clear-filter" class="btn">重置筛选</button>
@@ -378,6 +376,19 @@
           <div class="actions">
             <button type="button" id="manager-login-submit" class="btn primary">登录</button>
           </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="manager-records-modal" class="modal" aria-hidden="true">
+      <div class="modal-backdrop" data-close-manager-records="true"></div>
+      <div class="modal-dialog manager-records-dialog" role="dialog" aria-modal="true" aria-label="看板纪要列表">
+        <div class="modal-header">
+          <h3 id="manager-records-title">会议纪要列表</h3>
+          <button type="button" id="manager-records-close" class="btn">关闭</button>
+        </div>
+        <div class="modal-body">
+          <ul id="manager-records-list" class="records"></ul>
         </div>
       </div>
     </div>
