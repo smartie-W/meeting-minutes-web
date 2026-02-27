@@ -1698,7 +1698,35 @@ function openManagerRecordsModal(records, title) {
         </div>
         <p class="record-meta">销售 ${escapeHtml(record.salesName || "-")} | 方式 ${escapeHtml(record.meetingMode || "-")} | 行业 ${escapeHtml(formatIndustry(record) || "未识别")} | 地点 ${escapeHtml(record.meetingLocation || "-")}</p>
         <p class="record-preview">${escapeHtml(record.meetingContent || "-")}</p>
+        <div class="item-actions">
+          <button type="button" class="btn manager-record-view">查看详情</button>
+          <button type="button" class="btn manager-record-edit">编辑</button>
+        </div>
       `;
+      const viewBtn = li.querySelector(".manager-record-view");
+      if (viewBtn) {
+        viewBtn.addEventListener("click", () => {
+          closeManagerRecordsModal();
+          activateView("history");
+          openHistoryDetailModal([record], 0);
+        });
+      }
+      const editBtn = li.querySelector(".manager-record-edit");
+      if (editBtn) {
+        editBtn.addEventListener("click", () => {
+          const recordId = String(record?.id || "").trim();
+          if (!recordId) return;
+          const url = getRecordEditUrl(recordId);
+          try {
+            const opened = window.open(url, "_blank");
+            if (!opened) {
+              window.location.href = url;
+            }
+          } catch {
+            window.location.href = url;
+          }
+        });
+      }
       el.managerRecordsList.appendChild(li);
     });
   }
