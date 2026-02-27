@@ -975,7 +975,6 @@ const state = {
   aiConfig: loadAiConfig(),
   filterStart: "",
   filterEnd: "",
-  filterSales: "",
   filterPreset: "week",
   historyCustomer: "",
   historyAr: "",
@@ -1052,7 +1051,6 @@ const el = {
   syncLocalToCloudBtn: document.querySelector("#sync-local-to-cloud-btn"),
   cleanupDuplicatesBtn: document.querySelector("#cleanup-duplicates-btn"),
 
-  filterSales: document.querySelector("#filter-sales"),
   presetButtons: [...document.querySelectorAll(".preset-btn")],
   applyFilter: document.querySelector("#apply-filter"),
   clearFilter: document.querySelector("#clear-filter"),
@@ -1102,6 +1100,10 @@ const el = {
   managerLoginSubmit: document.querySelector("#manager-login-submit"),
   managerLoginCancel: document.querySelector("#manager-login-cancel"),
   managerLoginError: document.querySelector("#manager-login-error"),
+  managerRecordsModal: document.querySelector("#manager-records-modal"),
+  managerRecordsTitle: document.querySelector("#manager-records-title"),
+  managerRecordsList: document.querySelector("#manager-records-list"),
+  managerRecordsClose: document.querySelector("#manager-records-close"),
 };
 
 boot();
@@ -1208,13 +1210,11 @@ function bindEvents() {
   }
 
   el.applyFilter.addEventListener("click", () => {
-    state.filterSales = el.filterSales.value.trim();
     renderManager();
+    openManagerRecordsModal(getManagerVisibleRecords(), `时间范围内全部纪要（${getPresetLabel(state.filterPreset)}）`);
   });
 
   el.clearFilter.addEventListener("click", () => {
-    state.filterSales = "";
-    el.filterSales.value = "";
     applyManagerPreset("week");
     renderManager();
   });
@@ -1222,7 +1222,6 @@ function bindEvents() {
   el.presetButtons.forEach((button) => {
     button.addEventListener("click", () => {
       applyManagerPreset(button.dataset.preset || "");
-      state.filterSales = el.filterSales.value.trim();
       renderManager();
     });
   });
@@ -1268,11 +1267,18 @@ function bindEvents() {
       closeManagerLoginModal();
     }
   });
+  el.managerRecordsClose.addEventListener("click", closeManagerRecordsModal);
+  el.managerRecordsModal.addEventListener("click", (event) => {
+    if (event.target instanceof Element && event.target.closest("[data-close-manager-records='true']")) {
+      closeManagerRecordsModal();
+    }
+  });
   document.addEventListener("keydown", (event) => {
     if (event.key === "Escape") {
       closeHistoryDetailModal();
       closeDeleteAuthModal();
       closeManagerLoginModal();
+      closeManagerRecordsModal();
     }
   });
   window.addEventListener("beforeunload", flushDraftSafely);
@@ -1512,7 +1518,6 @@ function getManagerVisibleRecords() {
     const meetingDate = getMeetingDatePart(record);
     if (state.filterStart && meetingDate < state.filterStart) return false;
     if (state.filterEnd && meetingDate > state.filterEnd) return false;
-    if (state.filterSales && !record.salesName.includes(state.filterSales)) return false;
     return true;
   });
 }
@@ -1646,8 +1651,9 @@ function renderManagerTable(rows) {
 
   rows.forEach((row) => {
     const tr = document.createElement("tr");
+    const salesNameEscaped = escapeHtml(row.salesName);
     tr.innerHTML = `
-      <td>${escapeHtml(row.salesName)}</td>
+      <td><button type="button" class="link-btn manager-sales-link" data-sales-name="${salesNameEscaped}">${salesNameEscaped}</button></td>
       <td>${row.minuteCount}</td>
       <td>${row.customers.size}</td>
       <td>${row.jiraCustomers.size}</td>
@@ -1655,8 +1661,55 @@ function renderManagerTable(rows) {
       <td>${row.projectMgmtCustomers.size}</td>
       <td>${row.knowledgebaseCustomers.size}</td>
     `;
+    const salesLink = tr.querySelector(".manager-sales-link");
+    if (salesLink) {
+      salesLink.addEventListener("click", () => {
+        const records = getManagerVisibleRecords().filter((record) => String(record.salesName || "").trim() === row.salesName);
+        openManagerRecordsModal(records, `${row.salesName} 的全部纪要`);
+      });
+    }
     el.managerTable.appendChild(tr);
   });
+}
+
+function getPresetLabel(preset) {
+  if (preset === "month") return "本月";
+  if (preset === "quarter") return "本季度";
+  if (preset === "year") return "本年";
+  return "本周";
+}
+
+function openManagerRecordsModal(records, title) {
+  const visibleRecords = Array.isArray(records) ? [...records] : [];
+  visibleRecords.sort((a, b) => getMeetingTimeSortValue(b) - getMeetingTimeSortValue(a));
+  el.managerRecordsTitle.textContent = title || "会议纪要列表";
+  el.managerRecordsList.innerHTML = "";
+
+  if (!visibleRecords.length) {
+    el.managerRecordsList.innerHTML = '<li class="record-item">当前筛选下暂无纪要</li>';
+  } else {
+    visibleRecords.forEach((record) => {
+      const li = document.createElement("li");
+      li.className = "record-item";
+      li.innerHTML = `
+        <div class="record-header">
+          <h3 class="record-title">${escapeHtml((record.customerNames || []).join(" / "))} | ${escapeHtml(record.meetingTopic || "未填写议题")}</h3>
+          <small class="record-date">${escapeHtml(formatMeetingTime(record.meetingTime))}</small>
+        </div>
+        <p class="record-meta">销售 ${escapeHtml(record.salesName || "-")} | 方式 ${escapeHtml(record.meetingMode || "-")} | 行业 ${escapeHtml(formatIndustry(record) || "未识别")} | 地点 ${escapeHtml(record.meetingLocation || "-")}</p>
+        <p class="record-preview">${escapeHtml(record.meetingContent || "-")}</p>
+      `;
+      el.managerRecordsList.appendChild(li);
+    });
+  }
+
+  el.managerRecordsModal.classList.add("open");
+  el.managerRecordsModal.setAttribute("aria-hidden", "false");
+}
+
+function closeManagerRecordsModal() {
+  el.managerRecordsModal.classList.remove("open");
+  el.managerRecordsModal.setAttribute("aria-hidden", "true");
 }
 
 function renderSrTable(rows) {
