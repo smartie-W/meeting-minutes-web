@@ -475,6 +475,11 @@ textarea.long-input {
   margin: 6px 0 0;
 }
 
+.summary {
+  white-space: pre-wrap;
+  line-height: 1.6;
+}
+
 .tags {
   margin-top: 8px;
   display: flex;
