@@ -480,6 +480,29 @@ textarea.long-input {
   line-height: 1.6;
 }
 
+.summary > div {
+  margin-top: 6px;
+}
+
+.insight-customer-link {
+  border: 1px solid #b7d2df;
+  background: #eef7fb;
+  color: #0b6a88;
+  border-radius: 999px;
+  padding: 2px 8px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.insight-customer-link:hover {
+  background: #dff0f7;
+}
+
+.insight-meta {
+  color: var(--muted);
+  font-size: 12px;
+}
+
 .tags {
   margin-top: 8px;
   display: flex;
