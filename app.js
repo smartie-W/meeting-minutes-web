@@ -1004,6 +1004,7 @@ const state = {
     generatedAt: "",
     source: "local",
   },
+  managerInsightProfiles: {},
 };
 let industryLookupSeq = 0;
 let industryLookupTimer = null;
@@ -1071,6 +1072,10 @@ const el = {
   weekTable: document.querySelector("#week-table"),
   aiSummary: document.querySelector("#ai-summary"),
   globalKeywords: document.querySelector("#global-keywords"),
+  customerInsightModal: document.querySelector("#customer-insight-modal"),
+  customerInsightTitle: document.querySelector("#customer-insight-title"),
+  customerInsightBody: document.querySelector("#customer-insight-body"),
+  customerInsightClose: document.querySelector("#customer-insight-close"),
 
   historyCustomer: document.querySelector("#history-customer"),
   historyAr: document.querySelector("#history-ar"),
@@ -1230,6 +1235,9 @@ function bindEvents() {
 
   el.saveAi.addEventListener("click", saveAiConfig);
   el.runAi.addEventListener("click", runAiAnalysis);
+  if (el.aiSummary) {
+    el.aiSummary.addEventListener("click", onAiSummaryClick);
+  }
 
   el.historyCustomer.addEventListener("input", applyHistoryFilters);
   el.historyAr.addEventListener("input", applyHistoryFilters);
@@ -1275,12 +1283,23 @@ function bindEvents() {
       closeManagerRecordsModal();
     }
   });
+  if (el.customerInsightClose) {
+    el.customerInsightClose.addEventListener("click", closeCustomerInsightModal);
+  }
+  if (el.customerInsightModal) {
+    el.customerInsightModal.addEventListener("click", (event) => {
+      if (event.target instanceof Element && event.target.closest("[data-close-customer-insight='true']")) {
+        closeCustomerInsightModal();
+      }
+    });
+  }
   document.addEventListener("keydown", (event) => {
     if (event.key === "Escape") {
       closeHistoryDetailModal();
       closeDeleteAuthModal();
       closeManagerLoginModal();
       closeManagerRecordsModal();
+      closeCustomerInsightModal();
     }
   });
   window.addEventListener("beforeunload", flushDraftSafely);
@@ -1803,7 +1822,8 @@ function renderWeekTable(rows) {
 
 function renderAiBlock(records, bySalesRows) {
   const managerInsights = buildManagerInsights(records);
-  el.aiSummary.textContent = buildManagerInsightText(state.aiResult.summary || "暂无", managerInsights);
+  state.managerInsightProfiles = buildCustomerInsightProfiles(records);
+  el.aiSummary.innerHTML = buildManagerInsightHtml(state.aiResult.summary || "暂无", managerInsights);
 
   const fallbackGlobal = extractKeywords(
     records
@@ -1937,37 +1957,120 @@ function buildManagerInsights(records) {
   };
 }
 
-function joinListOrNone(items) {
-  if (!Array.isArray(items) || !items.length) return "无";
-  return items.join("、");
+function buildCustomerInsightProfiles(records) {
+  const map = {};
+  records.forEach((record) => {
+    const meetingDate = parseRecordMeetingDate(record);
+    const meetingTs = meetingDate ? meetingDate.getTime() : 0;
+    const srList = (record.ourParticipants || [])
+      .filter((item) => String(item?.role || "").trim() === "SR")
+      .map((item) => String(item?.name || "").trim())
+      .filter(Boolean);
+    (record.customerNames || []).forEach((customer) => {
+      const name = String(customer || "").trim();
+      if (!name) return;
+      if (!map[name]) {
+        map[name] = {
+          customerName: name,
+          arSet: new Set(),
+          srSet: new Set(),
+          meetingCount: 0,
+          firstTs: meetingTs || 0,
+          lastTs: meetingTs || 0,
+          modeSet: new Set(),
+          industrySet: new Set(),
+        };
+      }
+      const row = map[name];
+      row.meetingCount += 1;
+      if (record.salesName) row.arSet.add(String(record.salesName).trim());
+      srList.forEach((sr) => row.srSet.add(sr));
+      if (record.meetingMode) row.modeSet.add(String(record.meetingMode).trim());
+      if (record.meetingIndustry) {
+        row.industrySet.add(String(record.meetingIndustry).trim());
+      } else {
+        row.industrySet.add(formatIndustry(record));
+      }
+      if (meetingTs > 0) {
+        if (!row.firstTs || meetingTs < row.firstTs) row.firstTs = meetingTs;
+        if (!row.lastTs || meetingTs > row.lastTs) row.lastTs = meetingTs;
+      }
+    });
+  });
+
+  const normalized = {};
+  Object.entries(map).forEach(([name, row]) => {
+    normalized[name] = {
+      customerName: row.customerName,
+      arList: [...row.arSet].sort((a, b) => a.localeCompare(b, "zh-CN")),
+      srList: [...row.srSet].sort((a, b) => a.localeCompare(b, "zh-CN")),
+      meetingCount: row.meetingCount,
+      firstDate: row.firstTs ? formatDateYMD(new Date(row.firstTs)) : "-",
+      lastDate: row.lastTs ? formatDateYMD(new Date(row.lastTs)) : "-",
+      meetingModes: [...row.modeSet].sort((a, b) => a.localeCompare(b, "zh-CN")),
+      industries: [...row.industrySet].filter(Boolean).sort((a, b) => a.localeCompare(b, "zh-CN")),
+    };
+  });
+  return normalized;
 }
 
-function buildManagerInsightText(aiSummary, insights) {
-  const lines = [];
-  lines.push(`管理摘要：${aiSummary || "暂无"}`);
-  lines.push(`提到 Jira 的客户：${joinListOrNone(insights.mentions.jira)}`);
-  lines.push(`提到 Cf 的客户：${joinListOrNone(insights.mentions.cf)}`);
-  lines.push(`提到 Confluence 的客户：${joinListOrNone(insights.mentions.confluence)}`);
+function renderInsightCustomerLinks(items, formatter) {
+  if (!Array.isArray(items) || !items.length) return "无";
+  return items
+    .map((item) => {
+      const customerName = typeof item === "string" ? item : String(item.customerName || "");
+      const meta = formatter ? formatter(item) : "";
+      return `<button type="button" class="insight-customer-link" data-customer="${escapeHtml(encodeURIComponent(customerName))}">${escapeHtml(customerName)}</button>${meta ? `<span class="insight-meta">(${escapeHtml(meta)})</span>` : ""}`;
+    })
+    .join("、");
+}
 
-  if (insights.staleCustomers.length) {
-    const staleText = insights.staleCustomers
-      .map((item) => `${item.customerName}(首次/唯一 ${formatDateYMD(item.firstDate)}，已 ${item.days} 天无新纪要)`)
-      .join("；");
-    lines.push(`首次出现后 3 周以上无新纪要：${staleText}`);
-  } else {
-    lines.push("首次出现后 3 周以上无新纪要：无");
-  }
+function buildManagerInsightHtml(aiSummary, insights) {
+  return [
+    `<div><strong>管理摘要：</strong>${escapeHtml(aiSummary || "暂无")}</div>`,
+    `<div><strong>提到 Jira 的客户：</strong>${renderInsightCustomerLinks(insights.mentions.jira)}</div>`,
+    `<div><strong>提到 Cf 的客户：</strong>${renderInsightCustomerLinks(insights.mentions.cf)}</div>`,
+    `<div><strong>提到 Confluence 的客户：</strong>${renderInsightCustomerLinks(insights.mentions.confluence)}</div>`,
+    `<div><strong>首次出现后 3 周以上无新纪要：</strong>${renderInsightCustomerLinks(insights.staleCustomers, (item) => `首次/唯一 ${formatDateYMD(item.firstDate)}，已 ${item.days} 天`)}</div>`,
+    `<div><strong>最近频繁开会客户：</strong>${renderInsightCustomerLinks(insights.hotCustomers, (item) => `近3周 ${item.recentCount} 次，近1周 ${item.weekCount} 次`)}</div>`,
+  ].join("");
+}
 
-  if (insights.hotCustomers.length) {
-    const hotText = insights.hotCustomers
-      .map((item) => `${item.customerName}(近3周 ${item.recentCount} 次，近1周 ${item.weekCount} 次，最近 ${formatDateYMD(item.lastDate)})`)
-      .join("；");
-    lines.push(`最近频繁开会客户：${hotText}`);
-  } else {
-    lines.push("最近频繁开会客户：无");
-  }
+function openCustomerInsightModal(customerName) {
+  const key = String(customerName || "").trim();
+  if (!key || !el.customerInsightModal || !el.customerInsightBody || !el.customerInsightTitle) return;
+  const profile = state.managerInsightProfiles[key];
+  if (!profile) return;
+  el.customerInsightTitle.textContent = `${key} | 客户基础信息`;
+  el.customerInsightBody.innerHTML = `
+    <div class="detail-grid">
+      <div><div class="detail-label">AR</div><div class="detail-value">${escapeHtml(profile.arList.join("、") || "-")}</div></div>
+      <div><div class="detail-label">SR</div><div class="detail-value">${escapeHtml(profile.srList.join("、") || "-")}</div></div>
+      <div><div class="detail-label">纪要数</div><div class="detail-value">${profile.meetingCount}</div></div>
+      <div><div class="detail-label">会议方式</div><div class="detail-value">${escapeHtml(profile.meetingModes.join("、") || "-")}</div></div>
+      <div><div class="detail-label">首次会议日期</div><div class="detail-value">${escapeHtml(profile.firstDate)}</div></div>
+      <div><div class="detail-label">最近会议日期</div><div class="detail-value">${escapeHtml(profile.lastDate)}</div></div>
+      <div style="grid-column:1 / span 2;"><div class="detail-label">行业</div><div class="detail-value">${escapeHtml(profile.industries.join("、") || "-")}</div></div>
+    </div>
+  `;
+  el.customerInsightModal.classList.add("open");
+  el.customerInsightModal.setAttribute("aria-hidden", "false");
+}
 
-  return lines.join("\n");
+function closeCustomerInsightModal() {
+  if (!el.customerInsightModal) return;
+  el.customerInsightModal.classList.remove("open");
+  el.customerInsightModal.setAttribute("aria-hidden", "true");
+}
+
+function onAiSummaryClick(event) {
+  const target = event.target instanceof Element ? event.target.closest(".insight-customer-link") : null;
+  if (!target) return;
+  event.preventDefault();
+  const encoded = String(target.getAttribute("data-customer") || "").trim();
+  const name = decodeURIComponent(encoded || "");
+  if (!name) return;
+  openCustomerInsightModal(name);
 }
 
 function applyHistoryFilters() {
