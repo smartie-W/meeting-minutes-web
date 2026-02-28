@@ -1802,7 +1802,8 @@ function renderWeekTable(rows) {
 }
 
 function renderAiBlock(records, bySalesRows) {
-  el.aiSummary.textContent = state.aiResult.summary || "暂无";
+  const managerInsights = buildManagerInsights(records);
+  el.aiSummary.textContent = buildManagerInsightText(state.aiResult.summary || "暂无", managerInsights);
 
   const fallbackGlobal = extractKeywords(
     records
@@ -1835,6 +1836,138 @@ function renderAiBlock(records, bySalesRows) {
     });
     state.aiResult.bySales = fallbackBySales;
   }
+}
+
+function parseRecordMeetingDate(record) {
+  const date = new Date(String(record?.meetingTime || ""));
+  if (Number.isNaN(date.getTime())) return null;
+  return date;
+}
+
+function formatDateYMD(date) {
+  if (!(date instanceof Date) || Number.isNaN(date.getTime())) return "-";
+  const y = date.getFullYear();
+  const m = String(date.getMonth() + 1).padStart(2, "0");
+  const d = String(date.getDate()).padStart(2, "0");
+  return `${y}-${m}-${d}`;
+}
+
+function normalizeTextForInsight(record) {
+  const migration = Array.isArray(record?.migrationSources)
+    ? record.migrationSources.map((item) => `${item?.source || ""} ${item?.version || ""}`).join(" ")
+    : "";
+  return `${record?.meetingTopic || ""} ${record?.meetingContent || ""} ${record?.nextActions || ""} ${migration}`.toLowerCase();
+}
+
+function hasTokenInRecord(record, tokens) {
+  const text = normalizeTextForInsight(record);
+  return tokens.some((token) => text.includes(token));
+}
+
+function buildManagerInsights(records) {
+  const tokenConfig = [
+    { key: "jira", label: "Jira", tokens: ["jira"] },
+    { key: "cf", label: "Cf", tokens: ["cf"] },
+    { key: "confluence", label: "Confluence", tokens: ["confluence"] },
+  ];
+  const mentionMap = new Map(tokenConfig.map((item) => [item.key, new Set()]));
+
+  const byCustomer = new Map();
+  records.forEach((record) => {
+    const date = parseRecordMeetingDate(record);
+    if (!date) return;
+    (record.customerNames || []).forEach((customer) => {
+      const name = String(customer || "").trim();
+      if (!name) return;
+      if (!byCustomer.has(name)) byCustomer.set(name, []);
+      byCustomer.get(name).push(date);
+      tokenConfig.forEach((cfg) => {
+        if (hasTokenInRecord(record, cfg.tokens)) {
+          mentionMap.get(cfg.key).add(name);
+        }
+      });
+    });
+  });
+
+  const now = Date.now();
+  const staleCustomers = [];
+  const hotCustomers = [];
+
+  byCustomer.forEach((dateList, customerName) => {
+    const sorted = [...dateList].sort((a, b) => a.getTime() - b.getTime());
+    if (!sorted.length) return;
+    const first = sorted[0];
+    const last = sorted[sorted.length - 1];
+    const daysSinceLast = Math.floor((now - last.getTime()) / (24 * 3600 * 1000));
+    const recentCount = sorted.filter((d) => now - d.getTime() <= 21 * 24 * 3600 * 1000).length;
+
+    // 首次后未继续跟进：仅出现一次且距离当前超过 3 周
+    if (sorted.length === 1 && daysSinceLast > 21) {
+      staleCustomers.push({
+        customerName,
+        firstDate: first,
+        days: daysSinceLast,
+      });
+    }
+
+    // 最近高频：近 3 周 >= 3 次，或者近 1 周 >= 2 次
+    const weekCount = sorted.filter((d) => now - d.getTime() <= 7 * 24 * 3600 * 1000).length;
+    if (recentCount >= 3 || weekCount >= 2) {
+      hotCustomers.push({
+        customerName,
+        recentCount,
+        weekCount,
+        lastDate: last,
+      });
+    }
+  });
+
+  staleCustomers.sort((a, b) => b.days - a.days);
+  hotCustomers.sort((a, b) => b.recentCount - a.recentCount || b.weekCount - a.weekCount || b.lastDate - a.lastDate);
+
+  const mentions = {};
+  tokenConfig.forEach((cfg) => {
+    mentions[cfg.key] = [...mentionMap.get(cfg.key)].sort((a, b) => a.localeCompare(b, "zh-CN"));
+  });
+
+  return {
+    mentions,
+    staleCustomers: staleCustomers.slice(0, 20),
+    hotCustomers: hotCustomers.slice(0, 20),
+  };
+}
+
+function joinListOrNone(items) {
+  if (!Array.isArray(items) || !items.length) return "无";
+  return items.join("、");
+}
+
+function buildManagerInsightText(aiSummary, insights) {
+  const lines = [];
+  lines.push(`管理摘要：${aiSummary || "暂无"}`);
+  lines.push(`提到 Jira 的客户：${joinListOrNone(insights.mentions.jira)}`);
+  lines.push(`提到 Cf 的客户：${joinListOrNone(insights.mentions.cf)}`);
+  lines.push(`提到 Confluence 的客户：${joinListOrNone(insights.mentions.confluence)}`);
+
+  if (insights.staleCustomers.length) {
+    const staleText = insights.staleCustomers
+      .map((item) => `${item.customerName}(首次/唯一 ${formatDateYMD(item.firstDate)}，已 ${item.days} 天无新纪要)`)
+      .join("；");
+    lines.push(`首次出现后 3 周以上无新纪要：${staleText}`);
+  } else {
+    lines.push("首次出现后 3 周以上无新纪要：无");
+  }
+
+  if (insights.hotCustomers.length) {
+    const hotText = insights.hotCustomers
+      .map((item) => `${item.customerName}(近3周 ${item.recentCount} 次，近1周 ${item.weekCount} 次，最近 ${formatDateYMD(item.lastDate)})`)
+      .join("；");
+    lines.push(`最近频繁开会客户：${hotText}`);
+  } else {
+    lines.push("最近频繁开会客户：无");
+  }
+
+  return lines.join("\n");
 }
 
 function applyHistoryFilters() {
