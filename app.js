@@ -3649,7 +3649,33 @@ async function initBuildBadge() {
     }
     setBuildBadgeState("stale", `Build ${deployedHash} · 最新 ${latestHash}`);
   } catch {
+    const fallback = await tryBuildBadgeFallbackByApi(localHash);
+    if (fallback) return;
     setBuildBadgeState("unknown", `Build ${localHash} · 无法校验`);
+  }
+}
+
+async function tryBuildBadgeFallbackByApi(localHash) {
+  try {
+    const baseUrl = String(window.MEETING_API_CONFIG?.baseUrl || "").trim();
+    if (!baseUrl) return false;
+    const url = `${baseUrl.replace(/\/+$/, "")}/api/build-info`;
+    const response = await fetch(url, { cache: "no-store" });
+    if (!response.ok) return false;
+    const data = await response.json();
+    const latestHash = String(data?.latestMainCommit || "").slice(0, 7);
+    if (!latestHash) {
+      setBuildBadgeState("unknown", `Build ${localHash} · 无法校验`);
+      return true;
+    }
+    if (latestHash === localHash) {
+      setBuildBadgeState("latest", `Build ${localHash} · 最新(后备)`);
+      return true;
+    }
+    setBuildBadgeState("stale", `Build ${localHash} · 最新 ${latestHash}(后备)`);
+    return true;
+  } catch {
+    return false;
   }
 }
 
