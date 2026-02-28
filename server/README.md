@@ -26,6 +26,7 @@ curl -s http://127.0.0.1:8091/api/health
 - `POST /api/admin/backup`（手动触发备份）
 - `POST /api/admin/industry-refresh`（手动触发未知行业复查）
 - `POST /api/notify`（发送会议纪要邮件通知）
+- `GET /api/build-info`（前端 build 版本后备校验）
 
 ## 自动备份
 - 默认每天 `03:15` 执行一次备份
@@ -61,6 +62,14 @@ curl -s -X POST "http://127.0.0.1:8091/api/notify" \
 - `RESEND_API_KEY=...`
 - `MAIL_FROM=notify@你的已验证域名`
 - `NOTIFY_TO_EMAIL=wangqiming@ones.cn`
+
+Build 版本后备校验环境变量（可选）：
+
+- `APP_BUILD_COMMIT=...`（服务端部署 commit，不填则尝试读取本地 git HEAD）
+- `BUILD_REPO=smartie-W/meeting-minutes-web`
+- `BUILD_BRANCH=main`
+- `BUILD_INFO_CACHE_MS=300000`
+- `GITHUB_TOKEN=...`（可选，降低 GitHub API 频控影响）
 
 ## 前端接入
 在 `index.html` 的 `window.MEETING_API_CONFIG` 里填写：
