@@ -3614,12 +3614,13 @@ function setBuildBadgeState(kind, text) {
 async function initBuildBadge() {
   if (!el.buildBadge) return;
   const info = window.APP_BUILD_INFO || {};
+  const localHash = String(info.commit || "").slice(0, 7) || "unknown";
   const repo = String(info.repo || "").trim();
   const branch = String(info.branch || "main").trim();
-  setBuildBadgeState("checking", "Build 检查中");
+  setBuildBadgeState("checking", `Build ${localHash} · 检查中`);
 
   if (!repo) {
-    setBuildBadgeState("unknown", "Build 无法校验");
+    setBuildBadgeState("unknown", `Build ${localHash} · 无法校验`);
     return;
   }
 
@@ -3638,7 +3639,7 @@ async function initBuildBadge() {
     const deployedHash = String(deployedData?.commit || "").slice(0, 7);
 
     if (!latestHash || !deployedHash) {
-      setBuildBadgeState("unknown", "Build 无法校验");
+      setBuildBadgeState("unknown", `Build ${localHash} · 无法校验`);
       return;
     }
 
@@ -3648,7 +3649,7 @@ async function initBuildBadge() {
     }
     setBuildBadgeState("stale", `Build ${deployedHash} · 最新 ${latestHash}`);
   } catch {
-    setBuildBadgeState("unknown", "Build 无法校验");
+    setBuildBadgeState("unknown", `Build ${localHash} · 无法校验`);
   }
 }
 
