@@ -1457,8 +1457,8 @@ async function handleSaveRecord(event) {
 
   saveInProgress = true;
   try {
-    await upsertRecord(record);
-    const notifyResult = await notifyByWorker(record);
+    const saveResult = await upsertRecord(record);
+    const notifyResult = await resolveNotifyResultAfterSave(record, saveResult);
     cleanupEditQueryParam();
     clearDraft();
     resetForm();
@@ -1479,6 +1479,27 @@ async function handleSaveRecord(event) {
   } finally {
     saveInProgress = false;
   }
+}
+
+async function resolveNotifyResultAfterSave(record, saveResult) {
+  const backendNotify = saveResult && typeof saveResult === "object" ? saveResult.notify : null;
+  if (backendNotify && typeof backendNotify === "object") {
+    if (backendNotify.ok) {
+      return { enabled: true, ok: true, message: "" };
+    }
+    if (backendNotify.skipped) {
+      const reason = String(backendNotify.reason || "");
+      if (reason === "disabled") {
+        return { enabled: false, ok: false, message: "" };
+      }
+      return { enabled: true, ok: false, message: reason || "通知未发送" };
+    }
+    return { enabled: true, ok: false, message: String(backendNotify.reason || "通知未发送") };
+  }
+  if (state.apiMode) {
+    return { enabled: false, ok: false, message: "" };
+  }
+  return notifyByWorker(record);
 }
 
 function cleanupEditQueryParam() {
@@ -3999,9 +4020,9 @@ function initCloudSync() {
 
 async function upsertRecord(record) {
   if (state.apiMode) {
-    await withRetry(
+    const result = await withRetry(
       async () => {
-        await requestMeetingApi("/api/records", {
+        return requestMeetingApi("/api/records", {
           method: "POST",
           body: JSON.stringify({ record }),
         });
@@ -4010,7 +4031,7 @@ async function upsertRecord(record) {
     );
     setCloudStatus("connected", "云同步：已连接");
     scheduleApiPolling(100);
-    return;
+    return result;
   }
   if (state.firestore) {
     await withRetry(
@@ -4020,7 +4041,7 @@ async function upsertRecord(record) {
       { retries: 2, baseDelay: 450 },
     );
     setCloudStatus("connected", "云同步：已连接");
-    return;
+    return { ok: true };
   }
   if (isCloudModeEnabled()) {
     setCloudStatus("disconnected", "云同步：未连接");
@@ -4036,6 +4057,7 @@ async function upsertRecord(record) {
   }
   state.records = dedupeRecords(state.records);
   persistRecords();
+  return { ok: true };
 }
 
 async function deleteRecordById(recordId) {
