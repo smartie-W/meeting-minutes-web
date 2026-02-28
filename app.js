@@ -3614,29 +3614,41 @@ function setBuildBadgeState(kind, text) {
 async function initBuildBadge() {
   if (!el.buildBadge) return;
   const info = window.APP_BUILD_INFO || {};
-  const localHash = String(info.commit || "unknown").slice(0, 7);
   const repo = String(info.repo || "").trim();
   const branch = String(info.branch || "main").trim();
-  setBuildBadgeState("checking", `Build ${localHash} · 检查中`);
+  setBuildBadgeState("checking", "Build 检查中");
 
   if (!repo) {
-    setBuildBadgeState("unknown", `Build ${localHash}`);
+    setBuildBadgeState("unknown", "Build 无法校验");
     return;
   }
 
   try {
-    const url = `https://api.github.com/repos/${encodeURIComponent(repo).replace("%2F", "/")}/commits/${encodeURIComponent(branch)}`;
-    const response = await fetch(url, { cache: "no-store" });
-    if (!response.ok) throw new Error(`http_${response.status}`);
-    const data = await response.json();
-    const remoteHash = String(data?.sha || "").slice(0, 7) || "unknown";
-    if (remoteHash === localHash) {
-      setBuildBadgeState("latest", `Build ${localHash} · 最新`);
+    const repoPath = encodeURIComponent(repo).replace("%2F", "/");
+    const [latestResponse, deployedResponse] = await Promise.all([
+      fetch(`https://api.github.com/repos/${repoPath}/commits/${encodeURIComponent(branch)}`, { cache: "no-store" }),
+      fetch(`https://api.github.com/repos/${repoPath}/pages/builds/latest`, { cache: "no-store" }),
+    ]);
+    if (!latestResponse.ok) throw new Error(`latest_http_${latestResponse.status}`);
+    if (!deployedResponse.ok) throw new Error(`deployed_http_${deployedResponse.status}`);
+
+    const latestData = await latestResponse.json();
+    const deployedData = await deployedResponse.json();
+    const latestHash = String(latestData?.sha || "").slice(0, 7);
+    const deployedHash = String(deployedData?.commit || "").slice(0, 7);
+
+    if (!latestHash || !deployedHash) {
+      setBuildBadgeState("unknown", "Build 无法校验");
       return;
     }
-    setBuildBadgeState("stale", `Build ${localHash} · 最新 ${remoteHash}`);
+
+    if (latestHash === deployedHash) {
+      setBuildBadgeState("latest", `Build ${deployedHash} · 最新`);
+      return;
+    }
+    setBuildBadgeState("stale", `Build ${deployedHash} · 最新 ${latestHash}`);
   } catch {
-    setBuildBadgeState("unknown", `Build ${localHash} · 无法校验`);
+    setBuildBadgeState("unknown", "Build 无法校验");
   }
 }
 
