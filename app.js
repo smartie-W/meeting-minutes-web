@@ -3605,6 +3605,41 @@ function renderCloudStatusBadge() {
   el.cloudStatusBadge.className = `status-badge status-${status}`;
 }
 
+function setBuildBadgeState(kind, text) {
+  if (!el.buildBadge) return;
+  el.buildBadge.className = `build-badge build-badge-${kind}`;
+  el.buildBadge.textContent = text;
+}
+
+async function initBuildBadge() {
+  if (!el.buildBadge) return;
+  const info = window.APP_BUILD_INFO || {};
+  const localHash = String(info.commit || "unknown").slice(0, 7);
+  const repo = String(info.repo || "").trim();
+  const branch = String(info.branch || "main").trim();
+  setBuildBadgeState("checking", `Build ${localHash} · 检查中`);
+
+  if (!repo) {
+    setBuildBadgeState("unknown", `Build ${localHash}`);
+    return;
+  }
+
+  try {
+    const url = `https://api.github.com/repos/${encodeURIComponent(repo).replace("%2F", "/")}/commits/${encodeURIComponent(branch)}`;
+    const response = await fetch(url, { cache: "no-store" });
+    if (!response.ok) throw new Error(`http_${response.status}`);
+    const data = await response.json();
+    const remoteHash = String(data?.sha || "").slice(0, 7) || "unknown";
+    if (remoteHash === localHash) {
+      setBuildBadgeState("latest", `Build ${localHash} · 最新`);
+      return;
+    }
+    setBuildBadgeState("stale", `Build ${localHash} · 最新 ${remoteHash}`);
+  } catch {
+    setBuildBadgeState("unknown", `Build ${localHash} · 无法校验`);
+  }
+}
+
 function setCloudStatus(status, text) {
   state.cloudStatus = status;
   state.cloudStatusText = text;
