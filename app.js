@@ -1104,6 +1104,7 @@ const el = {
   managerRecordsTitle: document.querySelector("#manager-records-title"),
   managerRecordsList: document.querySelector("#manager-records-list"),
   managerRecordsClose: document.querySelector("#manager-records-close"),
+  buildBadge: document.querySelector("#build-badge"),
 };
 
 boot();
@@ -1126,6 +1127,7 @@ function boot() {
   refreshIndustryByCustomer();
   syncLongInputHeights();
   renderCloudStatusBadge();
+  initBuildBadge();
   // Browser autofill/restore may set role values after initial render without firing change.
   setTimeout(syncArParticipantNames, 0);
   setTimeout(syncArParticipantNames, 400);
