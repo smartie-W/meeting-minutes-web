@@ -544,6 +544,39 @@ async function sendMeetingNotify(payload) {
   return { ok: true, provider: 'resend', messageId: sent.id };
 }
 
+function buildNotifyPayloadFromRecord(record) {
+  const customerName = Array.isArray(record?.customerNames) && record.customerNames.length
+    ? String(record.customerNames[0] || '').trim()
+    : '';
+  const recordId = String(record?.id || '').trim();
+  return {
+    recordId,
+    ar: String(record?.salesName || '').trim(),
+    customerName,
+    meetingTime: String(record?.meetingTime || '').trim(),
+    detailUrl: `https://hyjy.online/?view=history&recordId=${encodeURIComponent(recordId)}`,
+  };
+}
+
+async function sendMeetingNotifyWithRetry(payload, maxAttempts = 3) {
+  let lastError = '';
+  for (let i = 1; i <= maxAttempts; i += 1) {
+    try {
+      // eslint-disable-next-line no-await-in-loop
+      const sent = await sendMeetingNotify(payload);
+      if (sent.ok || sent.skipped) return { ...sent, attempt: i };
+      lastError = String(sent.reason || 'notify_failed');
+    } catch (error) {
+      lastError = String(error?.message || error || 'notify_failed');
+    }
+    if (i < maxAttempts) {
+      // eslint-disable-next-line no-await-in-loop
+      await new Promise((resolve) => setTimeout(resolve, i * 500));
+    }
+  }
+  return { ok: false, reason: lastError || 'notify_failed', attempt: maxAttempts };
+}
+
 async function fetchLatestMainCommit() {
   const repoPath = encodeURIComponent(BUILD_REPO).replace('%2F', '/');
   const branchPath = encodeURIComponent(BUILD_BRANCH);
@@ -746,7 +779,12 @@ app.post('/api/records', authMiddleware, (req, res) => {
   const fingerprint = fingerprintOf(input);
   const existed = getByFingerprintStmt.get(fingerprint);
   if (existed && String(existed.id || '') !== input.id) {
-    return res.json({ ok: true, deduped: true, id: existed.id });
+    return res.json({
+      ok: true,
+      deduped: true,
+      id: existed.id,
+      notify: { ok: false, skipped: true, reason: 'deduped_existing' },
+    });
   }
 
   const ts = nowIso();
@@ -763,8 +801,36 @@ app.post('/api/records', authMiddleware, (req, res) => {
     created_at: ts,
     updated_at: ts,
   });
-
-  res.json({ ok: true, id: input.id });
+  const notifyPayload = buildNotifyPayloadFromRecord(payload);
+  sendMeetingNotifyWithRetry(notifyPayload)
+    .then((notifyResult) => {
+      res.json({
+        ok: true,
+        id: input.id,
+        notify: {
+          ok: Boolean(notifyResult?.ok),
+          skipped: Boolean(notifyResult?.skipped),
+          reason: String(notifyResult?.reason || ''),
+          provider: String(notifyResult?.provider || ''),
+          messageId: String(notifyResult?.messageId || ''),
+          attempt: Number(notifyResult?.attempt || 0),
+        },
+      });
+    })
+    .catch((error) => {
+      res.json({
+        ok: true,
+        id: input.id,
+        notify: {
+          ok: false,
+          skipped: false,
+          reason: String(error?.message || error || 'notify_failed'),
+          provider: '',
+          messageId: '',
+          attempt: 0,
+        },
+      });
+    });
 });
 
 app.delete('/api/records/:id', authMiddleware, (req, res) => {
