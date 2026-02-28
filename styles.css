@@ -628,6 +628,46 @@ th {
   word-break: break-word;
 }
 
+.build-badge {
+  position: fixed;
+  right: 12px;
+  bottom: 12px;
+  z-index: 80;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 6px 10px;
+  font-size: 12px;
+  line-height: 1.2;
+  background: #f8fbfd;
+  color: #334155;
+  box-shadow: 0 6px 18px rgba(9, 24, 39, 0.16);
+  backdrop-filter: blur(2px);
+}
+
+.build-badge-checking {
+  background: #fff7e6;
+  border-color: #f4d7a3;
+  color: #7a4b00;
+}
+
+.build-badge-latest {
+  background: #ecfdf3;
+  border-color: #b7ebcf;
+  color: #0f5b2a;
+}
+
+.build-badge-stale {
+  background: #fff1f2;
+  border-color: #f7c2c7;
+  color: #8d1e2f;
+}
+
+.build-badge-unknown {
+  background: #f3f4f6;
+  border-color: #d1d5db;
+  color: #4b5563;
+}
+
 @media (max-width: 1080px) {
   .hero {
     flex-direction: column;
