@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const { execSync } = require('child_process');
 const express = require('express');
 const cors = require('cors');
 const Database = require('better-sqlite3');
@@ -20,6 +21,10 @@ const MAIL_PROVIDER = String(process.env.MAIL_PROVIDER || 'resend').trim().toLow
 const RESEND_API_KEY = String(process.env.RESEND_API_KEY || '').trim();
 const MAIL_FROM = String(process.env.MAIL_FROM || '').trim();
 const NOTIFY_TO_EMAIL = String(process.env.NOTIFY_TO_EMAIL || 'wangqiming@ones.cn').trim();
+const BUILD_REPO = String(process.env.BUILD_REPO || 'smartie-W/meeting-minutes-web').trim();
+const BUILD_BRANCH = String(process.env.BUILD_BRANCH || 'main').trim();
+const BUILD_INFO_CACHE_MS = Number(process.env.BUILD_INFO_CACHE_MS || 300000);
+const GITHUB_TOKEN = String(process.env.GITHUB_TOKEN || '').trim();
 const ALLOWED_ORIGINS = String(process.env.ALLOWED_ORIGINS || '*')
   .split(',')
   .map((x) => x.trim())
@@ -34,6 +39,22 @@ let lastBackupMeta = null;
 let backupTimer = null;
 let lastIndustryRefreshMeta = null;
 let industryRefreshTimer = null;
+let buildInfoCache = { at: 0, data: null };
+
+function getServerCommitHash() {
+  const byEnv = String(process.env.APP_BUILD_COMMIT || '').trim();
+  if (byEnv) return byEnv.slice(0, 40);
+  try {
+    const stdout = execSync('git rev-parse HEAD', {
+      cwd: path.resolve(__dirname, '..'),
+      stdio: ['ignore', 'pipe', 'ignore'],
+    }).toString().trim();
+    if (stdout) return stdout.slice(0, 40);
+  } catch {
+    // ignore
+  }
+  return '';
+}
 
 const COMPANY_INDUSTRY_HINTS = [
   { key: '金拱门', level1: '消费服务', level2: '餐饮连锁' },
@@ -523,6 +544,55 @@ async function sendMeetingNotify(payload) {
   return { ok: true, provider: 'resend', messageId: sent.id };
 }
 
+async function fetchLatestMainCommit() {
+  const repoPath = encodeURIComponent(BUILD_REPO).replace('%2F', '/');
+  const branchPath = encodeURIComponent(BUILD_BRANCH);
+  const url = `https://api.github.com/repos/${repoPath}/commits/${branchPath}`;
+  const headers = {
+    Accept: 'application/vnd.github+json',
+    'User-Agent': 'meeting-minutes-api',
+  };
+  if (GITHUB_TOKEN) {
+    headers.Authorization = `Bearer ${GITHUB_TOKEN}`;
+  }
+  const response = await fetch(url, { headers });
+  if (!response.ok) {
+    throw new Error(`github_http_${response.status}`);
+  }
+  const data = await response.json();
+  const sha = String(data?.sha || '').trim();
+  if (!sha) throw new Error('github_empty_sha');
+  return sha;
+}
+
+async function getBuildInfo() {
+  const now = Date.now();
+  if (buildInfoCache.data && now - buildInfoCache.at < Math.max(10000, BUILD_INFO_CACHE_MS)) {
+    return buildInfoCache.data;
+  }
+  const deployedCommit = getServerCommitHash();
+  let latestMainCommit = '';
+  let latestError = '';
+  try {
+    latestMainCommit = await fetchLatestMainCommit();
+  } catch (error) {
+    latestError = String(error?.message || error);
+  }
+  const payload = {
+    ok: true,
+    source: 'api-server',
+    repo: BUILD_REPO,
+    branch: BUILD_BRANCH,
+    deployedCommit,
+    latestMainCommit,
+    latestError,
+    now: nowIso(),
+    cacheMs: Math.max(10000, BUILD_INFO_CACHE_MS),
+  };
+  buildInfoCache = { at: now, data: payload };
+  return payload;
+}
+
 function fingerprintOf(record) {
   const customers = [...(record.customerNames || [])].sort().join('|');
   return [
@@ -582,6 +652,19 @@ app.get('/api/health', (_req, res) => {
       last: lastIndustryRefreshMeta,
     },
   });
+});
+
+app.get('/api/build-info', async (_req, res) => {
+  try {
+    const info = await getBuildInfo();
+    res.json(info);
+  } catch (error) {
+    res.status(500).json({
+      ok: false,
+      error: 'build_info_failed',
+      message: String(error?.message || error),
+    });
+  }
 });
 
 app.post('/api/admin/backup', authMiddleware, (_req, res) => {
