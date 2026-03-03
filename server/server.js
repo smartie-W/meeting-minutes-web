@@ -471,6 +471,108 @@ function normalizeRecord(record) {
   return base;
 }
 
+function parseTimeMs(value) {
+  const text = String(value || '').trim();
+  if (!text) return NaN;
+  const ms = Date.parse(text);
+  return Number.isNaN(ms) ? NaN : ms;
+}
+
+function normalizeCompanyKey(name) {
+  return String(name || '')
+    .toLowerCase()
+    .replace(/（.*?）|\(.*?\)/g, '')
+    .replace(/[\s·\-.、，,]/g, '')
+    .replace(/(股份)?有限(责任)?公司|集团|控股|科技|技术|信息|电子|工业|实业|有限公司|公司$/g, '');
+}
+
+function matchCustomerName(customerName, queryName) {
+  const customerRaw = String(customerName || '').trim().toLowerCase();
+  const queryRaw = String(queryName || '').trim().toLowerCase();
+  if (!customerRaw || !queryRaw) return false;
+  if (customerRaw.includes(queryRaw) || queryRaw.includes(customerRaw)) return true;
+  const a = normalizeCompanyKey(customerRaw);
+  const b = normalizeCompanyKey(queryRaw);
+  if (!a || !b) return false;
+  return a.includes(b) || b.includes(a);
+}
+
+function pickRecordsSearchParams(req) {
+  const source = req.method === 'POST' ? (req.body || {}) : (req.query || {});
+  const company = String(source.company || source.customer || source.customerName || '').trim();
+  const startTime = String(source.start || source.startTime || source.from || '').trim();
+  const endTime = String(source.end || source.endTime || source.to || '').trim();
+  const ar = String(source.ar || source.salesName || '').trim();
+  const sr = String(source.sr || '').trim();
+  const keyword = String(source.keyword || source.q || '').trim();
+  const page = Math.max(1, Number(source.page || 1) || 1);
+  const pageSizeRaw = Number(source.pageSize || source.limit || 50) || 50;
+  const pageSize = Math.min(500, Math.max(1, pageSizeRaw));
+  const includeContent = String(source.includeContent || 'true').toLowerCase() !== 'false';
+  return {
+    company,
+    startTime,
+    endTime,
+    ar,
+    sr,
+    keyword,
+    page,
+    pageSize,
+    includeContent,
+  };
+}
+
+function filterRecordsBySearch(records, params) {
+  const startMs = parseTimeMs(params.startTime);
+  const endMs = parseTimeMs(params.endTime);
+  const arLower = params.ar.toLowerCase();
+  const srLower = params.sr.toLowerCase();
+  const keywordLower = params.keyword.toLowerCase();
+
+  const filtered = records.filter((record) => {
+    const timeMs = parseTimeMs(record.meetingTime);
+    if (!Number.isNaN(startMs) && (Number.isNaN(timeMs) || timeMs < startMs)) return false;
+    if (!Number.isNaN(endMs) && (Number.isNaN(timeMs) || timeMs > endMs)) return false;
+
+    if (params.company) {
+      const names = Array.isArray(record.customerNames) ? record.customerNames : [];
+      const matched = names.some((name) => matchCustomerName(name, params.company));
+      if (!matched) return false;
+    }
+
+    if (arLower && !String(record.salesName || '').toLowerCase().includes(arLower)) return false;
+
+    if (srLower) {
+      const hasSr = (record.ourParticipants || []).some((item) => {
+        const role = String(item?.role || '').toUpperCase();
+        const name = String(item?.name || '').toLowerCase();
+        return role === 'SR' && name.includes(srLower);
+      });
+      if (!hasSr) return false;
+    }
+
+    if (keywordLower) {
+      const text = [
+        record.meetingTopic,
+        record.meetingContent,
+        record.nextActions,
+        ...(record.customerNames || []),
+      ].map((x) => String(x || '').toLowerCase()).join(' ');
+      if (!text.includes(keywordLower)) return false;
+    }
+
+    return true;
+  });
+
+  filtered.sort((a, b) => {
+    const ta = parseTimeMs(a.meetingTime);
+    const tb = parseTimeMs(b.meetingTime);
+    return (Number.isNaN(tb) ? 0 : tb) - (Number.isNaN(ta) ? 0 : ta);
+  });
+
+  return filtered;
+}
+
 function escapeHtml(input) {
   return String(input || '')
     .replaceAll('&', '&amp;')
