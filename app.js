@@ -1,5 +1,6 @@
 const RECORDS_KEY = "sales_meeting_minutes_records_v2";
 const AI_CONFIG_KEY = "sales_meeting_minutes_ai_config_v2";
+const UI_STATE_KEY = "sales_meeting_minutes_ui_state_v1";
 const DRAFT_KEY = "sales_meeting_minutes_draft_v1";
 const DRAFT_EDIT_KEY_PREFIX = "sales_meeting_minutes_draft_edit_v1_";
 const INDUSTRY_KNOWLEDGE_CACHE_KEY = "sales_meeting_minutes_industry_knowledge_v1";
@@ -1115,6 +1116,7 @@ const el = {
 boot();
 
 function boot() {
+  restoreUiState();
   initRecordDeepLink();
   bindEvents();
   applyManagerPreset("week");
@@ -1138,6 +1140,35 @@ function boot() {
   setTimeout(syncArParticipantNames, 400);
   render();
   initDataSync();
+}
+
+function saveUiState() {
+  try {
+    const activeTab = el.tabs.find((tab) => tab.classList.contains("active"))?.dataset?.view || "sales";
+    const payload = {
+      activeView: activeTab,
+      managerAuthenticated: Boolean(state.managerAuthenticated),
+      at: new Date().toISOString(),
+    };
+    sessionStorage.setItem(UI_STATE_KEY, JSON.stringify(payload));
+  } catch {
+    // ignore
+  }
+}
+
+function restoreUiState() {
+  try {
+    const raw = sessionStorage.getItem(UI_STATE_KEY);
+    if (!raw) return;
+    const parsed = JSON.parse(raw);
+    state.managerAuthenticated = Boolean(parsed?.managerAuthenticated);
+    const view = String(parsed?.activeView || "").trim();
+    if (view === "sales" || view === "history" || view === "manager") {
+      activateView(view);
+    }
+  } catch {
+    // ignore
+  }
 }
 
 function initRecordDeepLink() {
@@ -1375,6 +1406,7 @@ function activateView(viewName) {
   Object.entries(el.views).forEach(([name, node]) => {
     node.classList.toggle("active", name === viewName);
   });
+  saveUiState();
 }
 
 function openManagerLoginModal(targetView = "manager") {
@@ -1401,6 +1433,7 @@ function submitManagerLogin() {
       return;
     }
     state.managerAuthenticated = true;
+    saveUiState();
     closeManagerLoginModal();
     activateView(state.pendingView || "manager");
     state.pendingView = "";
