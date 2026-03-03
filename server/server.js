@@ -869,6 +869,63 @@ app.get('/api/records', authMiddleware, (_req, res) => {
   res.json({ ok: true, records });
 });
 
+function handleSearchRecords(req, res) {
+  const params = pickRecordsSearchParams(req);
+  const rows = listStmt.all();
+  const records = rows.map((row) => {
+    try {
+      return JSON.parse(row.payload_json);
+    } catch {
+      return { id: row.id };
+    }
+  });
+
+  const filtered = filterRecordsBySearch(records, params);
+  const total = filtered.length;
+  const start = (params.page - 1) * params.pageSize;
+  const pageRows = filtered.slice(start, start + params.pageSize);
+  const items = pageRows.map((record) => {
+    const base = {
+      id: String(record.id || ''),
+      salesName: String(record.salesName || ''),
+      meetingTime: String(record.meetingTime || ''),
+      meetingMode: String(record.meetingMode || ''),
+      meetingLocation: String(record.meetingLocation || ''),
+      customerNames: Array.isArray(record.customerNames) ? record.customerNames : [],
+      industryLevel1: String(record.industryLevel1 || ''),
+      industryLevel2: String(record.industryLevel2 || ''),
+      meetingIndustry: String(record.meetingIndustry || ''),
+      meetingTopic: String(record.meetingTopic || ''),
+      nextActions: String(record.nextActions || ''),
+      updatedAt: String(record.updatedAt || ''),
+      ourParticipants: Array.isArray(record.ourParticipants) ? record.ourParticipants : [],
+      customerParticipants: Array.isArray(record.customerParticipants) ? record.customerParticipants : [],
+    };
+    if (params.includeContent) {
+      base.meetingContent = String(record.meetingContent || '');
+    }
+    return base;
+  });
+
+  res.json({
+    ok: true,
+    query: params,
+    total,
+    page: params.page,
+    pageSize: params.pageSize,
+    hasMore: start + items.length < total,
+    items,
+  });
+}
+
+app.get('/api/records/search', authMiddleware, (req, res) => {
+  handleSearchRecords(req, res);
+});
+
+app.post('/api/records/search', authMiddleware, (req, res) => {
+  handleSearchRecords(req, res);
+});
+
 app.post('/api/records', authMiddleware, (req, res) => {
   const input = normalizeRecord(req.body?.record || {});
   if (!input.id) {
