@@ -1284,6 +1284,7 @@ function bindEvents() {
   el.historySr.addEventListener("input", applyHistoryFilters);
   el.historyFrImpl.addEventListener("input", applyHistoryFilters);
   el.historyFrPm.addEventListener("input", applyHistoryFilters);
+  el.views.history.addEventListener("wheel", handleHistoryViewWheel, { passive: false });
   el.historyDetailClose.addEventListener("click", closeHistoryDetailModal);
   el.historyDetailDelete.addEventListener("click", openDeleteAuthModal);
   if (el.historyDetailEdit) {
@@ -1414,7 +1415,23 @@ function activateView(viewName) {
   Object.entries(el.views).forEach(([name, node]) => {
     node.classList.toggle("active", name === viewName);
   });
+  document.body.classList.toggle("history-scroll-lock", viewName === "history");
   saveUiState();
+}
+
+function handleHistoryViewWheel(event) {
+  const historyViewActive = el.views.history?.classList.contains("active");
+  if (!historyViewActive) return;
+  if (event.target instanceof Element && event.target.closest("input, textarea, select")) {
+    return;
+  }
+  const list = el.historyList;
+  if (!list) return;
+  const maxScrollTop = list.scrollHeight - list.clientHeight;
+  if (maxScrollTop <= 0) return;
+  event.preventDefault();
+  const nextTop = list.scrollTop + event.deltaY;
+  list.scrollTop = Math.max(0, Math.min(maxScrollTop, nextTop));
 }
 
 function openManagerLoginModal(targetView = "manager") {
