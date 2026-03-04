@@ -44,6 +44,7 @@ let backupTimer = null;
 let lastIndustryRefreshMeta = null;
 let industryRefreshTimer = null;
 let buildInfoCache = { at: 0, data: null };
+const openApiRateBucket = new Map();
 
 function getServerCommitHash() {
   const byEnv = String(process.env.APP_BUILD_COMMIT || '').trim();
