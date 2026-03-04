@@ -590,6 +590,210 @@ function filterRecordsBySearch(records, params) {
   return filtered;
 }
 
+function deriveCompanyAlias(name) {
+  const raw = String(name || '').trim();
+  if (!raw) return '';
+  return raw
+    .replace(/（.*?）|\(.*?\)/g, '')
+    .replace(/(股份)?有限(责任)?公司|集团|控股|科技|技术|信息|电子|工业|实业|有限公司|公司$/g, '')
+    .trim();
+}
+
+function toCompanyTokens(input) {
+  const raw = String(input || '').trim().toLowerCase();
+  if (!raw) return [];
+  const alias = deriveCompanyAlias(raw).toLowerCase();
+  const normalized = normalizeCompanyKey(raw);
+  return [raw, alias, normalized].filter(Boolean);
+}
+
+function recordCompanyMatched(record, query) {
+  const queryTokens = toCompanyTokens(query);
+  if (!queryTokens.length) return false;
+  const names = Array.isArray(record?.customerNames) ? record.customerNames : [];
+  if (!names.length) return false;
+  for (const name of names) {
+    const nameTokens = toCompanyTokens(name);
+    for (const q of queryTokens) {
+      for (const n of nameTokens) {
+        if (!q || !n) continue;
+        if (n.includes(q) || q.includes(n)) return true;
+      }
+    }
+    if (matchCustomerName(name, query)) return true;
+  }
+  return false;
+}
+
+function collectSummaryKeywords(records, limit = 20) {
+  const stopWords = new Set([
+    '我们', '客户', '会议', '纪要', '需求', '产品', '项目', '系统', '功能', '模块', '推进', '当前',
+    '后续', '安排', '这个', '那个', '以及', '进行', '支持', '沟通', '讨论', '方案', '使用', '实现',
+    '对接', '问题', '方面', '相关', '通过', '可以', '需要', '已经', '一个', '几个', '一些',
+  ]);
+  const freq = new Map();
+  const text = records.map((r) => [r.meetingTopic, r.meetingContent, r.nextActions].join(' ')).join('\n');
+  const tokens = String(text || '')
+    .replace(/[^\u4e00-\u9fa5a-zA-Z0-9+#]/g, ' ')
+    .split(/\s+/)
+    .map((x) => x.trim().toLowerCase())
+    .filter((x) => x && x.length >= 2);
+  for (const token of tokens) {
+    if (stopWords.has(token)) continue;
+    freq.set(token, (freq.get(token) || 0) + 1);
+  }
+  return [...freq.entries()]
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, Math.max(1, limit))
+    .map(([word, count]) => ({ word, count }));
+}
+
+function summarizeToolMentions(records) {
+  const rules = [
+    { key: 'jira', aliases: ['jira'] },
+    { key: 'cf', aliases: ['cf'] },
+    { key: 'confluence', aliases: ['confluence'] },
+  ];
+  const byTool = {};
+  rules.forEach((rule) => {
+    byTool[rule.key] = { meetings: 0, customers: new Set() };
+  });
+  for (const record of records) {
+    const text = [record.meetingTopic, record.meetingContent, record.nextActions]
+      .map((x) => String(x || '').toLowerCase())
+      .join(' ');
+    const customer = String((record.customerNames || [])[0] || '').trim();
+    for (const rule of rules) {
+      if (rule.aliases.some((a) => text.includes(a))) {
+        byTool[rule.key].meetings += 1;
+        if (customer) byTool[rule.key].customers.add(customer);
+      }
+    }
+  }
+  const output = {};
+  Object.entries(byTool).forEach(([tool, stats]) => {
+    output[tool] = {
+      meetingCount: stats.meetings,
+      customerCount: stats.customers.size,
+      customers: [...stats.customers].sort(),
+    };
+  });
+  return output;
+}
+
+function summarizeCustomerActivity(records, benchmarkMs = Date.now()) {
+  const byCustomer = new Map();
+  for (const record of records) {
+    const customer = String((record.customerNames || [])[0] || '').trim();
+    if (!customer) continue;
+    const t = parseTimeMs(record.meetingTime);
+    if (Number.isNaN(t)) continue;
+    if (!byCustomer.has(customer)) byCustomer.set(customer, []);
+    byCustomer.get(customer).push(t);
+  }
+  const noFollowUp3Weeks = [];
+  const frequentRecent = [];
+  const threeWeeksMs = 21 * 24 * 60 * 60 * 1000;
+  const recentStart = benchmarkMs - threeWeeksMs;
+
+  byCustomer.forEach((times, customer) => {
+    const sorted = [...times].sort((a, b) => a - b);
+    const first = sorted[0];
+    const last = sorted[sorted.length - 1];
+    const recentCount = sorted.filter((x) => x >= recentStart && x <= benchmarkMs).length;
+    if (sorted.length === 1 && benchmarkMs - first > threeWeeksMs) {
+      noFollowUp3Weeks.push({
+        customer,
+        firstMeetingTime: new Date(first).toISOString(),
+        gapDays: Math.floor((benchmarkMs - first) / (24 * 60 * 60 * 1000)),
+      });
+    }
+    if (recentCount >= 2) {
+      frequentRecent.push({
+        customer,
+        recentMeetingCount: recentCount,
+        lastMeetingTime: new Date(last).toISOString(),
+      });
+    }
+  });
+  noFollowUp3Weeks.sort((a, b) => b.gapDays - a.gapDays);
+  frequentRecent.sort((a, b) => b.recentMeetingCount - a.recentMeetingCount);
+  return { noFollowUp3Weeks, frequentRecent };
+}
+
+function pickOpenQueryParams(req) {
+  const source = req.method === 'POST' ? (req.body || {}) : (req.query || {});
+  const q = String(source.q || source.company || source.customer || '').trim();
+  const from = String(source.from || source.start || source.startTime || '').trim();
+  const to = String(source.to || source.end || source.endTime || '').trim();
+  const page = Math.max(1, Number(source.page || 1) || 1);
+  const pageSize = Math.min(
+    Math.max(1, OPEN_API_MAX_PAGE_SIZE || 200),
+    Math.max(1, Number(source.pageSize || OPEN_API_DEFAULT_PAGE_SIZE || 50) || 50),
+  );
+  return { q, from, to, page, pageSize };
+}
+
+function filterRecordsForOpen(records, params) {
+  const startMs = parseTimeMs(params.from);
+  const endMs = parseTimeMs(params.to);
+  return records
+    .filter((record) => {
+      const timeMs = parseTimeMs(record.meetingTime);
+      if (!Number.isNaN(startMs) && (Number.isNaN(timeMs) || timeMs < startMs)) return false;
+      if (!Number.isNaN(endMs) && (Number.isNaN(timeMs) || timeMs > endMs)) return false;
+      if (params.q && !recordCompanyMatched(record, params.q)) return false;
+      return true;
+    })
+    .sort((a, b) => {
+      const ta = parseTimeMs(a.meetingTime);
+      const tb = parseTimeMs(b.meetingTime);
+      return (Number.isNaN(tb) ? 0 : tb) - (Number.isNaN(ta) ? 0 : ta);
+    });
+}
+
+function pickOpenApiToken(req) {
+  const fromHeader = String(req.header('x-api-key') || '').trim();
+  if (fromHeader) return fromHeader;
+  const auth = String(req.header('authorization') || '');
+  if (auth.toLowerCase().startsWith('bearer ')) return auth.slice(7).trim();
+  return '';
+}
+
+function openApiAuthMiddleware(req, res, next) {
+  const expected = OPEN_API_KEY || API_KEY;
+  if (!expected) {
+    return res.status(503).json({ ok: false, error: 'open_api_not_configured' });
+  }
+  const token = pickOpenApiToken(req);
+  if (!token || token !== expected) {
+    return res.status(401).json({ ok: false, error: 'unauthorized' });
+  }
+  req.openApiToken = token;
+  next();
+}
+
+function openApiRateLimitMiddleware(req, res, next) {
+  const maxPerMin = Math.max(10, OPEN_API_RATE_LIMIT_PER_MIN || 120);
+  const now = Date.now();
+  const token = String(req.openApiToken || '');
+  const ip = String(req.ip || req.socket?.remoteAddress || '-');
+  const bucketKey = `${token}|${ip}`;
+  const prev = openApiRateBucket.get(bucketKey);
+  if (!prev || now >= prev.resetAt) {
+    openApiRateBucket.set(bucketKey, { count: 1, resetAt: now + 60 * 1000 });
+    return next();
+  }
+  if (prev.count >= maxPerMin) {
+    const retryAfter = Math.max(1, Math.ceil((prev.resetAt - now) / 1000));
+    res.setHeader('Retry-After', String(retryAfter));
+    return res.status(429).json({ ok: false, error: 'rate_limited', retryAfterSec: retryAfter });
+  }
+  prev.count += 1;
+  openApiRateBucket.set(bucketKey, prev);
+  next();
+}
+
 function escapeHtml(input) {
   return String(input || '')
     .replaceAll('&', '&amp;')
