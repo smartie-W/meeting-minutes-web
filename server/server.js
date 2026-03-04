@@ -1275,6 +1275,104 @@ function listAllRecordsParsed() {
   });
 }
 
+function pickOpenCompaniesParams(req) {
+  const source = req.method === 'POST' ? (req.body || {}) : (req.query || {});
+  const q = String(source.q || source.company || source.customer || '').trim();
+  const from = String(source.from || source.start || source.startTime || '').trim();
+  const to = String(source.to || source.end || source.endTime || '').trim();
+  const focus = normalizeFocusList(source.focus || source.tools || source.tool);
+  const focusMode = String(source.focusMode || 'any').toLowerCase() === 'all' ? 'all' : 'any';
+  const page = Math.max(1, Number(source.page || 1) || 1);
+  const pageSize = Math.min(
+    Math.max(1, OPEN_API_MAX_PAGE_SIZE || 200),
+    Math.max(1, Number(source.pageSize || OPEN_API_DEFAULT_PAGE_SIZE || 50) || 50),
+  );
+  return { q, from, to, focus, focusMode, page, pageSize };
+}
+
+function buildCompaniesCatalog(records) {
+  const groups = new Map();
+  for (const record of records) {
+    const customers = Array.isArray(record.customerNames) ? record.customerNames : [];
+    const meetingTimeMs = parseTimeMs(record.meetingTime);
+    const meetingTime = String(record.meetingTime || '');
+    const salesName = String(record.salesName || '').trim();
+    const srs = (record.ourParticipants || [])
+      .filter((item) => String(item?.role || '').toUpperCase() === 'SR')
+      .map((item) => String(item?.name || '').trim())
+      .filter(Boolean);
+
+    for (const customerRaw of customers) {
+      const customer = String(customerRaw || '').trim();
+      if (!customer) continue;
+      const key = normalizeCompanyKey(customer) || customer.toLowerCase();
+      if (!groups.has(key)) {
+        groups.set(key, {
+          key,
+          standardName: customer,
+          aliases: new Set([customer]),
+          shortAliases: new Set([deriveCompanyAlias(customer)]),
+          meetingIds: new Set(),
+          ars: new Set(),
+          srs: new Set(),
+          firstMeetingTime: '',
+          lastMeetingTime: '',
+          firstMeetingTimeMs: Number.isNaN(meetingTimeMs) ? NaN : meetingTimeMs,
+          lastMeetingTimeMs: Number.isNaN(meetingTimeMs) ? NaN : meetingTimeMs,
+          nameCounts: new Map([[customer, 1]]),
+          industryLevel1: String(record.industryLevel1 || ''),
+          industryLevel2: String(record.industryLevel2 || ''),
+        });
+      } else {
+        const group = groups.get(key);
+        group.nameCounts.set(customer, (group.nameCounts.get(customer) || 0) + 1);
+      }
+
+      const group = groups.get(key);
+      group.aliases.add(customer);
+      group.shortAliases.add(deriveCompanyAlias(customer));
+      if (record.id) group.meetingIds.add(String(record.id));
+      if (salesName) group.ars.add(salesName);
+      srs.forEach((name) => group.srs.add(name));
+
+      if (!Number.isNaN(meetingTimeMs)) {
+        if (Number.isNaN(group.firstMeetingTimeMs) || meetingTimeMs < group.firstMeetingTimeMs) {
+          group.firstMeetingTimeMs = meetingTimeMs;
+          group.firstMeetingTime = meetingTime;
+        }
+        if (Number.isNaN(group.lastMeetingTimeMs) || meetingTimeMs > group.lastMeetingTimeMs) {
+          group.lastMeetingTimeMs = meetingTimeMs;
+          group.lastMeetingTime = meetingTime;
+        }
+      }
+      if (!group.industryLevel1 && record.industryLevel1) group.industryLevel1 = String(record.industryLevel1);
+      if (!group.industryLevel2 && record.industryLevel2) group.industryLevel2 = String(record.industryLevel2);
+    }
+  }
+
+  return [...groups.values()].map((group) => {
+    const standardName = [...group.nameCounts.entries()]
+      .sort((a, b) => (b[1] - a[1]) || (b[0].length - a[0].length))[0]?.[0] || group.standardName;
+    const aliases = [...group.aliases].sort();
+    const shortAliases = [...group.shortAliases].filter(Boolean).sort();
+    return {
+      companyKey: group.key,
+      standardName,
+      aliases,
+      shortAliases,
+      meetingCount: group.meetingIds.size,
+      arCount: group.ars.size,
+      srCount: group.srs.size,
+      ars: [...group.ars].sort(),
+      srs: [...group.srs].sort(),
+      firstMeetingTime: group.firstMeetingTime,
+      lastMeetingTime: group.lastMeetingTime,
+      industryLevel1: group.industryLevel1 || '',
+      industryLevel2: group.industryLevel2 || '',
+    };
+  });
+}
+
 app.get('/api/open/records', openApiAuthMiddleware, openApiRateLimitMiddleware, (req, res) => {
   const startedAt = Date.now();
   const params = pickOpenQueryParams(req);
