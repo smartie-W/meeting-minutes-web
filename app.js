@@ -1485,6 +1485,7 @@ async function handleSaveRecord(event) {
     intentCoopMode,
     migrationSources,
     meetingContent: el.meetingContent.value.trim(),
+    attachments: normalizeAttachmentList(state.attachments),
     nextActions: el.nextActions.value.trim(),
     localKeywords: extractKeywords(
       `${el.meetingTopic.value} ${focusModules.join(" ")} ${intentDeployMode} ${intentCoopMode} ${migrationSources.map((x) => `${x.source} ${x.version}`).join(" ")} ${el.meetingContent.value} ${el.nextActions.value}`,
