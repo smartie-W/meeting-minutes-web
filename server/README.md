@@ -7,6 +7,7 @@
 
 开放 API 对外文档（持续更新）：
 - `server/OPEN_API.md`
+- `server/openapi.json`（OpenAPI/Swagger，供第三方自动生成 SDK）
 
 ## 启动
 
