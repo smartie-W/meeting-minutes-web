@@ -23,6 +23,11 @@ body {
     linear-gradient(180deg, #f7fbfd 0%, var(--bg) 100%);
 }
 
+body.history-scroll-lock {
+  overflow: hidden;
+  height: 100dvh;
+}
+
 .hero {
   display: flex;
   justify-content: space-between;
@@ -238,6 +243,7 @@ textarea.long-input {
   min-height: 0;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
 }
 
 .history-detail-panel {
