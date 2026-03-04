@@ -5,6 +5,9 @@
 - 前端改为优先走此 API，减少 Firebase 网络波动影响
 - 内置每日自动备份 SQLite 数据库
 
+开放 API 对外文档（持续更新）：
+- `server/OPEN_API.md`
+
 ## 启动
 
 ```bash
