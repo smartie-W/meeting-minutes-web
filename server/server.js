@@ -689,26 +689,21 @@ function collectSummaryKeywords(records, limit = 20) {
 }
 
 function summarizeToolMentions(records) {
-  const rules = [
-    { key: 'jira', aliases: ['jira'] },
-    { key: 'cf', aliases: ['cf'] },
-    { key: 'confluence', aliases: ['confluence'] },
-  ];
   const byTool = {};
-  rules.forEach((rule) => {
-    byTool[rule.key] = { meetings: 0, customers: new Set() };
+  Object.keys(OPEN_API_FOCUS_RULES).forEach((toolKey) => {
+    byTool[toolKey] = { meetings: 0, customers: new Set() };
   });
   for (const record of records) {
     const text = [record.meetingTopic, record.meetingContent, record.nextActions]
-      .map((x) => String(x || '').toLowerCase())
+      .map((x) => String(x || ''))
       .join(' ');
     const customer = String((record.customerNames || [])[0] || '').trim();
-    for (const rule of rules) {
-      if (rule.aliases.some((a) => text.includes(a))) {
-        byTool[rule.key].meetings += 1;
-        if (customer) byTool[rule.key].customers.add(customer);
+    Object.keys(OPEN_API_FOCUS_RULES).forEach((toolKey) => {
+      if (toolPatternMatched(text, toolKey)) {
+        byTool[toolKey].meetings += 1;
+        if (customer) byTool[toolKey].customers.add(customer);
       }
-    }
+    });
   }
   const output = {};
   Object.entries(byTool).forEach(([tool, stats]) => {
