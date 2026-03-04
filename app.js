@@ -3361,6 +3361,7 @@ function saveDraft() {
     customerParticipants: readParticipants(el.customerParticipants),
     ourParticipants: readParticipants(el.ourParticipants),
     meetingContent: el.meetingContent.value,
+    attachments: normalizeAttachmentList(state.attachments),
     nextActions: el.nextActions.value,
     savedAt: new Date().toISOString(),
   };
@@ -3392,6 +3393,9 @@ function restoreDraft() {
     setParticipants(el.customerParticipants, normalizeParticipants(draft.customerParticipants));
     setParticipants(el.ourParticipants, normalizeParticipants(draft.ourParticipants));
     el.meetingContent.value = String(draft.meetingContent || "");
+    state.attachments = normalizeAttachmentList(draft.attachments);
+    renderAttachments();
+    if (el.meetingAttachments) el.meetingAttachments.value = "";
     el.nextActions.value = String(draft.nextActions || "");
 
     updateDraftStatus(
@@ -3432,6 +3436,7 @@ function hasDraftContent(draft) {
   if (Array.isArray(draft.customerParticipants) && draft.customerParticipants.length) return true;
   if (Array.isArray(draft.ourParticipants) && draft.ourParticipants.length) return true;
   if (Array.isArray(draft.migrationSources) && draft.migrationSources.length) return true;
+  if (Array.isArray(draft.attachments) && draft.attachments.length) return true;
   return false;
 }
 
@@ -3454,6 +3459,7 @@ function flushDraftSafely() {
       customerParticipants: readParticipants(el.customerParticipants),
       ourParticipants: readParticipants(el.ourParticipants),
       meetingContent: el.meetingContent.value,
+      attachments: normalizeAttachmentList(state.attachments),
       nextActions: el.nextActions.value,
       savedAt: new Date().toISOString(),
     };
