@@ -1127,6 +1127,7 @@ function boot() {
   fillAiConfigInputs();
   resetParticipantSections();
   resetMigrationSources();
+  renderAttachments();
   applySalesNameRule();
   applyDeployCoopRule();
   ensureMeetingTimeDefault();
