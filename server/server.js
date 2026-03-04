@@ -121,6 +121,29 @@ CREATE TABLE IF NOT EXISTS meeting_records (
 );
 CREATE INDEX IF NOT EXISTS idx_meeting_time ON meeting_records(meeting_time);
 CREATE INDEX IF NOT EXISTS idx_fingerprint ON meeting_records(fingerprint);
+CREATE TABLE IF NOT EXISTS open_api_audit_logs (
+  id TEXT PRIMARY KEY,
+  at TEXT NOT NULL,
+  token_hash TEXT,
+  ip TEXT,
+  method TEXT,
+  path TEXT,
+  company_query TEXT,
+  time_from TEXT,
+  time_to TEXT,
+  focus TEXT,
+  focus_mode TEXT,
+  page INTEGER,
+  page_size INTEGER,
+  status_code INTEGER,
+  result_count INTEGER,
+  latency_ms INTEGER,
+  error TEXT,
+  user_agent TEXT
+);
+CREATE INDEX IF NOT EXISTS idx_open_audit_at ON open_api_audit_logs(at);
+CREATE INDEX IF NOT EXISTS idx_open_audit_path ON open_api_audit_logs(path);
+CREATE INDEX IF NOT EXISTS idx_open_audit_company ON open_api_audit_logs(company_query);
 `;
 db.exec(createTableSql);
 
