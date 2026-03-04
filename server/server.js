@@ -173,6 +173,15 @@ SELECT id, payload_json FROM meeting_records
 WHERE fingerprint = ?
 LIMIT 1
 `);
+const insertOpenAuditStmt = db.prepare(`
+INSERT INTO open_api_audit_logs (
+  id, at, token_hash, ip, method, path, company_query, time_from, time_to,
+  focus, focus_mode, page, page_size, status_code, result_count, latency_ms, error, user_agent
+) VALUES (
+  @id, @at, @token_hash, @ip, @method, @path, @company_query, @time_from, @time_to,
+  @focus, @focus_mode, @page, @page_size, @status_code, @result_count, @latency_ms, @error, @user_agent
+)
+`);
 
 function nowIso() {
   return new Date().toISOString();
