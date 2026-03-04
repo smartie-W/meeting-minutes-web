@@ -1292,7 +1292,7 @@ app.get('/api/open/records', openApiAuthMiddleware, openApiRateLimitMiddleware, 
       latencyMs: Date.now() - startedAt,
       error: 'q_required',
     });
-    return res.status(400).json({ ok: false, error: 'q_required' });
+    return res.status(400).json({ ok: false, schemaVersion: OPEN_API_SCHEMA_VERSION, error: 'q_required' });
   }
   const filtered = filterRecordsForOpen(listAllRecordsParsed(), params);
   const total = filtered.length;
@@ -1365,7 +1365,7 @@ app.post('/api/open/summary', openApiAuthMiddleware, openApiRateLimitMiddleware,
       latencyMs: Date.now() - startedAt,
       error: 'q_required',
     });
-    return res.status(400).json({ ok: false, error: 'q_required' });
+    return res.status(400).json({ ok: false, schemaVersion: OPEN_API_SCHEMA_VERSION, error: 'q_required' });
   }
   const benchmarkMs = Number.isNaN(parseTimeMs(params.to)) ? Date.now() : parseTimeMs(params.to);
   const filtered = filterRecordsForOpen(listAllRecordsParsed(), params);
