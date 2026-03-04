@@ -1147,6 +1147,104 @@ app.post('/api/records/search', authMiddleware, (req, res) => {
   handleSearchRecords(req, res);
 });
 
+function listAllRecordsParsed() {
+  return listStmt.all().map((row) => {
+    try {
+      return JSON.parse(row.payload_json);
+    } catch {
+      return { id: row.id };
+    }
+  });
+}
+
+app.get('/api/open/records', openApiAuthMiddleware, openApiRateLimitMiddleware, (req, res) => {
+  const params = pickOpenQueryParams(req);
+  if (!params.q) {
+    return res.status(400).json({ ok: false, error: 'q_required' });
+  }
+  const filtered = filterRecordsForOpen(listAllRecordsParsed(), params);
+  const total = filtered.length;
+  const start = (params.page - 1) * params.pageSize;
+  const items = filtered.slice(start, start + params.pageSize).map((record) => ({
+    id: String(record.id || ''),
+    salesName: String(record.salesName || ''),
+    meetingTime: String(record.meetingTime || ''),
+    meetingMode: String(record.meetingMode || ''),
+    meetingLocation: String(record.meetingLocation || ''),
+    customerNames: Array.isArray(record.customerNames) ? record.customerNames : [],
+    meetingTopic: String(record.meetingTopic || ''),
+    meetingContent: String(record.meetingContent || ''),
+    nextActions: String(record.nextActions || ''),
+    industryLevel1: String(record.industryLevel1 || ''),
+    industryLevel2: String(record.industryLevel2 || ''),
+    meetingIndustry: String(record.meetingIndustry || ''),
+    ourParticipants: Array.isArray(record.ourParticipants) ? record.ourParticipants : [],
+    customerParticipants: Array.isArray(record.customerParticipants) ? record.customerParticipants : [],
+    updatedAt: String(record.updatedAt || ''),
+    attachments: Array.isArray(record.attachments)
+      ? record.attachments.map((item) => ({
+        id: String(item?.id || ''),
+        name: String(item?.name || ''),
+        type: String(item?.type || ''),
+        size: Number(item?.size || 0),
+      }))
+      : [],
+  }));
+
+  return res.json({
+    ok: true,
+    query: params,
+    total,
+    page: params.page,
+    pageSize: params.pageSize,
+    hasMore: start + items.length < total,
+    items,
+  });
+});
+
+app.post('/api/open/summary', openApiAuthMiddleware, openApiRateLimitMiddleware, (req, res) => {
+  const params = pickOpenQueryParams(req);
+  if (!params.q) {
+    return res.status(400).json({ ok: false, error: 'q_required' });
+  }
+  const benchmarkMs = Number.isNaN(parseTimeMs(params.to)) ? Date.now() : parseTimeMs(params.to);
+  const filtered = filterRecordsForOpen(listAllRecordsParsed(), params);
+  const firstMeeting = filtered.length ? filtered[filtered.length - 1].meetingTime : '';
+  const lastMeeting = filtered.length ? filtered[0].meetingTime : '';
+  const customers = new Set();
+  const arStats = new Map();
+  filtered.forEach((record) => {
+    const customer = String((record.customerNames || [])[0] || '').trim();
+    if (customer) customers.add(customer);
+    const ar = String(record.salesName || '').trim() || '未知';
+    arStats.set(ar, (arStats.get(ar) || 0) + 1);
+  });
+
+  const toolMentions = summarizeToolMentions(filtered);
+  const activity = summarizeCustomerActivity(filtered, benchmarkMs);
+  const topKeywords = collectSummaryKeywords(filtered, 20);
+  const arRanking = [...arStats.entries()]
+    .map(([ar, meetingCount]) => ({ ar, meetingCount }))
+    .sort((a, b) => b.meetingCount - a.meetingCount);
+
+  return res.json({
+    ok: true,
+    query: params,
+    summary: {
+      companyQuery: params.q,
+      meetingCount: filtered.length,
+      customerCount: customers.size,
+      firstMeetingTime: firstMeeting,
+      lastMeetingTime: lastMeeting,
+      arRanking,
+      toolMentions,
+      noFollowUp3Weeks: activity.noFollowUp3Weeks,
+      frequentRecentMeetings: activity.frequentRecent,
+      topKeywords,
+    },
+  });
+});
+
 app.post('/api/records', authMiddleware, (req, res) => {
   const input = normalizeRecord(req.body?.record || {});
   if (!input.id) {
