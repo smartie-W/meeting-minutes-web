@@ -221,17 +221,29 @@ textarea.long-input {
   display: grid;
   grid-template-columns: minmax(260px, 2fr) minmax(420px, 8fr);
   gap: 14px;
-  align-items: start;
+  align-items: stretch;
+  min-height: calc(100dvh - 170px);
 }
 
 .history-layout.has-detail {
   grid-template-columns: minmax(220px, 1.5fr) minmax(260px, 2fr) minmax(360px, 6.5fr);
 }
 
+#view-history {
+  min-height: calc(100dvh - 140px);
+}
+
+.history-layout > .panel {
+  height: 100%;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
 .history-detail-panel {
   display: none;
-  min-height: 420px;
-  max-height: 78vh;
+  min-height: 0;
+  max-height: none;
   overflow: hidden;
 }
 
@@ -266,6 +278,7 @@ textarea.long-input {
 .history-detail-body {
   max-height: none;
   flex: 1;
+  min-height: 0;
   overflow: auto;
   line-height: 1.55;
   padding-right: 2px;
@@ -440,6 +453,12 @@ textarea.long-input {
   gap: 10px;
   max-height: 630px;
   overflow: auto;
+}
+
+#history-list {
+  flex: 1;
+  min-height: 0;
+  max-height: none;
 }
 
 .record-item {
@@ -749,6 +768,15 @@ th {
   .history-layout,
   .history-layout.has-detail {
     grid-template-columns: 1fr;
+    min-height: auto;
+  }
+
+  #view-history {
+    min-height: auto;
+  }
+
+  .history-layout > .panel {
+    height: auto;
   }
 
   .grid-5 {
