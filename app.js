@@ -4907,6 +4907,7 @@ function normalizeRecordIndustry(record) {
     intentDeployMode,
     intentCoopMode,
     migrationSources: normalizeMigrationSources(record.migrationSources),
+    attachments: normalizeAttachmentList(record.attachments),
   };
 }
 
