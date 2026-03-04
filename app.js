@@ -2773,23 +2773,11 @@ async function handleAttachmentInputChange() {
   const files = Array.from(el.meetingAttachments?.files || []);
   if (!files.length) return;
   try {
-    const currentTotal = state.attachments.reduce((sum, item) => sum + Number(item.size || 0), 0);
-    const incomingTotal = files.reduce((sum, file) => sum + Number(file.size || 0), 0);
-    if (incomingTotal + currentTotal > MAX_ATTACHMENT_BYTES) {
-      alert("附件总大小不能超过 5MB");
-      if (el.meetingAttachments) el.meetingAttachments.value = "";
-      return;
-    }
-
     for (const file of files) {
       if (file.size > MAX_ATTACHMENT_BYTES) {
         alert(`附件 ${file.name} 超过 5MB，无法上传`);
-        if (el.meetingAttachments) el.meetingAttachments.value = "";
-        return;
+        continue;
       }
-    }
-
-    for (const file of files) {
       // eslint-disable-next-line no-await-in-loop
       const dataUrl = await readFileAsDataUrl(file);
       state.attachments.push({
@@ -2801,8 +2789,13 @@ async function handleAttachmentInputChange() {
         uploadedAt: new Date().toISOString(),
       });
     }
-    renderAttachments();
-    scheduleDraftSave();
+
+    if (files.some((file) => file.size <= MAX_ATTACHMENT_BYTES)) {
+      // eslint-disable-next-line no-await-in-loop
+      await Promise.resolve();
+      renderAttachments();
+      scheduleDraftSave();
+    }
   } catch (error) {
     alert(error?.message || "附件上传失败");
   } finally {
