@@ -876,11 +876,11 @@ function pickOpenApiToken(req) {
 function openApiAuthMiddleware(req, res, next) {
   const expected = OPEN_API_KEY || API_KEY;
   if (!expected) {
-    return res.status(503).json({ ok: false, error: 'open_api_not_configured' });
+    return res.status(503).json({ ok: false, schemaVersion: OPEN_API_SCHEMA_VERSION, error: 'open_api_not_configured' });
   }
   const token = pickOpenApiToken(req);
   if (!token || token !== expected) {
-    return res.status(401).json({ ok: false, error: 'unauthorized' });
+    return res.status(401).json({ ok: false, schemaVersion: OPEN_API_SCHEMA_VERSION, error: 'unauthorized' });
   }
   req.openApiToken = token;
   next();
@@ -900,7 +900,12 @@ function openApiRateLimitMiddleware(req, res, next) {
   if (prev.count >= maxPerMin) {
     const retryAfter = Math.max(1, Math.ceil((prev.resetAt - now) / 1000));
     res.setHeader('Retry-After', String(retryAfter));
-    return res.status(429).json({ ok: false, error: 'rate_limited', retryAfterSec: retryAfter });
+    return res.status(429).json({
+      ok: false,
+      schemaVersion: OPEN_API_SCHEMA_VERSION,
+      error: 'rate_limited',
+      retryAfterSec: retryAfter,
+    });
   }
   prev.count += 1;
   openApiRateBucket.set(bucketKey, prev);
