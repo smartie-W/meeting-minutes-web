@@ -4780,6 +4780,7 @@ function exportRecords() {
     "客户参会人员",
     "我方参会人员",
     "会议纪要内容",
+    "附件",
     "后续行动",
     "更新时间",
   ];
@@ -4801,6 +4802,7 @@ function exportRecords() {
     formatParticipantsCsv(record.customerParticipants),
     formatParticipantsCsv(record.ourParticipants),
     record.meetingContent || "",
+    normalizeAttachmentList(record.attachments).map((item) => item.name).join(" / "),
     record.nextActions || "",
     record.updatedAt || "",
   ]);
