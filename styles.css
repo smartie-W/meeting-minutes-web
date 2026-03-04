@@ -460,6 +460,30 @@ textarea.long-input {
   flex: 1;
   min-height: 0;
   max-height: none;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-gutter: stable;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(11, 106, 136, 0.62) transparent;
+}
+
+#history-list::-webkit-scrollbar {
+  width: 10px;
+}
+
+#history-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+#history-list::-webkit-scrollbar-thumb {
+  background: rgba(11, 106, 136, 0.45);
+  border-radius: 999px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+#history-list:hover::-webkit-scrollbar-thumb {
+  background: rgba(11, 106, 136, 0.72);
 }
 
 .record-item {
