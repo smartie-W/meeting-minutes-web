@@ -1584,6 +1584,9 @@ function resetForm() {
   resetParticipantSections();
   resetMigrationSources();
   setSelectedFocusModules([]);
+  state.attachments = [];
+  renderAttachments();
+  if (el.meetingAttachments) el.meetingAttachments.value = "";
   applyDeployCoopRule();
   el.industryLevel1.value = "";
   el.industryLevel2.value = "";
