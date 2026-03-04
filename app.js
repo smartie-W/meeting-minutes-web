@@ -2502,8 +2502,8 @@ function addParticipantRow(container, role = "", name = "") {
   }
   roleField.className = "participant-role";
 
-  row.appendChild(roleField);
   row.appendChild(createNameInput(name));
+  row.appendChild(roleField);
   container.appendChild(row);
   if (isOurParticipants) {
     applyOurParticipantNameRule(row);
