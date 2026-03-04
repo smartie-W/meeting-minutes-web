@@ -2236,6 +2236,12 @@ function openHistoryDetailModal(records, index) {
   state.historyModalIndex = Number.isInteger(index) ? index : -1;
   const record = state.historyModalList[state.historyModalIndex];
   if (!record) return;
+  const attachments = normalizeAttachmentList(record.attachments);
+  const attachmentsHtml = attachments.length
+    ? attachments
+      .map((item) => `<div class="attachment-item"><a href="${escapeHtml(item.dataUrl)}" download="${escapeHtml(item.name)}" target="_blank" rel="noopener noreferrer">${escapeHtml(item.name)} (${escapeHtml(formatAttachmentSize(item.size))})</a></div>`)
+      .join("")
+    : "<span class=\"muted\">无</span>";
   el.historyDetailTitle.textContent = `${(record.customerNames || []).join(" / ")} | ${record.meetingTopic || "未填写议题"}`;
   el.historyDetailBody.innerHTML = `
     <div class="detail-grid">
@@ -2250,6 +2256,8 @@ function openHistoryDetailModal(records, index) {
     </div>
     <div class="detail-label">会议纪要内容</div>
     <div class="detail-value">${escapeHtml(record.meetingContent || "-")}</div>
+    <div class="detail-label" style="margin-top:10px;">附件</div>
+    <div class="detail-value">${attachmentsHtml}</div>
     <div class="detail-label" style="margin-top:10px;">后续行动</div>
     <div class="detail-value">${escapeHtml(record.nextActions || "-")}</div>
   `;
