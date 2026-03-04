@@ -2130,7 +2130,9 @@ function applyHistoryFilters() {
 
 function getHistoryVisibleRecords() {
   const customer = state.historyCustomer.toLowerCase();
-  const ar = state.historyAr.toLowerCase();
+  const arRaw = String(state.historyAr || "").trim();
+  const ar = arRaw.toLowerCase();
+  const skipArFilter = arRaw === "__all__" || arRaw === "所有人";
   const sr = state.historySr.toLowerCase();
   const frImpl = state.historyFrImpl.toLowerCase();
   const frPm = state.historyFrPm.toLowerCase();
@@ -2140,7 +2142,7 @@ function getHistoryVisibleRecords() {
       const hasCustomer = record.customerNames.some((name) => name.toLowerCase().includes(customer));
       if (!hasCustomer) return false;
     }
-    if (ar && !record.salesName.toLowerCase().includes(ar)) return false;
+    if (!skipArFilter && ar && !record.salesName.toLowerCase().includes(ar)) return false;
     if (sr) {
       const srMatched = (record.ourParticipants || []).some(
         (item) => item?.role === "SR" && String(item?.name || "").toLowerCase().includes(sr),
