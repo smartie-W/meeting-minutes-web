@@ -1,0 +1,848 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Meeting Minutes Open API",
+    "version": "1.0.0",
+    "description": "Sales meeting-minutes open API for third-party integrations. Schema version in runtime responses: open-api-v1."
+  },
+  "servers": [
+    {
+      "url": "https://mm-api.hyjy.online",
+      "description": "Production"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Open",
+      "description": "Third-party APIs"
+    },
+    {
+      "name": "Admin",
+      "description": "Admin-only APIs"
+    }
+  ],
+  "paths": {
+    "/api/open/companies": {
+      "get": {
+        "tags": [
+          "Open"
+        ],
+        "summary": "Search companies (standard name/aliases) in meeting data",
+        "security": [
+          {
+            "ApiKeyAuth": []
+          },
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/q"
+          },
+          {
+            "$ref": "#/components/parameters/from"
+          },
+          {
+            "$ref": "#/components/parameters/to"
+          },
+          {
+            "$ref": "#/components/parameters/focus"
+          },
+          {
+            "$ref": "#/components/parameters/focusMode"
+          },
+          {
+            "$ref": "#/components/parameters/page"
+          },
+          {
+            "$ref": "#/components/parameters/pageSize"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OpenCompaniesResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "429": {
+            "$ref": "#/components/responses/RateLimited"
+          },
+          "503": {
+            "$ref": "#/components/responses/OpenApiNotConfigured"
+          }
+        }
+      }
+    },
+    "/api/open/records": {
+      "get": {
+        "tags": [
+          "Open"
+        ],
+        "summary": "Query meeting records by company and time range",
+        "security": [
+          {
+            "ApiKeyAuth": []
+          },
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/qRequired"
+          },
+          {
+            "$ref": "#/components/parameters/from"
+          },
+          {
+            "$ref": "#/components/parameters/to"
+          },
+          {
+            "$ref": "#/components/parameters/focus"
+          },
+          {
+            "$ref": "#/components/parameters/focusMode"
+          },
+          {
+            "$ref": "#/components/parameters/page"
+          },
+          {
+            "$ref": "#/components/parameters/pageSize"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OpenRecordsResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/QRequired"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "429": {
+            "$ref": "#/components/responses/RateLimited"
+          },
+          "503": {
+            "$ref": "#/components/responses/OpenApiNotConfigured"
+          }
+        }
+      }
+    },
+    "/api/open/summary": {
+      "post": {
+        "tags": [
+          "Open"
+        ],
+        "summary": "Generate AI-style summary from meeting records",
+        "security": [
+          {
+            "ApiKeyAuth": []
+          },
+          {
+            "BearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OpenSummaryRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OpenSummaryResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/QRequired"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "429": {
+            "$ref": "#/components/responses/RateLimited"
+          },
+          "503": {
+            "$ref": "#/components/responses/OpenApiNotConfigured"
+          }
+        }
+      }
+    },
+    "/api/admin/open-audit/export": {
+      "get": {
+        "tags": [
+          "Admin"
+        ],
+        "summary": "Export open-api audit logs (json/csv)",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "from",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "to",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "format",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "json",
+                "csv"
+              ],
+              "default": "json"
+            }
+          },
+          {
+            "name": "path",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "company",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "tokenHash",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 5000,
+              "default": 1000
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "JSON rows or CSV file stream",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OpenAuditResponse"
+                }
+              },
+              "text/csv": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "ApiKeyAuth": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "X-API-Key"
+      },
+      "BearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    },
+    "parameters": {
+      "q": {
+        "name": "q",
+        "in": "query",
+        "description": "Company short name or full legal name",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      "qRequired": {
+        "name": "q",
+        "in": "query",
+        "description": "Company short name or full legal name",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      "from": {
+        "name": "from",
+        "in": "query",
+        "description": "Start datetime (YYYY-MM-DD or ISO)",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      "to": {
+        "name": "to",
+        "in": "query",
+        "description": "End datetime (YYYY-MM-DD or ISO)",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      "focus": {
+        "name": "focus",
+        "in": "query",
+        "description": "Tool filter list, comma-separated: jira,cf,confluence",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      "focusMode": {
+        "name": "focusMode",
+        "in": "query",
+        "description": "any = match any tool; all = match all tools",
+        "required": false,
+        "schema": {
+          "type": "string",
+          "enum": [
+            "any",
+            "all"
+          ],
+          "default": "any"
+        }
+      },
+      "page": {
+        "name": "page",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "type": "integer",
+          "minimum": 1,
+          "default": 1
+        }
+      },
+      "pageSize": {
+        "name": "pageSize",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 200,
+          "default": 50
+        }
+      }
+    },
+    "responses": {
+      "Unauthorized": {
+        "description": "Unauthorized",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ErrorResponse"
+            },
+            "example": {
+              "ok": false,
+              "schemaVersion": "open-api-v1",
+              "error": "unauthorized"
+            }
+          }
+        }
+      },
+      "RateLimited": {
+        "description": "Rate limited",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ErrorResponse"
+            },
+            "example": {
+              "ok": false,
+              "schemaVersion": "open-api-v1",
+              "error": "rate_limited",
+              "retryAfterSec": 12
+            }
+          }
+        }
+      },
+      "QRequired": {
+        "description": "Missing required q parameter",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ErrorResponse"
+            },
+            "example": {
+              "ok": false,
+              "schemaVersion": "open-api-v1",
+              "error": "q_required"
+            }
+          }
+        }
+      },
+      "OpenApiNotConfigured": {
+        "description": "Open api key is not configured on server",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ErrorResponse"
+            },
+            "example": {
+              "ok": false,
+              "schemaVersion": "open-api-v1",
+              "error": "open_api_not_configured"
+            }
+          }
+        }
+      }
+    },
+    "schemas": {
+      "ErrorResponse": {
+        "type": "object",
+        "properties": {
+          "ok": {
+            "type": "boolean"
+          },
+          "schemaVersion": {
+            "type": "string"
+          },
+          "error": {
+            "type": "string"
+          },
+          "retryAfterSec": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "ok",
+          "schemaVersion",
+          "error"
+        ]
+      },
+      "OpenQuery": {
+        "type": "object",
+        "properties": {
+          "q": {
+            "type": "string"
+          },
+          "from": {
+            "type": "string"
+          },
+          "to": {
+            "type": "string"
+          },
+          "focus": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "focusMode": {
+            "type": "string",
+            "enum": [
+              "any",
+              "all"
+            ]
+          },
+          "page": {
+            "type": "integer"
+          },
+          "pageSize": {
+            "type": "integer"
+          }
+        }
+      },
+      "Participant": {
+        "type": "object",
+        "properties": {
+          "role": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          }
+        }
+      },
+      "AttachmentMeta": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "size": {
+            "type": "integer"
+          }
+        }
+      },
+      "OpenCompanyItem": {
+        "type": "object",
+        "properties": {
+          "companyKey": {
+            "type": "string"
+          },
+          "standardName": {
+            "type": "string"
+          },
+          "aliases": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "shortAliases": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "meetingCount": {
+            "type": "integer"
+          },
+          "arCount": {
+            "type": "integer"
+          },
+          "srCount": {
+            "type": "integer"
+          },
+          "ars": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "srs": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "firstMeetingTime": {
+            "type": "string"
+          },
+          "lastMeetingTime": {
+            "type": "string"
+          },
+          "industryLevel1": {
+            "type": "string"
+          },
+          "industryLevel2": {
+            "type": "string"
+          }
+        }
+      },
+      "OpenRecordItem": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "salesName": {
+            "type": "string"
+          },
+          "meetingTime": {
+            "type": "string"
+          },
+          "meetingMode": {
+            "type": "string"
+          },
+          "meetingLocation": {
+            "type": "string"
+          },
+          "customerNames": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "meetingTopic": {
+            "type": "string"
+          },
+          "meetingContent": {
+            "type": "string"
+          },
+          "nextActions": {
+            "type": "string"
+          },
+          "industryLevel1": {
+            "type": "string"
+          },
+          "industryLevel2": {
+            "type": "string"
+          },
+          "meetingIndustry": {
+            "type": "string"
+          },
+          "ourParticipants": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Participant"
+            }
+          },
+          "customerParticipants": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Participant"
+            }
+          },
+          "updatedAt": {
+            "type": "string"
+          },
+          "attachments": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AttachmentMeta"
+            }
+          }
+        }
+      },
+      "OpenCompaniesResponse": {
+        "type": "object",
+        "properties": {
+          "ok": {
+            "type": "boolean"
+          },
+          "schemaVersion": {
+            "type": "string",
+            "example": "open-api-v1"
+          },
+          "query": {
+            "$ref": "#/components/schemas/OpenQuery"
+          },
+          "total": {
+            "type": "integer"
+          },
+          "page": {
+            "type": "integer"
+          },
+          "pageSize": {
+            "type": "integer"
+          },
+          "hasMore": {
+            "type": "boolean"
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OpenCompanyItem"
+            }
+          }
+        }
+      },
+      "OpenRecordsResponse": {
+        "type": "object",
+        "properties": {
+          "ok": {
+            "type": "boolean"
+          },
+          "schemaVersion": {
+            "type": "string",
+            "example": "open-api-v1"
+          },
+          "query": {
+            "$ref": "#/components/schemas/OpenQuery"
+          },
+          "total": {
+            "type": "integer"
+          },
+          "page": {
+            "type": "integer"
+          },
+          "pageSize": {
+            "type": "integer"
+          },
+          "hasMore": {
+            "type": "boolean"
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OpenRecordItem"
+            }
+          }
+        }
+      },
+      "OpenSummaryRequest": {
+        "type": "object",
+        "properties": {
+          "q": {
+            "type": "string"
+          },
+          "from": {
+            "type": "string"
+          },
+          "to": {
+            "type": "string"
+          },
+          "focus": {
+            "type": "string",
+            "description": "comma-separated: jira,cf,confluence"
+          },
+          "focusMode": {
+            "type": "string",
+            "enum": [
+              "any",
+              "all"
+            ]
+          }
+        },
+        "required": [
+          "q"
+        ]
+      },
+      "OpenSummaryResponse": {
+        "type": "object",
+        "properties": {
+          "ok": {
+            "type": "boolean"
+          },
+          "schemaVersion": {
+            "type": "string",
+            "example": "open-api-v1"
+          },
+          "query": {
+            "$ref": "#/components/schemas/OpenQuery"
+          },
+          "summary": {
+            "type": "object",
+            "properties": {
+              "companyQuery": {
+                "type": "string"
+              },
+              "meetingCount": {
+                "type": "integer"
+              },
+              "customerCount": {
+                "type": "integer"
+              },
+              "firstMeetingTime": {
+                "type": "string"
+              },
+              "lastMeetingTime": {
+                "type": "string"
+              },
+              "arRanking": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "ar": {
+                      "type": "string"
+                    },
+                    "meetingCount": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              },
+              "toolMentions": {
+                "type": "object"
+              },
+              "noFollowUp3Weeks": {
+                "type": "array",
+                "items": {
+                  "type": "object"
+                }
+              },
+              "frequentRecentMeetings": {
+                "type": "array",
+                "items": {
+                  "type": "object"
+                }
+              },
+              "topKeywords": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "word": {
+                      "type": "string"
+                    },
+                    "count": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "OpenAuditResponse": {
+        "type": "object",
+        "properties": {
+          "ok": {
+            "type": "boolean"
+          },
+          "schemaVersion": {
+            "type": "string"
+          },
+          "total": {
+            "type": "integer"
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "object"
+            }
+          }
+        }
+      }
+    }
+  }
+}
