@@ -2773,6 +2773,7 @@ async function handleAttachmentInputChange() {
   const files = Array.from(el.meetingAttachments?.files || []);
   if (!files.length) return;
   try {
+    let addedCount = 0;
     for (const file of files) {
       if (file.size > MAX_ATTACHMENT_BYTES) {
         alert(`附件 ${file.name} 超过 5MB，无法上传`);
@@ -2788,11 +2789,10 @@ async function handleAttachmentInputChange() {
         dataUrl,
         uploadedAt: new Date().toISOString(),
       });
+      addedCount += 1;
     }
 
-    if (files.some((file) => file.size <= MAX_ATTACHMENT_BYTES)) {
-      // eslint-disable-next-line no-await-in-loop
-      await Promise.resolve();
+    if (addedCount > 0) {
       renderAttachments();
       scheduleDraftSave();
     }
