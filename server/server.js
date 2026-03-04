@@ -1275,6 +1275,52 @@ function listAllRecordsParsed() {
   });
 }
 
+app.get('/api/open/companies', openApiAuthMiddleware, openApiRateLimitMiddleware, (req, res) => {
+  const startedAt = Date.now();
+  const params = pickOpenCompaniesParams(req);
+  const filteredRecords = filterRecordsForOpen(listAllRecordsParsed(), params);
+  let companies = buildCompaniesCatalog(filteredRecords);
+  if (params.q) {
+    const q = String(params.q || '').trim();
+    companies = companies.filter((item) => {
+      if (matchCustomerName(item.standardName, q)) return true;
+      if (item.aliases.some((name) => matchCustomerName(name, q))) return true;
+      if (item.shortAliases.some((name) => matchCustomerName(name, q))) return true;
+      return false;
+    });
+  }
+  companies.sort((a, b) => (b.meetingCount - a.meetingCount)
+    || ((parseTimeMs(b.lastMeetingTime) || 0) - (parseTimeMs(a.lastMeetingTime) || 0))
+    || a.standardName.localeCompare(b.standardName));
+
+  const total = companies.length;
+  const start = (params.page - 1) * params.pageSize;
+  const items = companies.slice(start, start + params.pageSize);
+  const response = {
+    ok: true,
+    schemaVersion: OPEN_API_SCHEMA_VERSION,
+    query: params,
+    total,
+    page: params.page,
+    pageSize: params.pageSize,
+    hasMore: start + items.length < total,
+    items,
+  };
+  logOpenApiAudit(req, {
+    companyQuery: params.q,
+    timeFrom: params.from,
+    timeTo: params.to,
+    focus: (params.focus || []).join(','),
+    focusMode: params.focusMode,
+    page: params.page,
+    pageSize: params.pageSize,
+    statusCode: 200,
+    resultCount: items.length,
+    latencyMs: Date.now() - startedAt,
+  });
+  return res.json(response);
+});
+
 function pickOpenCompaniesParams(req) {
   const source = req.method === 'POST' ? (req.body || {}) : (req.query || {});
   const q = String(source.q || source.company || source.customer || '').trim();
