@@ -2392,6 +2392,9 @@ function fillFormWithRecord(record) {
   }
   setMigrationSources(el.migrationSources, normalizeMigrationSources(record.migrationSources));
   el.meetingContent.value = String(record.meetingContent || "");
+  state.attachments = normalizeAttachmentList(record.attachments);
+  renderAttachments();
+  if (el.meetingAttachments) el.meetingAttachments.value = "";
   el.nextActions.value = String(record.nextActions || "");
   autoGrowLongInput(el.meetingContent);
   autoGrowLongInput(el.nextActions);
