@@ -23,6 +23,8 @@ curl -s http://127.0.0.1:8091/api/health
 - `GET /api/records`（可带 Bearer）
 - `GET /api/records/search`（按企业名/时间范围/AR/SR/关键词查询，支持简称模糊匹配）
 - `POST /api/records/search`（与 GET 同语义，参数放 JSON body）
+- `GET /api/open/records`（第三方系统：企业简称/全称 + 时间范围抽取纪要）
+- `POST /api/open/summary`（第三方系统：企业简称/全称 + 时间范围 AI 汇总）
 - `POST /api/records` body: `{ "record": {...} }`
 - `DELETE /api/records/:id`
 - `POST /api/admin/backup`（手动触发备份）
@@ -84,6 +86,30 @@ curl -s -X POST "https://mm-api.hyjy.online/api/records/search" \
 - `items[].meetingContent`：会议纪要正文（`includeContent=true` 时返回）
 - `items[].meetingTopic`、`items[].nextActions`、`items[].salesName`、`items[].ourParticipants` 等基础信息同步返回
 
+第三方开放接口示例（建议给外部系统使用）：
+
+```bash
+curl -s "https://mm-api.hyjy.online/api/open/records?q=徐工&from=2026-02-01&to=2026-03-01&page=1&pageSize=20" \
+  -H "X-API-Key: your_open_api_key"
+```
+
+```bash
+curl -s -X POST "https://mm-api.hyjy.online/api/open/summary" \
+  -H "X-API-Key: your_open_api_key" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "q": "徐工集团工程机械股份有限公司",
+    "from": "2026-02-01T00:00:00+08:00",
+    "to": "2026-03-01T23:59:59+08:00"
+  }'
+```
+
+`/api/open/summary` 返回重点：
+- `summary.toolMentions.jira/cf/confluence`：提及次数与客户列表
+- `summary.noFollowUp3Weeks`：首次出现后三周无后续会议的客户
+- `summary.frequentRecentMeetings`：近三周频繁开会客户
+- `summary.topKeywords`：高频关键词
+
 邮件相关环境变量（Resend）：
 
 - `MAIL_NOTIFY_ENABLED=true`
@@ -99,6 +125,13 @@ Build 版本后备校验环境变量（可选）：
 - `BUILD_BRANCH=main`
 - `BUILD_INFO_CACHE_MS=300000`
 - `GITHUB_TOKEN=...`（可选，降低 GitHub API 频控影响）
+
+第三方开放接口环境变量：
+
+- `OPEN_API_KEY=...`（建议与 `API_KEY` 分离）
+- `OPEN_API_RATE_LIMIT_PER_MIN=120`
+- `OPEN_API_DEFAULT_PAGE_SIZE=50`
+- `OPEN_API_MAX_PAGE_SIZE=200`
 
 ## 前端接入
 在 `index.html` 的 `window.MEETING_API_CONFIG` 里填写：
