@@ -47,6 +47,12 @@ let lastIndustryRefreshMeta = null;
 let industryRefreshTimer = null;
 let buildInfoCache = { at: 0, data: null };
 const openApiRateBucket = new Map();
+const OPEN_API_SCHEMA_VERSION = 'open-api-v1';
+const OPEN_API_FOCUS_RULES = {
+  jira: ['jira'],
+  cf: ['cf'],
+  confluence: ['confluence'],
+};
 
 function getServerCommitHash() {
   const byEnv = String(process.env.APP_BUILD_COMMIT || '').trim();
