@@ -1421,21 +1421,22 @@ function activateView(viewName) {
 function handleHistoryViewWheel(event) {
   const historyViewActive = el.views.history?.classList.contains("active");
   if (!historyViewActive) return;
-  if (event.target instanceof Element && event.target.closest("input, textarea, select")) {
+  const target = event.target instanceof Element ? event.target : null;
+  if (target && target.closest("input, textarea, select")) {
+    return;
+  }
+  if (!target || !target.closest("#history-list")) {
     return;
   }
   const list = el.historyList;
   if (!list) return;
-  const maxScrollTop = list.scrollHeight - list.clientHeight;
-  if (maxScrollTop <= 0) return;
-  const currentTop = list.scrollTop;
-  const goingDown = event.deltaY > 0;
-  const goingUp = event.deltaY < 0;
-  const canScrollDown = currentTop < maxScrollTop;
-  const canScrollUp = currentTop > 0;
-  const shouldRedirect = (goingDown && canScrollDown) || (goingUp && canScrollUp);
-  if (!shouldRedirect) return;
   event.preventDefault();
+  const maxScrollTop = list.scrollHeight - list.clientHeight;
+  if (maxScrollTop <= 0) {
+    list.scrollTop = 0;
+    return;
+  }
+  const currentTop = list.scrollTop;
   const nextTop = currentTop + event.deltaY;
   list.scrollTop = Math.max(0, Math.min(maxScrollTop, nextTop));
 }
