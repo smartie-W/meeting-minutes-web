@@ -2187,6 +2187,12 @@ function renderHistory() {
       || state.historyFrPm.trim(),
   );
   if (!hasFilters) {
+    const pendingRecordId = String(state.pendingOpenRecordId || "").trim();
+    if (pendingRecordId) {
+      el.historyList.innerHTML = '<li class="record-item">正在定位邮件中的纪要，请稍候…</li>';
+      el.historySummary.textContent = "当前共 0 条匹配结果";
+      return;
+    }
     el.historyList.innerHTML = '<li class="record-item">请输入客户名称、AR或SR后自动查询</li>';
     el.historySummary.textContent = "当前共 0 条匹配结果";
     closeHistoryDetailModal();
@@ -2419,8 +2425,33 @@ function tryOpenRecordDetailByDeepLink() {
   if (!recordId) return;
   const index = state.records.findIndex((record) => String(record.id || "") === recordId);
   if (index < 0) return;
+  const targetRecord = state.records[index];
+  let visibleRecords = getHistoryVisibleRecords();
+  let visibleIndex = visibleRecords.findIndex((record) => String(record.id || "") === recordId);
+  if (visibleIndex < 0) {
+    const primaryCustomer = String((targetRecord.customerNames || [])[0] || "").trim();
+    if (primaryCustomer) {
+      state.historyCustomer = primaryCustomer;
+      state.historyAr = "";
+      state.historySr = "";
+      state.historyFrImpl = "";
+      state.historyFrPm = "";
+      el.historyCustomer.value = primaryCustomer;
+      el.historyAr.value = "";
+      el.historySr.value = "";
+      el.historyFrImpl.value = "";
+      el.historyFrPm.value = "";
+      visibleRecords = getHistoryVisibleRecords();
+      visibleIndex = visibleRecords.findIndex((record) => String(record.id || "") === recordId);
+      renderHistory();
+    }
+  }
+  if (visibleIndex < 0) {
+    visibleRecords = [targetRecord];
+    visibleIndex = 0;
+  }
   activateView("history");
-  openHistoryDetailModal([state.records[index]], 0);
+  openHistoryDetailModal(visibleRecords, visibleIndex);
   state.pendingOpenRecordId = "";
 }
 
