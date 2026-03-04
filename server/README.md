@@ -25,6 +25,7 @@ curl -s http://127.0.0.1:8091/api/health
 - `POST /api/records/search`（与 GET 同语义，参数放 JSON body）
 - `GET /api/open/records`（第三方系统：企业简称/全称 + 时间范围抽取纪要）
 - `POST /api/open/summary`（第三方系统：企业简称/全称 + 时间范围 AI 汇总）
+- `GET /api/admin/open-audit/export`（管理端导出第三方调用审计日志）
 - `POST /api/records` body: `{ "record": {...} }`
 - `DELETE /api/records/:id`
 - `POST /api/admin/backup`（手动触发备份）
@@ -93,6 +94,30 @@ curl -s "https://mm-api.hyjy.online/api/open/records?q=徐工&from=2026-02-01&to
   -H "X-API-Key: your_open_api_key"
 ```
 
+强过滤示例（只返回提及 Jira 或 Confluence 的纪要）：
+
+```bash
+curl -s --get "https://mm-api.hyjy.online/api/open/records" \
+  --data-urlencode "q=徐工" \
+  --data-urlencode "from=2026-02-01" \
+  --data-urlencode "to=2026-03-01" \
+  --data-urlencode "focus=jira,confluence" \
+  --data-urlencode "focusMode=any" \
+  -H "X-API-Key: your_open_api_key"
+```
+
+强过滤示例（必须同时提及 Jira 和 CF）：
+
+```bash
+curl -s --get "https://mm-api.hyjy.online/api/open/records" \
+  --data-urlencode "q=徐工" \
+  --data-urlencode "from=2026-02-01" \
+  --data-urlencode "to=2026-03-01" \
+  --data-urlencode "focus=jira,cf" \
+  --data-urlencode "focusMode=all" \
+  -H "X-API-Key: your_open_api_key"
+```
+
 ```bash
 curl -s -X POST "https://mm-api.hyjy.online/api/open/summary" \
   -H "X-API-Key: your_open_api_key" \
@@ -105,10 +130,32 @@ curl -s -X POST "https://mm-api.hyjy.online/api/open/summary" \
 ```
 
 `/api/open/summary` 返回重点：
+- `schemaVersion`：固定返回版本号，便于第三方做兼容控制
 - `summary.toolMentions.jira/cf/confluence`：提及次数与客户列表
 - `summary.noFollowUp3Weeks`：首次出现后三周无后续会议的客户
 - `summary.frequentRecentMeetings`：近三周频繁开会客户
 - `summary.topKeywords`：高频关键词
+
+调用审计导出示例（JSON）：
+
+```bash
+curl -s --get "https://mm-api.hyjy.online/api/admin/open-audit/export" \
+  --data-urlencode "from=2026-03-01T00:00:00.000Z" \
+  --data-urlencode "to=2026-03-31T23:59:59.999Z" \
+  --data-urlencode "limit=1000" \
+  -H "Authorization: Bearer your_token"
+```
+
+调用审计导出示例（CSV 下载）：
+
+```bash
+curl -L --get "https://mm-api.hyjy.online/api/admin/open-audit/export" \
+  --data-urlencode "format=csv" \
+  --data-urlencode "from=2026-03-01T00:00:00.000Z" \
+  --data-urlencode "to=2026-03-31T23:59:59.999Z" \
+  -H "Authorization: Bearer your_token" \
+  -o open_api_audit.csv
+```
 
 邮件相关环境变量（Resend）：
 
@@ -132,6 +179,7 @@ Build 版本后备校验环境变量（可选）：
 - `OPEN_API_RATE_LIMIT_PER_MIN=120`
 - `OPEN_API_DEFAULT_PAGE_SIZE=50`
 - `OPEN_API_MAX_PAGE_SIZE=200`
+- `OPEN_API_AUDIT_EXPORT_MAX=5000`
 
 ## 前端接入
 在 `index.html` 的 `window.MEETING_API_CONFIG` 里填写：
