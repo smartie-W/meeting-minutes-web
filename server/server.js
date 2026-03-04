@@ -1335,6 +1335,7 @@ app.listen(PORT, () => {
   console.log(`[meeting-api] backup dir: ${path.resolve(BACKUP_DIR)} | daily ${two(BACKUP_DAILY_HOUR)}:${two(BACKUP_DAILY_MINUTE)} | retention ${BACKUP_RETENTION_DAYS}d`);
   console.log(`[meeting-api] industry refresh daily ${two(INDUSTRY_REFRESH_DAILY_HOUR)}:${two(INDUSTRY_REFRESH_DAILY_MINUTE)}`);
   console.log(`[meeting-api] notify: ${MAIL_NOTIFY_ENABLED ? `on (${MAIL_PROVIDER}) => ${NOTIFY_TO_EMAIL}` : 'off'}`);
+  console.log(`[meeting-api] open-api: ${OPEN_API_KEY || API_KEY ? 'enabled' : 'disabled'} | rate ${Math.max(10, OPEN_API_RATE_LIMIT_PER_MIN || 120)}/min`);
   if (BACKUP_ON_START) {
     try {
       const meta = performBackup('startup');
