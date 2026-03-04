@@ -468,6 +468,18 @@ function normalizeRecord(record) {
   base.meetingContent = String(base.meetingContent || '').trim();
   base.nextActions = String(base.nextActions || '').trim();
   base.customerNames = Array.isArray(base.customerNames) ? base.customerNames.map((x) => String(x || '').trim()).filter(Boolean) : [];
+  base.attachments = Array.isArray(base.attachments)
+    ? base.attachments
+      .map((item) => ({
+        id: String(item?.id || '').trim(),
+        name: String(item?.name || '').trim(),
+        type: String(item?.type || '').trim(),
+        size: Number(item?.size || 0),
+        dataUrl: String(item?.dataUrl || '').trim(),
+        uploadedAt: String(item?.uploadedAt || '').trim(),
+      }))
+      .filter((item) => item.name && item.dataUrl && item.size > 0 && item.size <= 5 * 1024 * 1024)
+    : [];
   return base;
 }
 
@@ -768,7 +780,7 @@ app.use(cors({
     return cb(new Error('CORS blocked'));
   },
 }));
-app.use(express.json({ limit: '2mb' }));
+app.use(express.json({ limit: '12mb' }));
 
 app.get('/api/health', (_req, res) => {
   res.json({
