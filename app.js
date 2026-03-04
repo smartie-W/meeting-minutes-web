@@ -1415,7 +1415,6 @@ function activateView(viewName) {
   Object.entries(el.views).forEach(([name, node]) => {
     node.classList.toggle("active", name === viewName);
   });
-  document.body.classList.toggle("history-scroll-lock", viewName === "history");
   saveUiState();
 }
 
@@ -1429,8 +1428,15 @@ function handleHistoryViewWheel(event) {
   if (!list) return;
   const maxScrollTop = list.scrollHeight - list.clientHeight;
   if (maxScrollTop <= 0) return;
+  const currentTop = list.scrollTop;
+  const goingDown = event.deltaY > 0;
+  const goingUp = event.deltaY < 0;
+  const canScrollDown = currentTop < maxScrollTop;
+  const canScrollUp = currentTop > 0;
+  const shouldRedirect = (goingDown && canScrollDown) || (goingUp && canScrollUp);
+  if (!shouldRedirect) return;
   event.preventDefault();
-  const nextTop = list.scrollTop + event.deltaY;
+  const nextTop = currentTop + event.deltaY;
   list.scrollTop = Math.max(0, Math.min(maxScrollTop, nextTop));
 }
 
