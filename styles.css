@@ -510,6 +510,41 @@ textarea.long-input {
   flex-wrap: wrap;
 }
 
+.attachment-list {
+  margin-top: 6px;
+  padding: 8px 10px;
+  border: 1px dashed var(--line);
+  border-radius: 8px;
+  background: #fbfdff;
+  font-size: 13px;
+}
+
+.attachment-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin: 4px 0;
+}
+
+.attachment-item a {
+  color: #0b6a88;
+  text-decoration: none;
+}
+
+.attachment-item a:hover {
+  text-decoration: underline;
+}
+
+.attachment-remove {
+  border: 1px solid #f2c0c4;
+  background: #fff4f5;
+  color: #a61b29;
+  border-radius: 6px;
+  padding: 2px 8px;
+  cursor: pointer;
+}
+
 .tag {
   font-size: 12px;
   color: #245268;
