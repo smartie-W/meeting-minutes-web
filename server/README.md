@@ -25,6 +25,7 @@ curl -s http://127.0.0.1:8091/api/health
 - `POST /api/records/search`（与 GET 同语义，参数放 JSON body）
 - `GET /api/open/records`（第三方系统：企业简称/全称 + 时间范围抽取纪要）
 - `POST /api/open/summary`（第三方系统：企业简称/全称 + 时间范围 AI 汇总）
+- `GET /api/open/companies`（第三方系统：企业列表查询，返回标准名/别名/会议覆盖）
 - `GET /api/admin/open-audit/export`（管理端导出第三方调用审计日志）
 - `POST /api/records` body: `{ "record": {...} }`
 - `DELETE /api/records/:id`
@@ -93,6 +94,26 @@ curl -s -X POST "https://mm-api.hyjy.online/api/records/search" \
 curl -s "https://mm-api.hyjy.online/api/open/records?q=徐工&from=2026-02-01&to=2026-03-01&page=1&pageSize=20" \
   -H "X-API-Key: your_open_api_key"
 ```
+
+企业列表（用于第三方先选标准企业名）：
+
+```bash
+curl -s --get "https://mm-api.hyjy.online/api/open/companies" \
+  --data-urlencode "q=徐工" \
+  --data-urlencode "from=2026-02-01" \
+  --data-urlencode "to=2026-03-31" \
+  --data-urlencode "page=1" \
+  --data-urlencode "pageSize=20" \
+  -H "X-API-Key: your_open_api_key"
+```
+
+返回项包含：
+- `standardName`：标准企业名
+- `aliases`：历史别名/全称变体
+- `shortAliases`：简称候选
+- `meetingCount`：时间范围内纪要数
+- `ars/srs`：涉及的 AR/SR 名单
+- `firstMeetingTime/lastMeetingTime`：首末会议时间
 
 强过滤示例（只返回提及 Jira 或 Confluence 的纪要）：
 
