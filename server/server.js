@@ -761,17 +761,53 @@ function summarizeCustomerActivity(records, benchmarkMs = Date.now()) {
   return { noFollowUp3Weeks, frequentRecent };
 }
 
+function normalizeFocusList(rawFocus) {
+  const values = Array.isArray(rawFocus)
+    ? rawFocus
+    : String(rawFocus || '')
+      .split(',')
+      .map((x) => x.trim())
+      .filter(Boolean);
+  const allowed = new Set(Object.keys(OPEN_API_FOCUS_RULES));
+  const normalized = [...new Set(values.map((x) => String(x || '').trim().toLowerCase()))]
+    .filter((x) => allowed.has(x));
+  return normalized;
+}
+
+function toolPatternMatched(text, toolKey) {
+  const lower = String(text || '').toLowerCase();
+  if (!lower) return false;
+  if (toolKey === 'cf') {
+    return /(^|[^a-z])cf([^a-z]|$)/i.test(lower);
+  }
+  const aliases = OPEN_API_FOCUS_RULES[toolKey] || [];
+  return aliases.some((alias) => lower.includes(alias));
+}
+
+function recordMatchedFocus(record, focusList, focusMode = 'any') {
+  if (!focusList.length) return true;
+  const text = [record.meetingTopic, record.meetingContent, record.nextActions]
+    .map((x) => String(x || ''))
+    .join(' ');
+  if (String(focusMode || '').toLowerCase() === 'all') {
+    return focusList.every((toolKey) => toolPatternMatched(text, toolKey));
+  }
+  return focusList.some((toolKey) => toolPatternMatched(text, toolKey));
+}
+
 function pickOpenQueryParams(req) {
   const source = req.method === 'POST' ? (req.body || {}) : (req.query || {});
   const q = String(source.q || source.company || source.customer || '').trim();
   const from = String(source.from || source.start || source.startTime || '').trim();
   const to = String(source.to || source.end || source.endTime || '').trim();
+  const focus = normalizeFocusList(source.focus || source.tools || source.tool);
+  const focusMode = String(source.focusMode || 'any').toLowerCase() === 'all' ? 'all' : 'any';
   const page = Math.max(1, Number(source.page || 1) || 1);
   const pageSize = Math.min(
     Math.max(1, OPEN_API_MAX_PAGE_SIZE || 200),
     Math.max(1, Number(source.pageSize || OPEN_API_DEFAULT_PAGE_SIZE || 50) || 50),
   );
-  return { q, from, to, page, pageSize };
+  return { q, from, to, focus, focusMode, page, pageSize };
 }
 
 function filterRecordsForOpen(records, params) {
@@ -783,6 +819,7 @@ function filterRecordsForOpen(records, params) {
       if (!Number.isNaN(startMs) && (Number.isNaN(timeMs) || timeMs < startMs)) return false;
       if (!Number.isNaN(endMs) && (Number.isNaN(timeMs) || timeMs > endMs)) return false;
       if (params.q && !recordCompanyMatched(record, params.q)) return false;
+      if (!recordMatchedFocus(record, params.focus || [], params.focusMode || 'any')) return false;
       return true;
     })
     .sort((a, b) => {
@@ -790,6 +827,47 @@ function filterRecordsForOpen(records, params) {
       const tb = parseTimeMs(b.meetingTime);
       return (Number.isNaN(tb) ? 0 : tb) - (Number.isNaN(ta) ? 0 : ta);
     });
+}
+
+function hashTokenForAudit(token) {
+  const raw = String(token || '').trim();
+  if (!raw) return '';
+  return crypto.createHash('sha256').update(raw).digest('hex').slice(0, 16);
+}
+
+function logOpenApiAudit(req, detail = {}) {
+  try {
+    insertOpenAuditStmt.run({
+      id: crypto.randomUUID(),
+      at: nowIso(),
+      token_hash: hashTokenForAudit(req.openApiToken),
+      ip: String(req.ip || req.socket?.remoteAddress || ''),
+      method: String(req.method || ''),
+      path: String(req.path || ''),
+      company_query: String(detail.companyQuery || ''),
+      time_from: String(detail.timeFrom || ''),
+      time_to: String(detail.timeTo || ''),
+      focus: String(detail.focus || ''),
+      focus_mode: String(detail.focusMode || ''),
+      page: Number(detail.page || 0),
+      page_size: Number(detail.pageSize || 0),
+      status_code: Number(detail.statusCode || 0),
+      result_count: Number(detail.resultCount || 0),
+      latency_ms: Number(detail.latencyMs || 0),
+      error: String(detail.error || ''),
+      user_agent: String(req.header('user-agent') || ''),
+    });
+  } catch (error) {
+    console.error('[meeting-api] open-api audit write failed:', error);
+  }
+}
+
+function toCsvValue(value) {
+  const text = String(value ?? '');
+  if (text.includes(',') || text.includes('"') || text.includes('\n')) {
+    return `"${text.replaceAll('"', '""')}"`;
+  }
+  return text;
 }
 
 function pickOpenApiToken(req) {
