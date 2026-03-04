@@ -1007,6 +1007,7 @@ const state = {
     source: "local",
   },
   managerInsightProfiles: {},
+  attachments: [],
 };
 let industryLookupSeq = 0;
 let industryLookupTimer = null;
@@ -1045,6 +1046,8 @@ const el = {
   migrationSources: document.querySelector("#migration-sources"),
   addMigrationSource: document.querySelector("#add-migration-source"),
   meetingContent: document.querySelector("#meeting-content"),
+  meetingAttachments: document.querySelector("#meeting-attachments"),
+  meetingAttachmentsList: document.querySelector("#meeting-attachments-list"),
   nextActions: document.querySelector("#next-actions"),
   formReset: document.querySelector("#form-reset"),
   draftStatus: document.querySelector("#draft-status"),
@@ -1210,6 +1213,9 @@ function bindEvents() {
   el.form.addEventListener("input", scheduleDraftSave);
   el.form.addEventListener("change", scheduleDraftSave);
   el.meetingContent.addEventListener("input", () => autoGrowLongInput(el.meetingContent));
+  if (el.meetingAttachments) {
+    el.meetingAttachments.addEventListener("change", handleAttachmentInputChange);
+  }
   el.nextActions.addEventListener("input", () => autoGrowLongInput(el.nextActions));
   el.customerName.addEventListener("input", scheduleIndustryLookup);
   el.salesName.addEventListener("change", () => {
