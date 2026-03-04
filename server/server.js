@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const crypto = require('crypto');
 const { execSync } = require('child_process');
 const express = require('express');
 const cors = require('cors');
@@ -12,6 +13,7 @@ const OPEN_API_KEY = String(process.env.OPEN_API_KEY || '').trim();
 const OPEN_API_RATE_LIMIT_PER_MIN = Number(process.env.OPEN_API_RATE_LIMIT_PER_MIN || 120);
 const OPEN_API_DEFAULT_PAGE_SIZE = Number(process.env.OPEN_API_DEFAULT_PAGE_SIZE || 50);
 const OPEN_API_MAX_PAGE_SIZE = Number(process.env.OPEN_API_MAX_PAGE_SIZE || 200);
+const OPEN_API_AUDIT_EXPORT_MAX = Number(process.env.OPEN_API_AUDIT_EXPORT_MAX || 5000);
 const BACKUP_DIR = process.env.BACKUP_DIR || path.join(path.dirname(path.resolve(DB_PATH)), 'backups');
 const BACKUP_RETENTION_DAYS = Number(process.env.BACKUP_RETENTION_DAYS || 30);
 const BACKUP_DAILY_HOUR = Number(process.env.BACKUP_DAILY_HOUR || 3);
