@@ -3,6 +3,7 @@ const AI_CONFIG_KEY = "sales_meeting_minutes_ai_config_v2";
 const UI_STATE_KEY = "sales_meeting_minutes_ui_state_v1";
 const DRAFT_KEY = "sales_meeting_minutes_draft_v1";
 const DRAFT_EDIT_KEY_PREFIX = "sales_meeting_minutes_draft_edit_v1_";
+const MAX_ATTACHMENT_BYTES = 5 * 1024 * 1024;
 const INDUSTRY_KNOWLEDGE_CACHE_KEY = "sales_meeting_minutes_industry_knowledge_v1";
 const FIREBASE_COLLECTION = "meeting_minutes_records";
 const FIREBASE_CONFIG = window.FIREBASE_CONFIG || {
