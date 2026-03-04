@@ -3,6 +3,9 @@
 最后更新：2026-03-04  
 维护方式：此文档跟随 `main` 分支持续更新。
 
+OpenAPI（Swagger）机器可读描述（持续更新）：
+- `server/openapi.json`
+
 ## 1. 基础信息
 
 - Base URL: `https://mm-api.hyjy.online`
