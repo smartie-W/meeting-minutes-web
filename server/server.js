@@ -1271,8 +1271,22 @@ function listAllRecordsParsed() {
 }
 
 app.get('/api/open/records', openApiAuthMiddleware, openApiRateLimitMiddleware, (req, res) => {
+  const startedAt = Date.now();
   const params = pickOpenQueryParams(req);
   if (!params.q) {
+    logOpenApiAudit(req, {
+      companyQuery: params.q,
+      timeFrom: params.from,
+      timeTo: params.to,
+      focus: (params.focus || []).join(','),
+      focusMode: params.focusMode,
+      page: params.page,
+      pageSize: params.pageSize,
+      statusCode: 400,
+      resultCount: 0,
+      latencyMs: Date.now() - startedAt,
+      error: 'q_required',
+    });
     return res.status(400).json({ ok: false, error: 'q_required' });
   }
   const filtered = filterRecordsForOpen(listAllRecordsParsed(), params);
@@ -1304,20 +1318,48 @@ app.get('/api/open/records', openApiAuthMiddleware, openApiRateLimitMiddleware, 
       : [],
   }));
 
-  return res.json({
+  const response = {
     ok: true,
+    schemaVersion: OPEN_API_SCHEMA_VERSION,
     query: params,
     total,
     page: params.page,
     pageSize: params.pageSize,
     hasMore: start + items.length < total,
     items,
+  };
+  logOpenApiAudit(req, {
+    companyQuery: params.q,
+    timeFrom: params.from,
+    timeTo: params.to,
+    focus: (params.focus || []).join(','),
+    focusMode: params.focusMode,
+    page: params.page,
+    pageSize: params.pageSize,
+    statusCode: 200,
+    resultCount: items.length,
+    latencyMs: Date.now() - startedAt,
   });
+  return res.json(response);
 });
 
 app.post('/api/open/summary', openApiAuthMiddleware, openApiRateLimitMiddleware, (req, res) => {
+  const startedAt = Date.now();
   const params = pickOpenQueryParams(req);
   if (!params.q) {
+    logOpenApiAudit(req, {
+      companyQuery: params.q,
+      timeFrom: params.from,
+      timeTo: params.to,
+      focus: (params.focus || []).join(','),
+      focusMode: params.focusMode,
+      page: params.page,
+      pageSize: params.pageSize,
+      statusCode: 400,
+      resultCount: 0,
+      latencyMs: Date.now() - startedAt,
+      error: 'q_required',
+    });
     return res.status(400).json({ ok: false, error: 'q_required' });
   }
   const benchmarkMs = Number.isNaN(parseTimeMs(params.to)) ? Date.now() : parseTimeMs(params.to);
@@ -1340,8 +1382,9 @@ app.post('/api/open/summary', openApiAuthMiddleware, openApiRateLimitMiddleware,
     .map(([ar, meetingCount]) => ({ ar, meetingCount }))
     .sort((a, b) => b.meetingCount - a.meetingCount);
 
-  return res.json({
+  const response = {
     ok: true,
+    schemaVersion: OPEN_API_SCHEMA_VERSION,
     query: params,
     summary: {
       companyQuery: params.q,
@@ -1355,6 +1398,83 @@ app.post('/api/open/summary', openApiAuthMiddleware, openApiRateLimitMiddleware,
       frequentRecentMeetings: activity.frequentRecent,
       topKeywords,
     },
+  };
+  logOpenApiAudit(req, {
+    companyQuery: params.q,
+    timeFrom: params.from,
+    timeTo: params.to,
+    focus: (params.focus || []).join(','),
+    focusMode: params.focusMode,
+    page: params.page,
+    pageSize: params.pageSize,
+    statusCode: 200,
+    resultCount: filtered.length,
+    latencyMs: Date.now() - startedAt,
+  });
+  return res.json(response);
+});
+
+app.get('/api/admin/open-audit/export', authMiddleware, (req, res) => {
+  const from = String(req.query.from || '').trim();
+  const to = String(req.query.to || '').trim();
+  const format = String(req.query.format || 'json').trim().toLowerCase();
+  const pathFilter = String(req.query.path || '').trim();
+  const company = String(req.query.company || '').trim();
+  const tokenHash = String(req.query.tokenHash || '').trim();
+  const limit = Math.min(
+    Math.max(1, OPEN_API_AUDIT_EXPORT_MAX || 5000),
+    Math.max(1, Number(req.query.limit || 1000) || 1000),
+  );
+
+  const where = [];
+  const params = { limit };
+  if (from) {
+    where.push('at >= @from');
+    params.from = from;
+  }
+  if (to) {
+    where.push('at <= @to');
+    params.to = to;
+  }
+  if (pathFilter) {
+    where.push('path = @path');
+    params.path = pathFilter;
+  }
+  if (company) {
+    where.push('company_query LIKE @company');
+    params.company = `%${company}%`;
+  }
+  if (tokenHash) {
+    where.push('token_hash = @token_hash');
+    params.token_hash = tokenHash;
+  }
+  const sql = `
+    SELECT id, at, token_hash, ip, method, path, company_query, time_from, time_to, focus, focus_mode,
+           page, page_size, status_code, result_count, latency_ms, error, user_agent
+    FROM open_api_audit_logs
+    ${where.length ? `WHERE ${where.join(' AND ')}` : ''}
+    ORDER BY at DESC
+    LIMIT @limit
+  `;
+  const rows = db.prepare(sql).all(params);
+  if (format === 'csv') {
+    const headers = [
+      'id', 'at', 'token_hash', 'ip', 'method', 'path', 'company_query', 'time_from', 'time_to',
+      'focus', 'focus_mode', 'page', 'page_size', 'status_code', 'result_count', 'latency_ms', 'error', 'user_agent',
+    ];
+    const lines = [
+      headers.join(','),
+      ...rows.map((row) => headers.map((h) => toCsvValue(row[h])).join(',')),
+    ];
+    res.setHeader('Content-Type', 'text/csv; charset=utf-8');
+    res.setHeader('Content-Disposition', `attachment; filename="open_api_audit_${Date.now()}.csv"`);
+    return res.send(lines.join('\n'));
+  }
+  return res.json({
+    ok: true,
+    schemaVersion: OPEN_API_SCHEMA_VERSION,
+    total: rows.length,
+    items: rows,
   });
 });
 
