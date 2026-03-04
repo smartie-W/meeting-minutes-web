@@ -2693,6 +2693,107 @@ function ensureMeetingTimeDefault() {
   }
 }
 
+function formatAttachmentSize(size) {
+  const bytes = Number(size || 0);
+  if (!Number.isFinite(bytes) || bytes <= 0) return "0KB";
+  if (bytes >= 1024 * 1024) return `${(bytes / (1024 * 1024)).toFixed(2)}MB`;
+  return `${(bytes / 1024).toFixed(1)}KB`;
+}
+
+function normalizeAttachmentList(list) {
+  if (!Array.isArray(list)) return [];
+  return list
+    .map((item) => ({
+      id: String(item?.id || crypto.randomUUID()),
+      name: String(item?.name || "").trim(),
+      type: String(item?.type || "").trim(),
+      size: Number(item?.size || 0),
+      dataUrl: String(item?.dataUrl || "").trim(),
+      uploadedAt: String(item?.uploadedAt || ""),
+    }))
+    .filter((item) => item.name && item.dataUrl && item.size > 0);
+}
+
+function renderAttachments() {
+  if (!el.meetingAttachmentsList) return;
+  if (!state.attachments.length) {
+    el.meetingAttachmentsList.textContent = "未上传附件";
+    return;
+  }
+  el.meetingAttachmentsList.innerHTML = "";
+  state.attachments.forEach((item) => {
+    const row = document.createElement("div");
+    row.className = "attachment-item";
+    const link = document.createElement("a");
+    link.href = item.dataUrl;
+    link.download = item.name;
+    link.target = "_blank";
+    link.rel = "noopener noreferrer";
+    link.textContent = `${item.name} (${formatAttachmentSize(item.size)})`;
+    const removeBtn = document.createElement("button");
+    removeBtn.type = "button";
+    removeBtn.className = "attachment-remove";
+    removeBtn.textContent = "移除";
+    removeBtn.addEventListener("click", () => {
+      state.attachments = state.attachments.filter((x) => x.id !== item.id);
+      renderAttachments();
+      scheduleDraftSave();
+    });
+    row.append(link, removeBtn);
+    el.meetingAttachmentsList.appendChild(row);
+  });
+}
+
+function readFileAsDataUrl(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(String(reader.result || ""));
+    reader.onerror = () => reject(new Error("附件读取失败"));
+    reader.readAsDataURL(file);
+  });
+}
+
+async function handleAttachmentInputChange() {
+  const files = Array.from(el.meetingAttachments?.files || []);
+  if (!files.length) return;
+  try {
+    const currentTotal = state.attachments.reduce((sum, item) => sum + Number(item.size || 0), 0);
+    const incomingTotal = files.reduce((sum, file) => sum + Number(file.size || 0), 0);
+    if (incomingTotal + currentTotal > MAX_ATTACHMENT_BYTES) {
+      alert("附件总大小不能超过 5MB");
+      if (el.meetingAttachments) el.meetingAttachments.value = "";
+      return;
+    }
+
+    for (const file of files) {
+      if (file.size > MAX_ATTACHMENT_BYTES) {
+        alert(`附件 ${file.name} 超过 5MB，无法上传`);
+        if (el.meetingAttachments) el.meetingAttachments.value = "";
+        return;
+      }
+    }
+
+    for (const file of files) {
+      // eslint-disable-next-line no-await-in-loop
+      const dataUrl = await readFileAsDataUrl(file);
+      state.attachments.push({
+        id: crypto.randomUUID(),
+        name: file.name,
+        type: file.type || "",
+        size: file.size,
+        dataUrl,
+        uploadedAt: new Date().toISOString(),
+      });
+    }
+    renderAttachments();
+    scheduleDraftSave();
+  } catch (error) {
+    alert(error?.message || "附件上传失败");
+  } finally {
+    if (el.meetingAttachments) el.meetingAttachments.value = "";
+  }
+}
+
 function scheduleIndustryLookup() {
   if (industryLookupTimer) clearTimeout(industryLookupTimer);
   industryLookupTimer = setTimeout(() => {
