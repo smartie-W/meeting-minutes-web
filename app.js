@@ -1088,6 +1088,7 @@ const el = {
   historyFrImpl: document.querySelector("#history-fr-impl"),
   historyFrPm: document.querySelector("#history-fr-pm"),
   historyLayout: document.querySelector("#history-layout"),
+  historyResultsPanel: document.querySelector("#history-results-panel"),
   historySummary: document.querySelector("#history-summary"),
   historyList: document.querySelector("#history-list"),
   historyItemTemplate: document.querySelector("#history-item-template"),
@@ -1422,10 +1423,10 @@ function handleHistoryViewWheel(event) {
   const historyViewActive = el.views.history?.classList.contains("active");
   if (!historyViewActive) return;
   const target = event.target instanceof Element ? event.target : null;
-  if (target && target.closest("input, textarea, select")) {
+  if (!target || !el.historyResultsPanel?.contains(target)) {
     return;
   }
-  if (!target || !target.closest("#history-list")) {
+  if (target && target.closest("input, textarea, select")) {
     return;
   }
   const list = el.historyList;
