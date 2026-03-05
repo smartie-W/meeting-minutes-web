@@ -2263,6 +2263,13 @@ function renderHistory() {
 
     el.historyList.appendChild(node);
   });
+  syncHistoryLayoutMode();
+}
+
+function syncHistoryLayoutMode() {
+  if (!el.historyLayout || !el.historyDetailModal) return;
+  const detailOpen = el.historyDetailModal.classList.contains("open");
+  el.historyLayout.classList.toggle("has-detail", detailOpen);
 }
 
 function openHistoryDetailModal(records, index) {
@@ -2295,10 +2302,8 @@ function openHistoryDetailModal(records, index) {
     <div class="detail-label" style="margin-top:10px;">后续行动</div>
     <div class="detail-value">${escapeHtml(record.nextActions || "-")}</div>
   `;
-  if (el.historyLayout) {
-    el.historyLayout.classList.add("has-detail");
-  }
   el.historyDetailModal.classList.add("open");
+  syncHistoryLayoutMode();
   syncHistoryDetailNextButton();
 }
 
@@ -2310,9 +2315,7 @@ function openNextHistoryDetail() {
 
 function closeHistoryDetailModal() {
   el.historyDetailModal.classList.remove("open");
-  if (el.historyLayout) {
-    el.historyLayout.classList.remove("has-detail");
-  }
+  syncHistoryLayoutMode();
   state.historyModalList = [];
   state.historyModalIndex = -1;
   state.pendingDeleteRecordId = "";
