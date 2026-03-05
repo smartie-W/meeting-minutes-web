@@ -2216,6 +2216,7 @@ function renderHistory() {
   if (!hasFilters) {
     const pendingRecordId = String(state.pendingOpenRecordId || "").trim();
     if (pendingRecordId) {
+      closeHistoryDetailModal();
       el.historyList.innerHTML = '<li class="record-item">正在定位邮件中的纪要，请稍候…</li>';
       el.historySummary.textContent = "当前共 0 条匹配结果";
       return;
