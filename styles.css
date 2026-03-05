@@ -219,7 +219,7 @@ textarea.long-input {
 
 .history-layout {
   display: grid;
-  grid-template-columns: minmax(240px, 20%) minmax(0, 1fr);
+  grid-template-columns: minmax(240px, 20%) minmax(0, 1fr) 0;
   gap: 14px;
   align-items: stretch;
   height: 100%;
@@ -246,7 +246,14 @@ textarea.long-input {
   min-width: 0;
 }
 
+.history-layout > .panel:first-child {
+  grid-column: 1;
+  grid-row: 1;
+}
+
 .history-layout > #history-results-panel {
+  grid-column: 2;
+  grid-row: 1;
   min-width: 0;
 }
 
@@ -257,6 +264,11 @@ textarea.long-input {
 
 .history-layout.has-detail > #history-detail-modal,
 .history-layout:has(.history-detail-panel.open) > #history-detail-modal {
+  grid-column: 3;
+  grid-row: 1;
+}
+
+.history-layout > #history-detail-modal {
   grid-column: 3;
   grid-row: 1;
 }
