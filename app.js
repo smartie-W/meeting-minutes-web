@@ -1416,6 +1416,18 @@ function activateView(viewName) {
   Object.entries(el.views).forEach(([name, node]) => {
     node.classList.toggle("active", name === viewName);
   });
+  if (viewName === "history") {
+    const hasFilters = Boolean(
+      state.historyCustomer.trim()
+        || state.historyAr.trim()
+        || state.historySr.trim()
+        || state.historyFrImpl.trim()
+        || state.historyFrPm.trim(),
+    );
+    if (!hasFilters) {
+      closeHistoryDetailModal();
+    }
+  }
   saveUiState();
 }
 
