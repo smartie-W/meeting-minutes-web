@@ -317,6 +317,10 @@ textarea.long-input {
   padding-right: 2px;
 }
 
+.history-mobile-back-btn {
+  display: none;
+}
+
 .participant-list {
   display: grid;
   gap: 8px;
@@ -888,6 +892,23 @@ th {
   .record-header {
     flex-direction: column;
     align-items: flex-start;
+  }
+
+  .history-mobile-back-btn {
+    position: fixed;
+    left: 12px;
+    right: 12px;
+    bottom: max(12px, env(safe-area-inset-bottom));
+    z-index: 30;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 8px 20px rgba(5, 53, 69, 0.22);
+    border-radius: 12px;
+  }
+
+  .history-mobile-back-btn.open {
+    display: inline-flex;
   }
 
   .grid-5 {
