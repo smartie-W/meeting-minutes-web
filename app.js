@@ -1099,6 +1099,7 @@ const el = {
   historyDetailClose: document.querySelector("#history-detail-close"),
   historyDetailTitle: document.querySelector("#history-detail-title"),
   historyDetailBody: document.querySelector("#history-detail-body"),
+  historyMobileBackBtn: document.querySelector("#history-mobile-back-btn"),
   historyDeleteAuthModal: document.querySelector("#history-delete-auth-modal"),
   historyDeleteAuthUsername: document.querySelector("#history-delete-auth-username"),
   historyDeleteAuthPassword: document.querySelector("#history-delete-auth-password"),
@@ -1287,6 +1288,9 @@ function bindEvents() {
   el.historyFrPm.addEventListener("input", applyHistoryFilters);
   el.views.history.addEventListener("wheel", handleHistoryViewWheel, { passive: false });
   el.historyDetailClose.addEventListener("click", closeHistoryDetailModal);
+  if (el.historyMobileBackBtn) {
+    el.historyMobileBackBtn.addEventListener("click", closeHistoryDetailModal);
+  }
   el.historyDetailDelete.addEventListener("click", openDeleteAuthModal);
   if (el.historyDetailEdit) {
     el.historyDetailEdit.addEventListener("click", openHistoryEditPage);
@@ -1428,6 +1432,7 @@ function activateView(viewName) {
       closeHistoryDetailModal();
     }
   }
+  syncHistoryLayoutMode();
   saveUiState();
 }
 
@@ -2283,6 +2288,10 @@ function syncHistoryLayoutMode() {
   if (!el.historyLayout || !el.historyDetailModal) return;
   const detailOpen = el.historyDetailModal.classList.contains("open");
   el.historyLayout.classList.toggle("has-detail", detailOpen);
+  if (el.historyMobileBackBtn) {
+    const historyActive = el.views.history?.classList.contains("active");
+    el.historyMobileBackBtn.classList.toggle("open", Boolean(detailOpen && historyActive));
+  }
 }
 
 function openHistoryDetailModal(records, index) {
