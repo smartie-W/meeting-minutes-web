@@ -1186,6 +1186,8 @@ function initRecordDeepLink() {
     const view = params.get("view");
     if (recordId) {
       state.pendingOpenRecordId = recordId.trim();
+      activateView("history");
+      openHistoryDeepLinkLoading();
     }
     if (editRecordId) {
       const rid = editRecordId.trim();
@@ -1203,6 +1205,25 @@ function initRecordDeepLink() {
     state.pendingOpenRecordId = "";
     state.pendingEditRecordId = "";
     state.editingRecordId = "";
+  }
+}
+
+function isMobileHistoryLayout() {
+  try {
+    return window.matchMedia("(max-width: 1080px)").matches;
+  } catch {
+    return false;
+  }
+}
+
+function openHistoryDeepLinkLoading() {
+  if (!el.historyDetailModal || !el.historyDetailTitle || !el.historyDetailBody) return;
+  el.historyDetailTitle.textContent = "会议纪要详情";
+  el.historyDetailBody.innerHTML = '<p class="muted">正在加载纪要详情，请稍候…</p>';
+  el.historyDetailModal.classList.add("open");
+  syncHistoryLayoutMode();
+  if (isMobileHistoryLayout()) {
+    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
   }
 }
 
@@ -2233,7 +2254,11 @@ function renderHistory() {
   if (!hasFilters) {
     const pendingRecordId = String(state.pendingOpenRecordId || "").trim();
     if (pendingRecordId) {
-      closeHistoryDetailModal();
+      if (isMobileHistoryLayout()) {
+        openHistoryDeepLinkLoading();
+      } else {
+        closeHistoryDetailModal();
+      }
       el.historyList.innerHTML = '<li class="record-item">正在定位邮件中的纪要，请稍候…</li>';
       el.historySummary.textContent = "当前共 0 条匹配结果";
       return;
@@ -2504,6 +2529,9 @@ function tryOpenRecordDetailByDeepLink() {
   }
   activateView("history");
   openHistoryDetailModal(visibleRecords, visibleIndex);
+  if (isMobileHistoryLayout()) {
+    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+  }
   state.pendingOpenRecordId = "";
 }
 
