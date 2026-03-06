@@ -823,7 +823,8 @@ th {
   }
 
   .history-layout,
-  .history-layout.has-detail {
+  .history-layout.has-detail,
+  .history-layout:has(.history-detail-panel.open) {
     grid-template-columns: 1fr;
     min-height: auto;
     height: auto;
@@ -837,6 +838,56 @@ th {
 
   .history-layout > .panel {
     height: auto;
+  }
+
+  .history-layout > #history-results-panel,
+  .history-layout > #history-detail-modal,
+  .history-layout.has-detail > #history-results-panel,
+  .history-layout:has(.history-detail-panel.open) > #history-results-panel,
+  .history-layout.has-detail > #history-detail-modal,
+  .history-layout:has(.history-detail-panel.open) > #history-detail-modal {
+    grid-column: 1;
+    grid-row: auto;
+  }
+
+  .history-layout.has-detail > .panel:first-child,
+  .history-layout:has(.history-detail-panel.open) > .panel:first-child,
+  .history-layout.has-detail > #history-results-panel,
+  .history-layout:has(.history-detail-panel.open) > #history-results-panel {
+    display: none;
+  }
+
+  .history-layout.has-detail > #history-detail-modal,
+  .history-layout:has(.history-detail-panel.open) > #history-detail-modal {
+    display: flex;
+    min-width: 0;
+  }
+
+  .history-detail-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .history-detail-actions {
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    flex-wrap: nowrap;
+    padding-bottom: 2px;
+  }
+
+  .history-detail-actions .btn {
+    white-space: nowrap;
+  }
+
+  .detail-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .record-header {
+    flex-direction: column;
+    align-items: flex-start;
   }
 
   .grid-5 {
