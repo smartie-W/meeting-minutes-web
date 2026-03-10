@@ -1039,7 +1039,9 @@ const el = {
   customerParticipants: document.querySelector("#customer-participants"),
   ourParticipants: document.querySelector("#our-participants"),
   addCustomerParticipant: document.querySelector("#add-customer-participant"),
+  removeCustomerParticipant: document.querySelector("#remove-customer-participant"),
   addOurParticipant: document.querySelector("#add-our-participant"),
+  removeOurParticipant: document.querySelector("#remove-our-participant"),
   focusModules: [...document.querySelectorAll('input[name=\"focus-module\"]')],
   deployMode: document.querySelector("#deploy-mode"),
   coopMode: document.querySelector("#coop-mode"),
@@ -1268,6 +1270,16 @@ function bindEvents() {
     addParticipantRow(el.customerParticipants),
   );
   el.addOurParticipant.addEventListener("click", () => addParticipantRow(el.ourParticipants));
+  if (el.removeCustomerParticipant) {
+    el.removeCustomerParticipant.addEventListener("click", () =>
+      removeLastParticipantRow(el.customerParticipants),
+    );
+  }
+  if (el.removeOurParticipant) {
+    el.removeOurParticipant.addEventListener("click", () =>
+      removeLastParticipantRow(el.ourParticipants),
+    );
+  }
   el.addMigrationSource.addEventListener("click", () => addMigrationSourceRow(el.migrationSources));
 
   el.exportBtn.addEventListener("click", exportRecords);
@@ -2587,6 +2599,32 @@ function addParticipantRow(container, role = "", name = "") {
   container.appendChild(row);
   if (isOurParticipants) {
     applyOurParticipantNameRule(row);
+  }
+  scheduleDraftSave();
+}
+
+function removeLastParticipantRow(container) {
+  if (!container) return;
+  const rows = [...container.querySelectorAll(".participant-row")];
+  if (!rows.length) return;
+
+  if (rows.length > 1) {
+    rows[rows.length - 1].remove();
+  } else {
+    const row = rows[0];
+    const nameField = row.querySelector(".participant-name");
+    const roleField = row.querySelector(".participant-role");
+    if (roleField) roleField.value = "";
+    if (nameField) nameField.value = "";
+
+    const isOurParticipants = container === el.ourParticipants || container?.id === "our-participants";
+    if (isOurParticipants) {
+      applyOurParticipantNameRule(row);
+    }
+  }
+
+  if (container === el.ourParticipants || container?.id === "our-participants") {
+    syncArParticipantNames();
   }
   scheduleDraftSave();
 }
