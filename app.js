@@ -989,6 +989,7 @@ const state = {
   managerAuthenticated: false,
   pendingView: "",
   pendingOpenRecordId: "",
+  historyDeepLinkFocus: false,
   pendingEditRecordId: "",
   editingRecordId: "",
   firestore: null,
@@ -1188,6 +1189,7 @@ function initRecordDeepLink() {
     const view = params.get("view");
     if (recordId) {
       state.pendingOpenRecordId = recordId.trim();
+      state.historyDeepLinkFocus = true;
       activateView("history");
       openHistoryDeepLinkLoading();
     }
@@ -1205,6 +1207,7 @@ function initRecordDeepLink() {
     }
   } catch {
     state.pendingOpenRecordId = "";
+    state.historyDeepLinkFocus = false;
     state.pendingEditRecordId = "";
     state.editingRecordId = "";
   }
@@ -1220,6 +1223,7 @@ function isMobileHistoryLayout() {
 
 function openHistoryDeepLinkLoading() {
   if (!el.historyDetailModal || !el.historyDetailTitle || !el.historyDetailBody) return;
+  state.historyDeepLinkFocus = true;
   el.historyDetailTitle.textContent = "会议纪要详情";
   el.historyDetailBody.innerHTML = '<p class="muted">正在加载纪要详情，请稍候…</p>';
   el.historyDetailModal.classList.add("open");
@@ -1461,7 +1465,8 @@ function activateView(viewName) {
         || state.historyFrImpl.trim()
         || state.historyFrPm.trim(),
     );
-    if (!hasFilters) {
+    const hasDeepLinkPending = Boolean(String(state.pendingOpenRecordId || "").trim());
+    if (!hasFilters && !hasDeepLinkPending && !state.historyDeepLinkFocus) {
       closeHistoryDetailModal();
     }
   }
@@ -2324,10 +2329,12 @@ function renderHistory() {
 function syncHistoryLayoutMode() {
   if (!el.historyLayout || !el.historyDetailModal) return;
   const detailOpen = el.historyDetailModal.classList.contains("open");
-  el.historyLayout.classList.toggle("has-detail", detailOpen);
+  const historyActive = el.views.history?.classList.contains("active");
+  const forceDetailOnMobile = Boolean(historyActive && isMobileHistoryLayout() && state.historyDeepLinkFocus);
+  const shouldShowDetailLayout = Boolean(detailOpen || forceDetailOnMobile);
+  el.historyLayout.classList.toggle("has-detail", shouldShowDetailLayout);
   if (el.historyMobileBackBtn) {
-    const historyActive = el.views.history?.classList.contains("active");
-    el.historyMobileBackBtn.classList.toggle("open", Boolean(detailOpen && historyActive));
+    el.historyMobileBackBtn.classList.toggle("open", Boolean(shouldShowDetailLayout && historyActive));
   }
 }
 
@@ -2374,6 +2381,7 @@ function openNextHistoryDetail() {
 
 function closeHistoryDetailModal() {
   el.historyDetailModal.classList.remove("open");
+  state.historyDeepLinkFocus = false;
   syncHistoryLayoutMode();
   state.historyModalList = [];
   state.historyModalIndex = -1;
