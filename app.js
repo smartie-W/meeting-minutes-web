@@ -2270,6 +2270,7 @@ function renderHistory() {
   );
   if (!hasFilters) {
     const pendingRecordId = String(state.pendingOpenRecordId || "").trim();
+    const detailOpen = Boolean(el.historyDetailModal?.classList.contains("open"));
     if (pendingRecordId) {
       if (isMobileHistoryLayout()) {
         openHistoryDeepLinkLoading();
@@ -2278,6 +2279,13 @@ function renderHistory() {
       }
       el.historyList.innerHTML = '<li class="record-item">正在定位邮件中的纪要，请稍候…</li>';
       el.historySummary.textContent = "当前共 0 条匹配结果";
+      return;
+    }
+    if (state.historyDeepLinkFocus && detailOpen) {
+      // Deep-link detail should remain stable even when background cloud sync triggers rerender.
+      el.historyList.innerHTML = '<li class="record-item">已通过邮件链接打开纪要详情，点击“返回查询结果”可继续查询。</li>';
+      el.historySummary.textContent = "当前共 0 条匹配结果";
+      syncHistoryLayoutMode();
       return;
     }
     el.historyList.innerHTML = '<li class="record-item">请输入客户名称、AR或SR后自动查询</li>';
